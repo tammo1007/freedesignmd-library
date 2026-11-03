@@ -16,6 +16,11 @@ export const CATEGORIES: CategoryMeta[] = [
   { id: "effects", name: "Scroll & Hover Effects", order: 7, blurb: "Scroll-driven scenes, image ripples, split cards and hover transitions." },
   { id: "text", name: "Text Effects", order: 8, blurb: "Split, morph, repel, scramble and flip — typography that moves with intent." },
   { id: "interactions", name: "Cursors & Interactions", order: 9, blurb: "Cursor trails, magnetic docks, fisheye walls and 3D carousels." },
+  { id: "navbars", name: "Navbars", order: 10, blurb: "Navigation that earns its place: mega menus, command bars, mastheads and menus that morph." },
+  { id: "pricing", name: "Pricing", order: 11, blurb: "Pricing sections people actually read: toggles, calculators, receipts and menus." },
+  { id: "features", name: "Feature Sections", order: 12, blurb: "Show what the product does: bento grids with live UI, sticky tours, before/after and spec sheets." },
+  { id: "testimonials", name: "Testimonials", order: 13, blurb: "Social proof with taste: quote walls, portrait carousels, case study cards and review grids." },
+  { id: "footers", name: "Footers", order: 14, blurb: "The last thing people see: giant wordmarks, curtain reveals, office clocks and sitemaps." },
 ];
 
 const modules = import.meta.glob<{ items: LibraryItem[] }>(["./*/index.ts", "!./_*/index.ts"], { eager: true });

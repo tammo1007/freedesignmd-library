@@ -1,13 +1,14 @@
 /**
  * HeroMusicWaveform — an album-launch hero for a streaming service. Giant
- * condensed type, album art painted entirely with CSS gradients (a slowly
- * turning conic "sun" over grain), a vinyl that slides out of the sleeve, and
+ * condensed type, a generative op-art sleeve (two sets of concentric rings
+ * whose interference fringes drift with the music, set in a Swiss type band
+ * with catalogue number and running order), a vinyl that slides out of it, and
  * a full-width spectrum of bars that dances to a synthetic signal and bulges
  * toward the pointer. The play button morphs to pause (SVG path morph) and
  * drives the energy of the spectrum. On scroll the sleeve tilts back and the
  * bars flatten.
  *
- * Props: artist, album, release, tracks, primaryCta, accent colours.
+ * Props: artist, album, release, catalogue, tracks, primaryCta, bars.
  * CSS vars: --fd-wav-bg, --fd-wav-ink, --fd-wav-hot, --fd-wav-cool.
  *
  * Browser support: all evergreen browsers. No audio is played; the
@@ -27,8 +28,12 @@ export interface HeroMusicWaveformProps {
   release?: string;
   tracks?: { title: string; time: string }[];
   primaryCta?: { label: string; href: string };
+  catalogue?: string;
   bars?: number;
 }
+
+// ring radii for the interference sleeve (two identical sets, offset centres)
+const RINGS = Array.from({ length: 46 }, (_, i) => 6 + i * 9);
 
 const DEFAULT_TRACKS = [
   { title: "Saltwater Hymn", time: "3:41" },
@@ -45,6 +50,7 @@ export function HeroMusicWaveform({
   release = "Out now · 11 tracks · 41 min",
   tracks = DEFAULT_TRACKS,
   primaryCta = { label: "Pre-save the vinyl", href: "#vinyl" },
+  catalogue = "RSN 041",
   bars = 72,
 }: HeroMusicWaveformProps) {
   const root = useRef<HTMLElement>(null);
@@ -53,6 +59,8 @@ export function HeroMusicWaveform({
   const big = useRef<HTMLHeadingElement>(null);
   const prog = useRef<HTMLSpanElement>(null);
   const clock = useRef<HTMLSpanElement>(null);
+  const moire = useRef<SVGGElement>(null);
+  const heart = useRef<SVGCircleElement>(null);
   const [playing, setPlaying] = useState(true);
   const playingRef = useRef(true);
   playingRef.current = playing;
@@ -108,6 +116,12 @@ export function HeroMusicWaveform({
         if (b) b.style.transform = `scaleY(${level[i].toFixed(3)})`;
       }
       if (sleeve.current) sleeve.current.style.transform = `perspective(1400px) rotateX(${(sc * 28).toFixed(2)}deg) rotateY(${(-14 + (px > -1 ? (px - 0.5) * 10 : 0)).toFixed(2)}deg) translateY(${(sc * -60).toFixed(1)}px) scale(${(1 + kick * 0.008 * energy).toFixed(4)})`;
+      // the second ring set orbits slowly, so the fringes breathe with the track
+      if (moire.current) {
+        const a = songT * 0.45;
+        moire.current.setAttribute("transform", `translate(${(Math.cos(a) * 14 * energy).toFixed(2)} ${(Math.sin(a * 1.3) * 10 * energy).toFixed(2)})`);
+      }
+      if (heart.current) heart.current.setAttribute("r", (15 + kick * 5 * energy).toFixed(2));
       if (big.current) big.current.style.transform = `translate3d(${(sc * -8).toFixed(2)}vw, 0, 0)`;
       if (prog.current) prog.current.style.transform = `scaleX(${((songT % 221) / 221).toFixed(4)})`;
       if (clock.current) {
@@ -139,9 +153,8 @@ export function HeroMusicWaveform({
   }, [bars]);
 
   return (
-    <section ref={root} className="fd-wav" data-playing={playing ? "" : undefined} aria-label={`${artist} — ${album}`}>
+    <section ref={root} className="fd-wav" data-playing={playing ? "" : undefined} aria-label={`${artist}, ${album}`}>
       <style>{css}</style>
-      <div className="fd-wav-glow" aria-hidden="true" />
       <div className="fd-wav-top">
         <p className="fd-wav-artist">{artist}</p>
         <p className="fd-wav-release">{release}</p>
@@ -166,11 +179,31 @@ export function HeroMusicWaveform({
             </div>
           </div>
           <div className="fd-wav-art">
-            <div className="fd-wav-sun" />
-            <div className="fd-wav-horizon" />
-            <div className="fd-wav-grain" />
-            <span className="fd-wav-art-t">{album}</span>
-            <span className="fd-wav-art-a">{artist}</span>
+            <div className="fd-wav-art-top">
+              <span>{artist}</span>
+              <span>{catalogue}</span>
+            </div>
+            <svg className="fd-wav-moire" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+              <rect width="400" height="300" fill="#ECE6DA" />
+              <g fill="none" stroke="#120E0F" strokeWidth="3.6">
+                {RINGS.map((r) => (
+                  <circle key={r} cx="170" cy="160" r={r} />
+                ))}
+              </g>
+              <g ref={moire} fill="none" stroke="#120E0F" strokeWidth="3.6">
+                {RINGS.map((r) => (
+                  <circle key={r} cx="236" cy="138" r={r} />
+                ))}
+              </g>
+              <circle ref={heart} cx="203" cy="149" r="15" fill="#FF5A36" />
+            </svg>
+            <div className="fd-wav-art-band">
+              <span className="fd-wav-art-t">{album}</span>
+              <span className="fd-wav-art-m">
+                <span>LP · 33⅓</span>
+                <span>{tracks.length > 0 ? `A1 ${tracks[0].title}` : ""}</span>
+              </span>
+            </div>
           </div>
         </div>
 
@@ -221,8 +254,6 @@ export function HeroMusicWaveform({
   );
 }
 
-const noise = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .45 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")`;
-
 const css = `
 .fd-wav, .fd-wav *, .fd-wav *::before, .fd-wav *::after { box-sizing: border-box; }
 .fd-wav {
@@ -239,7 +270,6 @@ const css = `
   position: relative; display: block; overflow: hidden; margin: 0; padding: 0; min-height: 880px;
   background: var(--fd-wav-bg); color: var(--fd-wav-ink); font: 400 1rem/1.5 var(--fd-wav-sans); isolation: isolate;
 }
-.fd-wav-glow { position: absolute; inset: auto -10% -30% -10%; height: 70%; background: radial-gradient(50% 60% at 50% 100%, rgba(255,90,54,0.35), transparent 70%); pointer-events: none; filter: blur(10px); }
 .fd-wav-top { position: relative; z-index: 2; display: flex; justify-content: space-between; gap: 16px; max-width: 1320px; margin: 0 auto; padding: 96px 40px 0; animation: fd-wav-fade var(--fd-dur-4) var(--fd-ease-out) 600ms both; }
 .fd-wav-artist, .fd-wav-release { margin: 0; padding: 0; font: 600 0.75rem/1 var(--fd-wav-sans); letter-spacing: 0.24em; text-transform: uppercase; color: rgba(246,237,228,0.7); }
 .fd-wav-artist { color: var(--fd-wav-hot); }
@@ -255,22 +285,16 @@ const css = `
 .fd-wav-stage { position: relative; z-index: 3; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 56px; align-items: start; max-width: 1140px; margin: -9vw auto 0; padding: 0 40px; }
 .fd-wav-sleeve { position: relative; width: 340px; aspect-ratio: 1; transform-style: preserve-3d; will-change: transform; animation: fd-wav-sleevein 1200ms var(--fd-ease-out) 300ms both; }
 .fd-wav-art {
-  position: absolute; inset: 0; overflow: hidden; border-radius: 6px;
-  background: linear-gradient(180deg, #2b0f12 0%, #6b1a1a 48%, #12090a 49.5%, #0b0708 100%);
-  box-shadow: 0 1px 0 rgba(255,255,255,0.15) inset, 0 40px 80px -30px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.06);
+  position: absolute; inset: 0; overflow: hidden; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; border-radius: 2px;
+  background: #ECE6DA; color: #120E0F;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.35) inset, 0 40px 80px -30px rgba(0,0,0,0.9), 0 0 0 1px rgba(255,255,255,0.06);
 }
-.fd-wav-sun {
-  position: absolute; left: 50%; top: 48%; width: 76%; aspect-ratio: 1; border-radius: 50%; transform: translate(-50%, -50%);
-  background: linear-gradient(180deg, #FFE1A8 0%, #FFB547 30%, #FF5A36 52%);
-  -webkit-mask-image: linear-gradient(180deg, #000 0 30%, transparent 30% 33%, #000 33% 40%, transparent 40% 42.5%, #000 42.5% 47%, transparent 47% 49%, #000 49% 52%, transparent 52%);
-  mask-image: linear-gradient(180deg, #000 0 30%, transparent 30% 33%, #000 33% 40%, transparent 40% 42.5%, #000 42.5% 47%, transparent 47% 49%, #000 49% 52%, transparent 52%);
-  overflow: hidden;
-}
-.fd-wav-sun::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: conic-gradient(from 0deg, transparent, rgba(255,255,255,0.35), transparent 30%, rgba(255,60,40,0.4) 55%, transparent 70%); mix-blend-mode: overlay; animation: fd-wav-spin 18s linear infinite; }
-.fd-wav-horizon { position: absolute; left: 0; right: 0; top: 49.5%; bottom: 0; background: repeating-linear-gradient(180deg, rgba(255,120,60,0.55) 0 2px, transparent 2px 9px); -webkit-mask-image: linear-gradient(180deg, #000, transparent 85%); mask-image: linear-gradient(180deg, #000, transparent 85%); }
-.fd-wav-grain { position: absolute; inset: 0; background: ${noise}; mix-blend-mode: multiply; opacity: 0.8; }
-.fd-wav-art-t { position: absolute; left: 18px; bottom: 16px; font: 800 1.375rem/0.9 var(--fd-wav-cond); font-stretch: condensed; letter-spacing: -0.03em; color: #FFE1A8; }
-.fd-wav-art-a { position: absolute; right: 18px; top: 16px; font: 600 0.625rem/1 var(--fd-wav-sans); letter-spacing: 0.24em; text-transform: uppercase; color: rgba(255,225,168,0.8); }
+.fd-wav-art-top { display: flex; justify-content: space-between; gap: 8px; margin: 0; padding: 12px 14px 10px; border-bottom: 2px solid #120E0F; font: 600 0.625rem/1 ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace; letter-spacing: 0.14em; text-transform: uppercase; color: #120E0F; }
+.fd-wav-moire { display: block; width: 100%; height: 100%; min-height: 0; }
+.fd-wav-art-band { display: flex; flex-direction: column; gap: 6px; margin: 0; padding: 8px 14px 12px; border-top: 2px solid #120E0F; background: #ECE6DA; }
+.fd-wav-art-t { display: block; margin: 0; font: 800 2.25rem/0.86 var(--fd-wav-cond); font-stretch: condensed; letter-spacing: -0.045em; color: #120E0F; white-space: nowrap; }
+.fd-wav-art-m { display: flex; justify-content: space-between; gap: 8px; font: 500 0.5625rem/1 ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace; letter-spacing: 0.1em; text-transform: uppercase; color: #4A4244; }
+.fd-wav-art-m span:last-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .fd-wav-vinyl {
   position: absolute; inset: 3%; border-radius: 50%;
   background: repeating-radial-gradient(circle at 50% 50%, #161112 0 1px, #0a0708 1px 3px), radial-gradient(circle, #1a1213, #050404);
@@ -326,6 +350,10 @@ const css = `
   .fd-wav-big { flex-direction: column; align-items: center; gap: 0; font-size: 27vw; margin-top: 14px; }
   .fd-wav-stage { grid-template-columns: 1fr; gap: 28px; margin-top: 24px; padding: 0 20px; }
   .fd-wav-sleeve { width: 210px; margin: 0 auto 0 8px; }
+  .fd-wav-art-top { padding: 8px 9px 7px; font-size: 0.5rem; }
+  .fd-wav-art-band { padding: 6px 9px 8px; gap: 4px; }
+  .fd-wav-art-t { font-size: 1.375rem; }
+  .fd-wav-art-m { font-size: 0.4375rem; }
   .fd-wav-player { margin: 0; grid-template-columns: auto minmax(0, 1fr); }
   .fd-wav-stage { align-items: start; }
   .fd-wav-play { width: 64px; height: 64px; }

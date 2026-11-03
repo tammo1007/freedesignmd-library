@@ -17,7 +17,12 @@ export type LibraryCategory =
   | "tables"
   | "effects"
   | "text"
-  | "interactions";
+  | "interactions"
+  | "navbars"
+  | "pricing"
+  | "features"
+  | "testimonials"
+  | "footers";
 
 export type LibraryFile = {
   /** Suggested path inside the user's project, e.g. "components/liquid-glass/glass-button.tsx". */

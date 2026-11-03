@@ -1,22 +1,27 @@
 /**
- * HeroRealestateSplit — a premium real-estate hero in a split layout. Left:
- * editorial headline, a live price ticker of recent sales, and search. Right:
- * a stylised SVG map with animated pins that drop in, pulse, and follow the
- * selected listing, over a property-card carousel you can drag with momentum
- * (spring-settled snapping) or step with arrow keys. Listing "photos" are
- * procedural architecture renders (CSS gradients + SVG).
+ * HeroRealestateSplit — a private-office real-estate hero in a split layout.
+ * Left: editorial headline, search and a marquee of recent sales. Right: a
+ * topographic coast map drawn in SVG (contours, sea soundings, the coast road,
+ * village footprints, small-caps place names, graticule and scale bar) with
+ * price pins that drop in and follow the selected listing, over a carousel of
+ * photographed residences you can drag with momentum (spring-settled snapping)
+ * or step with arrow keys.
  *
- * Props: title, lede, listings ({ name, area, price, beds, baths, sqm, pin: [x%, y%], palette }[]),
+ * Props: eyebrow, title, lede, listings ({ name, area, price, beds, baths,
+ * sqm, at: [x, y] in map units 0..600 × 0..700, src, alt, tag? }[]),
  * ticker ({ addr, price, delta }[]).
  * CSS vars: --fd-est-paper, --fd-est-ink, --fd-est-accent.
  *
- * Browser support: all evergreen browsers. Pointer Events for drag.
+ * Browser support: all evergreen browsers. Pins are placed with container
+ * query units so they stay on their village at any panel size. Pointer
+ * Events for drag.
  * Motion: drag uses a velocity-tracking spring integrator (k=380, c=30) for
  * the release snap; pins drop with --fd-spring; ticker is a CSS marquee;
  * scroll via rAF + getBoundingClientRect (map parallax, transform only).
  * prefers-reduced-motion: no marquee, instant snaps, static pins.
  * Accessibility: carousel is a region with aria-roledescription, arrow-key
- * navigation and live "n of N" status; prev/next are labelled buttons.
+ * navigation and live "n of N" status; prev/next are labelled buttons. The
+ * map is decorative; every fact on it is repeated in the cards.
  */
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { KeyboardEvent, ReactNode } from "react";
@@ -28,8 +33,11 @@ export type Listing = {
   beds: number;
   baths: number;
   sqm: number;
-  pin: [number, number];
-  palette: [string, string, string];
+  /** position on the map, in SVG units (viewBox 600 × 700) */
+  at: [number, number];
+  src: string;
+  alt: string;
+  view?: string;
   tag?: string;
 };
 export type Sale = { addr: string; price: string; delta: string };
@@ -43,23 +51,23 @@ export interface HeroRealestateSplitProps {
 }
 
 const DEFAULT_LISTINGS: Listing[] = [
-  { name: "The Linden Residence", area: "Hampstead, NW3", price: "£4,250,000", beds: 5, baths: 4, sqm: 412, pin: [36, 30], palette: ["#E9DCC8", "#B88A5E", "#3B4A3F"], tag: "New" },
-  { name: "Wharf House No. 7", area: "Wapping, E1W", price: "£2,890,000", beds: 3, baths: 3, sqm: 238, pin: [70, 58], palette: ["#D6DEE4", "#7E8C99", "#2B3540"] },
-  { name: "Mews Cottage", area: "Notting Hill, W11", price: "£1,975,000", beds: 2, baths: 2, sqm: 146, pin: [22, 62], palette: ["#F1E4D8", "#C9826B", "#5B3A31"], tag: "Under offer" },
-  { name: "Garden Flat, Thurloe Sq.", area: "South Kensington, SW7", price: "£3,150,000", beds: 3, baths: 2, sqm: 201, pin: [44, 72], palette: ["#E3E7DA", "#8FA27E", "#36432F"] },
+  { name: "Casa dei Limoni", area: "Positano", view: "Sea view, lemon terrace", price: "€4,250,000", beds: 5, baths: 4, sqm: 412, at: [126, 252], src: "/img/halcyon/pool-lemons-480.webp", alt: "Infinity pool under a lemon pergola looking out over the bay", tag: "New" },
+  { name: "Villa Sette Scale", area: "Praiano", view: "Courtyard pool", price: "€2,890,000", beds: 4, baths: 3, sqm: 238, at: [250, 290], src: "/img/halcyon/courtyard-pool-480.webp", alt: "Stone courtyard with a plunge pool, loungers and lemon trees, the sea beyond" },
+  { name: "Palazzo Ruggi, piano nobile", area: "Ravello", view: "Vaulted rooms, 330 m up", price: "€1,975,000", beds: 3, baths: 2, sqm: 186, at: [492, 186], src: "/img/halcyon/suite-480.webp", alt: "Pale bedroom with linen drapes opening onto a terrace above the sea", tag: "Under offer" },
+  { name: "Torre di Conca", area: "Conca dei Marini", view: "Watchtower, private steps", price: "€3,150,000", beds: 3, baths: 3, sqm: 201, at: [338, 314], src: "/img/halcyon/positano-sunset-480.webp", alt: "Terraced village stepping down a cliff to the sea at sunset" },
 ];
 
 const DEFAULT_TICKER: Sale[] = [
-  { addr: "Cheyne Walk, SW3", price: "£6.4M", delta: "+3.1%" },
-  { addr: "Elgin Crescent, W11", price: "£3.85M", delta: "+1.8%" },
-  { addr: "Canonbury Sq, N1", price: "£2.2M", delta: "−0.6%" },
-  { addr: "Primrose Hill, NW1", price: "£4.95M", delta: "+2.4%" },
-  { addr: "Lansdowne Rd, W11", price: "£7.1M", delta: "+4.0%" },
-  { addr: "Albert Bridge Rd, SW11", price: "£1.9M", delta: "+0.9%" },
+  { addr: "Via Pasitea, Positano", price: "€6.4M", delta: "+3.1%" },
+  { addr: "Via Smeraldo, Praiano", price: "€3.85M", delta: "+1.8%" },
+  { addr: "Lungomare, Atrani", price: "€2.2M", delta: "−0.6%" },
+  { addr: "Via San Giovanni, Ravello", price: "€4.95M", delta: "+2.4%" },
+  { addr: "Fornillo, Positano", price: "€7.1M", delta: "+4.0%" },
+  { addr: "Via Annunziata, Minori", price: "€1.9M", delta: "+0.9%" },
 ];
 
 export function HeroRealestateSplit({
-  eyebrow = "Ashby & Vale · Private Office",
+  eyebrow = "Private Office · Amalfi Coast",
   title = (
     <>
       Homes that rarely
@@ -67,7 +75,7 @@ export function HeroRealestateSplit({
       <em>come to market.</em>
     </>
   ),
-  lede = "Four hundred off-market residences across prime London, shown by appointment and represented by the same partner from first viewing to completion.",
+  lede = "Forty-one villas between Positano and Ravello that never reach a portal. Shown by appointment, and represented by one partner from the first viewing to the notary's signature.",
   listings = DEFAULT_LISTINGS,
   ticker = DEFAULT_TICKER,
 }: HeroRealestateSplitProps) {
@@ -213,7 +221,7 @@ export function HeroRealestateSplit({
       raf = 0;
       const r = el.getBoundingClientRect();
       const p = Math.min(1, Math.max(0, -r.top / Math.max(1, r.height)));
-      if (map.current) map.current.style.transform = `translate3d(0, ${(p * 120).toFixed(1)}px, 0) scale(${(1.04 + p * 0.1).toFixed(4)})`;
+      if (map.current) map.current.style.transform = window.innerWidth > 900 ? `translate3d(0, ${(p * 120).toFixed(1)}px, 0) scale(${(1.04 + p * 0.1).toFixed(4)})` : "";
       if (visible && !document.hidden) raf = requestAnimationFrame(frame);
     };
     const start = () => {
@@ -254,12 +262,12 @@ export function HeroRealestateSplit({
         <p className="fd-est-lede">{lede}</p>
         <form className="fd-est-search" role="search" onSubmit={(e) => e.preventDefault()}>
           <label className="fd-est-sf">
-            <span>Neighbourhood</span>
-            <input defaultValue="Hampstead, Notting Hill…" aria-label="Neighbourhood" />
+            <span>Village</span>
+            <input defaultValue="Positano, Ravello" aria-label="Village" />
           </label>
           <label className="fd-est-sf fd-est-sf-b">
             <span>Budget</span>
-            <input defaultValue="£2M – £5M" aria-label="Budget" />
+            <input defaultValue="€2M to €5M" aria-label="Budget" />
           </label>
           <button type="submit" className="fd-est-go">
             Search
@@ -268,7 +276,7 @@ export function HeroRealestateSplit({
         <div className="fd-est-ticker" aria-label="Recent sales">
           <span className="fd-est-tk-l">
             <i aria-hidden="true" />
-            Sold this week
+            Sold this season
           </span>
           <div className="fd-est-tk-vp">
             <ul className="fd-est-tk">
@@ -286,35 +294,12 @@ export function HeroRealestateSplit({
 
       <div className="fd-est-right">
         <div ref={map} className="fd-est-map" aria-hidden="true">
-          <svg aria-hidden="true" focusable="false" viewBox="0 0 600 700" preserveAspectRatio="xMidYMid slice">
-            <rect width="600" height="700" fill="#E9E5DC" />
-            {/* parks */}
-            <path d="M120 120 C180 90 260 110 280 170 C300 230 230 270 170 250 C110 230 80 160 120 120Z" fill="#CFD8C0" />
-            <path d="M380 420 C430 400 500 420 510 470 C520 520 460 540 410 520 C370 500 350 440 380 420Z" fill="#CFD8C0" />
-            <path d="M60 470 C100 450 150 470 150 510 C150 550 100 560 70 540 C40 520 30 490 60 470Z" fill="#D5DCC6" />
-            {/* river */}
-            <path d="M-20 560 C80 520 160 600 260 560 C360 520 420 600 520 580 C580 568 620 540 640 530 L640 620 C600 640 560 660 500 664 C400 670 340 610 250 640 C160 670 80 610 -20 650Z" fill="#B9CCD6" />
-            {/* streets */}
-            <g stroke="#FBF9F4" strokeLinecap="round" fill="none">
-              <path d="M0 300 C150 280 300 320 600 260" strokeWidth="10" />
-              <path d="M260 0 C250 200 300 400 280 700" strokeWidth="10" />
-              <path d="M0 160 L600 220" strokeWidth="6" />
-              <path d="M90 0 L180 700" strokeWidth="6" />
-              <path d="M450 0 C420 200 470 380 430 700" strokeWidth="6" />
-              <path d="M0 420 L600 380" strokeWidth="6" />
-              {Array.from({ length: 12 }, (_, i) => (
-                <path key={i} d={`M${i * 55 - 20} 0 L${i * 55 + 60} 700`} strokeWidth="2" opacity="0.7" />
-              ))}
-              {Array.from({ length: 14 }, (_, i) => (
-                <path key={`h${i}`} d={`M0 ${i * 52} L600 ${i * 52 + 30}`} strokeWidth="2" opacity="0.7" />
-              ))}
-            </g>
-          </svg>
+          <CoastMap />
           {listings.map((l, i) => (
             <span
               key={l.name}
               className={`fd-est-pin ${i === idx ? "is-on" : ""}`}
-              style={{ left: `${l.pin[0]}%`, top: `${l.pin[1]}%`, animationDelay: `${500 + i * 140}ms` }}
+              style={{ ["--x" as string]: l.at[0], ["--y" as string]: l.at[1], animationDelay: `${500 + i * 140}ms` }}
             >
               <b>{shortPrice(l.price)}</b>
             </span>
@@ -334,22 +319,24 @@ export function HeroRealestateSplit({
             <div ref={track} className="fd-est-track">
               {listings.map((l, i) => (
                 <article key={l.name} className={`fd-est-card ${i === idx ? "is-on" : ""}`} aria-roledescription="slide" aria-label={`${i + 1} of ${listings.length}: ${l.name}`}>
-                  <div className="fd-est-photo" style={{ ["--a" as string]: l.palette[0], ["--b" as string]: l.palette[1], ["--c" as string]: l.palette[2] }}>
-                    <Facade palette={l.palette} variant={i} />
+                  <div className="fd-est-photo">
+                    <img src={l.src} alt={l.alt} width={480} height={480} draggable={false} decoding="async" />
                     {l.tag && <span className="fd-est-tag">{l.tag}</span>}
+                    <span className="fd-est-no" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
                   </div>
                   <div className="fd-est-meta">
-                    <div>
-                      <h2>{l.name}</h2>
-                      <p>{l.area}</p>
-                    </div>
+                    <p>{l.area}</p>
+                    <h2>{l.name}</h2>
+                  </div>
+                  <div className="fd-est-row">
+                    <ul className="fd-est-facts">
+                      <li>{l.beds} bed</li>
+                      <li>{l.baths} bath</li>
+                      <li>{l.sqm} m²</li>
+                    </ul>
                     <b>{l.price}</b>
                   </div>
-                  <ul className="fd-est-facts">
-                    <li>{l.beds} bed</li>
-                    <li>{l.baths} bath</li>
-                    <li>{l.sqm} m²</li>
-                  </ul>
+                  {l.view && <p className="fd-est-view">{l.view}</p>}
                 </article>
               ))}
             </div>
@@ -381,54 +368,153 @@ function shortPrice(p: string) {
   return `${cur}${Math.round(n / 1e3)}k`;
 }
 
-/** A procedural "architectural photo": sky, facade, windows, foliage. */
-function Facade({ palette, variant }: { palette: [string, string, string]; variant: number }) {
-  const [a, b, c] = palette;
-  const v = variant % 4;
+/* ───────────── Coast map: generated once at module load (pure maths, SSR safe) ───────────── */
+
+// shoreline height (y) for an x across the 600-unit-wide sheet; land is above
+const coastY = (x: number) =>
+  292 +
+  20 * Math.sin(x / 74 + 1.1) +
+  9 * Math.sin(x / 23 + 0.4) +
+  4 * Math.sin(x / 8.7 + 1.3) +
+  30 * Math.exp(-(((x - 336) / 17) ** 2)) - // Capo di Conca
+  18 * Math.exp(-(((x - 120) / 34) ** 2)) - // Positano bay
+  14 * Math.exp(-(((x - 452) / 28) ** 2)); // Amalfi harbour
+const smoothY = (x: number) => {
+  let t = 0;
+  for (let k = -4; k <= 4; k++) t += coastY(x + k * 7);
+  return t / 9;
+};
+const XS = Array.from({ length: 111 }, (_, i) => -30 + i * 6);
+const toD = (pts: number[][]) => "M" + pts.map((p) => `${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(" L");
+const COAST_D = toD(XS.map((x) => [x, coastY(x)]));
+const LAND_D = `${toD([[-30, -30], [630, -30], ...XS.slice().reverse().map((x) => [x, coastY(x)])])}Z`;
+// land contours: near-parallel lines that tighten where the cliffs are steep
+const CONTOURS = Array.from({ length: 7 }, (_, j) => {
+  const k = j + 1;
+  return toD(
+    XS.map((x) => {
+      const gap = 17 + 6 * Math.sin(x / 88 + 0.6);
+      return [x, smoothY(x) - k * gap - (2 + k * 1.4) * Math.sin(x / 33 + k * 0.22) - 3 * Math.sin(x / 13 + k * 0.5)];
+    }),
+  );
+});
+// summits: wobbly closed rings
+const ring = (cx: number, cy: number, r: number, seed: number) => {
+  const pts = Array.from({ length: 49 }, (_, i) => {
+    const a = (i / 48) * Math.PI * 2;
+    const rr = r * (1 + 0.16 * Math.sin(3 * a + seed + r / 18) + 0.07 * Math.sin(5 * a + seed * 2));
+    return [cx + Math.cos(a) * rr * 1.35, cy + Math.sin(a) * rr * 0.8];
+  });
+  return `${toD(pts)}Z`;
+};
+const PEAKS = [
+  { x: 196, y: 96, name: "M. S. Angelo", h: "1444" },
+  { x: 420, y: 108, name: "M. Cerreto", h: "1316" },
+];
+const SUMMITS = PEAKS.flatMap((p, i) => [10, 20, 30, 40].map((r) => ring(p.x, p.y, r, i * 2.3)));
+// sea depth lines, smoothed further offshore
+const DEPTHS = [26, 64, 118].map((off, i) =>
+  toD(
+    XS.map((x) => {
+      let t = 0;
+      const w = 3 + i * 3;
+      for (let k = -w; k <= w; k++) t += coastY(x + k * 6);
+      return [x, t / (2 * w + 1) + off];
+    }),
+  ),
+);
+const ROAD_D = toD(XS.map((x) => [x, smoothY(x) - 15 + 2.5 * Math.sin(x / 14)]));
+const RAVELLO_ROAD_D = "M470 286 C462 270 486 262 478 248 C470 234 500 230 490 216 C482 204 504 200 494 188";
+// village footprints: seeded tiny blocks clustered on the slopes
+const hash = (n: number) => {
+  const v = Math.sin(n * 127.1 + 311.7) * 43758.5453;
+  return v - Math.floor(v);
+};
+const TOWNS = [
+  { name: "Positano", x: 116, y: 252, n: 34, lx: 62, ly: 298 },
+  { name: "Praiano", x: 246, y: 288, n: 18, lx: 212, ly: 252 },
+  { name: "Conca dei Marini", x: 330, y: 304, n: 12, lx: 288, ly: 270 },
+  { name: "Amalfi", x: 448, y: 274, n: 30, lx: 412, ly: 256 },
+  { name: "Atrani", x: 476, y: 284, n: 10, lx: 462, ly: 318 },
+  { name: "Ravello", x: 494, y: 192, n: 22, lx: 504, ly: 214 },
+  { name: "Minori", x: 548, y: 278, n: 14, lx: 500, ly: 336 },
+];
+const BLOCKS = TOWNS.flatMap((t, ti) =>
+  Array.from({ length: t.n }, (_, i) => {
+    const a = hash(ti * 97 + i) * Math.PI * 2;
+    const r = Math.sqrt(hash(ti * 31 + i * 7)) * (8 + t.n * 0.6);
+    let x = t.x + Math.cos(a) * r * 1.4;
+    let y = t.y + Math.sin(a) * r * 0.7;
+    const limit = coastY(x) - 4;
+    if (y > limit) y = limit - hash(i + ti) * 6;
+    x = Math.round(x * 10) / 10;
+    y = Math.round(y * 10) / 10;
+    return { x, y, w: 2.4 + hash(i * 3 + ti) * 2.6, h: 2 + hash(i * 5 + ti) * 1.8, r: Math.round((hash(i * 11 + ti) - 0.5) * 50) };
+  }),
+);
+const SOUNDINGS: [number, number, string][] = [
+  [80, 352, "38"], [190, 372, "61"], [300, 404, "84"], [420, 356, "47"], [540, 372, "72"], [140, 430, "112"], [380, 452, "136"], [520, 440, "128"], [250, 470, "151"],
+];
+
+function CoastMap() {
   return (
-    <svg aria-hidden="true" focusable="false" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice" className="fd-est-svg">
-      <rect width="320" height="200" fill={a} />
-      <rect width="320" height="120" fill="#fff" opacity="0.35" />
-      <circle cx={v % 2 ? 260 : 60} cy="40" r="60" fill="#fff" opacity="0.35" />
-      {v === 0 && (
-        <g>
-          <path d="M70 70 L160 30 L250 70 L250 180 L70 180Z" fill={b} />
-          <path d="M60 72 L160 26 L260 72" fill="none" stroke={c} strokeWidth="6" />
-          {[95, 145, 195].map((x) => <rect key={x} x={x} y="90" width="30" height="40" fill={c} opacity="0.85" />)}
-          {[95, 195].map((x) => <rect key={x} x={x} y="140" width="30" height="40" fill={c} opacity="0.85" />)}
-          <rect x="145" y="140" width="30" height="40" fill="#1a1a1a" />
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 600 700" preserveAspectRatio="xMidYMid slice" className="fd-est-msvg">
+      <rect x="-30" y="-30" width="660" height="760" fill="#D5E0DF" />
+      <g fill="none" stroke="#9FB5B7" strokeWidth="0.7" strokeDasharray="2 3">
+        {DEPTHS.map((d, i) => <path key={i} d={d} opacity={0.9 - i * 0.2} />)}
+      </g>
+      <g className="fd-est-snd">
+        {SOUNDINGS.map(([x, y, t]) => <text key={t} x={x} y={y}>{t}</text>)}
+      </g>
+      <path d={LAND_D} fill="#EEEAE0" />
+      <g fill="none" stroke="#C9BFA6" strokeWidth="0.7">
+        {CONTOURS.map((d, i) => <path key={i} d={d} strokeWidth={i === 4 ? 1.2 : 0.7} />)}
+        {SUMMITS.map((d, i) => <path key={`s${i}`} d={d} strokeWidth={i % 4 === 3 ? 1.2 : 0.7} />)}
+      </g>
+      <path d={COAST_D} fill="none" stroke="#8FA6A8" strokeWidth="1.1" />
+      <path d={COAST_D} fill="none" stroke="#D5E0DF" strokeWidth="5" opacity="0.5" transform="translate(0 3)" />
+      <g fill="none" strokeLinecap="round" strokeLinejoin="round">
+        <path d={ROAD_D} stroke="#B9AD93" strokeWidth="4.2" />
+        <path d={RAVELLO_ROAD_D} stroke="#B9AD93" strokeWidth="3.4" />
+        <path d={ROAD_D} stroke="#FBF8F1" strokeWidth="2.6" />
+        <path d={RAVELLO_ROAD_D} stroke="#FBF8F1" strokeWidth="1.8" />
+      </g>
+      <g fill="#A99C84">
+        {BLOCKS.map((b, i) => (
+          <rect key={i} x={b.x} y={b.y} width={b.w.toFixed(1)} height={b.h.toFixed(1)} transform={`rotate(${b.r} ${b.x} ${b.y})`} />
+        ))}
+      </g>
+      <g stroke="#17150F" strokeWidth="0.4" opacity="0.12">
+        <path d="M200 0 V700 M400 0 V700 M0 140 H600" />
+      </g>
+      <g className="fd-est-grat">
+        <text x="204" y="14">14°31′E</text>
+        <text x="404" y="14">14°36′E</text>
+        <text x="64" y="136">40°38′N</text>
+      </g>
+      {PEAKS.map((p) => (
+        <g key={p.name} className="fd-est-peak">
+          <path d={`M${p.x} ${p.y - 4} l4 7 h-8z`} fill="#6D675C" />
+          <text x={p.x + 8} y={p.y + 3}>{p.name}</text>
+          <text x={p.x + 8} y={p.y + 13} className="fd-est-peak-h">{p.h} m</text>
         </g>
-      )}
-      {v === 1 && (
-        <g>
-          <rect x="40" y="40" width="240" height="140" fill={b} />
-          {Array.from({ length: 4 }, (_, r) => Array.from({ length: 6 }, (_, k) => (
-            <rect key={`${r}-${k}`} x={54 + k * 38} y={52 + r * 32} width="26" height="22" fill={c} opacity={0.6 + ((r + k) % 3) * 0.12} />
-          )))}
-          <rect x="40" y="36" width="240" height="6" fill={c} />
-        </g>
-      )}
-      {v === 2 && (
-        <g>
-          <rect x="30" y="60" width="120" height="120" fill={b} />
-          <rect x="150" y="80" width="140" height="100" fill={a} stroke={b} strokeWidth="2" />
-          <path d="M30 60 L90 30 L150 60Z" fill={c} />
-          <rect x="60" y="110" width="28" height="70" fill={c} />
-          <rect x="100" y="90" width="30" height="30" fill="#fff" opacity="0.7" />
-          {[170, 220].map((x) => <rect key={x} x={x} y="100" width="40" height="50" fill={c} opacity="0.5" />)}
-        </g>
-      )}
-      {v === 3 && (
-        <g>
-          <rect x="50" y="50" width="220" height="130" fill="#F7F3EC" />
-          {[70, 130, 190].map((x) => <rect key={x} x={x} y="70" width="40" height="80" fill={c} opacity="0.7" />)}
-          <rect x="50" y="150" width="220" height="6" fill={b} />
-          {Array.from({ length: 10 }, (_, i) => <rect key={i} x={54 + i * 22} y="156" width="3" height="24" fill={b} />)}
-        </g>
-      )}
-      <ellipse cx="20" cy="185" rx="60" ry="34" fill={c} opacity="0.85" />
-      <ellipse cx="300" cy="190" rx="50" ry="30" fill={c} opacity="0.75" />
-      <rect y="180" width="320" height="20" fill={c} opacity="0.25" />
+      ))}
+      <text x="150" y="292" className="fd-est-road">SS163</text>
+      <g className="fd-est-town">
+        {TOWNS.map((t) => <text key={t.name} x={t.lx} y={t.ly}>{t.name}</text>)}
+      </g>
+      <g className="fd-est-sea">
+        <text x="150" y="560">Golfo di Salerno</text>
+        <text x="380" y="400">Mar Tirreno</text>
+      </g>
+      <g transform="translate(456 62)" className="fd-est-scale">
+        <path d="M0 6 H60" stroke="#17150F" strokeWidth="1" />
+        <path d="M0 2 V10 M30 4 V8 M60 2 V10" stroke="#17150F" strokeWidth="1" />
+        <text x="0" y="22">0</text>
+        <text x="60" y="22" textAnchor="end">1 km</text>
+        <path d="M84 -6 l5 14 l-5 -4 l-5 4z" fill="#17150F" />
+        <text x="84" y="22" textAnchor="middle">N</text>
+      </g>
     </svg>
   );
 }
@@ -476,49 +562,68 @@ const css = `
 .fd-est-tk em { font: 600 0.75rem/1 var(--fd-est-sans); font-style: normal; color: #15803D; }
 .fd-est-tk em.is-down { color: #B91C1C; }
 
-.fd-est-right { position: relative; min-height: 860px; overflow: hidden; clip-path: inset(0 0 0 100%); animation: fd-est-wipe 1300ms var(--fd-ease-in-out) 100ms both; }
-.fd-est-map { position: absolute; inset: -6% 0 -6% 0; will-change: transform; transform: scale(1.04); }
-.fd-est-map svg { display: block; width: 100%; height: 100%; }
-.fd-est-mapshade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(246,243,238,0) 45%, rgba(246,243,238,0.65) 100%), linear-gradient(90deg, rgba(246,243,238,0.5), transparent 18%); }
+.fd-est-right { position: relative; min-height: 860px; overflow: hidden; clip-path: inset(0 0 0 100%); animation: fd-est-wipe 1300ms var(--fd-ease-in-out) 100ms both; background: #D5E0DF; }
+.fd-est-map { position: absolute; inset: -6% 0 -6% 0; container-type: size; will-change: transform; transform: scale(1.04); }
+.fd-est-msvg { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+.fd-est-msvg text { font-family: var(--fd-est-sans); }
+.fd-est-town text { font-size: 8.4px; font-weight: 600; letter-spacing: 1.7px; text-transform: uppercase; fill: #3C382F; paint-order: stroke; stroke: #EEEAE0; stroke-width: 3px; stroke-linejoin: round; }
+.fd-est-sea text { font: italic 400 13px var(--fd-est-serif); letter-spacing: 3px; fill: #5F7C80; }
+.fd-est-snd text { font: 400 6.5px ui-monospace, "SF Mono", Menlo, monospace; fill: #7E9799; }
+.fd-est-grat text, .fd-est-scale text, .fd-est-road { font: 500 6.5px ui-monospace, "SF Mono", Menlo, monospace; letter-spacing: 0.4px; fill: #6D675C; }
+.fd-est-peak text { font-size: 7.4px; font-style: italic; fill: #6D675C; font-family: var(--fd-est-serif); }
+.fd-est-peak .fd-est-peak-h { font: 400 6.2px ui-monospace, "SF Mono", Menlo, monospace; font-style: normal; }
+.fd-est-mapshade { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(246,243,238,0) 52%, rgba(246,243,238,0.7) 100%), linear-gradient(90deg, rgba(246,243,238,0.55), transparent 14%); }
 .fd-est-pin {
-  position: absolute; z-index: 1; display: block; margin: 0; transform: translate(-50%, -100%); animation: fd-est-drop 800ms var(--fd-spring) both;
+  --k: max(100cqw / 600, 100cqh / 700);
+  position: absolute; z-index: 1; display: block; margin: 0;
+  left: calc(50% + (var(--x) - 300) * var(--k)); top: calc(50% + (var(--y) - 350) * var(--k));
+  transform: translate(-50%, -100%); animation: fd-est-drop 800ms var(--fd-spring) both;
 }
 .fd-est-pin b {
-  position: relative; display: block; padding: 7px 11px; border-radius: 9999px; background: #fff; color: var(--fd-est-ink); white-space: nowrap;
-  font: 600 0.75rem/1 var(--fd-est-sans); box-shadow: 0 6px 16px -6px rgba(23,21,15,0.4), 0 0 0 1px rgba(23,21,15,0.06);
+  position: relative; display: block; margin: 0 0 9px; padding: 6px 9px; border-radius: 3px; background: #FBF9F4; color: var(--fd-est-ink); white-space: nowrap;
+  font: 600 0.75rem/1 var(--fd-est-sans); font-variant-numeric: tabular-nums; letter-spacing: 0; box-shadow: 0 6px 16px -8px rgba(23,21,15,0.45), 0 0 0 1px rgba(23,21,15,0.14);
   transition: background var(--fd-dur-3) var(--fd-ease-out), color var(--fd-dur-3) var(--fd-ease-out), transform var(--fd-dur-3) var(--fd-spring);
 }
-.fd-est-pin b::after { content: ""; position: absolute; left: 50%; bottom: -5px; width: 10px; height: 10px; margin-left: -5px; background: inherit; transform: rotate(45deg); border-radius: 0 0 2px 0; }
-.fd-est-pin::after { content: ""; position: absolute; left: 50%; top: calc(100% + 6px); width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 9999px; background: rgba(31,59,45,0.35); opacity: 0; }
+.fd-est-pin b::after { content: ""; position: absolute; left: 50%; bottom: -4px; width: 8px; height: 8px; margin-left: -4px; background: inherit; transform: rotate(45deg); box-shadow: 1px 1px 0 rgba(23,21,15,0.14); }
+.fd-est-pin::before { content: ""; position: absolute; left: 50%; bottom: -3px; width: 6px; height: 6px; margin-left: -3px; border-radius: 9999px; background: var(--fd-est-ink); box-shadow: 0 0 0 2px #FBF9F4; }
+.fd-est-pin::after { content: ""; position: absolute; left: 50%; bottom: -5px; width: 10px; height: 10px; margin: 0 0 0 -5px; border-radius: 9999px; background: rgba(31,59,45,0.35); opacity: 0; }
 .fd-est-pin.is-on { z-index: 2; }
-.fd-est-pin.is-on b { background: var(--fd-est-accent); color: #F6F3EE; transform: scale(1.12) translateY(-4px); }
+.fd-est-pin.is-on b { background: var(--fd-est-accent); color: #F6F3EE; transform: scale(1.1) translateY(-3px); }
+.fd-est-pin.is-on::before { background: var(--fd-est-accent); }
 .fd-est-pin.is-on::after { opacity: 1; animation: fd-est-pulse 2s var(--fd-ease-out) infinite; }
 
 .fd-est-car { position: absolute; left: 32px; right: 0; bottom: 36px; outline: none; animation: fd-est-rise 1000ms var(--fd-ease-out) 800ms both; }
-.fd-est-vp { overflow: hidden; padding: 20px 0 24px 0; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+.fd-est-vp { overflow: hidden; margin: 0; padding: 20px 0 24px 0; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
 .fd-est-vp[data-drag] { cursor: grabbing; }
 .fd-est-track { display: flex; column-gap: 16px; will-change: transform; }
 .fd-est-card {
-  flex: none; width: 300px; margin: 0; padding: 10px 10px 14px; border-radius: 22px; background: #fff;
-  box-shadow: 0 0 0 1px rgba(23,21,15,0.06), 0 20px 40px -24px rgba(23,21,15,0.35);
-  opacity: 0.72; transform: scale(0.95); transform-origin: left bottom;
-  transition: opacity var(--fd-dur-3) var(--fd-ease-out), transform var(--fd-dur-4) var(--fd-spring), box-shadow var(--fd-dur-3);
+  flex: none; width: 292px; margin: 0; padding: 8px 8px 14px; border-radius: 4px; background: #FBF9F4;
+  box-shadow: 0 0 0 1px rgba(23,21,15,0.08), 0 20px 40px -26px rgba(23,21,15,0.4);
+  transform: scale(0.95); transform-origin: left bottom;
+  transition: transform var(--fd-dur-4) var(--fd-spring), box-shadow var(--fd-dur-3);
 }
-.fd-est-card.is-on { opacity: 1; transform: none; box-shadow: 0 0 0 1px rgba(23,21,15,0.06), 0 30px 60px -24px rgba(23,21,15,0.45); }
-.fd-est-photo { position: relative; overflow: hidden; height: 168px; border-radius: 14px; background: var(--a); }
-.fd-est-svg { display: block; width: 100%; height: 100%; pointer-events: none; }
-.fd-est-tag { position: absolute; left: 10px; top: 10px; padding: 5px 9px; border-radius: 9999px; background: rgba(255,255,255,0.9); color: var(--fd-est-ink); font: 600 0.6875rem/1 var(--fd-est-sans); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
-.fd-est-meta { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin: 12px 4px 0; }
-.fd-est-meta h2 { margin: 0; padding: 0; font: 400 1.125rem/1.2 var(--fd-est-serif); letter-spacing: -0.01em; color: var(--fd-est-ink); }
-.fd-est-meta p { margin: 3px 0 0; padding: 0; font: 400 0.8125rem/1.2 var(--fd-est-sans); color: var(--fd-est-muted); }
-.fd-est-meta b { flex: none; font: 600 0.9375rem/1.3 var(--fd-est-sans); color: var(--fd-est-ink); font-variant-numeric: tabular-nums; }
-.fd-est-facts { display: flex; gap: 6px; margin: 12px 4px 0; padding: 0; list-style: none; }
-.fd-est-facts li { margin: 0; padding: 5px 9px; border-radius: 9999px; background: #F3F0EA; font: 500 0.75rem/1 var(--fd-est-sans); color: var(--fd-est-muted); }
+.fd-est-card:not(.is-on) .fd-est-photo img { filter: saturate(0.55) brightness(1.06); }
+.fd-est-card.is-on { opacity: 1; transform: none; box-shadow: 0 0 0 1px rgba(23,21,15,0.08), 0 30px 60px -26px rgba(23,21,15,0.5); }
+.fd-est-photo { position: relative; overflow: hidden; height: 172px; margin: 0; border-radius: 2px; background: #DCD6CA; }
+.fd-est-photo img { display: block; width: 100%; height: 100%; margin: 0; padding: 0; border: 0; object-fit: cover; pointer-events: none; transform: scale(1.06); transition: transform 1200ms var(--fd-ease-out), filter var(--fd-dur-3) var(--fd-ease-out); }
+.fd-est-card.is-on .fd-est-photo img { transform: none; }
+.fd-est-tag { position: absolute; left: 8px; top: 8px; margin: 0; padding: 5px 8px; border-radius: 2px; background: #FBF9F4; color: var(--fd-est-ink); font: 600 0.625rem/1 var(--fd-est-sans); letter-spacing: 0.12em; text-transform: uppercase; }
+.fd-est-no { position: absolute; right: 10px; bottom: 8px; margin: 0; font: 400 1.5rem/1 var(--fd-est-serif); font-style: italic; color: #FBF9F4; text-shadow: 0 1px 12px rgba(0,0,0,0.35); }
+.fd-est-meta { margin: 12px 4px 0; padding: 0; }
+.fd-est-meta p { margin: 0; padding: 0; font: 600 0.625rem/1.2 var(--fd-est-sans); letter-spacing: 0.16em; text-transform: uppercase; color: var(--fd-est-accent); }
+.fd-est-meta h2 { margin: 5px 0 0; padding: 0; font: 400 1.1875rem/1.15 var(--fd-est-serif); letter-spacing: -0.01em; color: var(--fd-est-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fd-est-row { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin: 10px 4px 0; padding: 10px 0 0; border-top: 1px solid rgba(23,21,15,0.1); }
+.fd-est-row b { flex: none; font: 600 0.9375rem/1 var(--fd-est-sans); color: var(--fd-est-ink); font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+.fd-est-facts { display: flex; gap: 0; margin: 0; padding: 0; list-style: none; }
+.fd-est-facts li { margin: 0; padding: 0 8px; border-left: 1px solid rgba(23,21,15,0.14); font: 500 0.75rem/1 var(--fd-est-sans); color: var(--fd-est-muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.fd-est-facts li:first-child { padding-left: 0; border-left: 0; }
+.fd-est-view { margin: 8px 4px 0; padding: 0; font: italic 400 0.8125rem/1.2 var(--fd-est-serif); color: var(--fd-est-muted); }
 .fd-est-ctrl { display: flex; justify-content: space-between; align-items: center; margin: 0; padding: 0 32px 0 0; }
 .fd-est-status { font: 400 0.8125rem/1 var(--fd-est-sans); color: var(--fd-est-muted); }
 .fd-est-status b { font: 600 0.8125rem/1 var(--fd-est-sans); color: var(--fd-est-ink); font-variant-numeric: tabular-nums; }
 .fd-est-arrows { display: flex; gap: 8px; }
-.fd-est-arrows button { appearance: none; -webkit-appearance: none; cursor: pointer; display: grid; place-items: center; width: 42px; height: 42px; margin: 0; padding: 0; border-radius: 9999px; border: 0; background: #fff; color: var(--fd-est-ink); box-shadow: 0 0 0 1px rgba(23,21,15,0.1); transition: transform var(--fd-dur-2) var(--fd-spring), opacity var(--fd-dur-2); }
+.fd-est-arrows button { appearance: none; -webkit-appearance: none; cursor: pointer; display: grid; place-items: center; width: 42px; height: 42px; margin: 0; padding: 0; border-radius: 9999px; border: 0; background: #FBF9F4; color: var(--fd-est-ink); box-shadow: 0 0 0 1px rgba(23,21,15,0.14); transition: transform var(--fd-dur-2) var(--fd-spring), opacity var(--fd-dur-2), background var(--fd-dur-1); }
+.fd-est-arrows button:hover:not(:disabled) { background: #fff; }
 .fd-est-arrows button svg { display: block; }
 .fd-est-arrows button:active { transform: scale(0.92); transition-duration: var(--fd-dur-1); }
 .fd-est-arrows button:disabled { opacity: 0.35; cursor: default; }
@@ -533,17 +638,22 @@ const css = `
 
 @media (max-width: 900px) {
   .fd-est { grid-template-columns: 1fr; min-height: 844px; }
-  .fd-est-left { padding: 96px 20px 24px; }
+  .fd-est-left { padding: 96px 20px 28px; }
   .fd-est-lede { font-size: 0.9375rem; margin-top: 16px; }
   .fd-est-search { grid-template-columns: 1fr auto; margin-top: 24px; }
   .fd-est-sf-b { display: none; }
   .fd-est-ticker { margin-top: 24px; }
-  .fd-est-right { min-height: 460px; }
-  .fd-est-car { left: 16px; bottom: 16px; }
-  .fd-est-card { width: 260px; }
-  .fd-est-pin { font-size: 0.75rem; }
-  .fd-est-map { inset: -6% 0 30% 0; }
-  .fd-est-photo { height: 130px; }
+  .fd-est-right { min-height: 0; display: flex; flex-direction: column; background: var(--fd-est-paper); }
+  .fd-est-map { position: relative; inset: auto; flex: none; height: 560px; width: 125%; margin: 0 0 0 -12.5%; transform: none; }
+  .fd-est-mapshade { height: 330px; bottom: auto; background: linear-gradient(180deg, rgba(246,243,238,0) 70%, rgba(246,243,238,0.9) 100%); }
+  .fd-est-car { position: relative; left: auto; right: auto; bottom: auto; margin: -280px 0 0; padding: 0 0 24px 16px; z-index: 2; }
+  .fd-est-town text { font-size: 10px; letter-spacing: 1.6px; }
+  .fd-est-sea text { font-size: 14px; }
+  .fd-est-grat text, .fd-est-scale text, .fd-est-road, .fd-est-snd text { font-size: 8px; }
+  .fd-est-peak text { font-size: 9px; }
+  .fd-est-vp { padding-top: 0; }
+  .fd-est-card { width: 264px; }
+  .fd-est-photo { height: 150px; }
   .fd-est-ctrl { padding-right: 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
