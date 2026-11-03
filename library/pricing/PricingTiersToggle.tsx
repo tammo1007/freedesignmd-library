@@ -1,5 +1,5 @@
 /**
- * PricingTiersToggle — three-plan B2B pricing section with a monthly / yearly
+ * PricingTiersToggle, three-plan B2B pricing section with a monthly / yearly
  * segmented switch. Prices roll like an odometer when the billing period
  * changes, a hand-drawn proof mark annotates the yearly saving, and the
  * recommended plan is set apart by structure (an inverted column that breaks

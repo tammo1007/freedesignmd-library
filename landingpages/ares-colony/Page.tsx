@@ -1,5 +1,5 @@
 /**
- * Ares — a home on Mars. Relocation and habitat company landing page.
+ * Ares, a home on Mars. Relocation and habitat company landing page.
  *
  * Retro-future rust: basalt blacks, oxide reds, ochre, butterscotch dust,
  * copper and one cold blue (the Martian sunset). The hero and postcard stamps

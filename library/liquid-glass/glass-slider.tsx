@@ -1,5 +1,5 @@
 /**
- * GlassSlider — a slider whose thumb turns into Liquid Glass while dragged.
+ * GlassSlider, a slider whose thumb turns into Liquid Glass while dragged.
  *
  * At rest the thumb is a compact solid capsule. Grab it and it swells into
  * clear glass that refracts the fill and track underneath, stretches along
@@ -9,7 +9,7 @@
  *   (accessible name) or aria-labelledby, valueText(value) for
  *   aria-valuetext, accent (fill colour or CSS gradient), tone ("light" |
  *   "dark"), ticks (number of tick marks), disabled, className.
- * Accessibility: native <input type="range"> drives everything — Arrow keys,
+ * Accessibility: native <input type="range"> drives everything, Arrow keys,
  *   PageUp/PageDown, Home/End and screen readers work as usual.
  * Reduced motion: no swell or stretch, thumb moves instantly.
  * Browser support: refraction in Chromium; frosted glass elsewhere.

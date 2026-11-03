@@ -1,5 +1,5 @@
 /**
- * GlassButton — Liquid Glass buttons from Apple's HIG.
+ * GlassButton, Liquid Glass buttons from Apple's HIG.
  *
  * Styles:  "glass"            regular glass, neutral        (secondary actions)
  *          "glassProminent"   glass tinted with the accent   (the primary action)

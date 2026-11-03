@@ -1,5 +1,5 @@
 /**
- * ReviewGridSummary — product reviews with a rating summary (average, star
+ * ReviewGridSummary, product reviews with a rating summary (average, star
  * distribution bars that double as filters, would-buy-again and a texture
  * scale), filter chips (verified, with photos, skin type), sort, and a
  * masonry of review cards with verified badges, photos, skin meta, brand

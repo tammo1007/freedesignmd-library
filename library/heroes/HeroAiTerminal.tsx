@@ -1,5 +1,5 @@
 /**
- * HeroAiTerminal — a dark developer-tools hero for an AI coding agent. A
+ * HeroAiTerminal, a dark developer-tools hero for an AI coding agent. A
  * terminal window types the user's prompt, streams the agent's plan line by
  * line with tool calls and diffs, and a live preview beside it assembles the
  * generated UI: cards slide into a grid, a chart draws, a toast lands. The
@@ -50,7 +50,7 @@ const DEFAULT_PLAN: AgentLine[] = [
   { kind: "ok", text: "Preview ready · 2.8s" },
 ];
 
-const PROMPT = "build a billing dashboard: MRR, churn and failed payments — use our design tokens";
+const PROMPT = "build a billing dashboard: MRR, churn and failed payments, use our design tokens";
 
 // timeline (ms)
 const T_TYPE_START = 500;
@@ -58,7 +58,7 @@ const T_CHAR = 26;
 const T_LINE = 380;
 
 export function HeroAiTerminal({
-  eyebrow = "Fathom Agent 3 — now with background tasks",
+  eyebrow = "Fathom Agent 3, now with background tasks",
   title = (
     <>
       Describe it.
@@ -66,7 +66,7 @@ export function HeroAiTerminal({
       <span className="fd-agt-dim">Review it.</span> Ship it.
     </>
   ),
-  lede = "An autonomous engineer that reads your codebase, writes the change, runs the tests and opens the pull request — while you stay in flow.",
+  lede = "An autonomous engineer that reads your codebase, writes the change, runs the tests and opens the pull request, while you stay in flow.",
   prompt = PROMPT,
   plan = DEFAULT_PLAN,
   primaryCta = { label: "Install for VS Code", href: "#install" },
@@ -313,7 +313,7 @@ export function HeroAiTerminal({
           <div ref={term} className="fd-agt-term">
             <div className="fd-agt-chrome fd-agt-chrome-t">
               <i /><i /><i />
-              <span className="fd-agt-tab">fathom — ~/acme-billing</span>
+              <span className="fd-agt-tab">fathom, ~/acme-billing</span>
             </div>
             <div className="fd-agt-body">
               <div className="fd-agt-prompt">

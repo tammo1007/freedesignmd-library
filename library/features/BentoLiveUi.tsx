@@ -1,5 +1,5 @@
 /**
- * BentoLiveUi — an asymmetric feature bento for a business bank where every
+ * BentoLiveUi, an asymmetric feature bento for a business bank where every
  * tile is a small working piece of the product instead of an icon: a card
  * you can freeze, an FX converter, an approval queue you can clear and a
  * spend chart that draws itself when it scrolls into view.

@@ -1,4 +1,4 @@
-# Clara — DESIGN.md
+# Clara, DESIGN.md
 
 A modern primary-care and virtual clinic in Seattle and Portland. Calm and trustworthy: soft clinical whites, a sage / teal accent, rounded geometry, a friendly rounded sans, and accessibility first (AA+ contrast, 44px+ hit targets, full keyboard support).
 
@@ -20,9 +20,9 @@ All CSS lives in `Page.tsx` under the `.cl` prefix. Every element is reset expli
 | Tertiary text | `--cl-ink-3` | `#66776F` |
 | Hairlines | `--cl-line` | `#DFE7E3` |
 | Warm accent (illustration only) | `--cl-coral` / `--cl-peach` | `#E26D5A` / `#F3D3BC` |
-| Availability dot | — | `#2E9B6A` |
-| Success (booked) | — | `#2E8A5F` |
-| Light teal on ink | — | `#A9D7C3` |
+| Availability dot |, | `#2E9B6A` |
+| Success (booked) |, | `#2E8A5F` |
+| Light teal on ink |, | `#A9D7C3` |
 
 Contrast: ink on canvas is about 16:1, `--cl-ink-2` on white about 7.3:1, `--cl-ink-3` on white about 4.6:1, white on teal about 6:1, and disabled slot text `#8C9A95` is decorative alongside a strikethrough plus a hatched fill.
 

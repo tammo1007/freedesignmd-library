@@ -1,5 +1,5 @@
 /**
- * FisheyeGrid — an infinite, two-axis tile wall you drag around with
+ * FisheyeGrid, an infinite, two-axis tile wall you drag around with
  * momentum. A lens bulges the tiles around the pointer (or the centre when
  * the pointer is away): nearby tiles swell and push their neighbours out,
  * far tiles shrink back, like looking through a loupe.
@@ -28,7 +28,7 @@
  * Browser support: all evergreen browsers.
  *
  * Demo images: /img/lux/*-800.webp and /img/people/p1,p3,p6.webp, included in the repo's
- * public/img — copy them next to your page or swap in your own.
+ * public/img, copy them next to your page or swap in your own.
  */
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties, KeyboardEvent, ReactNode } from "react";

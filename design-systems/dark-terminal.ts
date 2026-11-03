@@ -12,7 +12,7 @@ export const system: System = {
   defaultMode: "dark",
   personality: {
     summary:
-      "Dark Terminal is a cathode-ray console for people who watch systems at 3am. The canvas is a green-tinted black, text is a pale phosphor mint, and the one saturated color — a P1 green — carries every action, prompt and healthy-state signal. Headlines are set in VT323 at large sizes so they read as bitmap screen text, while IBM Plex Mono handles logs, tables and labels. Structure comes from 1px green-tinted rules and square corners; the only decoration is a soft text glow and a blinking block cursor.",
+      "Dark Terminal is a cathode-ray console for people who watch systems at 3am. The canvas is a green-tinted black, text is a pale phosphor mint, and the one saturated color, a P1 green, carries every action, prompt and healthy-state signal. Headlines are set in VT323 at large sizes so they read as bitmap screen text, while IBM Plex Mono handles logs, tables and labels. Structure comes from 1px green-tinted rules and square corners; the only decoration is a soft text glow and a blinking block cursor.",
     signatureMoves: [
       "Block cursor: a solid `primary` rectangle that blinks after the active prompt and focused field",
       "Phosphor glow: `--glow` text-shadow on headlines and primary buttons in dark mode only",

@@ -1,5 +1,5 @@
 /**
- * ScrollTextReveal — a manifesto paragraph whose words light up one by one
+ * ScrollTextReveal, a manifesto paragraph whose words light up one by one
  * (from a dim floor to full opacity) as the reader scrolls. Keywords wrapped
  * in *asterisks* get an accent colour and a hand-drawn marker underline that
  * draws on when the reveal reaches them.
@@ -238,7 +238,7 @@ const css = `
 
 /* ------------------------------------------------------------------ Demo */
 
-const MANIFESTO = `We don’t fund promises. We fund the boring, physical work of pulling carbon out of the air — kilns, pipes, rock, soil — and we pay for it by the *verified tonne.*
+const MANIFESTO = `We don’t fund promises. We fund the boring, physical work of pulling carbon out of the air, kilns, pipes, rock, soil, and we pay for it by the *verified tonne.*
 
 Since 2021 we’ve backed 46 teams across nine countries. Every tonne is measured twice, priced honestly and retired in public. Our job is to make permanence *cheaper than pollution.*`;
 
@@ -264,7 +264,7 @@ export function Demo() {
         </p>
       </section>
       <section className="fd-trs-demo-body">
-        <span className="fd-trs-demo-label">01 — Why we exist</span>
+        <span className="fd-trs-demo-label">01, Why we exist</span>
         <ScrollTextReveal text={MANIFESTO} />
       </section>
       <section className="fd-trs-demo-stats">

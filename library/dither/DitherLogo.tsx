@@ -1,5 +1,5 @@
 /**
- * DitherLogo — a mark rendered as ordered-dither stipple dots. Every dot is a
+ * DitherLogo, a mark rendered as ordered-dither stipple dots. Every dot is a
  * particle on a spring: the cursor scatters them, they settle back with a
  * little overshoot. On first view the dots assemble from a loose cloud.
  *

@@ -1,5 +1,5 @@
 /**
- * BookingNav — a boutique hotel header. A dismissible announcement bar sits
+ * BookingNav, a boutique hotel header. A dismissible announcement bar sits
  * above a transparent nav laid over a full-bleed photograph. Once the page
  * scrolls the nav turns solid, hides while you scroll down and comes back
  * the moment you scroll up. On the right a compact "Dates · Guests ·

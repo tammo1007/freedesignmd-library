@@ -1,5 +1,5 @@
 /**
- * ShimmerButton — dark capsule with a travelling light sweep and a rotating
+ * ShimmerButton, dark capsule with a travelling light sweep and a rotating
  * border glow. Built for single, high-intent calls to action.
  *
  * Props: size ("sm" | "md" | "lg"), iconRight, speed (seconds per sweep,

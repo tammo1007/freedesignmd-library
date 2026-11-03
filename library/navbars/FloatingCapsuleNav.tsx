@@ -1,5 +1,5 @@
 /**
- * FloatingCapsuleNav — a full-width developer-tools bar that, once the page
+ * FloatingCapsuleNav, a full-width developer-tools bar that, once the page
  * scrolls, contracts into a floating capsule centred at the top. The shape is
  * driven by a small spring integrator (k 380, c 30) so it settles with one
  * measured overshoot instead of a CSS ease. Secondary items (version chip,

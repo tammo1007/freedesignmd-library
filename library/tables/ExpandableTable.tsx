@@ -1,5 +1,5 @@
 /**
- * ExpandableTable — a table whose rows expand to reveal a detail panel. The
+ * ExpandableTable, a table whose rows expand to reveal a detail panel. The
  * panel opens with a smooth, measured-free height animation using the
  * grid-template-rows 0fr → 1fr technique, so content of any height works.
  *
@@ -213,7 +213,7 @@ const SHIPMENTS: Shipment[] = [
     stops: [
       { place: "Yantian Port, Shenzhen", event: "Departed", when: "Oct 12 · 06:40", state: "done" },
       { place: "Singapore Strait", event: "Transshipment complete", when: "Oct 19 · 22:15", state: "done" },
-      { place: "Suez Canal", event: "Transiting — 14 knots", when: "Oct 29 · now", state: "now", note: "On schedule, 2 days ahead of last vessel" },
+      { place: "Suez Canal", event: "Transiting, 14 knots", when: "Oct 29 · now", state: "now", note: "On schedule, 2 days ahead of last vessel" },
       { place: "Port of Rotterdam", event: "Arrival, berth 4", when: "Nov 14 · est.", state: "next" },
     ],
   },
@@ -222,7 +222,7 @@ const SHIPMENTS: Shipment[] = [
     stops: [
       { place: "Chicago Intermodal", event: "Loaded", when: "Oct 24 · 14:00", state: "done" },
       { place: "San Antonio Yard", event: "Interchange", when: "Oct 27 · 03:30", state: "done" },
-      { place: "Laredo Border", event: "Held — missing pedimento", when: "Oct 29 · 08:12", state: "now", note: "Broker notified. Document due by 17:00 CT." },
+      { place: "Laredo Border", event: "Held, missing pedimento", when: "Oct 29 · 08:12", state: "now", note: "Broker notified. Document due by 17:00 CT." },
       { place: "Monterrey Terminal", event: "Delivery", when: "Nov 03 · est.", state: "next" },
     ],
   },
@@ -240,7 +240,7 @@ const SHIPMENTS: Shipment[] = [
     stops: [
       { place: "Apapa Depot, Lagos", event: "Departed", when: "Oct 27 · 05:00", state: "done" },
       { place: "Seme–Krake Border", event: "Cleared, 9 h queue", when: "Oct 28 · 21:40", state: "done" },
-      { place: "Aflao, Ghana", event: "Stopped — road closure", when: "Oct 29 · now", state: "now", note: "Re-routing via Ho. +6 h. Reefer holding 4.1°C." },
+      { place: "Aflao, Ghana", event: "Stopped, road closure", when: "Oct 29 · now", state: "now", note: "Re-routing via Ho. +6 h. Reefer holding 4.1°C." },
       { place: "Tema Warehouse, Accra", event: "Delivery", when: "Oct 30 · est.", state: "next" },
     ],
   },

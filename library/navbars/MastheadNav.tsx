@@ -1,5 +1,5 @@
 /**
- * MastheadNav — a two-tier newspaper masthead. A mono dateline with edition
+ * MastheadNav, a two-tier newspaper masthead. A mono dateline with edition
  * and weather, a huge serif wordmark, and a section rail that scrolls
  * sideways (with arrow buttons and edge fades when it overflows) ending in a
  * Subscribe pill. When the masthead scrolls out of view a slim bar slides down

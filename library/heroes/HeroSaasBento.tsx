@@ -1,12 +1,12 @@
 /**
- * HeroSaasBento — a B2B SaaS hero: a centred headline over an animated bento
+ * HeroSaasBento, a B2B SaaS hero: a centred headline over an animated bento
  * grid. Each tile runs its own micro-interaction on a staggered loop: a revenue
  * chart draws, notifications slide in, a policy toggle flips, an approval
  * avatar stack fills, a sync ring completes and a command palette types.
  * Tiles tilt toward the pointer with a spotlight border; on scroll the grid
  * unfolds from a slight 3D lean to flat and the headline parallaxes.
  *
- * Demo images: /img/people/pN.webp (in the repo's public/img/people — copy next to your page or swap in your own).
+ * Demo images: /img/people/pN.webp (in the repo's public/img/people, copy next to your page or swap in your own).
  *
  * Props: title, lede, primaryCta, secondaryCta, logos (string[]).
  * CSS vars: --fd-bto-bg, --fd-bto-ink, --fd-bto-accent.
@@ -177,7 +177,7 @@ export function HeroSaasBento({
             {[
               ["Figma Enterprise", "Design · $18,400/yr", "#A259FF", 1],
               ["AWS reserved instances", "Platform · $42,000", "#FF9900", 3],
-              ["Offsite — Lisbon", "People · $9,850", "#22C55E", 5],
+              ["Offsite, Lisbon", "People · $9,850", "#22C55E", 5],
             ].map(([t, s, c, at]) => (
               <li key={t as string} className={on(at as number) ? "is-in" : ""}>
                 <i style={{ background: c as string }} />

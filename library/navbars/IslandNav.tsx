@@ -1,5 +1,5 @@
 /**
- * IslandNav — a "dynamic island" for a music app: one dark pill at the top of
+ * IslandNav, a "dynamic island" for a music app: one dark pill at the top of
  * the page that morphs between states. Links by default, a now-playing mini
  * player when you tap the track, a search field with suggestions, and (on
  * phones) a tall menu. Width, height and corner radius are driven by an

@@ -1,5 +1,5 @@
 /**
- * ZoomParallax — Apple-style "zoom out" scroll scene. A full-bleed hero tile
+ * ZoomParallax, Apple-style "zoom out" scroll scene. A full-bleed hero tile
  * starts filling the viewport; as you scroll, it shrinks into the centre of a
  * 7-tile mosaic while the six surrounding tiles scale and drift into place.
  * Text overlays fade out as the grid settles, a caption fades in.
@@ -17,7 +17,7 @@
  * transforms are written (FLIP-style inverse scale from the full-bleed rect).
  * Browser support: evergreen (sticky + transforms).
  * Demo images: /img/lux/{dunes,bamboo,lantern,still-vase,still-tea} and /img/halcyon/{positano-sunset,pool-lemons}.webp (+ -800
- * variants), included in the repo's public/img/lux — copy them next to your page or swap in your own.
+ * variants), included in the repo's public/img/lux, copy them next to your page or swap in your own.
  * Accessibility: tiles are aria-hidden art unless you pass labelled content;
  * overlay/caption text is real text. Reduced motion shows the settled grid.
  */

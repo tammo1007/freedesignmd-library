@@ -1,5 +1,5 @@
 /**
- * MinimalSignoffFooter — a one-line sign-off for a photographer's portfolio.
+ * MinimalSignoffFooter, a one-line sign-off for a photographer's portfolio.
  * Name and practice, an email that copies itself to the clipboard with a
  * small "copied" toast, the local time in the studio's city, and a
  * back-to-top button whose ring fills as you scroll down the page and which

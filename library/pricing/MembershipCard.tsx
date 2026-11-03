@@ -1,5 +1,5 @@
 /**
- * MembershipCard — a single-plan pricing section for a premium clinic
+ * MembershipCard, a single-plan pricing section for a premium clinic
  * membership, presented as the physical card members carry. The card tilts
  * in 3D toward the pointer (spring physics) with a light sheen that follows
  * it, and flips to its back (care-team line, signature strip) on click or

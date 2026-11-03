@@ -1,11 +1,11 @@
 /**
- * StickyStory — Apple-style scrollytelling. The media column stays pinned
+ * StickyStory, Apple-style scrollytelling. The media column stays pinned
  * while text steps scroll past; the active step drives a crossfade/morph
  * between media states and a progress rail.
  *
  * Props:
- * - steps: { eyebrow, title, body, stat? }[] — text column.
- * - renderMedia(active): ReactNode — return every media state; mark the one
+ * - steps: { eyebrow, title, body, stat? }[], text column.
+ * - renderMedia(active): ReactNode, return every media state; mark the one
  *   matching `active` (e.g. data-active) and crossfade with CSS. The media
  *   root also receives `--fd-sst-p` (0–1 across the story) and `--fd-sst-k`
  *   (fractional step index) every frame for continuous, scrubbed motion.
@@ -257,7 +257,7 @@ const STEPS: StoryStep[] = [
   {
     eyebrow: "Run",
     title: "Robots run it overnight. You sleep.",
-    body: "Plans dispatch to liquid handlers, incubators and readers across your bench. Every pipetting step is logged with volume, tip and timestamp — no more lab-notebook archaeology.",
+    body: "Plans dispatch to liquid handlers, incubators and readers across your bench. Every pipetting step is logged with volume, tip and timestamp, no more lab-notebook archaeology.",
     stat: { value: "11,204", label: "plates executed last month across 62 partner labs" },
   },
   {
@@ -393,7 +393,7 @@ export function Demo() {
         renderMedia={(a) => <HelixMedia active={a} />}
         header={
           <header className="fd-sst-demo-hero">
-            <p className="fd-sst-demo-kicker">Helix Bio — the lab operating system</p>
+            <p className="fd-sst-demo-kicker">Helix Bio, the lab operating system</p>
             <h2 className="fd-sst-demo-h">From hypothesis to signed result in one loop.</h2>
             <p className="fd-sst-demo-cue" aria-hidden="true">
               <span className="fd-sst-demo-cue-line" />

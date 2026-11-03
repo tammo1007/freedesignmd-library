@@ -1,5 +1,5 @@
 /**
- * CaseStudyCards — customer stories as cards: a typographic company
+ * CaseStudyCards, customer stories as cards: a typographic company
  * wordmark, one headline metric that counts up when the card scrolls into
  * view, a before/after bar, a short quote with portrait and a link to the
  * full story. Asymmetric 7/5 grid on desktop, swipeable snap row on mobile.

@@ -1,8 +1,8 @@
 /**
- * IconButtonGroup — a toolbar of icon buttons with tooltips, toggle
+ * IconButtonGroup, a toolbar of icon buttons with tooltips, toggle
  * (aria-pressed) states, exclusive sub-groups and separators.
  *
- * Props: groups: ToolItem[][] — each inner array is a visual group with a
+ * Props: groups: ToolItem[][], each inner array is a visual group with a
  * separator between groups. ToolItem = { id, label, icon, shortcut?,
  * kind?: "toggle" | "action", exclusive?: string, disabled? }.
  * pressed (Record<id, boolean>) + onToggle(id, next) for toggles,

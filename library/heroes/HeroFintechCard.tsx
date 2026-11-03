@@ -1,5 +1,5 @@
 /**
- * HeroFintechCard — an Apple-clean hero for a corporate card. A CSS-3D metal
+ * HeroFintechCard, an Apple-clean hero for a corporate card. A CSS-3D metal
  * card (front, back and a stacked edge for real thickness) floats, tilts
  * toward the cursor on a spring and catches a specular highlight. As the
  * section scrolls, a sticky stage scrubs the card through a full flip and docks
@@ -625,7 +625,7 @@ export function Demo() {
       </header>
       <HeroFintechCard />
       <section className="fd-ldg-demo-after" aria-label="Customers">
-        <p>Running finance at 38,000 companies — from seed to IPO</p>
+        <p>Running finance at 38,000 companies, from seed to IPO</p>
         <ul>
           <li>Halden Robotics</li>
           <li>Northwind Bio</li>

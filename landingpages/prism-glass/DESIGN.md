@@ -1,9 +1,9 @@
-# Prism — Design Brief
+# Prism, Design Brief
 
 A bright, optimistic AI product page built around Apple-style **Liquid
 Glass**. A soft pastel mesh drifts behind everything; content (product shots,
 quotes, plans) sits on solid white-ish cards; and glass is reserved for the
-**control layer** that floats above content — nav, prompt bar, sliders,
+**control layer** that floats above content, nav, prompt bar, sliders,
 scene chips, carousel buttons, the billing toggle and the lens demo.
 
 Source of truth: `Page.tsx` in this folder.
@@ -26,7 +26,7 @@ Source of truth: `Page.tsx` in this folder.
 5. **Real photographs, graded in CSS.** The product imagery is three real,
    sharp studio photos (grey seamless backdrop, soft light, reflective floor).
    Every lighting scene and campaign variation is the same photo re-graded and
-   re-cropped with blend modes, filters and `object-position` + zoom — never a
+   re-cropped with blend modes, filters and `object-position` + zoom, never a
    drawn or rendered stand-in, and never a tint strong enough to garble a label.
 
 ---
@@ -45,8 +45,8 @@ Source of truth: `Page.tsx` in this folder.
 --fd-prs-glass-frost: rgba(255,255,255,0.58);   /* frosted fallback */
 ```
 
-Mesh: five radial blobs (60vmax) — rose `#ffc2d4`, lavender `#c6b6ff`, sky
-`#b3e1ff`, apricot `#ffdcb3`, mint `#bff3dd` — plus an SVG fractal-noise grain
+Mesh: five radial blobs (60vmax), rose `#ffc2d4`, lavender `#c6b6ff`, sky
+`#b3e1ff`, apricot `#ffdcb3`, mint `#bff3dd`, plus an SVG fractal-noise grain
 at 35% in `soft-light`.
 
 Grades (product photography): Golden hour, North-light studio, Neon dusk,
@@ -97,7 +97,7 @@ Motion tokens: `--fd-ease-out (0.22,1,0.36,1)`, `--fd-ease-in-out
    inset white highlights on all four edges and a soft drop shadow; a
    `::after` specular sheen (`soft-light`).
 2. **Refraction (Chromium)**: after mount it measures itself
-   (ResizeObserver) and paints a displacement map on a canvas — neutral grey
+   (ResizeObserver) and paints a displacement map on a canvas, neutral grey
    inside, with a convex bezel whose R/G channels push samples outward along
    the edge normal (`(1 − t)^2.4` falloff). An SVG `<filter>` with a `useId()`
    id applies that map three times (scale 1, 0.93, 0.86) isolating R, G and B,

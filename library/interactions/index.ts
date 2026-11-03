@@ -6,7 +6,7 @@ export const items: LibraryItem[] = [
     slug: "image-trail",
     name: "Image Trail",
     category: "interactions",
-    description: "Cards spawn along the cursor path at fixed intervals, pop in with a tilt and fall away — a portfolio you leaf through by moving.",
+    description: "Cards spawn along the cursor path at fixed intervals, pop in with a tilt and fall away, a portfolio you leaf through by moving.",
     tags: ["cursor", "trail", "images", "portfolio", "hover", "gallery"],
     industry: "Photography",
     dependencies: [],
@@ -29,7 +29,7 @@ export const items: LibraryItem[] = [
     Demo: lazyDemo(() => import("./CustomCursor")),
     canvas: "dark",
     height: 800,
-    support: "All evergreen browsers. Fine pointers only — touch devices keep the native behaviour. Reduced motion removes lag and leaning.",
+    support: "All evergreen browsers. Fine pointers only, touch devices keep the native behaviour. Reduced motion removes lag and leaning.",
   },
   {
     slug: "magnetic-dock",

@@ -1,5 +1,5 @@
 /**
- * SpecSheet — a technical spec sheet for a piece of hardware, shown for an
+ * SpecSheet, a technical spec sheet for a piece of hardware, shown for an
  * electric city bike: a huge model number, a hairline grid of specs with
  * units set in mono, and an SVG side elevation with numbered callouts. Hover
  * or focus a spec and its part lights up on the drawing (and the other way

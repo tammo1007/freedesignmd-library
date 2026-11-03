@@ -1,5 +1,5 @@
 /**
- * LiquidMetal — a flowing chrome surface. Domain-warped noise drives a height
+ * LiquidMetal, a flowing chrome surface. Domain-warped noise drives a height
  * field; its normals reflect a procedural studio environment (soft boxes,
  * horizon line, floor bounce) with Fresnel and an optional thin-film
  * iridescence. The cursor bulges the surface and taps send out ripples.

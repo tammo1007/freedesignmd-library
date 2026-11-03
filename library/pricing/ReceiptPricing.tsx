@@ -1,5 +1,5 @@
 /**
- * ReceiptPricing — agency / studio retainers rendered as printed till
+ * ReceiptPricing, agency / studio retainers rendered as printed till
  * receipts hanging from a printer slot. Each receipt carries a summary; pick
  * one and it "prints": the itemised order (hours, roles, VAT, total, barcode)
  * feeds out of the slot line by line with a stepped animation while the slot

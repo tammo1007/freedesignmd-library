@@ -1,4 +1,4 @@
-# Noir — DESIGN.md
+# Noir, DESIGN.md
 
 Luxury perfume house landing page (the fictional Maison Vérane). Cinematic black, bone and exactly one accent, amber. Giant italic serif display, tiny tracked-out sans labels, long pauses. Imagery: a canvas smoke simulation, CSS-blurred colour atmospheres, one pre-rendered hero flacon photograph and small SVG flacons. No web fonts, no network.
 

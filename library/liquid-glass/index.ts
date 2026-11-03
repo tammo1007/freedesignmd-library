@@ -100,7 +100,7 @@ export const items: LibraryItem[] = [
     slug: "glass-menu",
     name: "Glass Menu",
     category: "liquid-glass",
-    description: "A glass button that morphs — one surface, springing open — into its menu and back, with full keyboard support.",
+    description: "A glass button that morphs, one surface, springing open, into its menu and back, with full keyboard support.",
     tags: ["menu", "dropdown", "popover", "morph", "liquid glass", "context menu"],
     industry: "Fintech",
     dependencies: [],

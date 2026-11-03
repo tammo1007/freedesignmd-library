@@ -1,5 +1,5 @@
 /**
- * HeroAutoScrub — Apple-style scrollytelling for an electric car. The section
+ * HeroAutoScrub, Apple-style scrollytelling for an electric car. The section
  * is 300vh tall with a sticky 100vh stage. As you scroll, a stylised SVG car
  * drives through a tunnel of light rings: the rings rush past, the wheels
  * spin with the scroll velocity, head- and tail-lights bloom, and three specs

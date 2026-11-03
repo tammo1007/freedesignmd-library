@@ -1,5 +1,5 @@
 /**
- * ProcessTimeline — a shipment's journey as a timeline: stages with
+ * ProcessTimeline, a shipment's journey as a timeline: stages with
  * timestamps along an SVG route, a marker that travels the route to the live
  * position when it scrolls into view, and stage cards that expand into an
  * event log. Horizontal on desktop, a vertical rail on narrow screens.

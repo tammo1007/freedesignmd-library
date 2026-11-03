@@ -1,5 +1,5 @@
 /**
- * GlassSheet — an iOS 26 Liquid Glass sheet with detents.
+ * GlassSheet, an iOS 26 Liquid Glass sheet with detents.
  *
  * - Half / peek detents are inset from the screen edges with a large corner
  *   radius, so content peeks around them (HIG). The radius stays concentric
@@ -13,9 +13,9 @@
  *   detent (index, controlled) + onDetentChange, inset (px, default 8),
  *   radius (corner radius at rest, default 36), tone, label (aria-label),
  *   header (always-visible content next to the grabber), children (body).
- * Must be placed inside a positioned container (position: relative) — it fills
+ * Must be placed inside a positioned container (position: relative), it fills
  * that container, like a sheet inside a screen.
- * Keyboard: the grabber is a button — Enter/Space cycles detents, Arrow
+ * Keyboard: the grabber is a button, Enter/Space cycles detents, Arrow
  *   Up/Down step through them. role="dialog" aria-modal="false".
  * Reduced motion: detent changes are instant. Reduced transparency/contrast:
  *   opaque surface.
@@ -206,7 +206,7 @@ export function GlassSheet({ detents = [0.2, 0.52, 0.94], detent, onDetentChange
             <button
               type="button"
               className="fd-gsh-handle"
-              aria-label={`Resize sheet — ${["collapsed", "half height", "full height"][Math.min(detent, 2)] ?? `detent ${detent + 1}`}`}
+              aria-label={`Resize sheet, ${["collapsed", "half height", "full height"][Math.min(detent, 2)] ?? `detent ${detent + 1}`}`}
               onClick={() => onDetentChange(detent >= fullIdx ? 0 : detent + 1)}
               onKeyDown={onGrabKey}
             >

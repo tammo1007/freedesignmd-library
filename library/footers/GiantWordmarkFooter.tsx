@@ -1,5 +1,5 @@
 /**
- * GiantWordmarkFooter — a dark agency footer: a new-business pitch with a big
+ * GiantWordmarkFooter, a dark agency footer: a new-business pitch with a big
  * email, three sitemap columns and a studio address, closed by a wordmark that
  * spans the full width exactly. The wordmark is fitted by measuring the text
  * at a reference size and scaling (re-fitted on resize), then each letter

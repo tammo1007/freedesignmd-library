@@ -1,5 +1,5 @@
 /**
- * MegaMenuNav — a luxury retail header with full-width mega panels. Hover or
+ * MegaMenuNav, a luxury retail header with full-width mega panels. Hover or
  * click a top item and a panel opens with columns of links plus two editorial
  * image cards. Moving between items re-measures the panel so its height
  * glides from one menu to the next while the content slides in from the side

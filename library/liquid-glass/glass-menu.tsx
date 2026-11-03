@@ -1,14 +1,14 @@
 /**
- * GlassMenu — a Liquid Glass button that morphs into its menu and back.
+ * GlassMenu, a Liquid Glass button that morphs into its menu and back.
  *
  * One glass surface, not two: the capsule's width, height and corner radius
  * spring from button-size to menu-size (anchored to the button's corner), the
  * button face cross-fades out and the menu items cascade in. The refraction
- * map follows the shape every frame. Regular variant — menus carry text.
+ * map follows the shape every frame. Regular variant, menus carry text.
  *
  * Props: label (button text, or aria-label for icon buttons), icon,
  *   items: ({ id, label, icon?, detail?, destructive?, disabled? } | "separator")[],
- *   onSelect(id), align ("start" | "end" — which corner stays anchored),
+ *   onSelect(id), align ("start" | "end", which corner stays anchored),
  *   placement ("down" | "up"), tone ("light" | "dark"), menuWidth (px).
  * Keyboard: Enter/Space/ArrowDown open (focus first item), ArrowUp opens on
  *   last; Arrow keys/Home/End move; Enter selects; Escape or Tab closes and
@@ -362,7 +362,7 @@ export function Demo() {
                   alert: "Alert set at SEK 200.00",
                   stop: "Trailing stop set at −4%",
                   share: "Link to NRDX copied",
-                  close: "Close position — confirm in ticket",
+                  close: "Close position, confirm in ticket",
                 }[id] ?? id,
               )}
               items={[

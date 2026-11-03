@@ -1,5 +1,5 @@
 /**
- * TextMorph — cycles through words and morphs between them letter by letter.
+ * TextMorph, cycles through words and morphs between them letter by letter.
  * Letters shared by both words glide to their new positions; the rest blur
  * and fade out or in. The slot width eases with the letters, so a centred
  * line stays centred instead of jumping.
@@ -15,7 +15,7 @@
  *
  * Accessibility: letters are aria-hidden; a visually hidden copy carries the
  * current word without a live region (no announcements every few seconds).
- * Give cycling heroes a pause control (WCAG 2.2.2) — see the Demo.
+ * Give cycling heroes a pause control (WCAG 2.2.2), see the Demo.
  * Reduced motion: words swap with a 120ms cross-fade and don't auto-cycle.
  * Browser support: evergreen browsers (individual `translate` property:
  * Chrome 104, Safari 14.1, Firefox 72).
@@ -225,7 +225,7 @@ const SUBS = [
   "Ship a coherent product from the first pitch deck to the hundredth screen.",
   "A machine-readable DESIGN.md your coding agents follow to the pixel.",
   "One source of truth for tokens, components and the decisions behind them.",
-  "Free, MIT-licensed and portable — bring it to any stack you like.",
+  "Free, MIT-licensed and portable, bring it to any stack you like.",
 ];
 
 export function Demo() {
@@ -248,7 +248,7 @@ export function Demo() {
       </header>
       <main className="fd-tm-demo-main">
         <a className="fd-tm-demo-pill" href="#launch">
-          <span className="fd-tm-demo-new">New</span> Primer 2.0 — tokens that sync to Figma and your repo
+          <span className="fd-tm-demo-new">New</span> Primer 2.0, tokens that sync to Figma and your repo
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
         </a>
         <h1 className="fd-tm-demo-h1">

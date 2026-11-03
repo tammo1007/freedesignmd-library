@@ -1,5 +1,5 @@
 /**
- * CustomCursor — a cursor system for a scope (a section or the whole page):
+ * CustomCursor, a cursor system for a scope (a section or the whole page):
  * a precise dot plus a ring that follows on a spring. Over elements with
  * data attributes the ring morphs:
  *
@@ -289,7 +289,7 @@ export function Demo() {
           Brand worlds for companies <span>with something to say.</span>
         </h1>
 
-        <div className="fd-cc-demo-strip" data-cursor="Drag" role="region" aria-label="Selected work — scroll horizontally" tabIndex={0}>
+        <div className="fd-cc-demo-strip" data-cursor="Drag" role="region" aria-label="Selected work, scroll horizontally" tabIndex={0}>
           {WORK.map((w) => (
             <a key={w.t} href={`#${w.t.toLowerCase().replace(/\s/g, "-")}`} className="fd-cc-demo-card" data-cursor={w.cursor}
               style={{ background: `radial-gradient(120% 90% at 20% 10%, ${w.c2} 0%, ${w.c1} 62%)` }}>

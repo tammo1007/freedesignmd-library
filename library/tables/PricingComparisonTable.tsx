@@ -1,5 +1,5 @@
 /**
- * PricingComparisonTable — a plan comparison grid with a sticky first column,
+ * PricingComparisonTable, a plan comparison grid with a sticky first column,
  * sticky plan headers, check / dash / text cells, group headings and a
  * highlighted recommended column.
  *
@@ -10,7 +10,7 @@
  * Group: { title, rows: [{ label, hint?, values: Record<planId, boolean | string> }] }
  *
  * Browser support: all evergreen browsers (position: sticky on table cells).
- * Accessibility: a real <table> — plan names are column headers, feature
+ * Accessibility: a real <table>, plan names are column headers, feature
  * labels are row headers (scope="row"), group titles are <th scope="rowgroup">;
  * check cells expose "Included" and dash cells "Not included" to screen
  * readers; the scroll area is focusable with a label so keyboard users can pan
@@ -258,7 +258,7 @@ export function Demo() {
           </div>
         </section>
         <PricingComparisonTable theme={theme} plans={PLANS} groups={GROUPS} billing={billing} maxHeight={720} caption="Plainsight plan comparison" onSelect={(id) => setChosen(PLANS.find((p) => p.id === id)!.name)} />
-        <p className="fd-pcd-note" role="status" aria-live="polite">{chosen ? `${chosen} selected — you’d continue to checkout from here.` : "Prices in USD. Taxes calculated at checkout."}</p>
+        <p className="fd-pcd-note" role="status" aria-live="polite">{chosen ? `${chosen} selected, you’d continue to checkout from here.` : "Prices in USD. Taxes calculated at checkout."}</p>
       </main>
     </div>
   );

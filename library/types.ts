@@ -1,7 +1,7 @@
 import type { LazyDemo } from "./lazyDemo";
 
 /**
- * Library item — one copy-pasteable component (or a small set of files).
+ * Library item, one copy-pasteable component (or a small set of files).
  *
  * THE CONTRACT: `files[].code` is imported with Vite's `?raw` suffix from the
  * very same `.tsx` file whose `Demo` export renders on the site. What people
@@ -47,7 +47,7 @@ export type LibraryItem = {
   dependencies: string[];
   /** Files in install order. The first file holds the main export. */
   files: LibraryFile[];
-  /** Live demo — must be exported from files[0] (or another listed file). */
+  /** Live demo, must be exported from files[0] (or another listed file). */
   Demo: LazyDemo;
   /** Preferred canvas for the demo: "light" | "dark" | "media" (rich photo backdrop). */
   canvas?: "light" | "dark" | "media";

@@ -1,5 +1,5 @@
 /**
- * OtpInput — one-time-code entry (default 6 digits) with auto-advance,
+ * OtpInput, one-time-code entry (default 6 digits) with auto-advance,
  * paste and SMS autofill support, a shake on error and a success cascade.
  *
  * Props: length (default 6), value / defaultValue / onChange(code),
@@ -294,7 +294,7 @@ export function Demo() {
                 <span aria-hidden="true">·</span>
                 <button type="button">Call me instead</button>
               </div>
-              <p className="fd-otp-demo-hint">Demo code: <code>{DEMO_CODE}</code> — or paste any 6 digits.</p>
+              <p className="fd-otp-demo-hint">Demo code: <code>{DEMO_CODE}</code>, or paste any 6 digits.</p>
             </>
           ) : (
             <button type="button" className="fd-otp-demo-done" onClick={reset}>Make another transfer</button>

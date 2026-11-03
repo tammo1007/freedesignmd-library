@@ -1,5 +1,5 @@
 /**
- * SplitText — splits a string into characters, words or lines and plays an
+ * SplitText, splits a string into characters, words or lines and plays an
  * entrance preset across the pieces.
  *
  * Presets
@@ -81,7 +81,7 @@ function typeSchedule(text: string, cps: number) {
     } else if (hash(i, 9) > 0.72) burst = 2 + Math.floor(hash(i, 4) * 4);
     if (prev === " ") d += base * 0.35 * hash(i, 5);
     if (/[,;:]/.test(prev)) d += base * (2.2 + hash(i, 6) * 1.5);
-    if (/[.!?—–]/.test(prev)) d += base * (4 + hash(i, 7) * 3);
+    if (/[.!?––]/.test(prev)) d += base * (4 + hash(i, 7) * 3);
     if (hash(i, 8) > 0.965) d += base * (3 + hash(i, 2) * 4); // the hesitation
     if (c === " ") d *= 0.7;
     t += i === 0 ? 0 : d;

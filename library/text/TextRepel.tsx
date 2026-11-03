@@ -1,5 +1,5 @@
 /**
- * TextRepel — a headline whose letters drift away from the cursor (or toward
+ * TextRepel, a headline whose letters drift away from the cursor (or toward
  * it) and spring back home. Every letter runs its own spring (stiffness 380,
  * damping 30 by default) with a little tilt from horizontal velocity, so the
  * line feels like it is made of something physical.
@@ -214,7 +214,7 @@ export function Demo() {
       <style>{demoCss}</style>
       <header className="fd-tr-demo-bar">
         <span className="fd-tr-demo-brand">Marrow<span>&amp;</span>Pine</span>
-        <span className="fd-tr-demo-loc">Rotterdam — 51.92°N</span>
+        <span className="fd-tr-demo-loc">Rotterdam, 51.92°N</span>
         <div className="fd-tr-demo-seg" role="radiogroup" aria-label="Cursor field">
           {(["repel", "attract"] as const).map((m) => (
             <button key={m} type="button" role="radio" aria-checked={mode === m} onClick={() => setMode(m)}>

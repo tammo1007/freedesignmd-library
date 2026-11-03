@@ -1,5 +1,5 @@
 /**
- * SplitFlap — an airport departure board. Every cell is a split-flap unit
+ * SplitFlap, an airport departure board. Every cell is a split-flap unit
  * with a top and bottom half; when its character changes it flips through
  * the drum (in alphabet order, like the real thing) with a two-half 3D fold,
  * and cells settle in a staggered cascade.
@@ -45,7 +45,7 @@ export interface SplitFlapProps {
   style?: CSSProperties;
 }
 
-/** One split-flap cell. All animation is imperative — React renders it once per target char. */
+/** One split-flap cell. All animation is imperative, React renders it once per target char. */
 function Cell({ target, charset, flipMs, maxSteps, delay }: { target: string; charset: string; flipMs: number; maxSteps: number; delay: number }) {
   const el = useRef<HTMLSpanElement>(null);
   const shown = useRef(target);

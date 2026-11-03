@@ -1,5 +1,5 @@
 /**
- * HeroFashionEditorial — a luxury-house campaign hero. A giant serif masthead
+ * HeroFashionEditorial, a luxury-house campaign hero. A giant serif masthead
  * sets in letter by letter, and three campaign photographs (two cloth close
  * crops and the house fragrance) are revealed with clip-path wipes. Each frame
  * carries a ruled caption: look number, piece, price. On scroll the masthead

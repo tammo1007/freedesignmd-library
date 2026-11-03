@@ -1,5 +1,5 @@
 /**
- * MagneticDock — a macOS-style dock. Icons grow with a gaussian falloff
+ * MagneticDock, a macOS-style dock. Icons grow with a gaussian falloff
  * around the cursor, the bar widens with them, labels float above on hover
  * or focus, launching an app bounces it, and running apps get a dot.
  *
@@ -375,7 +375,7 @@ export function Demo() {
           <h1 className="fd-dock-demo-h1">3 meetings, 1 deep-work block, 12 unread.</h1>
           <ul className="fd-dock-demo-agenda">
             <li><time>10:00</time> Q4 roadmap review <span>Boards</span></li>
-            <li><time>13:30</time> Design crit — onboarding v3 <span>Docs</span></li>
+            <li><time>13:30</time> Design crit, onboarding v3 <span>Docs</span></li>
             <li><time>15:00</time> Focus · no notifications <span>Focus Radio</span></li>
           </ul>
         </section>

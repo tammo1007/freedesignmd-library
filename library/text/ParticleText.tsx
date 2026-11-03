@@ -1,5 +1,5 @@
 /**
- * ParticleText — text (or any canvas-drawable mark) sampled into particles.
+ * ParticleText, text (or any canvas-drawable mark) sampled into particles.
  * The cursor pushes particles aside and they spring home; a click detonates
  * the word and it reforms. Particles keep a faint idle shimmer.
  *
@@ -275,7 +275,7 @@ export function ParticleText({
       style={style}
       role="button"
       tabIndex={0}
-      aria-label={`${label ?? text.replace(/\n/g, " ")} — press to scatter`}
+      aria-label={`${label ?? text.replace(/\n/g, " ")}, press to scatter`}
       onClick={() => burstRef.current()}
       onKeyDown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -318,7 +318,7 @@ export function Demo() {
         <a className="fd-pt-demo-btn" href="#tickets">Get tickets</a>
       </header>
       <main className="fd-pt-demo-main">
-        <p className="fd-pt-demo-eyebrow">17 — 19 July 2027 · Lake Alster, Hamburg</p>
+        <p className="fd-pt-demo-eyebrow">17, 19 July 2027 · Lake Alster, Hamburg</p>
         <h1 className="fd-pt-demo-sr">Saltwater Festival</h1>
         <ParticleText text={"SALT\nWATER"} label="Saltwater" className="fd-pt-demo-stage" />
         <p className="fd-pt-demo-hint" aria-hidden="true">Move through the letters · click to scatter</p>

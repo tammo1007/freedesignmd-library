@@ -1,5 +1,5 @@
 /**
- * GlassTabBar — iOS 26-style floating tab bar in Liquid Glass.
+ * GlassTabBar, iOS 26-style floating tab bar in Liquid Glass.
  *
  * - Floats above content as one regular-glass capsule; Search sits apart at
  *   the trailing end in its own circular glass button (HIG).

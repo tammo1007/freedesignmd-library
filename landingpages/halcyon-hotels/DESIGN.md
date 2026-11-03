@@ -1,4 +1,4 @@
-# Halcyon — DESIGN.md
+# Halcyon, DESIGN.md
 
 Boutique hotels on the Amalfi coast and in Kyoto. Warm luxury editorial: a large serif display face with tight tracking, sand / ink / terracotta palette, generous whitespace, and real editorial photography from `public/img/halcyon` (Positano terrace, lemon pool, suite, ryokan, journals).
 
@@ -17,8 +17,8 @@ All CSS lives in `Page.tsx` under the `.hal` prefix. Every element is reset expl
 | Sea (map routes) | `--hal-sea` | `#2F5866` |
 | Dark bands (rituals, footer) | `--hal-night` | `#191513` |
 | Hairlines | `--hal-line` | `rgba(30,25,21,0.14)` |
-| Accent on dark | — | `#E6A47F` |
-| Light text on dark | — | `#F3ECE2` / `#F7F0E6` / `#FBF3E8` |
+| Accent on dark |, | `#E6A47F` |
+| Light text on dark |, | `#F3ECE2` / `#F7F0E6` / `#FBF3E8` |
 
 The hero illustration has its own golden-hour palette (sky `#D9C6B8 → #EED3B2 → #F6E2C6`, sea `#9EAEAA → #2B4D5A`, cliff `#9C6A4D → #5A3A2B`, bougainvillea `#B3466A`/`#C95C80`) and a dusk palette that fades in over it (sky `#262640 → #5E4560 → #C2735D → #E9A170`, sea `#B07A6E → #1C2635`, window lights `#FFD48E`).
 

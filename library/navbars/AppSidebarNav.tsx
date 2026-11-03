@@ -1,5 +1,5 @@
 /**
- * AppSidebarNav — a fintech dashboard sidebar: workspace switcher dropdown,
+ * AppSidebarNav, a fintech dashboard sidebar: workspace switcher dropdown,
  * nested groups that expand smoothly, badges, an active indicator that
  * slides between items (and onto a collapsed group's parent), and a collapse
  * button that folds the sidebar into a 72px icon rail with tooltips. Icons

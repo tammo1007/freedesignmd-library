@@ -111,7 +111,7 @@ export const items: LibraryItem[] = [
     Demo: lazyDemo(() => import("./HeroAutoScrub")),
     canvas: "dark",
     height: 880,
-    support: "All evergreen browsers (position: sticky). The demo scrolls inside its frame — scroll to drive.",
+    support: "All evergreen browsers (position: sticky). The demo scrolls inside its frame, scroll to drive.",
   },
   {
     slug: "hero-saas-bento",

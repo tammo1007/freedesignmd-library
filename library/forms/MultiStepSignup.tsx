@@ -1,5 +1,5 @@
 /**
- * MultiStepSignup — three-step onboarding form (Account → Workspace → Review)
+ * MultiStepSignup, three-step onboarding form (Account → Workspace → Review)
  * with a progress stepper, per-step validation, direction-aware step
  * transitions, a measured height animation and a review step with edit links.
  *

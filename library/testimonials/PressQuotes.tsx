@@ -1,5 +1,5 @@
 /**
- * PressQuotes — an editorial press section for a film: festival laurels
+ * PressQuotes, an editorial press section for a film: festival laurels
  * drawn in SVG, one huge pull quote with hand-drawn stars, and smaller
  * critics' quotes in a rhythmic newspaper grid. Publications are set as
  * typographic wordmarks. Click any smaller quote to promote it to the lead.

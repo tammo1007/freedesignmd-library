@@ -1,5 +1,5 @@
 /**
- * HoldToConfirm — press-and-hold to run a destructive or irreversible action.
+ * HoldToConfirm, press-and-hold to run a destructive or irreversible action.
  * Progress fills through the button; releasing early drains it back and
  * cancels. Works with pointer, touch and keyboard (hold Space or Enter).
  *
@@ -12,7 +12,7 @@
  * Accessibility: native <button>; a polite live region announces start,
  * cancel and completion; instructions are linked with aria-describedby.
  * Holding via keyboard cancels on keyup or blur. Reduced motion: no scale or
- * shake — the fill still shows progress.
+ * shake, the fill still shows progress.
  */
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import type { ReactNode } from "react";

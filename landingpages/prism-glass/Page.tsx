@@ -1,7 +1,7 @@
 /**
- * Prism — AI product-photography landing page with Apple-style Liquid Glass.
+ * Prism, AI product-photography landing page with Apple-style Liquid Glass.
  *
- * Product imagery: three real studio photographs in public/img/prism/ —
+ * Product imagery: three real studio photographs in public/img/prism/
  * parfum.webp, balm.webp, tube.webp (each with a -480 variant), grey seamless
  * backdrop, soft light, reflective floor. Every "campaign variation" on the
  * page is the same three photos re-lit and re-cropped with CSS only (blend-mode
@@ -13,12 +13,12 @@
  * prefixed `fd-prs-`). Drop it into any React 18+ project and render <Page />.
  *
  * Liquid Glass: the in-file <Glass> helper renders a frosted surface
- * everywhere and, in Chromium, upgrades to true refraction — a per-element
+ * everywhere and, in Chromium, upgrades to true refraction, a per-element
  * SVG filter (feImage displacement map generated on a canvas from the
  * element's own size and radius, three chromatic displacement passes, slight
  * blur and saturation) applied with `backdrop-filter: url(#id)`. Following
  * Apple's HIG, glass is used only for the control layer that floats above
- * content (nav, prompt bar, toggles, sliders, carousel buttons) — never for
+ * content (nav, prompt bar, toggles, sliders, carousel buttons), never for
  * content cards.
  *
  * Motion: drifting mesh backdrop, nav that condenses into a glass capsule,
@@ -129,7 +129,7 @@ function supportsSvgBackdrop() {
 /**
  * Displacement map for a rounded rectangle: neutral grey inside, and a convex
  * bezel of width `bezel` whose red/green channels push samples outward along
- * the edge normal (strongest at the rim) — the "liquid" lensing at the edge.
+ * the edge normal (strongest at the rim), the "liquid" lensing at the edge.
  */
 function buildDisplacementMap(w: number, h: number, radius: number, bezel: number) {
   const W = Math.max(2, Math.round(w));
@@ -590,7 +590,7 @@ function Hero() {
             </span>
           </h1>
           <p className="fd-prs-lede fd-prs-in" style={{ "--d": "260ms" } as CSSProperties}>
-            Upload one product photo. Prism relights, restages and resizes it into a full campaign — with shadows,
+            Upload one product photo. Prism relights, restages and resizes it into a full campaign, with shadows,
             reflections and refraction that obey real optics.
           </p>
           <form
@@ -908,9 +908,9 @@ function Lens() {
 type Scene = { k: string; t: string; d: string; id: ProductId; grade: GradeKey; crop: Crop; clip: string; label: string; az: number; dial: number };
 
 const SCENES: Scene[] = [
-  { k: "Relight", t: "Move the sun.", d: "Drag the key light around your product and watch shadows, caustics and reflections follow — no reshoot, no lighting kit.", id: "parfum", grade: "golden", crop: { oy: 0.55 }, clip: "inset(0% 0% 0% 0% round 28px)", label: "1:1 · Shopify PDP", az: 214, dial: -50 },
+  { k: "Relight", t: "Move the sun.", d: "Drag the key light around your product and watch shadows, caustics and reflections follow, no reshoot, no lighting kit.", id: "parfum", grade: "golden", crop: { oy: 0.55 }, clip: "inset(0% 0% 0% 0% round 28px)", label: "1:1 · Shopify PDP", az: 214, dial: -50 },
   { k: "Restage", t: "Change the world around it.", d: "Swap travertine for terrazzo, studio for street. Prism keeps your product pixel-exact and composites the scene around it.", id: "balm", grade: "dusk", crop: { oy: 0.62, z: 1.12, fy: 0.62 }, clip: "inset(0% 10% 0% 10% round 28px)", label: "4:5 · Instagram feed", az: 296, dial: 30 },
-  { k: "Resize", t: "Every format, one click.", d: "214 crops for every channel — from a 9:16 story to a 21:9 billboard — each re-composed by the model, not just cropped.", id: "tube", grade: "north", crop: { oy: 0.5, z: 1.05 }, clip: "inset(0% 21% 0% 21% round 28px)", label: "9:16 · Stories & Reels", az: 180, dial: 0 },
+  { k: "Resize", t: "Every format, one click.", d: "214 crops for every channel, from a 9:16 story to a 21:9 billboard, each re-composed by the model, not just cropped.", id: "tube", grade: "north", crop: { oy: 0.5, z: 1.05 }, clip: "inset(0% 21% 0% 21% round 28px)", label: "9:16 · Stories & Reels", az: 180, dial: 0 },
 ];
 
 function Studio() {
@@ -1031,7 +1031,7 @@ function Gallery() {
               One photo in. <span className="fd-prs-mute">A season of campaigns out.</span>
             </h2>
           </div>
-          <p className="fd-prs-p">Every image below is cut from the same three studio photos — relit, regraded and recomposed by Prism.</p>
+          <p className="fd-prs-p">Every image below is cut from the same three studio photos, relit, regraded and recomposed by Prism.</p>
         </div>
         <div className="fd-prs-gal">
           {cols.map((col, c) => (
@@ -1194,7 +1194,7 @@ function Stats() {
 /* ─────────────────────────── momentum carousel ─────────────────────────── */
 
 const QUOTES: { q: string; n: string; r: string; m: string; id: ProductId; grade: GradeKey; crop: Crop }[] = [
-  { q: "We shot our entire spring launch — 340 assets — in an afternoon. The bottle reflections are better than our last studio day.", n: "Inès Duval", r: "Creative Director, Maison Vale", m: "340 assets · 1 afternoon", id: "parfum", grade: "golden", crop: { oy: 0.58, fy: 0.58, z: 1.1 } },
+  { q: "We shot our entire spring launch, 340 assets, in an afternoon. The bottle reflections are better than our last studio day.", n: "Inès Duval", r: "Creative Director, Maison Vale", m: "340 assets · 1 afternoon", id: "parfum", grade: "golden", crop: { oy: 0.58, fy: 0.58, z: 1.1 } },
   { q: "Our Amazon conversion went up 18% after we replaced flat white-background shots with Prism lifestyle scenes.", n: "Marcus Bell", r: "Head of E-commerce, Fieldnote", m: "+18% conversion", id: "balm", grade: "north", crop: { oy: 0.62, fy: 0.62, z: 1.15 } },
   { q: "Refraction through tinted lenses was the thing every other tool got wrong. Prism gets it right on the first render.", n: "Hana Sato", r: "Brand Lead, Kinfolk Eyewear", m: "0 reshoots this year", id: "parfum", grade: "mono", crop: { oy: 0.62, fy: 0.62, z: 1.2 } },
   { q: "I briefed a billboard on Tuesday and approved it on Wednesday. The agency still doesn't believe me.", n: "Tom Achterberg", r: "CMO, Pale Blue", m: "48 h brief to billboard", id: "tube", grade: "dusk", crop: { oy: 0.5, fy: 0.45, z: 1.2 } },

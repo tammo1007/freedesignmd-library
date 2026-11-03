@@ -1,5 +1,5 @@
 /**
- * ImageTrail — as the pointer travels across an area, image cards spawn at
+ * ImageTrail, as the pointer travels across an area, image cards spawn at
  * fixed distance intervals along its path, pop in with a scale + rotation,
  * hold briefly, then fall away and fade. The number of live cards is capped
  * so long gestures never pile up DOM.
@@ -24,7 +24,7 @@
  * Browser support: all evergreen browsers (Web Animations API).
  *
  * Demo images: /img/lux/{dunes,hotel-golden,still-vase,bamboo,lantern,hotel-dusk,still-tea}-800.webp and
- * /img/people/p3.webp, included in the repo's public/img — copy them next to your page or swap in your own.
+ * /img/people/p3.webp, included in the repo's public/img, copy them next to your page or swap in your own.
  */
 import { useEffect, useRef } from "react";
 import type { CSSProperties, ReactNode } from "react";
@@ -239,8 +239,8 @@ export function Demo() {
           </p>
         </main>
         <footer className="fd-it-demo-foot">
-          <span>Clients — Kinfolk, Monocle, Aesop, Norrøna</span>
-          <span>Archive 2016 — 2026 · 4,812 frames</span>
+          <span>Clients, Kinfolk, Monocle, Aesop, Norrøna</span>
+          <span>Archive 2016, 2026 · 4,812 frames</span>
         </footer>
       </ImageTrail>
     </div>

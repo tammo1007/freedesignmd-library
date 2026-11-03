@@ -1,5 +1,5 @@
 /**
- * DitherGradient — a slow, flowing mesh-gradient backdrop (domain-warped noise
+ * DitherGradient, a slow, flowing mesh-gradient backdrop (domain-warped noise
  * fields) quantised through ordered dithering into 2–4 inks. Built for hero
  * sections: put any content inside as children.
  *
@@ -346,7 +346,7 @@ export function DitherGradient({
       return true;
     },
   });
-  // Dither cells are chunky, so render at DPR 1 when pixelSize ≥ 2 — same look, ¼ the fragments.
+  // Dither cells are chunky, so render at DPR 1 when pixelSize ≥ 2, same look, ¼ the fragments.
   const { failed, kick } = useStage(canvasRef, FRAG, hooks, pixelSize >= 2 ? 1 : 2);
 
   useEffect(() => kick.current(), [palette.join(), pixelSize, algorithm, scale, glow?.[0], glow?.[1], brightness, shade, kick]);
@@ -417,7 +417,7 @@ export function Demo() {
         <p className="fd-dgrad-demo-kicker">Community solar for the Nordics</p>
         <h1 className="fd-dgrad-demo-title">Power that grows<br />where you live.</h1>
         <p className="fd-dgrad-demo-body">
-          Subscribe to a share of a solar farm near you. Canopy feeds clean kilowatt-hours straight into your local grid — no roof, no installer, 12% off your bill from the first month.
+          Subscribe to a share of a solar farm near you. Canopy feeds clean kilowatt-hours straight into your local grid, no roof, no installer, 12% off your bill from the first month.
         </p>
         <div className="fd-dgrad-demo-actions">
           <a className="fd-dgrad-demo-primary" href="#join" onClick={(e) => e.preventDefault()}>Check your postcode</a>

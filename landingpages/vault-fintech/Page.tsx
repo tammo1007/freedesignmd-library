@@ -1,5 +1,5 @@
 /**
- * Vault — monochrome business-banking landing page.
+ * Vault, monochrome business-banking landing page.
  *
  * A complete, self-contained single page: React is the only import and every
  * style lives in the <style> block at the bottom of this file (classes are
@@ -281,7 +281,7 @@ function BalanceCard() {
     };
   }, []);
 
-  // Pointer tilt — spring integrator (k 380, c 30, m 1).
+  // Pointer tilt, spring integrator (k 380, c 30, m 1).
   useEffect(() => {
     const card = cardRef.current;
     if (!card || prefersReducedMotion()) return;
@@ -342,7 +342,7 @@ function BalanceCard() {
   return (
     <div className="fd-vlt-card-wrap">
       <span className="fd-vlt-fig" aria-hidden="true">
-        Fig. 01 — Operating account, live
+        Fig. 01, Operating account, live
       </span>
       <div ref={cardRef} className="fd-vlt-card" aria-label="Example operating account">
         <div className="fd-vlt-card-glare" aria-hidden="true" />
@@ -419,7 +419,7 @@ function Hero() {
             </span>
           </h1>
           <p className="fd-vlt-lede fd-vlt-rise" style={{ "--d": "420ms" } as CSSProperties}>
-            Operating accounts, corporate cards, global payments and treasury — one ledger, eleven currencies,
+            Operating accounts, corporate cards, global payments and treasury, one ledger, eleven currencies,
             zero spreadsheets. Built for companies from seed to IPO.
           </p>
           <div className="fd-vlt-ctas fd-vlt-rise" style={{ "--d": "520ms" } as CSSProperties}>
@@ -499,12 +499,12 @@ const STEPS = [
   {
     k: "01",
     t: "Every balance, one number.",
-    d: "Operating, payroll, tax and reserve accounts roll up across 11 currencies — converted at the mid-market rate, refreshed on every settlement.",
+    d: "Operating, payroll, tax and reserve accounts roll up across 11 currencies, converted at the mid-market rate, refreshed on every settlement.",
   },
   {
     k: "02",
     t: "Cash flow you can read.",
-    d: "Inflows and outflows by week, with runway projected from the last 90 days of actuals — not last quarter’s board deck.",
+    d: "Inflows and outflows by week, with runway projected from the last 90 days of actuals, not last quarter’s board deck.",
   },
   {
     k: "03",
@@ -557,7 +557,7 @@ function Platform() {
       <div className="fd-vlt-plat-stick">
         <div className="fd-vlt-wrap fd-vlt-plat-grid">
           <div className="fd-vlt-plat-copy">
-            <p className="fd-vlt-label">02 — Platform</p>
+            <p className="fd-vlt-label">02, Platform</p>
             <h2 className="fd-vlt-h2">
               One screen for
               <br />
@@ -691,7 +691,7 @@ function Platform() {
               </div>
             </div>
             <span className="fd-vlt-fig fd-vlt-fig-b" aria-hidden="true">
-              Fig. 02 — Overview, assembled from six modules
+              Fig. 02, Overview, assembled from six modules
             </span>
           </div>
         </div>
@@ -726,7 +726,7 @@ const CAPS: { k: string; t: string; d: string; specs: [string, string][]; art: R
   {
     k: "02",
     t: "Corporate cards",
-    d: "Physical and virtual cards with limits per merchant, category, team or geography — enforced at authorization.",
+    d: "Physical and virtual cards with limits per merchant, category, team or geography, enforced at authorization.",
     specs: [
       ["Issue time", "< 4 seconds"],
       ["Cashback", "1.75% flat"],
@@ -874,7 +874,7 @@ function Capabilities() {
       <div className="fd-vlt-caps-stick">
         <div className="fd-vlt-wrap fd-vlt-caps-head">
           <div>
-            <p className="fd-vlt-label fd-vlt-on-dark">03 — Capabilities</p>
+            <p className="fd-vlt-label fd-vlt-on-dark">03, Capabilities</p>
             <h2 className="fd-vlt-h2">Six instruments. One ledger.</h2>
           </div>
           <p className="fd-vlt-caps-count" aria-hidden="true">
@@ -970,7 +970,7 @@ function Stats() {
     <section className="fd-vlt-stats" aria-label="Vault in numbers">
       <div className="fd-vlt-wrap">
         <div className="fd-vlt-stats-head" data-reveal="">
-          <p className="fd-vlt-label">04 — In numbers</p>
+          <p className="fd-vlt-label">04, In numbers</p>
           <h2 className="fd-vlt-h2">Measured, not marketed.</h2>
         </div>
         <div className="fd-vlt-stats-grid">
@@ -1012,7 +1012,7 @@ function Security() {
     <section className="fd-vlt-sec" id="security">
       <div className="fd-vlt-wrap fd-vlt-sec-grid">
         <div data-reveal="">
-          <p className="fd-vlt-label">05 — Security</p>
+          <p className="fd-vlt-label">05, Security</p>
           <h2 className="fd-vlt-h2">
             Paranoid by
             <br />
@@ -1060,7 +1060,7 @@ function Testimonial() {
     <section className="fd-vlt-quote" aria-label="Customer story">
       <div className="fd-vlt-wrap fd-vlt-quote-grid">
         <p className="fd-vlt-label" data-reveal="">
-          06 — Customer
+          06, Customer
         </p>
         <figure data-reveal="">
           <blockquote>
@@ -1136,7 +1136,7 @@ function Pricing() {
       <div className="fd-vlt-wrap">
         <div className="fd-vlt-pricing-head" data-reveal="">
           <div>
-            <p className="fd-vlt-label">07 — Pricing</p>
+            <p className="fd-vlt-label">07, Pricing</p>
             <h2 className="fd-vlt-h2">Priced like a utility.</h2>
           </div>
           <div className="fd-vlt-seg" role="radiogroup" aria-labelledby={groupId} data-annual={annual || undefined}>
@@ -1227,7 +1227,7 @@ function Faq() {
     <section className="fd-vlt-faq" id="faq">
       <div className="fd-vlt-wrap fd-vlt-faq-grid">
         <div data-reveal="">
-          <p className="fd-vlt-label">08 — FAQ</p>
+          <p className="fd-vlt-label">08, FAQ</p>
           <h2 className="fd-vlt-h2">Fine print, in large print.</h2>
         </div>
         <div className="fd-vlt-faq-list">
@@ -1267,7 +1267,7 @@ function Cta() {
   return (
     <section className="fd-vlt-cta fd-vlt-grid-bg fd-vlt-grid-dark">
       <div className="fd-vlt-wrap fd-vlt-cta-in" data-reveal="">
-        <p className="fd-vlt-label fd-vlt-on-dark">09 — Begin</p>
+        <p className="fd-vlt-label fd-vlt-on-dark">09, Begin</p>
         <h2 className="fd-vlt-cta-h">Start operating.</h2>
         <p className="fd-vlt-cta-p">Ten minutes to apply. One business day to approval. No minimums, no monthly fees on Launch.</p>
         <div className="fd-vlt-ctas">

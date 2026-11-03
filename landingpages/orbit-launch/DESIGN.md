@@ -1,4 +1,4 @@
-# Orbit — DESIGN.md
+# Orbit, DESIGN.md
 
 SaaS / developer-platform launch page whose entire layout is an orbital system. Cosmic Technical Dark: deep navy field, electric cyan as the only saturated colour, warm white for text and the star. Everything is procedural: a canvas star field, CSS-gradient planets, inline SVG rings, spirals and sparklines. No images, no web fonts, no network.
 
@@ -17,7 +17,7 @@ All CSS lives in `Page.tsx` under the `.orb` prefix and every element is reset e
 | Muted text | `--orb-mute` | `#8CA2C6` |
 | Nebula indigo (glow only) | `--orb-indigo` | `#5B6BFF` |
 | Hairlines | `--orb-line` | `rgba(125,190,255,.16)` |
-| Hero field | — | radial `#0B1D4A → #06112B → #030815` |
+| Hero field |, | radial `#0B1D4A → #06112B → #030815` |
 
 Contrast: warm white on navy about 17:1, muted `#8CA2C6` on navy about 7:1, cyan on navy about 11:1. Dark text on cyan buttons is `#021018`.
 
@@ -47,7 +47,7 @@ Contrast: warm white on navy about 17:1, muted `#8CA2C6` on navy about 7:1, cyan
 
 ## 5. Sections and choreography
 
-1. **Hero — the system (640vh, sticky stage).** Five orbits (rings tilted −14°, ellipse ratio 0.34, 0.52 on phones) each carry a planet: Edge Functions, Realtime Sync, Observability (ringed), Auth & Access, Queues & Cron. Planets orbit at Kepler-like speeds and scale/dim by depth (front vs back of the ellipse). Scroll drives a log-interpolated camera zoom 1× → 11× through keyframes with hold windows at each orbit; the focused ring brightens, outer rings fade as they exceed the viewport, a canvas star field streams toward the viewer (depth-wrapped), and the core scales to fill the screen then fades. A HUD card per orbit crossfades bottom-left, with a zoom readout and progress bar bottom-right. Headline, pill, sub copy and CTAs fade and lift in the first 8% of scroll.
+1. **Hero, the system (640vh, sticky stage).** Five orbits (rings tilted −14°, ellipse ratio 0.34, 0.52 on phones) each carry a planet: Edge Functions, Realtime Sync, Observability (ringed), Auth & Access, Queues & Cron. Planets orbit at Kepler-like speeds and scale/dim by depth (front vs back of the ellipse). Scroll drives a log-interpolated camera zoom 1× → 11× through keyframes with hold windows at each orbit; the focused ring brightens, outer rings fade as they exceed the viewport, a canvas star field streams toward the viewer (depth-wrapped), and the core scales to fill the screen then fades. A HUD card per orbit crossfades bottom-left, with a zoom readout and progress bar bottom-right. Headline, pill, sub copy and CTAs fade and lift in the first 8% of scroll.
 2. **Anatomy.** Left column is sticky: a concentric-ring SVG whose rings spin; the ring matching the feature in view turns solid cyan with a bright planet. Right column: five feature cards (body, bullets, code sample) tracked by IntersectionObserver.
 3. **Launch sequence.** A terminal types a deploy session (2 chars / 24ms) when it enters view; four stat tiles count up (ease-out quart, 1.6s) with sparklines that draw their stroke then fade in the fill.
 4. **Integrations.** Fourteen tool nodes on two concentric rings rotating in opposite directions; scroll position adds to the angular velocity. Hover or focus a node to read its description in the centre of the ring.

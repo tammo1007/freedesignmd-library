@@ -1,5 +1,5 @@
 /**
- * BeforeAfterCompare — a draggable before / after comparison for an AI
+ * BeforeAfterCompare, a draggable before / after comparison for an AI
  * product-photo retouching tool. The "before" is the same photo with a colour
  * cast, uneven light and a cluttered set (stand, cable, tape, dust) built in
  * CSS and SVG; three chips choose which edits the "after" side receives.

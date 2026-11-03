@@ -1,4 +1,4 @@
-# Terra — design brief
+# Terra, design brief
 
 Regenerative-agriculture landing page whose composition grows with scroll. Aesthetic: **Organic Earth Editorial**. Single file `Page.tsx` (react only), scoped CSS prefix `tr-`.
 

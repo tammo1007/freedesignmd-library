@@ -1,5 +1,5 @@
 /**
- * MagneticCursorGrid — a grid of tiles that tilt and lift toward a custom
+ * MagneticCursorGrid, a grid of tiles that tilt and lift toward a custom
  * cursor. The cursor is a spring-driven follower that morphs: a dot in empty
  * space, a ring near tiles, and a filled "View" label over a tile (or any
  * element with `data-cursor="label text"`).
@@ -11,7 +11,7 @@
  *   children move with parallax proportional to the depth value.
  * CSS vars: --fd-mcg-cursor, --fd-mcg-cursor-ink.
  *
- * Browser support: evergreen. Fine-pointer only — on touch the native cursor
+ * Browser support: evergreen. Fine-pointer only, on touch the native cursor
  * and plain tiles are used.
  * Accessibility: tiles are links/buttons; keyboard focus lifts a tile the same
  * way hover does. The follower is aria-hidden. Reduced motion: no tilt, no
@@ -110,7 +110,7 @@ export function CursorStage({ children, tilt = 9, lift = 18, label = "View", cla
       step(py, my - host.top, dt, 520, 38);
       step(size, mode === "label" ? 84 : mode === "ring" ? 44 : 12, dt, 380, 26);
       step(fillS, mode === "ring" ? 0 : 1, dt, 380, 30);
-      // fixed 84px element, scaled — transform only, no layout
+      // fixed 84px element, scaled, transform only, no layout
       const sc = Math.max(0.01, size.x / 84);
       cu.style.transform = `translate3d(${(px.x - 42).toFixed(2)}px,${(py.x - 42).toFixed(2)}px,0) scale(${sc.toFixed(4)})`;
       cu.style.setProperty("--ring", `${(1.5 / sc).toFixed(2)}px`);
@@ -324,7 +324,7 @@ export function Demo() {
               <span className="fd-mcg-demo-meta" data-depth="2.2">
                 <span className="fd-mcg-demo-t">{w.title}</span>
                 <span className="fd-mcg-demo-c">
-                  {w.client} — {w.disc}
+                  {w.client}, {w.disc}
                 </span>
               </span>
             </a>

@@ -1,9 +1,9 @@
 /**
- * LiquidMetalButton — a capsule CTA whose rim (or whole body) is live liquid
+ * LiquidMetalButton, a capsule CTA whose rim (or whole body) is live liquid
  * chrome. A WebGL canvas renders the metal behind a CSS-masked capsule so the
  * label stays crisp DOM text. Pressing sends a ripple out from the touch point.
  *
- * Also exports MetalButtonCSS — a zero-JS fallback with conic/linear chrome
+ * Also exports MetalButtonCSS, a zero-JS fallback with conic/linear chrome
  * gradients and an animated specular sweep. Same API, works everywhere.
  *
  * Props (both)

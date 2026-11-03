@@ -12,7 +12,7 @@ export const system: System = {
   defaultMode: "dark",
   personality: {
     summary:
-      "Linear Orbit is an engineered calm for tools people live in all day. The canvas is a near-black that never reaches pure black; structure comes from 1px hairlines at 8% white instead of boxes and shadows. Type is Inter Tight set small and tight — 13px UI labels, 14px body — so dense lists still breathe. Indigo `#5e6ad2` is the only saturated color in the chrome: it marks the primary action, the focused row and the active tab. Status colors appear only as 6px dots and small glyphs.",
+      "Linear Orbit is an engineered calm for tools people live in all day. The canvas is a near-black that never reaches pure black; structure comes from 1px hairlines at 8% white instead of boxes and shadows. Type is Inter Tight set small and tight, 13px UI labels, 14px body, so dense lists still breathe. Indigo `#5e6ad2` is the only saturated color in the chrome: it marks the primary action, the focused row and the active tab. Status colors appear only as 6px dots and small glyphs.",
     signatureMoves: [
       "Hairline-only structure: 1px `border` dividers, no card shadows in dark mode",
       "Small, tight UI type: 13px body-small and 12px medium labels keep dense lists legible",
@@ -215,9 +215,9 @@ export const system: System = {
     "Use `muted-foreground` for metadata (assignee, date, ID)",
   ],
   donts: [
-    "Don't add drop shadows to cards in dark mode — the hairline is the elevation",
+    "Don't add drop shadows to cards in dark mode, the hairline is the elevation",
     "Don't introduce a second saturated brand color; chart colors are for data only",
-    "Don't use filled status pills — use a 6px dot plus text",
+    "Don't use filled status pills, use a 6px dot plus text",
     "Don't round anything beyond `--radius-xl` (14px), except avatars",
     "Don't set body copy above 15px inside the app shell",
   ],
@@ -255,7 +255,7 @@ export const system: System = {
           ["ENG-412", "Offline edits conflict on reconnect", "In progress", "Mara K.", "Jun 12"],
           ["ENG-398", "Signed tokens for websocket auth", "In review", "Dev P.", "Jun 13"],
           ["ENG-377", "Batch outgoing mutations", "Todo", "Ana R.", "Jun 14"],
-          ["ENG-366", "Snapshot compaction", "Backlog", "—", "—"],
+          ["ENG-366", "Snapshot compaction", "Backlog", "–", "–"],
         ],
       },
       testimonial: {

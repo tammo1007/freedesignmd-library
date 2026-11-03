@@ -1,5 +1,5 @@
 /**
- * LiquidMetalBlob — a morphing drop of mercury for hero centrepieces. A tiny
+ * LiquidMetalBlob, a morphing drop of mercury for hero centrepieces. A tiny
  * raymarcher blends a few metaball spheres with a smooth-min, wobbles the
  * surface with sine displacement and reflects a procedural studio. The blob
  * leans toward the cursor and a satellite droplet is pulled out by it.
@@ -15,7 +15,7 @@
  *
  * Browser support: WebGL2 / WebGL1. Without WebGL a CSS chrome sphere is
  * shown. Reduced motion: one still frame. Canvas is aria-hidden.
- * Performance: 48-step raymarch with early exit, bounded by a sphere test —
+ * Performance: 48-step raymarch with early exit, bounded by a sphere test
  * pixels outside the blob's bounds cost almost nothing.
  */
 import { useEffect, useRef, useState } from "react";
@@ -249,7 +249,7 @@ void main(){
 
   vec3 ro = vec3(0., 0., 4.);
   vec3 rd = normalize(vec3(uv, -1.62));
-  // bounding sphere — skip the march for background pixels
+  // bounding sphere, skip the march for background pixels
   float R = 1.3 * uSize + .2;
   float b = dot(ro, rd);
   float cc = dot(ro, ro) - R * R;
@@ -428,7 +428,7 @@ export function Demo() {
         <div className="fd-lmblob-demo-copy">
           <p className="fd-lmblob-demo-kicker">Introducing Quicksilver 3</p>
           <h1 className="fd-lmblob-demo-title">An assistant that takes the shape of your work.</h1>
-          <p className="fd-lmblob-demo-body">Quicksilver adapts to your docs, your codebase and your team's voice — then gets out of the way. Now with 1M-token memory and on-device mode.</p>
+          <p className="fd-lmblob-demo-body">Quicksilver adapts to your docs, your codebase and your team's voice, then gets out of the way. Now with 1M-token memory and on-device mode.</p>
           <div className="fd-lmblob-demo-actions">
             <a className="fd-lmblob-demo-primary" href="#try" onClick={(e) => e.preventDefault()}>Try it free</a>
             <a className="fd-lmblob-demo-secondary" href="#film" onClick={(e) => e.preventDefault()}>Watch the film · 2:14</a>

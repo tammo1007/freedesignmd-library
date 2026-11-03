@@ -1,5 +1,5 @@
 /**
- * Atelier Nord — Scandinavian fashion e-commerce.
+ * Atelier Nord, Scandinavian fashion e-commerce.
  *
  * Monochrome high-fashion storefront: giant condensed type, an art-directed
  * asymmetric grid and pre-rendered fabric photography (draped herringbone,
@@ -7,7 +7,7 @@
  * CSS film-grain layer. No web fonts.
  *
  * Demo images: /img/lux/{dr-coat,dr-knit,dr-trouser,dr-shirt,dr-scarf,dr-bag,dunes-mono,still-grey}.webp
- * (+ -800 variants), included in the repo's public/img/lux — copy them next to your page or swap in your own.
+ * (+ -800 variants), included in the repo's public/img/lux, copy them next to your page or swap in your own.
  *
  * Motion
  *  - Masthead: each letter of ATELIER / NORD scrubs on scroll at its own
@@ -100,10 +100,10 @@ const SIZES = ["XS", "S", "M", "L", "XL"];
 const ONE_SIZE: GKind[] = ["scarf", "bag"];
 
 const LOOKS: { k: SceneK; label: string; cap: string }[] = [
-  { k: "birch", label: "Charcoal wool twill falling in raking light", cap: "Look 03 — Ström Trouser" },
+  { k: "birch", label: "Charcoal wool twill falling in raking light", cap: "Look 03, Ström Trouser" },
   { k: "stack", label: "Merino cable knit, draped over a plinth", cap: "Vind Cable Crew" },
   { k: "detail", label: "Close-up of the herringbone weave on the overcoat", cap: "Herringbone, 680 g/m" },
-  { k: "fjord", label: "Wind-sculpted dunes at first light, in monochrome", cap: "Look 01 — Råbjerg Mile, 06:40" },
+  { k: "fjord", label: "Wind-sculpted dunes at first light, in monochrome", cap: "Look 01, Råbjerg Mile, 06:40" },
   { k: "window", label: "Ceramics and a dried branch in window light", cap: "Frost Check Scarf" },
   { k: "figure", label: "Charcoal herringbone wool, studio light", cap: "Look 07" },
   { k: "still", label: "Vegetable-tanned black leather, close-up", cap: "Båt Tote" },
@@ -111,7 +111,7 @@ const LOOKS: { k: SceneK; label: string; cap: string }[] = [
 const LOOK_CENTER = 3;
 
 const QUOTES = [
-  { q: "The quietest coat of the season — and the one everyone asked about.", s: "Kvarter Magazine" },
+  { q: "The quietest coat of the season, and the one everyone asked about.", s: "Kvarter Magazine" },
   { q: "Scandinavian restraint, cut with a tailor's arrogance.", s: "The Northern Review" },
   { q: "Atelier Nord makes clothes you stop noticing, which is the point.", s: "Form & Fabric" },
   { q: "A knit you will hand down, not throw out.", s: "Studio Weekly" },
@@ -126,7 +126,7 @@ const FABRICS = [
 
 const JOURNAL = [
   { k: "fjord" as SceneK, date: "14 Oct 2026", t: "Six days on Lysefjord: shooting AW26 in four hours of light a day" },
-  { k: "stack" as SceneK, date: "2 Oct 2026", t: "Why our cable crew takes eleven hours to knit — and why we refuse to speed it up" },
+  { k: "stack" as SceneK, date: "2 Oct 2026", t: "Why our cable crew takes eleven hours to knit, and why we refuse to speed it up" },
   { k: "window" as SceneK, date: "19 Sep 2026", t: "Inside the Södermalm atelier: repairs, alterations and a very old Pfaff" },
 ];
 
@@ -283,7 +283,7 @@ export function Page() {
     );
     root.querySelectorAll("[data-an-rv]").forEach((el) => io.observe(el));
 
-    // Cursor "View" label — spring-follow (stiffness 380, damping 30).
+    // Cursor "View" label, spring-follow (stiffness 380, damping 30).
     const label = root.querySelector<HTMLElement>(".an-cursor");
     let tx = 0, ty = 0, x = 0, y2 = 0, vx = 0, vy = 0, active = false, cRaf = 0, last = 0;
     const step = (now: number) => {
@@ -337,7 +337,7 @@ export function Page() {
     };
   }, []);
 
-  /* Cart drawer — spring slide + focus management. */
+  /* Cart drawer, spring slide + focus management. */
   const springX = useRef({ x: 104, v: 0 });
   useEffect(() => {
     const el = drawerRef.current;
@@ -432,7 +432,7 @@ export function Page() {
             <button type="button" className="an-burger" aria-expanded={menu} aria-label={menu ? "Close menu" : "Open menu"} onClick={() => setMenu((m) => !m)}><span /><span /></button>
             {navL.map((l) => <a key={l} href={l === "Lookbook" ? "#an-look" : l === "Journal" ? "#an-journal" : "#an-shop"}>{l}</a>)}
           </nav>
-          <a href="#an-top" className="an-logo" aria-label="Atelier Nord — home">Atelier&nbsp;Nord</a>
+          <a href="#an-top" className="an-logo" aria-label="Atelier Nord, home">Atelier&nbsp;Nord</a>
           <div className="an-nav-r">
             <a href="#an-top" className="an-nav-txt">Search</a>
             <a href="#an-top" className="an-nav-txt">Account</a>
@@ -450,7 +450,7 @@ export function Page() {
         {/* MASTHEAD */}
         <section id="an-top" className="an-mast" aria-labelledby="an-mast-title">
           <div className="an-mast-meta">
-            <p>Autumn / Winter 2026<br />Collection 07 — <em>Stillhet</em></p>
+            <p>Autumn / Winter 2026<br />Collection 07, <em>Stillhet</em></p>
             <p className="an-mast-meta-r">Designed in Stockholm<br />Made in Portugal & Italy</p>
           </div>
           <figure className="an-mast-img" data-an-view>
@@ -481,7 +481,7 @@ export function Page() {
           <p className="an-statement-t" data-an-rv>
             Stillhet is Swedish for <em>stillness</em>. Thirty-one pieces in five colours, cut from cloth woven within
             <span className="an-inline-img an-grain" aria-hidden="true"><Scene k="detail" label="" /></span>
-            a day of where it was spun — built to be worn hard and mended, not replaced.
+            a day of where it was spun, built to be worn hard and mended, not replaced.
           </p>
         </section>
 
@@ -489,7 +489,7 @@ export function Page() {
         <section id="an-look" className="an-look" aria-labelledby="an-look-title">
           <div className="an-look-stage">
             <div className="an-look-head">
-              <h2 id="an-look-title" className="an-h2">Lookbook — AW26</h2>
+              <h2 id="an-look-title" className="an-h2">Lookbook, AW26</h2>
               <p>Shot on Lysefjord and in Tyresta, October 2026</p>
             </div>
             <ul className="an-look-grid">
@@ -508,7 +508,7 @@ export function Page() {
         <section id="an-shop" className="an-shop" aria-labelledby="an-shop-title">
           <div className="an-shop-head">
             <h2 id="an-shop-title" className="an-h2 an-h2-xl" data-an-rv>New in</h2>
-            <p data-an-rv>Six pieces from Collection 07. Every garment ships with a repair card — send it back any time and we'll mend it free.</p>
+            <p data-an-rv>Six pieces from Collection 07. Every garment ships with a repair card, send it back any time and we'll mend it free.</p>
             <a href="#an-shop" className="an-link" data-an-rv>View all 31 pieces</a>
           </div>
           <p className="an-sr" aria-live="polite">{status}</p>
@@ -562,7 +562,7 @@ export function Page() {
               {[0, 1].map((k) => (
                 <ul key={k} className="an-marquee-set" aria-hidden={k === 1}>
                   {QUOTES.map((q) => (
-                    <li key={q.s}><blockquote>“{q.q}”</blockquote><cite>— {q.s}</cite><span className="an-star" aria-hidden="true">✳</span></li>
+                    <li key={q.s}><blockquote>“{q.q}”</blockquote><cite>– {q.s}</cite><span className="an-star" aria-hidden="true">✳</span></li>
                   ))}
                 </ul>
               ))}
@@ -595,11 +595,11 @@ export function Page() {
               <div><dt>Cloth</dt><dd>100% wool herringbone, Kvarnby Spinneri</dd></div>
               <div><dt>Lining</dt><dd>Bemberg cupro, body & sleeves</dd></div>
               <div><dt>Fit</dt><dd>Relaxed. Model is 186 cm wearing M</dd></div>
-              <div><dt>Made</dt><dd>Guimarães, Portugal — 14 hours per coat</dd></div>
+              <div><dt>Made</dt><dd>Guimarães, Portugal, 14 hours per coat</dd></div>
               <div><dt>Care</dt><dd>Brush, air, steam. Free repairs for life</dd></div>
             </dl>
             <div className="an-feature-cta" data-an-rv>
-              <button type="button" className="an-btn an-btn-ink" onClick={() => addToCart(0, "M")}>Add to bag — {fmt(690)}</button>
+              <button type="button" className="an-btn an-btn-ink" onClick={() => addToCart(0, "M")}>Add to bag, {fmt(690)}</button>
               <a href="#an-shop" className="an-link">Size guide</a>
             </div>
           </div>
@@ -654,13 +654,13 @@ export function Page() {
               <input id="an-email" type="email" required autoComplete="email" placeholder="name@domain.com" value={email} onChange={(e) => setEmail(e.target.value)} disabled={joined} />
               <button type="submit" disabled={joined}>{joined ? "Subscribed ✓" : "Subscribe"}</button>
             </div>
-            <p className="an-news-note" aria-live="polite">{joined ? `Tack — the next letter goes to ${email}.` : "By subscribing you accept our privacy policy."}</p>
+            <p className="an-news-note" aria-live="polite">{joined ? `Tack, the next letter goes to ${email}.` : "By subscribing you accept our privacy policy."}</p>
           </form>
           <div className="an-foot-cols">
             <div><p className="an-foot-h">Stores</p><ul><li>Hornsgatan 54, Stockholm</li><li>Ravnsborggade 9, København</li><li>Markveien 35, Oslo</li></ul></div>
             <div><p className="an-foot-h">Help</p><ul>{["Shipping & returns", "Repairs", "Size guide", "Care", "Contact"].map((x) => <li key={x}><a href="#an-top">{x}</a></li>)}</ul></div>
             <div><p className="an-foot-h">Atelier</p><ul>{["About", "Mills & makers", "Impact report 2025", "Careers", "Stockists"].map((x) => <li key={x}><a href="#an-top">{x}</a></li>)}</ul></div>
-            <div><p className="an-foot-h">Follow</p><ul>{["Instagram", "Pinterest", "Spotify — Stillhet playlist"].map((x) => <li key={x}><a href="#an-top">{x}</a></li>)}</ul></div>
+            <div><p className="an-foot-h">Follow</p><ul>{["Instagram", "Pinterest", "Spotify, Stillhet playlist"].map((x) => <li key={x}><a href="#an-top">{x}</a></li>)}</ul></div>
           </div>
         </div>
         <p className="an-foot-word" aria-hidden="true">ATELIER NORD</p>

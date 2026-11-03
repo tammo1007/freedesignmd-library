@@ -1,5 +1,5 @@
 /**
- * CommandNav — a quiet product-analytics nav whose search field opens a real
+ * CommandNav, a quiet product-analytics nav whose search field opens a real
  * ⌘K command palette: recent items, grouped results, fuzzy filtering with
  * highlighted matches, full keyboard control and a live preview pane that
  * draws a sparkline for the highlighted dashboard or event.

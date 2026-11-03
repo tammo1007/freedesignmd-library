@@ -1,5 +1,5 @@
 /**
- * DitherText — a headline printed as an ordered-dither halftone. The text is
+ * DitherText, a headline printed as an ordered-dither halftone. The text is
  * rasterised to a mask, then a shader fills it with Bayer-dithered tone whose
  * density follows scroll: dots build up as the headline scrolls into view
  * and dissolve as it leaves. A soft light gradient across the letters gives
@@ -448,7 +448,7 @@ export function Demo() {
       <section className="fd-dtext-demo-block">
         <p className="fd-dtext-demo-kicker">Scroll ↓</p>
         <DitherText className="fd-dtext-demo-h" as="h1">Concrete remembers everything.</DitherText>
-        <p className="fd-dtext-demo-dek">A walk through Lina Bo Bardi's SESC Pompéia, forty years after it opened — and why São Paulo still argues about it.</p>
+        <p className="fd-dtext-demo-dek">A walk through Lina Bo Bardi's SESC Pompéia, forty years after it opened, and why São Paulo still argues about it.</p>
       </section>
       <section className="fd-dtext-demo-block">
         <DitherText className="fd-dtext-demo-h" ink="#C2410C" angle={60}>The pool on the fourth floor.</DitherText>

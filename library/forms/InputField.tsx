@@ -1,5 +1,5 @@
 /**
- * InputField — text input with a floating label, helper / error / success
+ * InputField, text input with a floating label, helper / error / success
  * states, prefix + suffix adornments, character counter, clear button and a
  * password reveal toggle. Also supports `multiline` (textarea).
  *

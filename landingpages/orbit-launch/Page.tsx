@@ -1,8 +1,8 @@
 /**
- * Orbit — SaaS / developer-platform launch page, laid out as an orbital system.
+ * Orbit, SaaS / developer-platform launch page, laid out as an orbital system.
  *
  * Cosmic Technical Dark: deep navy, electric cyan, warm white. No images, no
- * web fonts, no network — the star field is a canvas, the planets are CSS
+ * web fonts, no network, the star field is a canvas, the planets are CSS
  * spheres, every diagram is inline SVG.
  *
  * Motion
@@ -15,7 +15,7 @@
  *  - Pricing: plans as concentric rings whose arcs fill to their quota.
  *  - Changelog: a pinned spiral draws inward through time as you scroll.
  *
- * Reduced motion: no pinning, no rotation, no typing — a complete static
+ * Reduced motion: no pinning, no rotation, no typing, a complete static
  * composition (system at rest, spiral fully drawn, all changelog entries).
  * SSR-safe: no window/document access during render.
  */
@@ -593,7 +593,7 @@ export function Page() {
           </div>
           <div className="orb-tele-grid">
             <div className="orb-term" ref={termRef} data-rv>
-              <div className="orb-term-bar"><i /><i /><i /><span>~/acme-api — orbit</span></div>
+              <div className="orb-term-bar"><i /><i /><i /><span>~/acme-api, orbit</span></div>
               <div className="orb-term-body" aria-label="Terminal session deploying to Orbit">
                 {termText.map((l, i) => (
                   <div key={i} className={"ln " + l.c}>{l.t || " "}{!typingDone && l.t.length > 0 && l.t.length < TERM[i].t.length && <b className="orb-caret" />}</div>

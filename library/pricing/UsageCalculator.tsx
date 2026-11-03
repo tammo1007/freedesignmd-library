@@ -1,5 +1,5 @@
 /**
- * UsageCalculator — usage-based API / infrastructure pricing. Three snapping
+ * UsageCalculator, usage-based API / infrastructure pricing. Three snapping
  * sliders (requests, storage, seats) price the same usage under every plan,
  * pick the cheapest one that fits ("You're on Scale"), and show an itemised
  * bill whose total counts to its new value. A stacked bar breaks the bill

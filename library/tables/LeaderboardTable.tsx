@@ -1,5 +1,5 @@
 /**
- * LeaderboardTable — editorial league standings: rank-change arrows, zone
+ * LeaderboardTable, editorial league standings: rank-change arrows, zone
  * markers, W/D/L form dots, tabular figures, and rows that FLIP to their new
  * positions when results change.
  *

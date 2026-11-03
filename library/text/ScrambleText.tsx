@@ -1,5 +1,5 @@
 /**
- * ScrambleText — a decoding effect. Characters cycle through a glyph set and
+ * ScrambleText, a decoding effect. Characters cycle through a glyph set and
  * lock in left to right, each after a short, slightly random number of
  * cycles. Hover (or focus) re-scrambles. Spaces and punctuation you choose
  * stay put so the shape of the line reads from the first frame.
@@ -220,7 +220,7 @@ export function Demo() {
           <span className="fd-sc-demo-h1b"><ScrambleText text="before they land." trigger="mount" speed={18} scramble={18} replay={n} /></span>
         </h1>
         <p className="fd-sc-demo-sub">
-          Sentryline correlates 2.3 billion events a day across endpoint, identity and cloud, and contains threats in a median 38 seconds — with a human-readable
+          Sentryline correlates 2.3 billion events a day across endpoint, identity and cloud, and contains threats in a median 38 seconds, with a human-readable
           reason for every action.
         </p>
         <div className="fd-sc-demo-cta">

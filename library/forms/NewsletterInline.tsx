@@ -1,5 +1,5 @@
 /**
- * NewsletterInline — a single-line email capture with inline validation,
+ * NewsletterInline, a single-line email capture with inline validation,
  * a loading state inside the button and a success morph (the field turns into
  * a confirmation with a drawn check, with an undo link).
  *
@@ -198,7 +198,7 @@ export function Demo() {
         <section className="fd-nl-demo-copy" aria-labelledby="fd-nl-h">
           <p className="fd-nl-demo-eyebrow">The Roast Letter · every other Thursday</p>
           <h1 id="fd-nl-h">First pick of every small-lot roast.</h1>
-          <p className="fd-nl-demo-sub">Tasting notes, brew recipes and early access to limited harvests from Huila, Yirgacheffe and Kerinci — straight from our roastery in Portland.</p>
+          <p className="fd-nl-demo-sub">Tasting notes, brew recipes and early access to limited harvests from Huila, Yirgacheffe and Kerinci, straight from our roastery in Portland.</p>
           <NewsletterInline
             theme={theme}
             cta="Join free"

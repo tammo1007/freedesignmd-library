@@ -1,5 +1,5 @@
 /**
- * StickyFeatureTour — a scroll-driven product tour for a developer tool. The
+ * StickyFeatureTour, a scroll-driven product tour for a developer tool. The
  * left column is a numbered list of steps with a progress rail; the right
  * column stays pinned and crossfades between product visuals built in code
  * (terminal, schema diff, query result, deploy log) as each step crosses the

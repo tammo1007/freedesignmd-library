@@ -1,4 +1,4 @@
-# Ares — DESIGN.md
+# Ares, DESIGN.md
 
 A home on Mars. Retro-future rust: basalt blacks, oxide reds, ochre, butterscotch dust and copper, with a single cold blue reserved for the Martian sunset and for water. Mono readouts, uppercase grotesque headlines, one italic serif accent. All imagery is procedural (canvas and inline SVG).
 

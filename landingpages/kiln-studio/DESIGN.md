@@ -1,4 +1,4 @@
-# Kiln — DESIGN.md
+# Kiln, DESIGN.md
 
 A ceramics and design studio in Lisbon. The portfolio is an infinite canvas: a plane of project cards, notebook slips, process sketches and a floor plan that you drag, zoom and fly across. Warm raw-clay craft: terracotta, bone, glaze blue and charcoal, with paper grain and procedural SVG pottery (no image files, no web fonts).
 
@@ -16,8 +16,8 @@ All CSS lives in `Page.tsx` under the `.kn` prefix; the root sets font, line-hei
 | Text, dark bands, buttons | `--kn-char` | `#26211F` |
 | Secondary text | `--kn-ash` | `#6E645B` |
 | Ochre (notes, tape, kiln line) | `--kn-ochre` | `#C98F4F` |
-| Accent on dark | — | `#E6A47F` |
-| Sticky-note paper | — | `#F3E7B8` |
+| Accent on dark |, | `#E6A47F` |
+| Sticky-note paper |, | `#F3E7B8` |
 
 Glazes drawn in SVG: Tidewater `#6B9AAB/#2F5668`, Bone `#F1E8D6/#CDBF9F`, Iron `#55433B/#1F1A18`, Ember `#CF6A45/#8A3320`, Ochre Ash `#DDAB6A/#A8713A`, Raw clay `#D08A66/#8F3F28`. Kiln heat ramp for the peephole: `#2A1D19` → `#6E2C1C` → `#C8461E` → `#FF9646` → `#FFE6BE`. Text on bone is AA or better; focus rings are 3 to 5 px glaze blue.
 

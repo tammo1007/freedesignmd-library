@@ -1,5 +1,5 @@
 /**
- * MenuPricing — a coffee subscription priced like a printed restaurant menu:
+ * MenuPricing, a coffee subscription priced like a printed restaurant menu:
  * roman-numeral sections, small-caps names, italic tasting notes, dotted
  * leaders running to three size columns. Pick a price and it gets circled in
  * pen; choose how often and how it's ground (a coarseness strip of particles

@@ -1,8 +1,8 @@
-# Forge — Design Brief
+# Forge, Design Brief
 
 A dark developer-tool landing page in the Geist tradition: near-black canvas,
-1px hairlines, pill buttons, sans + mono, and exactly one accent — ember
-`#ff6b2c` — reserved for "Forge is doing something" (the prompt, the timeline
+1px hairlines, pill buttons, sans + mono, and exactly one accent, ember
+`#ff6b2c`, reserved for "Forge is doing something" (the prompt, the timeline
 glow, running jobs, the review bot, the hot plan). Everything else is
 greyscale.
 

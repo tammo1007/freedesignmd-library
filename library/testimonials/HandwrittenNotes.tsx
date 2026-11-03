@@ -1,5 +1,5 @@
 /**
- * HandwrittenNotes — student testimonials as paper notes scattered on a
+ * HandwrittenNotes, student testimonials as paper notes scattered on a
  * cutting mat: index cards, sticky notes, a kraft card, a page of graph paper
  * and a postcard, some with a taped photo. Drag any note to rearrange it
  * (pointer events + a small spring integrator), click or focus brings it to

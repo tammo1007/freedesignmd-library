@@ -1,5 +1,5 @@
 /**
- * RetailFooter — a fashion e-commerce footer for a knitwear label. A row of
+ * RetailFooter, a fashion e-commerce footer for a knitwear label. A row of
  * service promises (the free-shipping threshold re-prices itself when you
  * change country), sitemap columns that become accordions on phones, a
  * country and currency picker, payment methods as typographic badges, and a

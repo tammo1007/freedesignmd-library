@@ -1,5 +1,5 @@
 /**
- * UserAdminTable — a team-admin table: photo avatars (initials fallback) with a presence dot,
+ * UserAdminTable, a team-admin table: photo avatars (initials fallback) with a presence dot,
  * an inline role dropdown, status pills, search plus filter chips, and a row
  * actions menu that appears on hover or focus.
  *
@@ -17,7 +17,7 @@
  * announced in a polite live region. Row actions stay visible on touch and
  * whenever focus is inside the row.
  * Reduced motion: popovers fade without movement.
- * Demo images: /img/people/pN.webp (in the repo's public/img/people — copy next to your page or swap in your own).
+ * Demo images: /img/people/pN.webp (in the repo's public/img/people, copy next to your page or swap in your own).
  * Set `avatar` on a user to show a photo; without it the initials badge shows.
  */
 import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from "react";

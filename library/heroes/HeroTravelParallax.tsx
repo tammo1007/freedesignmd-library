@@ -1,5 +1,5 @@
 /**
- * HeroTravelParallax — a ryokan hero. A washi-paper column carries the
+ * HeroTravelParallax, a ryokan hero. A washi-paper column carries the
  * headline, lede and a ruled row of house facts; the right side is a
  * photograph of a guest room opening onto the moss garden, framed by two
  * shoji screens that slide apart on load. The screens can be slid shut again

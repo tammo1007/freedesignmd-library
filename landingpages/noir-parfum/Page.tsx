@@ -1,9 +1,9 @@
 /**
- * Noir — luxury perfume house landing page (Maison Vérane).
+ * Noir, luxury perfume house landing page (Maison Vérane).
  *
  * Cinematic black, bone and a single amber. Giant italic serif type; no
  * web fonts or network. The hero flacon is a pre-rendered photograph
- * (Demo image: /img/lux/perfume-noir.webp, included in the repo's public/img/lux —
+ * (Demo image: /img/lux/perfume-noir.webp, included in the repo's public/img/lux
  * copy it next to your page or swap in your own); the smaller flacons stay SVG so they can be tinted.
  * The smoke is a canvas of ~1k particles on
  * a drifting noise field that the cursor stirs.
@@ -35,7 +35,7 @@ const NOOP = (e: { preventDefault: () => void }) => e.preventDefault();
 /* ------------------------------------------------------------------ */
 /* Data                                                                */
 /* ------------------------------------------------------------------ */
-const MANIFESTO = "Some things are not worn. They are remembered — a coat left on a chair, a door closing in another room, the last warm hour of a long day.";
+const MANIFESTO = "Some things are not worn. They are remembered, a coat left on a chair, a door closing in another room, the last warm hour of a long day.";
 const AMBER_WORDS = new Set(["remembered", "warm", "hour"]);
 
 const NOTES = [
@@ -412,7 +412,7 @@ export function Page() {
         <canvas ref={cvsRef} className="nr-smoke" aria-hidden="true" />
         <div className="nr-vig" aria-hidden="true" />
         <div className="nr-hero-in" ref={heroTxtRef}>
-          <div className="nr-kicker">Maison de parfum · Grasse — Paris · Nº 19</div>
+          <div className="nr-kicker">Maison de parfum · Grasse, Paris · Nº 19</div>
           <h1 aria-label="Smoke and Amber">
             <span className="nr-ln" aria-hidden="true">{"Smoke".split("").map((c, i) => <span key={i} style={sv({ "--i": i })}>{c}</span>)}</span>
             <span className="nr-ln amber2" aria-hidden="true">{"& Amber".split("").map((c, i) => <span key={i} style={sv({ "--i": i + 6 })}>{c === " " ? " " : c}</span>)}</span>
@@ -434,7 +434,7 @@ export function Page() {
           <div className="nr-label">Manifeste</div>
           <p className="nr-man-p" aria-label={MANIFESTO}>
             {words.map((w, i) => (
-              <span key={i} aria-hidden="true" ref={(el) => { wordRefs.current[i] = el; }} className={AMBER_WORDS.has(w.replace(/[.,—]/g, "")) ? "am" : ""}>{w}</span>
+              <span key={i} aria-hidden="true" ref={(el) => { wordRefs.current[i] = el; }} className={AMBER_WORDS.has(w.replace(/[.,,]/g, "")) ? "am" : ""}>{w}</span>
             ))}
           </p>
         </div>

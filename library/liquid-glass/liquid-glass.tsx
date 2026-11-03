@@ -1,5 +1,5 @@
 /**
- * LiquidGlass — Apple's Liquid Glass material, rebuilt for the web.
+ * LiquidGlass, Apple's Liquid Glass material, rebuilt for the web.
  *
  * A surface for controls and navigation that float ABOVE content. It bends
  * what is behind it like a real glass slab: a convex squircle bevel refracts
@@ -11,7 +11,7 @@
  *   as="button"            // any element, default "div"
  *   variant="regular"      // "regular" (blur + luminosity, for text) | "clear" (over photos/video)
  *   tone="light"           // regular only: "light" | "dark" foreground/fill scheme
- *   radius="capsule"       // "capsule" | number (px) — keep radii concentric
+ *   radius="capsule"       // "capsule" | number (px), keep radii concentric
  *   tint="#007AFF"         // optional accent tint (glassProminent)
  *   dim                    // clear only: 35% dark dimming layer for bright content
  *   interactive            // springy press, pointer highlight, touch glow
@@ -44,9 +44,9 @@ export interface LiquidGlassProps extends Omit<AllHTMLAttributes<HTMLElement>, "
   variant?: GlassVariant;
   /** Regular variant colour scheme. Clear always uses light-on-dark foreground. Default "light". */
   tone?: GlassTone;
-  /** Corner radius in px, "capsule" (default), or "auto" — read from the element's own border-radius (use for animated morphs). */
+  /** Corner radius in px, "capsule" (default), or "auto", read from the element's own border-radius (use for animated morphs). */
   radius?: number | "capsule" | "auto";
-  /** Accent tint colour (any CSS colour) — makes the glass "prominent". */
+  /** Accent tint colour (any CSS colour), makes the glass "prominent". */
   tint?: string;
   /** Adds the 35% dark dimming layer HIG asks for when clear glass sits on bright content. */
   dim?: boolean;
@@ -743,7 +743,7 @@ export function Demo() {
     <div className="fd-lgx" ref={stage}>
       <style>{DEMO_CSS}</style>
       <GlassScope>
-        <div className="fd-lgx-scroll" tabIndex={0} aria-label="Lumen, issue 14 — scrollable article">
+        <div className="fd-lgx-scroll" tabIndex={0} aria-label="Lumen, issue 14, scrollable article">
           <Spread />
         </div>
 
@@ -870,7 +870,7 @@ function Spread() {
       <header className="fd-lgx-mast">
         <span className="fd-lgx-logo">LUMEN</span>
         <span>Journal of light &amp; material</span>
-        <span>No. 14 — Winter 2026</span>
+        <span>No. 14, Winter 2026</span>
         <span>€14 / CHF 16</span>
       </header>
       <div className="fd-lgx-rules" aria-hidden="true" />
@@ -917,7 +917,7 @@ function Spread() {
       <section className="fd-lgx-cols">
         <p>
           <span className="fd-lgx-drop">E</span>very lens is a negotiation between thickness and curvature. Near its rim, a slab of glass meets the
-          air at a steep angle, and the light passing through is bent hardest there — straight lines bow, letters lean inward, colour separates into
+          air at a steep angle, and the light passing through is bent hardest there, straight lines bow, letters lean inward, colour separates into
           a thin prism of red and blue. Towards the centre the surface flattens out and the world comes through almost untouched.
         </p>
         <p>
@@ -946,12 +946,12 @@ function Spread() {
       <section className="fd-lgx-test" aria-label="Calibration plate">
         <div className="fd-lgx-bars" />
         <div className="fd-lgx-grid" />
-        <p className="fd-lgx-cap">Plate 7 — calibration chart used for every photograph in this issue.</p>
+        <p className="fd-lgx-cap">Plate 7, calibration chart used for every photograph in this issue.</p>
       </section>
 
       <section className="fd-lgx-quote">
         <p>“The best material is the one you only notice at its edges.”</p>
-        <span>— Mariko Tsuji, Hokuto Glassworks</span>
+        <span>– Mariko Tsuji, Hokuto Glassworks</span>
       </section>
       <footer className="fd-lgx-foot">
         <span>LUMEN 14</span>

@@ -1,9 +1,9 @@
 /**
- * Clara — modern primary care & virtual clinic.
+ * Clara, modern primary care & virtual clinic.
  *
  * Calm, accessible healthcare homepage: soft clinical whites, a sage/teal
  * accent, rounded geometry and a friendly rounded sans. Everything is
- * procedural (CSS gradients + inline SVG) — no images, no web fonts.
+ * procedural (CSS gradients + inline SVG), no images, no web fonts.
  *
  * Motion
  *  - Breathing gradient orb behind the hero (8s inhale/exhale, follows the pointer).
@@ -53,12 +53,12 @@ const SERVICES = [
   { t: "Chronic care", d: "Diabetes, hypertension and asthma plans with check-ins between visits.", icon: "pulse" },
   { t: "Mental health", d: "Therapy and medication management, in person or by video.", icon: "mind" },
   { t: "Women's health", d: "Contraception, menopause care and cervical screening.", icon: "flower" },
-  { t: "On-site labs", d: "Bloodwork in the room — most results within 24 hours.", icon: "drop" },
+  { t: "On-site labs", d: "Bloodwork in the room, most results within 24 hours.", icon: "drop" },
   { t: "Same-day sick visits", d: "Colds, UTIs, rashes and sprains, usually seen within the hour.", icon: "clock", wide: true },
 ] as const;
 
 const STEPS = [
-  { k: "Book", t: "Pick a time that fits your day", d: "See real availability across all six clinics and video. Most members book a same- or next-day visit in under a minute — no phone tree, no hold music." },
+  { k: "Book", t: "Pick a time that fits your day", d: "See real availability across all six clinics and video. Most members book a same- or next-day visit in under a minute, no phone tree, no hold music." },
   { k: "Meet", t: "Unhurried time with one clinician", d: "Visits are 30 minutes, not 7. Meet in person or on video with the same doctor who knows your history, your meds and how you like to be spoken to." },
   { k: "Plan", t: "A plan you can actually follow", d: "Leave with a written care plan in the app: what we found, what we're testing, what to take, and what “better” should feel like by when." },
   { k: "Follow up", t: "We check in, so you don't have to chase", d: "Your care team messages you after labs, before refills and at the milestones in your plan. Replies from a clinician within 2 hours, 7am–9pm." },
@@ -83,15 +83,15 @@ const CLINICIANS = [
 
 const PLANS = [
   { name: "Pay per visit", monthly: 0, annual: 0, visit: "No membership fee", note: "We bill your insurance first; self-pay is $129.", feats: ["In-person & video visits", "On-site labs at cost", "Care plan in the app"], cta: "Book a visit" },
-  { name: "Clara Membership", monthly: 19, annual: 199, visit: "$0 primary-care visits", note: "Most members — it pays for itself at two visits.", feats: ["Unlimited primary-care visits", "Message a clinician 7am–9pm", "Same- or next-day booking", "Annual physical with full panel"], cta: "Start membership", featured: true },
+  { name: "Clara Membership", monthly: 19, annual: 199, visit: "$0 primary-care visits", note: "Most members, it pays for itself at two visits.", feats: ["Unlimited primary-care visits", "Message a clinician 7am–9pm", "Same- or next-day booking", "Annual physical with full panel"], cta: "Start membership", featured: true },
   { name: "Family", monthly: 49, annual: 499, visit: "Up to 5 people", note: "Kids 2+ and partners on one plan.", feats: ["Everything in Membership", "Pediatric well visits", "One shared family inbox"], cta: "Cover your family" },
 ];
 
 const FAQ = [
-  { q: "Do you take my insurance?", a: "We're in network with most major PPO and HMO plans in Washington and Oregon, including all eight shown above. Without insurance, a visit is $129 and labs are billed at cost. Check your plan at booking — it takes about ten seconds." },
+  { q: "Do you take my insurance?", a: "We're in network with most major PPO and HMO plans in Washington and Oregon, including all eight shown above. Without insurance, a visit is $129 and labs are billed at cost. Check your plan at booking, it takes about ten seconds." },
   { q: "What does the membership actually cover?", a: "Unlimited primary-care visits in person or by video, messaging with your care team, and an annual physical with a full lab panel. Specialist referrals, imaging and prescriptions are billed to your insurance as usual." },
   { q: "Can I keep the same clinician?", a: "Yes. You choose a primary clinician when you join and can switch at any time. When they're away, someone on the same small care team who has read your chart will see you." },
-  { q: "Is a video visit as good as coming in?", a: "For many things — follow-ups, medication changes, mental health, rashes, colds — yes. If your clinician needs to examine you or draw labs, they'll book an in-clinic slot that day at no extra cost." },
+  { q: "Is a video visit as good as coming in?", a: "For many things, follow-ups, medication changes, mental health, rashes, colds, yes. If your clinician needs to examine you or draw labs, they'll book an in-clinic slot that day at no extra cost." },
   { q: "What if it's an emergency?", a: "Clara is not an emergency service. If you have chest pain, trouble breathing, signs of stroke or a severe injury, call 911 or go to the nearest emergency room." },
 ];
 
@@ -138,7 +138,7 @@ function InsurerMark({ name, glyph }: { name: string; glyph: string }) {
 /** Morphing care-journey illustration: 7 primitives, 4 layouts. */
 type Prim = { x: number; y: number; w: number; h: number; r: number; bg: string; o?: number; rot?: number };
 const MORPH: Prim[][] = [
-  // 0 Book — phone with calendar rows and a chosen slot
+  // 0 Book, phone with calendar rows and a chosen slot
   [
     { x: 150, y: 40, w: 220, h: 400, r: 36, bg: "#FFFFFF" },
     { x: 178, y: 92, w: 164, h: 54, r: 14, bg: "#E4EFEA" },
@@ -148,7 +148,7 @@ const MORPH: Prim[][] = [
     { x: 266, y: 220, w: 76, h: 44, r: 22, bg: "#EEF2F1" },
     { x: 178, y: 370, w: 164, h: 46, r: 23, bg: "#0F2420" },
   ],
-  // 1 Meet — video call: screen, clinician, self-view, controls
+  // 1 Meet, video call: screen, clinician, self-view, controls
   [
     { x: 40, y: 80, w: 440, h: 300, r: 32, bg: "#FFFFFF" },
     { x: 60, y: 100, w: 400, h: 220, r: 22, bg: "#DCEBE4" },
@@ -158,7 +158,7 @@ const MORPH: Prim[][] = [
     { x: 275, y: 330, w: 40, h: 40, r: 20, bg: "#E26D5A" },
     { x: 165, y: 236, w: 190, h: 84, r: 60, bg: "#2C6E67" },
   ],
-  // 2 Plan — care-plan document with checklist
+  // 2 Plan, care-plan document with checklist
   [
     { x: 110, y: 40, w: 300, h: 400, r: 28, bg: "#FFFFFF" },
     { x: 140, y: 72, w: 150, h: 22, r: 11, bg: "#0F2420" },
@@ -168,7 +168,7 @@ const MORPH: Prim[][] = [
     { x: 180, y: 186, w: 150, h: 18, r: 9, bg: "#E4EFEA" },
     { x: 140, y: 250, w: 240, h: 150, r: 18, bg: "#F3E3D3" },
   ],
-  // 3 Follow up — chat bubbles + heart
+  // 3 Follow up, chat bubbles + heart
   [
     { x: 60, y: 60, w: 400, h: 360, r: 36, bg: "#FFFFFF" },
     { x: 90, y: 96, w: 230, h: 60, r: 24, bg: "#EEF2F1" },
@@ -406,7 +406,7 @@ export function Page() {
       {/* NAV */}
       <header className={`cl-nav${scrolled ? " is-scrolled" : ""}${menuOpen ? " is-open" : ""}`}>
         <div className="cl-nav-in">
-          <a href="#cl-top" className="cl-logo" aria-label="Clara Health — home">
+          <a href="#cl-top" className="cl-logo" aria-label="Clara Health, home">
             <span className="cl-logo-mark" aria-hidden="true"><i /><i /></span>
             clara
           </a>
@@ -439,7 +439,7 @@ export function Page() {
             <div className="cl-hero-copy">
               <p className="cl-badge"><span className="cl-dot" aria-hidden="true" /> Open today until 8 pm · 6 clinics in Seattle & Portland</p>
               <h1 id="cl-hero-title" className="cl-h1">Primary care that has time for you.</h1>
-              <p className="cl-lede">Thirty-minute visits with a clinician who knows you — in clinic or on video, usually the same day. Most insurance accepted; $19 a month for everything else.</p>
+              <p className="cl-lede">Thirty-minute visits with a clinician who knows you, in clinic or on video, usually the same day. Most insurance accepted; $19 a month for everything else.</p>
               <div className="cl-hero-ctas">
                 <a href="#cl-book" className="cl-btn cl-btn-primary">Find a time <Icon name="arrow" /></a>
                 <a href="#cl-pricing" className="cl-btn cl-btn-ghost">See membership</a>
@@ -495,7 +495,7 @@ export function Page() {
               </div>
 
               <button type="button" className={`cl-confirm is-${booking}`} onClick={book} disabled={slot === null} aria-describedby="cl-book-status">
-                <span className="cl-confirm-label">{slot === null ? "No times left — try another day" : `Book ${DAYS[day].dow} ${slotLabel}`}</span>
+                <span className="cl-confirm-label">{slot === null ? "No times left, try another day" : `Book ${DAYS[day].dow} ${slotLabel}`}</span>
                 <span className="cl-confirm-spin" aria-hidden="true" />
                 <svg className="cl-confirm-check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
               </button>
@@ -527,7 +527,7 @@ export function Page() {
           <div className="cl-wrap">
             <div className="cl-head" data-cl-rv>
               <p className="cl-eyebrow">What we care for</p>
-              <h2 id="cl-services-title" className="cl-h2">Everything a good family doctor does — with the time to do it well.</h2>
+              <h2 id="cl-services-title" className="cl-h2">Everything a good family doctor does, with the time to do it well.</h2>
             </div>
             <ul className="cl-bento">
               {SERVICES.map((s, i) => (
@@ -584,7 +584,7 @@ export function Page() {
             <div data-cl-rv>
               <p className="cl-eyebrow">Virtual clinic</p>
               <h2 id="cl-virtual-title" className="cl-h2">A clinician in your pocket, 7am to 9pm.</h2>
-              <p className="cl-body cl-virtual-lede">Message your care team about anything — a new rash, a refill, a lab result you don't understand. A licensed clinician replies within two hours, and can move you to a video visit with one tap.</p>
+              <p className="cl-body cl-virtual-lede">Message your care team about anything, a new rash, a refill, a lab result you don't understand. A licensed clinician replies within two hours, and can move you to a video visit with one tap.</p>
               <ul className="cl-ticks">
                 <li><Icon name="check" /> Prescriptions sent to any pharmacy</li>
                 <li><Icon name="check" /> Photos and lab results in one thread</li>
@@ -601,7 +601,7 @@ export function Page() {
                   <p className="cl-msg cl-msg-me" style={{ "--d": "200ms" } as CSSProperties}>Hi! This rash on my forearm appeared yesterday and it's itchy. Should I worry?</p>
                   <div className="cl-msg cl-msg-me cl-msg-photo" style={{ "--d": "700ms" } as CSSProperties}><span /></div>
                   <p className="cl-typing" style={{ "--d": "1300ms" } as CSSProperties}><i /><i /><i /></p>
-                  <p className="cl-msg cl-msg-dr" style={{ "--d": "2600ms" } as CSSProperties}>Thanks, Jordan — that looks like contact dermatitis, likely from the new detergent you mentioned. Nothing urgent.</p>
+                  <p className="cl-msg cl-msg-dr" style={{ "--d": "2600ms" } as CSSProperties}>Thanks, Jordan, that looks like contact dermatitis, likely from the new detergent you mentioned. Nothing urgent.</p>
                   <p className="cl-msg cl-msg-dr" style={{ "--d": "3300ms" } as CSSProperties}>I'd like a quick look on video to be sure. I have 4:40 pm today?</p>
                   <p className="cl-chip-row" style={{ "--d": "3900ms" } as CSSProperties}><span className="cl-chip is-on">4:40 pm ✓</span><span className="cl-chip">Tomorrow</span></p>
                 </div>
@@ -615,7 +615,7 @@ export function Page() {
           <div className="cl-wrap">
             <div className="cl-head cl-head-center" data-cl-rv>
               <p className="cl-eyebrow">Outcomes, measured</p>
-              <h2 id="cl-outcomes-title" className="cl-h2">Care you can feel — and numbers we publish.</h2>
+              <h2 id="cl-outcomes-title" className="cl-h2">Care you can feel, and numbers we publish.</h2>
             </div>
             <dl className="cl-stats">
               {STATS.map((s, i) => (
@@ -641,7 +641,7 @@ export function Page() {
                 <p className="cl-eyebrow">Your care team</p>
                 <h2 id="cl-clin-title" className="cl-h2">Clinicians who stay.</h2>
               </div>
-              <p className="cl-body cl-head-aside">Our clinicians average seven years with Clara and see 12 patients a day — about half the national average.</p>
+              <p className="cl-body cl-head-aside">Our clinicians average seven years with Clara and see 12 patients a day, about half the national average.</p>
             </div>
             <ul className="cl-clin-grid">
               {CLINICIANS.map((c, i) => (
@@ -746,7 +746,7 @@ export function Page() {
           <p className="cl-emergency"><strong>In an emergency, call 911.</strong> Clara provides primary and urgent care, not emergency care.</p>
           <div className="cl-foot-grid">
             <div className="cl-foot-brand">
-              <a href="#cl-top" className="cl-logo" aria-label="Clara Health — home"><span className="cl-logo-mark" aria-hidden="true"><i /><i /></span>clara</a>
+              <a href="#cl-top" className="cl-logo" aria-label="Clara Health, home"><span className="cl-logo-mark" aria-hidden="true"><i /><i /></span>clara</a>
               <p>Primary care with time for you. Six clinics, one virtual clinic, about 41,000 members.</p>
             </div>
             <div>
@@ -766,7 +766,7 @@ export function Page() {
             </div>
             <div>
               <p className="cl-foot-h">Company</p>
-              <ul>{["About Clara", "Careers — we're hiring", "Clinician handbook", "Press", "Contact"].map((x) => <li key={x}><a href="#cl-top">{x}</a></li>)}</ul>
+              <ul>{["About Clara", "Careers, we're hiring", "Clinician handbook", "Press", "Contact"].map((x) => <li key={x}><a href="#cl-top">{x}</a></li>)}</ul>
             </div>
             <div>
               <p className="cl-foot-h">Hours</p>

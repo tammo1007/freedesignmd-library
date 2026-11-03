@@ -1,5 +1,5 @@
 /**
- * HeroMusicWaveform — an album-launch hero for a streaming service. Giant
+ * HeroMusicWaveform, an album-launch hero for a streaming service. Giant
  * condensed type, a generative op-art sleeve (two sets of concentric rings
  * whose interference fringes drift with the music, set in a Swiss type band
  * with catalogue number and running order), a vinyl that slides out of it, and

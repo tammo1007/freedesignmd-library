@@ -1,5 +1,5 @@
 /**
- * GlassToggle — an iOS 26 switch whose knob turns into Liquid Glass while
+ * GlassToggle, an iOS 26 switch whose knob turns into Liquid Glass while
  * you touch it.
  *
  * At rest the knob is a solid white capsule. On press it swells, the white
@@ -249,7 +249,7 @@ export function Demo() {
             <GlassToggle checked={false} onChange={() => {}} disabled aria-labelledby="fd-gtgd-lock" />
           </li>
         </ul>
-        <p className="fd-gtgd-foot">Press and hold a switch — the knob turns to glass. Drag it across.</p>
+        <p className="fd-gtgd-foot">Press and hold a switch, the knob turns to glass. Drag it across.</p>
       </div>
     </div>
   );

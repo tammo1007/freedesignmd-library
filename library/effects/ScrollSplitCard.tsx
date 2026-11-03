@@ -1,10 +1,10 @@
 /**
- * ScrollSplitCard — a pinned scroll scene. One card splits into three panels,
+ * ScrollSplitCard, a pinned scroll scene. One card splits into three panels,
  * fans out in 3D and flips one by one to reveal three services on the back.
  * Progress is scrubbed by scroll and lightly smoothed so wheel steps glide.
  *
  * Props:
- * - front: ReactNode — artwork for the whole card; each panel shows its third.
+ * - front: ReactNode, artwork for the whole card; each panel shows its third.
  * - services: three { kicker, title, body, points, meta, accent }.
  * - intro / outro: headings above the card; they crossfade mid-scene.
  * - length: scroll length in viewport heights (default 3.2).
@@ -472,7 +472,7 @@ const SERVICES: [SplitService, SplitService, SplitService] = [
   {
     kicker: "Zero → One",
     title: "Starting from a blank page",
-    body: "You have conviction and a deadline. We turn it into a product people can hold — strategy, brand and a shippable v1.",
+    body: "You have conviction and a deadline. We turn it into a product people can hold, strategy, brand and a shippable v1.",
     points: ["Positioning & naming sprint", "Clickable prototype in 10 days", "Production v1 with analytics"],
     meta: "8–12 weeks · from €64k",
     accent: "#FF7A2F",
@@ -522,7 +522,7 @@ function HaldenArt() {
           Halden
         </span>
         <span className="fd-ssc-demo-small">Product studio · Copenhagen & Berlin</span>
-        <span className="fd-ssc-demo-small fd-ssc-demo-right">Est. 2014 — 140 products shipped</span>
+        <span className="fd-ssc-demo-small fd-ssc-demo-right">Est. 2014, 140 products shipped</span>
       </div>
       <div className="fd-ssc-demo-big">
         We build what
@@ -555,7 +555,7 @@ export function Demo() {
       />
       <footer className="fd-ssc-demo-after">
         <p className="fd-ssc-demo-after-k">Not sure which one fits?</p>
-        <p className="fd-ssc-demo-after-t">Book a 30-minute call with a partner — no deck required.</p>
+        <p className="fd-ssc-demo-after-t">Book a 30-minute call with a partner, no deck required.</p>
         <a className="fd-ssc-demo-btn" href="#contact">
           hello@halden.studio
         </a>

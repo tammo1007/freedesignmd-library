@@ -1,5 +1,5 @@
 /**
- * ImageRipple — an image card that behaves like a shallow pool. The cursor
+ * ImageRipple, an image card that behaves like a shallow pool. The cursor
  * drags a wake through a real-time wave simulation (ping-pong framebuffers,
  * 16-bit heights packed into RGBA8 so it runs on every WebGL device), and the
  * surface refracts the image with a slight chromatic split and a wet sheen.
@@ -11,17 +11,17 @@
  * - strength?: number    Refraction amount. Default 1.
  * - chroma?: number      Chromatic split 0–1.5. Default 0.6.
  * - damping?: number     Wave energy kept per step (0.95–0.995). Default 0.986.
- * - cell?: number        Simulation cell size in CSS px — bigger = broader, cheaper waves. Default 2.
+ * - cell?: number        Simulation cell size in CSS px, bigger = broader, cheaper waves. Default 2.
  * - radius?: number      Drop radius in CSS px. Default 14.
  * - alt?: string         Accessible description (canvas gets role="img").
  * - children             Overlay content (captions) above the image.
  * CSS vars: --fd-ripple-radius.
  *
  * Browser support: WebGL2 / WebGL1 (no float-texture extensions needed).
- * Without WebGL the image is shown still. Reduced motion: no simulation —
+ * Without WebGL the image is shown still. Reduced motion: no simulation
  * the image renders still. The loop sleeps once the water settles.
  *
- * Demo images: /img/lux/{hotel-golden,bamboo,dunes}.webp, included in the repo's public/img/lux —
+ * Demo images: /img/lux/{hotel-golden,bamboo,dunes}.webp, included in the repo's public/img/lux
  * copy them next to your page or swap in your own.
  */
 import { useEffect, useRef, useState } from "react";
@@ -499,7 +499,7 @@ export function Demo() {
       <div className="fd-ripple-demo-copy">
         <p className="fd-ripple-demo-kicker">Slowtrail · Winter 2026 collection</p>
         <h1 className="fd-ripple-demo-title">Places that make you stop scrolling.</h1>
-        <p className="fd-ripple-demo-body">Small-group journeys to the world's quietest edges. Run your cursor over the water — then plan the trip you've been putting off.</p>
+        <p className="fd-ripple-demo-body">Small-group journeys to the world's quietest edges. Run your cursor over the water, then plan the trip you've been putting off.</p>
         <div className="fd-ripple-demo-row">
           <a className="fd-ripple-demo-cta" href="#book" onClick={(e) => e.preventDefault()}>Explore {top.place}</a>
           <button type="button" className="fd-ripple-demo-next" onClick={next} aria-label="Next destination">

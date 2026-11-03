@@ -1,5 +1,5 @@
 /**
- * Forge — code review & CI landing page (dark, hairline, one accent).
+ * Forge, code review & CI landing page (dark, hairline, one accent).
  *
  * A complete, self-contained single page: React is the only import and every
  * style lives in the <style> block at the bottom of this file (classes are
@@ -273,7 +273,7 @@ function Terminal() {
           <i />
           <i />
         </span>
-        <span className="fd-frg-term-title">~/acme/api — zsh</span>
+        <span className="fd-frg-term-title">~/acme/api, zsh</span>
         <button type="button" className="fd-frg-term-replay" onClick={() => setRun((r) => r + 1)} disabled={!done}>
           Replay
         </button>
@@ -475,7 +475,7 @@ function Timeline() {
             <span className="fd-frg-h2-mute">one minute twenty-eight.</span>
           </h2>
           <p className="fd-frg-p">
-            Every step below is a real span from PR #4182 in the acme/api monorepo — 1.4M lines, 61 services, 180
+            Every step below is a real span from PR #4182 in the acme/api monorepo, 1.4M lines, 61 services, 180
             engineers.
           </p>
         </div>
@@ -547,8 +547,8 @@ function Diff() {
             </h2>
           </div>
           <p className="fd-frg-p fd-frg-head-p">
-            Forge checks for the bugs that page people at 3 a.m. — race conditions, missing idempotency, unbounded
-            queries — and stays silent about semicolons.
+            Forge checks for the bugs that page people at 3 a.m., race conditions, missing idempotency, unbounded
+            queries, and stays silent about semicolons.
           </p>
         </div>
 
@@ -587,7 +587,7 @@ function Diff() {
                 </header>
                 <p>
                   Good call wrapping revoke + create in a transaction. Retries from the mobile client will still mint
-                  two sessions though — key the transaction on <code>request.idempotencyKey</code>.
+                  two sessions though, key the transaction on <code>request.idempotencyKey</code>.
                 </p>
               </article>
               <article className="fd-frg-cmt" data-show={stage >= 3 || undefined}>
@@ -627,7 +627,7 @@ function Diff() {
                   <b>jane</b>
                   <span className="fd-frg-mono">staff eng</span>
                 </header>
-                <p>This file had 14 incidents last quarter — glad it pulled me in. Approving once the key lands.</p>
+                <p>This file had 14 incidents last quarter, glad it pulled me in. Approving once the key lands.</p>
               </article>
             </div>
           </div>
@@ -776,7 +776,7 @@ function Bento() {
               ))}
             </div>
             <h3>Flake quarantine</h3>
-            <p>Tests that fail then pass on retry are isolated, owned and ticketed — never blocking your merge.</p>
+            <p>Tests that fail then pass on retry are isolated, owned and ticketed, never blocking your merge.</p>
           </article>
           <article className="fd-frg-tile" data-reveal="" style={{ "--i": 2 } as CSSProperties}>
             <div className="fd-frg-tile-vis fd-frg-vis-cache" aria-hidden="true">
@@ -796,7 +796,7 @@ function Bento() {
               <span className="fd-frg-chart-tag">Forge enabled · Jun 3</span>
             </div>
             <h3>Cycle time you’ll actually open on Monday</h3>
-            <p>PR cycle time, review latency and flake rate per team — measured from the same spans that run your CI.</p>
+            <p>PR cycle time, review latency and flake rate per team, measured from the same spans that run your CI.</p>
           </article>
         </div>
       </div>

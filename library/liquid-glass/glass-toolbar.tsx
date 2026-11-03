@@ -1,5 +1,5 @@
 /**
- * GlassToolbar — grouped Liquid Glass toolbar with a scroll edge effect.
+ * GlassToolbar, grouped Liquid Glass toolbar with a scroll edge effect.
  *
  * HIG rules baked in:
  * - Related actions share one glass capsule (a group); groups are separated by
@@ -10,12 +10,12 @@
  * - <ScrollEdge> softly blurs + fades content scrolling under a bar.
  *
  * Components:
- *   <GlassToolbar label tone tooltips> — role="toolbar"; Arrow keys move between all
+ *   <GlassToolbar label tone tooltips>, role="toolbar"; Arrow keys move between all
  *     items across groups (roving tabindex).
- *   <ToolbarGroup selectable value onChange> — one glass capsule.
- *   <ToolbarItem id label icon? text? onClick?> — icon-only items need `label`.
- *   <ToolbarSpacer flexible?> — fixed gap (default) or flexible.
- *   <ScrollEdge edge="top"|"bottom" size tone> — place inside a scroll
+ *   <ToolbarGroup selectable value onChange>, one glass capsule.
+ *   <ToolbarItem id label icon? text? onClick?>, icon-only items need `label`.
+ *   <ToolbarSpacer flexible?>, fixed gap (default) or flexible.
+ *   <ScrollEdge edge="top"|"bottom" size tone>, place inside a scroll
  *     container's positioned parent, above content and below the bar.
  * Browser support: refraction in Chromium; frosted glass elsewhere.
  */
@@ -367,7 +367,7 @@ function Canvas() {
       <h2 className="fd-gtbd-h2">Flow</h2>
       <ol className="fd-gtbd-ol">
         <li>Customer taps <strong>Pay €48.20</strong>. The sheet rises with saved card and shipping prefilled.</li>
-        <li>Biometric confirm. On failure, fall back to 3-D Secure inline — never a redirect.</li>
+        <li>Biometric confirm. On failure, fall back to 3-D Secure inline, never a redirect.</li>
         <li>Receipt animates in place; the order number is copyable and the sheet dismisses after 2.4 s.</li>
       </ol>
       <h2 className="fd-gtbd-h2">Tokens</h2>

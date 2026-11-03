@@ -1,5 +1,5 @@
 /**
- * AnimatedNumber — an odometer. Each digit is its own drum that rolls to the
+ * AnimatedNumber, an odometer. Each digit is its own drum that rolls to the
  * new value; rises roll upward and falls roll downward (wrapping through 0
  * the way a real counter does). Formatting is Intl.NumberFormat, so locale
  * separators, currencies, percents and compact notation all just work.
@@ -16,7 +16,7 @@
  * CSS vars: --fd-an-up (#16A34A), --fd-an-down (#DC2626), --fd-an-dur.
  *
  * Accessibility: the formatted value is real text in a visually hidden span;
- * the drums are aria-hidden. Don't put aria-live on fast tickers — announce
+ * the drums are aria-hidden. Don't put aria-live on fast tickers, announce
  * summaries instead (see the Demo).
  * Reduced motion: digits swap without rolling; the flash is a short fade.
  * Browser support: all evergreen browsers.

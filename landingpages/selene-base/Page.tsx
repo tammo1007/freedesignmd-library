@@ -1,5 +1,5 @@
 /**
- * Selene — a lunar base for research and quiet.
+ * Selene, a lunar base for research and quiet.
  *
  * A cold, silent, spacious landing page for a fictional lunar-hospitality
  * operator. Hero and crater-rim use one photographic render (/img/space/moon-base*.webp);
@@ -13,7 +13,7 @@
  *    slowly back down.
  *  - Statement: words light up like sunrise creeping across a plain.
  *  - Crater rim: a pinned push-in on the crater wall (same image, cropped), depth/temperature counters.
- *  - Lunar day: 29.5 days scrubbed by scroll — the sun walks its arc, shadows
+ *  - Lunar day: 29.5 days scrubbed by scroll, the sun walks its arc, shadows
  *    swing and stretch, panels glow gold, Earth cycles through its phases.
  *  - Configurator: modules drop in on a slow 1/6-g ease, puff dust, link with tubes.
  *  - Earth window: a porthole with a live-rotating, phase-lit Earth.
@@ -240,7 +240,7 @@ const NAV = [
 ] as const;
 
 const STATEMENT =
-  "There is no weather here. No wind to carry sound, no cloud to hide the stars. Selene is a station built for stillness, for research and for the long view — four hundred thousand kilometres from the nearest inbox.";
+  "There is no weather here. No wind to carry sound, no cloud to hide the stars. Selene is a station built for stillness, for research and for the long view, four hundred thousand kilometres from the nearest inbox.";
 
 const STEPS_RIM = [
   { k: "01", t: "The landing rim", d: "Pads are cut into the lip of the crater, in sunlight for 89 percent of the year. Guests arrive in daylight, the descent is felt as a slow exhale.", depth: "0 m", temp: "+54 °C" },
@@ -1068,11 +1068,11 @@ export function Page() {
             <aside className={"sel-pass" + (cleared ? " cleared" : "")} aria-live="polite" aria-label="Boarding manifest">
               <div className="sel-pass-top"><span>Selene Transfer Manifest</span><span>{fl.id}</span></div>
               <dl>
-                <div><dt>Passenger</dt><dd>{name.trim() || "— — —"}</dd></div>
+                <div><dt>Passenger</dt><dd>{name.trim() || ",, –"}</dd></div>
                 <div><dt>Departs</dt><dd>{fl.date}</dd></div>
                 <div><dt>From</dt><dd>{fl.from}</dd></div>
                 <div><dt>Transit</dt><dd>{fl.transit}</dd></div>
-                <div><dt>Seat</dt><dd>{seat || "—"}{seatPrice ? " · window" : ""}</dd></div>
+                <div><dt>Seat</dt><dd>{seat || "–"}{seatPrice ? " · window" : ""}</dd></div>
                 <div><dt>Stay</dt><dd>{st.name} · {st.d} d</dd></div>
                 <div><dt>Mass allowance</dt><dd>23 kg + 4 kg personal</dd></div>
               </dl>

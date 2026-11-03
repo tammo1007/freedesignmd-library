@@ -1,11 +1,11 @@
 /**
- * GlassMediaControls — clear Liquid Glass playback controls for video/music.
+ * GlassMediaControls, clear Liquid Glass playback controls for video/music.
  *
  * Clear glass is the HIG variant for controls over rich media: highly
  * translucent so the picture shows through, with a refracting rim. Over bright
  * footage, turn on `dim` for the 35% dimming layer so white glyphs stay legible.
  *
- * Pieces (all clear glass, separate capsules — no glass on glass):
+ * Pieces (all clear glass, separate capsules, no glass on glass):
  *   - transport: back 10 s · play/pause (XL) · forward 10 s
  *   - scrubber capsule: elapsed · track · remaining (thumb turns to glass while dragged)
  *   - volume capsule: mute toggle + level track
@@ -31,7 +31,7 @@ export interface GlassMediaControlsProps {
   muted: boolean;
   onMutedChange: (m: boolean) => void;
   dim?: boolean;
-  /** Accessible name of the media, e.g. "Tidelines — episode 3". */
+  /** Accessible name of the media, e.g. "Tidelines, episode 3". */
   title: string;
   className?: string;
 }
@@ -94,7 +94,7 @@ export function GlassMediaControls({ playing, onPlayingChange, time, duration, o
   const vol = muted ? 0 : volume;
   return (
     <GlassScope>
-      <div className={["fd-gmc", className ?? ""].filter(Boolean).join(" ")} role="group" aria-label={`Playback controls — ${title}`}>
+      <div className={["fd-gmc", className ?? ""].filter(Boolean).join(" ")} role="group" aria-label={`Playback controls, ${title}`}>
         <style>{css}</style>
         <div className="fd-gmc-transport">
           <LiquidGlass as="button" type="button" className="fd-gmc-btn" variant="clear" dim={dim} interactive aria-label="Back 10 seconds" onClick={() => onSeek(Math.max(0, time - 10))}>

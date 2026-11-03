@@ -1,5 +1,5 @@
 /**
- * VelocityMarquee — an infinite marquee whose speed and skew react to scroll
+ * VelocityMarquee, an infinite marquee whose speed and skew react to scroll
  * velocity. Scrolling down speeds it up in its own direction, scrolling up
  * reverses it briefly; skew follows the velocity on a spring. Hover (or
  * keyboard focus) eases the row to a stop.
@@ -235,7 +235,7 @@ export function Demo() {
         </h1>
         <p className="fd-mqv-demo-cue" aria-hidden="true">
           <span className="fd-mqv-demo-cue-line" />
-          Scroll fast — the type keeps up
+          Scroll fast, the type keeps up
         </p>
       </header>
 
@@ -261,7 +261,7 @@ export function Demo() {
 
       <section className="fd-mqv-demo-copy">
         <p className="fd-mqv-demo-p">
-          Hover a row to stop it. Scroll up and the rows run backwards for a beat. Drop 04 ships 12 November — members get 48 hours early.
+          Hover a row to stop it. Scroll up and the rows run backwards for a beat. Drop 04 ships 12 November, members get 48 hours early.
         </p>
       </section>
     </div>

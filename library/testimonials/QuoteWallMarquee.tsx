@@ -1,5 +1,5 @@
 /**
- * QuoteWallMarquee — a wall of short social posts in two or three rows that
+ * QuoteWallMarquee, a wall of short social posts in two or three rows that
  * drift in opposite directions. Each post carries a handle, a date and a
  * code-ish detail (a command, a before/after number).
  *

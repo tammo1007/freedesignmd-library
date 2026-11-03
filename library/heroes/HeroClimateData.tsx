@@ -1,5 +1,5 @@
 /**
- * HeroClimateData — a dark climate/energy hero. A canvas globe made of dotted
+ * HeroClimateData, a dark climate/energy hero. A canvas globe made of dotted
  * land (procedural continents, no map data) spins slowly; glowing arcs carry
  * energy between grid nodes, and live counters (MW dispatched, tCO₂ avoided,
  * sites online) tick in real time. Drag or move the pointer to tilt the
@@ -38,7 +38,7 @@ const DEFAULT_METRICS: GridMetric[] = [
   { label: "Batteries & farms online", base: 3214, perSecond: 0.02, unit: "sites" },
 ];
 
-// [lat, lon] — wind farms, solar parks and storage sites (fictional)
+// [lat, lon], wind farms, solar parks and storage sites (fictional)
 const DEFAULT_NODES: [number, number][] = [
   [55.7, 8.1], [52.4, 4.9], [40.4, -3.7], [37.4, -122], [34, -117.5], [31.5, -100], [41.9, -87.6], [-23.5, -46.6],
   [-33.9, 151.2], [-31.9, 115.9], [35.7, 139.7], [1.35, 103.8], [25.2, 55.3], [19, 72.8], [-26.2, 28], [64.1, -21.9], [59.3, 18], [45.5, -73.6],
@@ -90,7 +90,7 @@ export function HeroClimateData({
   eyebrow = "Gridline · virtual power plant",
   title = (
     <>
-      Every battery, turbine and panel —
+      Every battery, turbine and panel
       <span className="fd-grd-glow"> one grid that thinks.</span>
     </>
   ),

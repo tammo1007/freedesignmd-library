@@ -1,5 +1,5 @@
 /**
- * SegmentedControl — a single-choice control with a thumb that slides
+ * SegmentedControl, a single-choice control with a thumb that slides
  * between options on a spring (billing period, view mode, density…).
  *
  * Props: options[] ({ value, label, badge?, icon?, disabled? }), value /

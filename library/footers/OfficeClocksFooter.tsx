@@ -1,5 +1,5 @@
 /**
- * OfficeClocksFooter — a light footer for a practice with studios on four
+ * OfficeClocksFooter, a light footer for a practice with studios on four
  * continents. Every studio shows its live local time on a small analog dial
  * and in digits, whether it is open right now, its address and phone. A 24-hour
  * UTC ruler underneath draws each studio's working day as a band with a "now"

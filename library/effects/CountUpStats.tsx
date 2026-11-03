@@ -1,12 +1,12 @@
 /**
- * CountUpStats — a stat band whose numbers roll up like an odometer when they
+ * CountUpStats, a stat band whose numbers roll up like an odometer when they
  * scroll into view, each with a sparkline that draws on in sync.
  *
  * Components:
- * - <Odometer value decimals prefix suffix duration delay start /> — each
+ * - <Odometer value decimals prefix suffix duration delay start />, each
  *   digit is a vertical reel; reels settle right-to-left with a little
  *   overshoot, like a mechanical counter. Separators (",", ".") are static.
- * - <StatBand stats /> — lays out stats with label, delta and sparkline and
+ * - <StatBand stats />, lays out stats with label, delta and sparkline and
  *   triggers them once with an IntersectionObserver (35% visible).
  * Props on stat: { label, value, decimals?, prefix?, suffix?, delta?,
  *   lowerIsBetter? (colours a negative delta green), spark: number[] }.

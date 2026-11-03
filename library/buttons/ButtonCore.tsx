@@ -1,5 +1,5 @@
 /**
- * ButtonCore — the full button system.
+ * ButtonCore, the full button system.
  *
  * Variants: primary · secondary · tertiary · ghost · destructive
  * Sizes:    sm (32) · md (40) · lg (48)

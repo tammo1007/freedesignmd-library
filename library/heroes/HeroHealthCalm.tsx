@@ -1,5 +1,5 @@
 /**
- * HeroHealthCalm — a warm, unhurried hero for a digital clinic. A breathing
+ * HeroHealthCalm, a warm, unhurried hero for a digital clinic. A breathing
  * gradient orb (6s inhale / exhale) sits behind a stack of appointment cards
  * that fans out on load and gently re-stacks as the section scrolls away.
  * The pointer lifts the hovered card; trust stats sit below the headline.
@@ -8,7 +8,7 @@
  * ({ who, role, when, kind, tone, photo? }[]), stats ({ value, label }[]).
  * CSS vars: --fd-clm-paper, --fd-clm-ink, --fd-clm-accent, --fd-clm-orb-a/b/c.
  *
- * Demo images: /img/people/pN.webp (in the repo's public/img/people — copy next to your page or swap in your own).
+ * Demo images: /img/people/pN.webp (in the repo's public/img/people, copy next to your page or swap in your own).
  *
  * Browser support: all evergreen browsers.
  * Motion: long, low-amplitude CSS loops (breathing), CSS fan-out entrance,

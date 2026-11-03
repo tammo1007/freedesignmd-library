@@ -1,4 +1,4 @@
-# freedesignmd library — build conventions
+# freedesignmd library, build conventions
 
 Every library item must look *exactly* the same after a user copies it into a
 fresh React project. That is the product. These rules exist to guarantee it.
@@ -17,11 +17,11 @@ fresh React project. That is the product. These rules exist to guarantee it.
   Never hand-write or truncate code strings.
 - Allowed imports: `react` only. No Tailwind, no shadcn, no lucide, no
   framer-motion, no three.js, no `@/` aliases. Icons are inline SVG.
-  (If an item truly needs a package, list it in `dependencies` — avoid it.)
+  (If an item truly needs a package, list it in `dependencies`, avoid it.)
 - Each file exports the component(s) **and** `export function Demo()`.
   The Demo is part of the copied file and doubles as usage documentation, so
   write it like a polished real screen, not a test harness.
-- File header: a short JSDoc block — what it is, props, browser support,
+- File header: a short JSDoc block, what it is, props, browser support,
   accessibility notes. No marketing.
 
 ## 2 · Styling
@@ -61,7 +61,7 @@ line-height 1.5 and browsers default to `normal`; the copy-test catches the shif
 
 - No `window`, `document`, `navigator`, `matchMedia`, canvas or WebGL access at
   module scope or during render. Do it in `useEffect`/`useLayoutEffect`.
-- `useId()` for SVG filter ids — never hard-coded ids (two instances = clash).
+- `useId()` for SVG filter ids, never hard-coded ids (two instances = clash).
 - Clean up every listener, rAF loop, ResizeObserver, IntersectionObserver and
   WebGL context in effect cleanups. Pause rAF loops when off-screen
   (IntersectionObserver) and when `document.hidden`.
@@ -70,7 +70,7 @@ line-height 1.5 and browsers default to `normal`; the copy-test catches the shif
 - No network fetches. No external images. Backdrops are procedural
   (CSS gradients, SVG, canvas) or the user passes `src`.
 
-## 4 · Motion — one language across the whole library
+## 4 · Motion, one language across the whole library
 
 Use these and only these curves/durations (declare as CSS vars in the file):
 
@@ -94,7 +94,7 @@ Use these and only these curves/durations (declare as CSS vars in the file):
   stretch and auto-play; keep instant state changes and opacity fades ≤ 120ms.
   In JS check `matchMedia('(prefers-reduced-motion: reduce)')` inside effects.
 
-## 5 · Type, color, shape — shared defaults
+## 5 · Type, color, shape, shared defaults
 
 - Font stack (no web font downloads in components):
   `ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif`;
@@ -118,13 +118,13 @@ Use these and only these curves/durations (declare as CSS vars in the file):
   `@media (prefers-contrast: more)` → opaque surfaces + 1px solid border.
 - Decorative canvases: `aria-hidden="true"`.
 
-## 7 · Demo content — placeholder data from real industries
+## 7 · Demo content, placeholder data from real industries
 
 Every Demo shows a believable product moment from a named industry
 (set `industry` on the item). Mix across the library: fintech, healthcare,
 travel/hospitality, fashion/retail, music/media, developer tools, climate/
 energy, real estate, automotive, food & beverage, education, logistics,
-biotech, sports. Use realistic names, numbers, dates and copy — never
+biotech, sports. Use realistic names, numbers, dates and copy, never
 "Lorem ipsum", never "Button 1", never "John Doe". Keep company names fictional.
 
 ## 8 · Quality bar (self-check before finishing)

@@ -1,5 +1,5 @@
 /**
- * DitherImage — GPU ordered / blue-noise dithering of any image into a 2–4
+ * DitherImage, GPU ordered / blue-noise dithering of any image into a 2–4
  * colour palette, with a cursor "loupe" that sharpens, inverts or reveals the
  * photo underneath.
  *
@@ -17,11 +17,11 @@
  * CSS vars: --fd-dimg-radius, --fd-dimg-fallback.
  *
  * Browser support: WebGL2 with WebGL1 fallback. Without WebGL a CSS halftone
- * gradient is shown. Accessibility: pass `alt` — the canvas gets role="img".
+ * gradient is shown. Accessibility: pass `alt`, the canvas gets role="img".
  * Reduced motion: the loupe snaps instead of easing.
  *
  * Demo image: /img/people/p2.webp (placeholder portrait, included in the repo's
- * public/img/people — copy it next to your page or swap in your own).
+ * public/img/people, copy it next to your page or swap in your own).
  */
 import { useEffect, useRef, useState } from "react";
 import type { CSSProperties, MutableRefObject, ReactNode, RefObject } from "react";
@@ -291,7 +291,7 @@ void main(){
   vec3 col = pal(idx);
 
   if (uMode > .5 && uMode < 1.5) {
-    // invert — the loupe edge is itself dithered
+    // invert, the loupe edge is itself dithered
     float inside = step(t, lens);
     col = mix(col, pal(n - idx), inside);
   } else if (uMode > 1.5 && uMode < 2.5) {
@@ -378,7 +378,7 @@ export function DitherImage({
         try {
           gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, src.el);
         } catch {
-          /* tainted image (no CORS) — keep placeholder */
+          /* tainted image (no CORS), keep placeholder */
         }
         gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
         src.dirty = false;
@@ -478,7 +478,7 @@ export function DitherImage({
         }
       ctx.putImageData(img, 0, 0);
     } catch {
-      /* tainted canvas — CSS halftone shows through */
+      /* tainted canvas, CSS halftone shows through */
     }
   }, [failed, srcVersion, palette.join(), pixelSize, contrast, brightness]);
 
@@ -564,7 +564,7 @@ export function Demo() {
     <section className="fd-dimg-demo">
       <style>{demoCss}</style>
       <div className="fd-dimg-demo-copy">
-        <p className="fd-dimg-demo-kicker">Vesper Nº 14 — The Winter Issue</p>
+        <p className="fd-dimg-demo-kicker">Vesper Nº 14, The Winter Issue</p>
         <h2 className="fd-dimg-demo-title">Shot in shadow. Printed in dots.</h2>
         <p className="fd-dimg-demo-body">
           Forty-two looks in wool, felt and charcoal, photographed by Mara Lindqvist and set in a three-ink risograph palette.
@@ -572,7 +572,7 @@ export function Demo() {
         </p>
         <div className="fd-dimg-demo-row">
           <a className="fd-dimg-demo-cta" href="#subscribe" onClick={(e) => e.preventDefault()}>
-            Subscribe — 4 issues €48
+            Subscribe, 4 issues €48
           </a>
           <span className="fd-dimg-demo-meta">On newsstands 12 Nov 2026</span>
         </div>

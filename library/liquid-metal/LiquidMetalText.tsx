@@ -1,5 +1,5 @@
 /**
- * LiquidMetalText — a giant headline cast in flowing chrome. The text is
+ * LiquidMetalText, a giant headline cast in flowing chrome. The text is
  * rasterised into a mask, blurred into a bevel height map, and combined with
  * a moving liquid height field; the resulting normals reflect a procedural
  * studio. Mouse tilt slides the highlights across the letters.
@@ -487,7 +487,7 @@ export function Demo() {
       <div className="fd-lmtext-demo-center">
         <p className="fd-lmtext-demo-pre">The third studio album</p>
         <LiquidMetalText className="fd-lmtext-demo-title">MERCURY</LiquidMetalText>
-        <p className="fd-lmtext-demo-sub">Eleven tracks recorded live to tape in Reykjavík. Pre-save now and get the chrome vinyl edition — limited to 3,000 copies.</p>
+        <p className="fd-lmtext-demo-sub">Eleven tracks recorded live to tape in Reykjavík. Pre-save now and get the chrome vinyl edition, limited to 3,000 copies.</p>
         <div className="fd-lmtext-demo-actions">
           <a className="fd-lmtext-demo-primary" href="#presave" onClick={(e) => e.preventDefault()}>
             <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="currentColor" /></svg>

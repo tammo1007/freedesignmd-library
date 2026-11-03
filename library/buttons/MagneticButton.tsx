@@ -1,5 +1,5 @@
 /**
- * MagneticButton — a button that leans toward the cursor when it gets close,
+ * MagneticButton, a button that leans toward the cursor when it gets close,
  * driven by a small spring integrator (stiffness 380, damping 30, mass 1).
  * The label travels further than the shell, which gives a parallax feel.
  *
@@ -205,7 +205,7 @@ export function Demo() {
       </header>
 
       <main className="fd-mag-demo-main">
-        <p className="fd-mag-demo-eyebrow">Brand · Motion · Digital product — Lisbon / Berlin</p>
+        <p className="fd-mag-demo-eyebrow">Brand · Motion · Digital product, Lisbon / Berlin</p>
         <h1 className="fd-mag-demo-h1">
           Tell us what you’re <em>making</em>.<br />We’ll make it unforgettable.
         </h1>
@@ -215,7 +215,7 @@ export function Demo() {
             {copied ? "Brief sent" : "Say hello"}
           </MagneticButton>
           <div className="fd-mag-demo-aside">
-            <p>New projects for Q1 2027 — we take on six a year.</p>
+            <p>New projects for Q1 2027, we take on six a year.</p>
             <div className="fd-mag-demo-links">
               <MagneticButton size="md" tone="outline" href="mailto:studio@kilnandfield.example">studio@kilnandfield.example</MagneticButton>
               <MagneticButton size="md" tone="outline" href="#deck">Credentials deck{arrowUR}</MagneticButton>

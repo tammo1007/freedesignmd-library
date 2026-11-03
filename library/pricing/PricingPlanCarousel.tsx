@@ -1,5 +1,5 @@
 /**
- * PricingPlanCarousel — mobile-first plan picker for a fitness app. On phones
+ * PricingPlanCarousel, mobile-first plan picker for a fitness app. On phones
  * the plans are a horizontal scroll-snap carousel (peeking neighbours, synced
  * dots, the selected plan centred on load); from 900px they sit in a row.
  * Below, the free trial is explained as a timeline: today you unlock

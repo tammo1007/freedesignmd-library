@@ -1,5 +1,5 @@
 /**
- * DevFooterStatus — a dense, light footer for a developer platform. A brand
+ * DevFooterStatus, a dense, light footer for a developer platform. A brand
  * column with a live status pill (click it for per-region 90-day uptime
  * bars), a five-column sitemap, a changelog newsletter with real validation,
  * loading and success states, a language select, hand-drawn SVG social icons

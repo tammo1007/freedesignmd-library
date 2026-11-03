@@ -1,5 +1,5 @@
 /**
- * PillTagButton — selectable filter chips with count badges and an animated
+ * PillTagButton, selectable filter chips with count badges and an animated
  * check that slides in when a chip is selected.
  *
  * Props: options[] ({ id, label, count?, icon?, disabled? }), value (string[]),

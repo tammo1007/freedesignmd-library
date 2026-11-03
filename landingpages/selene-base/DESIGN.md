@@ -1,4 +1,4 @@
-# Selene — design brief
+# Selene, design brief
 
 Quiet Lunar Monochrome. Cold, silent, spacious: the opposite of a warm Mars palette. The sky is always black (no atmosphere), light is raking and hard, everything moves slowly as if in 1/6 g. A single gold accent exists only as sunlit solar panels and the primary action.
 

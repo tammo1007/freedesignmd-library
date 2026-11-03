@@ -1,4 +1,4 @@
-# Vault — Design Brief
+# Vault, Design Brief
 
 A monochrome business-banking landing page with Swiss discipline: a blueprint
 grid, flush-left type, square corners, ink on white. Every visual decision is
@@ -22,7 +22,7 @@ Source of truth: `Page.tsx` in this folder. Everything below is read from it.
    hero and CTA only, faded out with a radial mask. Registration crosses, a
    dimension line under the card ("440") and a spec string
    (`GRID 12 · COL 80 · GUTTER 24 · BASE 8`) sell the drafting-table idea.
-4. **Mono for metadata.** Section labels (`02 — Platform`), figure captions,
+4. **Mono for metadata.** Section labels (`02, Platform`), figure captions,
    account numbers and badges use the mono stack in uppercase with +0.08em
    tracking. Prose and numbers use the sans stack.
 5. **Motion explains the product.** Each motion has a job: the odometer shows
@@ -146,7 +146,7 @@ section is off screen.
 
 ## 8. Do / don't
 
-- Do add new sections as ruled columns with a mono label `NN — Name`.
+- Do add new sections as ruled columns with a mono label `NN, Name`.
 - Do keep every number tabular and every corner square.
 - Don't introduce a brand hue, gradients on surfaces, or rounded cards.
 - Don't animate layout properties; use the `--t` / `--p` variables pattern.

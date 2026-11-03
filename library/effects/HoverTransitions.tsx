@@ -1,5 +1,5 @@
 /**
- * HoverRevealCard — a profile/media card with eight interchangeable hover
+ * HoverRevealCard, a profile/media card with eight interchangeable hover
  * transitions. Pass one piece of artwork as `media`; the card renders a muted
  * (greyscale) base and a full-colour reveal, and the chosen transition moves
  * between them while an info overlay slides in.
@@ -21,7 +21,7 @@
  * a ≤120ms fade.
  *
  * Demo images: /img/people/p1.webp … p8.webp (placeholder portraits, included in
- * the repo's public/img/people — copy them next to your page or swap in your own).
+ * the repo's public/img/people, copy them next to your page or swap in your own).
  */
 import { useEffect, useId, useRef, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
@@ -316,7 +316,7 @@ const css = `
 }
 .fd-ht[data-on] .fd-ht-cap{color:var(--fd-ht-accent)}
 
-/* 1 · blob — an organic SVG mask that grows from the cursor, led by an accent blob */
+/* 1 · blob, an organic SVG mask that grows from the cursor, led by an accent blob */
 .fd-ht-blob{
   -webkit-mask-image:url("${BLOB}");mask-image:url("${BLOB}");
   -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
@@ -551,9 +551,9 @@ export function Demo() {
     <div className="fd-ht-demo">
       <style>{demoCss}</style>
       <header className="fd-ht-demo-head">
-        <p className="fd-ht-demo-eyebrow">Northlight Labs — Team</p>
+        <p className="fd-ht-demo-eyebrow">Northlight Labs, Team</p>
         <h2 className="fd-ht-demo-h">Eight people. Every agent we ship.</h2>
-        <p className="fd-ht-demo-sub">Hover or tap a portrait — every card uses a different transition.</p>
+        <p className="fd-ht-demo-sub">Hover or tap a portrait, every card uses a different transition.</p>
       </header>
       <div className="fd-ht-demo-grid">
         {TEAM.map((m, i) => (

@@ -1,5 +1,5 @@
 /**
- * Arcade OS — indie game studio landing page, presented as a retro desktop OS.
+ * Arcade OS, indie game studio landing page, presented as a retro desktop OS.
  *
  * First screen: a BIOS boot sequence that drops into a teal desktop whose
  * sections are real windows (About, Games folder, Trailer player, Devlog

@@ -1,5 +1,5 @@
 /**
- * DataTable — a production-grade data table: sortable columns (aria-sort),
+ * DataTable, a production-grade data table: sortable columns (aria-sort),
  * row selection with an indeterminate header checkbox, sticky header,
  * tabular numerals, pagination, a floating bulk-action bar, an empty state and
  * a loading skeleton.
@@ -513,7 +513,7 @@ export function Demo() {
       <main className="fd-dtd-main">
         <div className="fd-dtd-head">
           <div><h1>Transactions</h1><p>Every payment in and out of Fernhill Studio LLC, October 2026.</p></div>
-          <button type="button" className="fd-dtd-btn fd-dtd-primary" onClick={() => setNote("Export started — we’ll email a CSV to you shortly.")}>
+          <button type="button" className="fd-dtd-btn fd-dtd-primary" onClick={() => setNote("Export started, we’ll email a CSV to you shortly.")}>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M8 2.5v7.5M4.8 7L8 10.2 11.2 7M3 13h10" /></svg>Export CSV
           </button>
         </div>

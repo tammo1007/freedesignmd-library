@@ -1,5 +1,5 @@
 /**
- * PortraitQuoteCarousel — one large serif pull quote at a time, the guest's
+ * PortraitQuoteCarousel, one large serif pull quote at a time, the guest's
  * portrait over a photo of the room they stayed in, stay details set as a
  * small ledger, and a filmstrip of portraits to jump between guests.
  *

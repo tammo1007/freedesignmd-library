@@ -1,5 +1,5 @@
 /**
- * HoverIndexList — an editorial, numbered capabilities index for an
+ * HoverIndexList, an editorial, numbered capabilities index for an
  * architecture and interiors studio. Hovering a row brings up a photograph
  * that trails the cursor on a spring (tilting with its velocity) while the row
  * slides and the others step back. Every row also opens in place with a short

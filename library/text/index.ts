@@ -35,7 +35,7 @@ export const items: LibraryItem[] = [
     slug: "text-repel",
     name: "Text Repel",
     category: "text",
-    description: "A headline whose letters drift away from — or toward — your cursor and spring home, each on its own spring.",
+    description: "A headline whose letters drift away from, or toward, your cursor and spring home, each on its own spring.",
     tags: ["cursor", "spring", "physics", "headline", "hover", "letters"],
     industry: "Creative agency",
     dependencies: [],

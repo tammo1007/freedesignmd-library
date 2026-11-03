@@ -1,5 +1,5 @@
 /**
- * HorizontalPinGallery — vertical scroll drives a horizontal track. The
+ * HorizontalPinGallery, vertical scroll drives a horizontal track. The
  * section pins (position: sticky) while a row of large cards slides sideways;
  * each card's artwork counter-moves inside its frame for parallax, and a
  * counter + progress bar track the active card.
@@ -15,7 +15,7 @@
  * computed from the track width so the scroll distance always matches.
  * Accessibility: cards are articles in DOM order; the track is reachable by
  * keyboard (Tab focuses each card and scrolls it into view). Reduced motion:
- * no pinning — the track becomes a native horizontal scroller with snap.
+ * no pinning, the track becomes a native horizontal scroller with snap.
  */
 import { useEffect, useId, useRef, useState } from "react";
 import type { CSSProperties, ReactNode, RefObject } from "react";
@@ -427,7 +427,7 @@ export function Demo() {
         heading={
           <>
             <span className="fd-hpg-demo-k">Selected work</span>
-            <span className="fd-hpg-demo-t">2021 — 2025</span>
+            <span className="fd-hpg-demo-t">2021, 2025</span>
           </>
         }
       />

@@ -1,6 +1,6 @@
 /**
  * Authoring helpers for v2 systems. These only FORMAT values that the system file passes in
- * explicitly — nothing is inferred from tags or archetypes. Keeps 30 hand-authored systems
+ * explicitly, nothing is inferred from tags or archetypes. Keeps 30 hand-authored systems
  * readable without 1,000 lines of repeated `transition:` boilerplate each.
  */
 import type { ComponentSpecs, TypeStyleV2 } from "../types";

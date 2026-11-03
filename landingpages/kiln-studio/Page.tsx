@@ -1,5 +1,5 @@
 /**
- * Kiln — a ceramics & design studio whose whole portfolio is an infinite,
+ * Kiln, a ceramics & design studio whose whole portfolio is an infinite,
  * pannable, zoomable canvas.
  *
  * First screen: the canvas at overview zoom with the studio name cut into a

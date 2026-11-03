@@ -1,5 +1,5 @@
 /**
- * CurtainRevealFooter — a restaurant footer that sits still while the page
+ * CurtainRevealFooter, a restaurant footer that sits still while the page
  * lifts off it like a curtain. Tonight's free tables are chips you can pick,
  * a party-size stepper and a huge serif "Book a table" that turns into a
  * confirmation. Below: hours, address, a small terrace photo, wordmark.

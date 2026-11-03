@@ -1,5 +1,5 @@
 /**
- * AutoplayFeatureTabs — feature tabs that advance on their own with a filling
+ * AutoplayFeatureTabs, feature tabs that advance on their own with a filling
  * progress bar, each tab showing a phone screen built in code. Shown for a
  * family GP practice's patient app: booking, test results, medication and
  * messages.

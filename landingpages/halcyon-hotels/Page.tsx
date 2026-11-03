@@ -1,8 +1,8 @@
 /**
- * Halcyon — boutique hotels on the Amalfi coast and in Kyoto.
+ * Halcyon, boutique hotels on the Amalfi coast and in Kyoto.
  *
  * Demo images: /img/halcyon/{positano-sunset,pool-lemons,suite,ryokan,courtyard-pool,journals}.webp (each with
- * -900 and -480 variants), included in the repo's public/img/halcyon — copy them next to your page or swap in your own.
+ * -900 and -480 variants), included in the repo's public/img/halcyon, copy them next to your page or swap in your own.
  *
  * A warm, editorial luxury-hospitality homepage with real photography
  * and no web fonts.
@@ -106,7 +106,7 @@ const RITUALS: { time: string; title: string; where: string; scene: SceneKind }[
 const QUOTES: { q: string; who: string; stay: string }[] = [
   { q: "We came for three nights and stayed six. Somebody had pressed our linen with lemon leaves; I still don't know how they knew.", who: "Margot & Lise Verhoeven", stay: "Casa Halcyon · June 2026" },
   { q: "The bath was filled at the exact moment the bamboo went quiet. Nothing was announced. Everything was anticipated.", who: "Daniel Okafor", stay: "Halcyon Arashiyama · April 2026" },
-  { q: "Dinner under the pergola, the coast turning violet below us — the best table I have sat at in twenty years of travel.", who: "Inés Calderón", stay: "Villa Limoni · September 2025" },
+  { q: "Dinner under the pergola, the coast turning violet below us, the best table I have sat at in twenty years of travel.", who: "Inés Calderón", stay: "Villa Limoni · September 2025" },
   { q: "They walked us through Gion at nine, when the lanterns are lit and the streets finally belong to the people who live there.", who: "Henrik & Sofie Lund", stay: "Halcyon Gion · November 2025" },
 ];
 
@@ -287,7 +287,7 @@ export function Page() {
       {/* NAV */}
       <header className={`hal-nav${navSmall ? " is-small" : ""}${menuOpen ? " is-open" : ""}`}>
         <div className="hal-nav-bar">
-          <a className="hal-logo" href="#hal-top" aria-label="Halcyon — home">
+          <a className="hal-logo" href="#hal-top" aria-label="Halcyon, home">
             <svg viewBox="0 0 28 28" aria-hidden="true" focusable="false"><circle cx="14" cy="14" r="13" fill="none" stroke="currentColor" strokeWidth="1.2" /><path d="M3 16.5 C 8 13.5 11 13.5 14 15 S 20 16.5 25 13.5" fill="none" stroke="currentColor" strokeWidth="1.2" /><circle cx="14" cy="10" r="3.2" fill="currentColor" /></svg>
             <span>Halcyon</span>
           </a>
@@ -312,7 +312,7 @@ export function Page() {
       </header>
 
       <main id="hal-main">
-        {/* HERO — pinned, time-of-day */}
+        {/* HERO, pinned, time-of-day */}
         <section id="hal-top" className="hal-hero" data-hal-p="pin" aria-labelledby="hal-hero-title">
           <div className="hal-hero-pin">
             <HeroLandscape />
@@ -334,7 +334,7 @@ export function Page() {
           </div>
         </section>
 
-        {/* BOOKING BAR — floats at the bottom of screen one, docks under the nav */}
+        {/* BOOKING BAR, floats at the bottom of screen one, docks under the nav */}
         <div id="hal-book" className={`hal-book${docked ? " is-docked" : ""}`}>
           <form className="hal-book-card" onSubmit={(e) => { e.preventDefault(); check(); }} aria-label="Check availability">
             <div className="hal-field hal-field-dest" role="group" aria-labelledby="hal-dest-l">
@@ -398,7 +398,7 @@ export function Page() {
             <div className="hal-intro-text">
               <p className="hal-eyebrow" data-hal-rv>Est. 1962 · Positano</p>
               <h2 id="hal-intro-title" className="hal-h2" data-hal-rv>A house is not a hotel until somebody waits up for you.</h2>
-              <p className="hal-lede hal-drop" data-hal-rv>Nonna Teresa Aiello opened eight rooms above Spiaggia Grande with a borrowed espresso machine and a rule that every guest be met at the boat. Sixty-four years later her grandchildren keep four houses on two coasts — and the rule.</p>
+              <p className="hal-lede hal-drop" data-hal-rv>Nonna Teresa Aiello opened eight rooms above Spiaggia Grande with a borrowed espresso machine and a rule that every guest be met at the boat. Sixty-four years later her grandchildren keep four houses on two coasts, and the rule.</p>
               <p className="hal-body" data-hal-rv>We have never built a lobby. You arrive into a kitchen, a garden, a tea room. Rooms are named, not numbered. In Kyoto we found a family who had been doing the same for nine generations, and asked if we might learn.</p>
               <dl className="hal-figs" data-hal-rv>
                 <div><dt>Houses</dt><dd>4</dd></div>
@@ -419,7 +419,7 @@ export function Page() {
           </div>
         </section>
 
-        {/* HOUSES — pinned horizontal gallery */}
+        {/* HOUSES, pinned horizontal gallery */}
         <section id="hal-houses" className="hal-houses" data-hal-p="pin" aria-labelledby="hal-houses-title">
           <div className="hal-houses-pin">
             <div className="hal-houses-head hal-wrap">
@@ -429,13 +429,13 @@ export function Page() {
               </div>
               <div className="hal-houses-meter" aria-hidden="true">
                 <span className="hal-houses-bar"><i /></span>
-                <span className="hal-houses-count"><b className="hal-houses-cur">01</b> — 04</span>
+                <span className="hal-houses-count"><b className="hal-houses-cur">01</b>, 04</span>
               </div>
             </div>
             <ol className="hal-houses-track">
               {HOUSES.map((h, i) => (
                 <li key={h.name} className="hal-house">
-                  <a href="#hal-rooms" className="hal-house-link" aria-label={`${h.name}, ${h.place} — from ${h.from} a night`}>
+                  <a href="#hal-rooms" className="hal-house-link" aria-label={`${h.name}, ${h.place}, from ${h.from} a night`}>
                     <div className="hal-house-img"><div className="hal-house-par"><Scene kind={h.scene} label={`${h.name}, ${h.place}`} /></div></div>
                     <div className="hal-house-info">
                       <span className="hal-house-n">0{i + 1}</span>
@@ -622,7 +622,7 @@ export function Page() {
                 <input id="hal-email" type="email" required placeholder="you@example.com" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} disabled={subscribed} />
                 <button type="submit" className="hal-btn hal-btn-sand" disabled={subscribed}>{subscribed ? "Subscribed" : "Subscribe"}</button>
               </div>
-              <p className="hal-news-note" aria-live="polite">{subscribed ? `Grazie — the next letter reaches ${email} in early spring.` : "We never share your address. Unsubscribe in one click."}</p>
+              <p className="hal-news-note" aria-live="polite">{subscribed ? `Grazie, the next letter reaches ${email} in early spring.` : "We never share your address. Unsubscribe in one click."}</p>
             </form>
           </div>
           <div className="hal-foot-cols">
@@ -865,7 +865,7 @@ const css = String.raw`
 .hal-js .hal-clip figcaption { opacity: 0; transition: opacity 1s var(--fd-ease-out) 700ms; }
 .hal-js .hal-clip.is-in figcaption { opacity: 1; }
 
-/* HOUSES — pinned horizontal */
+/* HOUSES, pinned horizontal */
 .hal-houses { position: relative; height: calc(100vh + var(--dist, 0px)); height: calc(100svh + var(--dist, 0px)); background: var(--hal-paper); --p: 0; }
 .hal-houses-pin { position: sticky; top: 0; height: 100vh; height: 100svh; min-height: 640px; display: flex; flex-direction: column; justify-content: center; gap: 44px; overflow: hidden; padding-top: 150px; }
 .hal-houses-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; }

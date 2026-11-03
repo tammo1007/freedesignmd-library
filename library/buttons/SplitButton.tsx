@@ -1,5 +1,5 @@
 /**
- * SplitButton — a primary action joined to a chevron that opens a menu of
+ * SplitButton, a primary action joined to a chevron that opens a menu of
  * related actions (deploy / schedule / roll back, publish / schedule…).
  *
  * Props: label, onPrimary, items[] ({ id, label, description?, icon?,

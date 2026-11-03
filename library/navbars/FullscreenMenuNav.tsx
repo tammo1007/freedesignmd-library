@@ -1,5 +1,5 @@
 /**
- * FullscreenMenuNav — an architecture studio header whose burger opens a
+ * FullscreenMenuNav, an architecture studio header whose burger opens a
  * fullscreen overlay. Giant stacked links reveal line by line through a
  * clip-path mask; hovering or focusing a link wipes in a project photograph
  * with its index number, name and year. The burger morphs into an X and the

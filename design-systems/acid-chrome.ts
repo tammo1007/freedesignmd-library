@@ -242,8 +242,8 @@ export const system: System = {
       table: {
         columns: ["Tier", "Access", "Doors", "Row", "Price"],
         rows: [
-          ["General", "All rooms", "22:00", "—", "€59"],
-          ["Early bird", "All rooms", "22:00", "—", "€44"],
+          ["General", "All rooms", "22:00", "–", "€59"],
+          ["Early bird", "All rooms", "22:00", "–", "€44"],
           ["Vault pass", "Main + Vault", "21:00", "B7", "€89"],
           ["VIP", "Lounge + all", "20:00", "A1", "€180"],
         ],

@@ -1,12 +1,12 @@
 /**
- * PaymentForm — card entry with brand detection, live formatting, Luhn and
+ * PaymentForm, card entry with brand detection, live formatting, Luhn and
  * expiry validation, a country select and a live card preview that flips to
  * show the CVC while that field is focused.
  *
  * Props: onSubmit(values) (may return a Promise: button shows loading → paid),
  * amountLabel (e.g. "€1,248.60"), countries[], defaultName, theme.
  * Exports: PaymentForm, CardPreview, detectBrand, formatCardNumber, luhn.
- * No card data leaves the component; wire `onSubmit` to your PSP's tokenizer —
+ * No card data leaves the component; wire `onSubmit` to your PSP's tokenizer
  * never post raw card numbers to your own server.
  *
  * Browser support: all evergreen browsers (3D flip uses preserve-3d; falls

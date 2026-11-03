@@ -1,11 +1,11 @@
 /**
- * SettingsForm — grouped settings with switches (role="switch"), range
+ * SettingsForm, grouped settings with switches (role="switch"), range
  * sliders with a value bubble, radio cards, a select, and a save bar that
  * slides in as soon as anything changes.
  *
  * Props: initial (HomeSettings), onSave(values) (may return a Promise),
  * theme. Building blocks are exported too: Switch, RangeField, RadioCards,
- * SelectField, SaveBar — compose your own sections with them.
+ * SelectField, SaveBar, compose your own sections with them.
  *
  * Browser support: all evergreen browsers. The slider uses a native
  * <input type="range"> with ::-webkit / ::-moz thumb styling.

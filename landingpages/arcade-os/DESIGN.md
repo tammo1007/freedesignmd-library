@@ -1,4 +1,4 @@
-# Arcade OS — design brief
+# Arcade OS, design brief
 
 Indie game-studio landing page rendered as a 1996-style desktop OS. Aesthetic: **Retro OS Pixel**. Single file `Page.tsx` (react only), scoped CSS prefix `ao-`.
 
@@ -29,10 +29,10 @@ Fixed bottom, 42px: Start menu, one button per open window (focused one pressed)
 
 ## Sections below the desktop
 1. Press ticker (linear marquee, duplicated list).
-2. ROADMAP.EXE — 20-block segmented bars that fill block by block (staggered `transition-delay`) when in view.
-3. HISCORES.TXT — count-up scores quantised to 24 steps; your best Snake score x100 is inserted as a blinking "YOU" row.
-4. CREW.DAT — 8x8 procedural pixel portraits with stepped blink.
-5. SYSTEM ALERTS — three tilted dialog boxes that pop in with `steps(3)`.
+2. ROADMAP.EXE, 20-block segmented bars that fill block by block (staggered `transition-delay`) when in view.
+3. HISCORES.TXT, count-up scores quantised to 24 steps; your best Snake score x100 is inserted as a blinking "YOU" row.
+4. CREW.DAT, 8x8 procedural pixel portraits with stepped blink.
+5. SYSTEM ALERTS, three tilted dialog boxes that pop in with `steps(3)`.
 6. Shutdown footer with "Reboot to desktop" (replays the boot).
 
 ## Motion

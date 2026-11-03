@@ -1,5 +1,5 @@
 /**
- * Terra — regenerative agriculture & climate-farming collective.
+ * Terra, regenerative agriculture & climate-farming collective.
  *
  * The page itself grows. The hero is a pinned vertical cross-section from sky
  * to root zone: as you scroll, procedural SVG wheat, cover crops and a tree

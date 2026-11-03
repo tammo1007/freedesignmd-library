@@ -1,5 +1,5 @@
 /**
- * SeatStepperPricing — per-seat volume pricing for a team tool. A seat
+ * SeatStepperPricing, per-seat volume pricing for a team tool. A seat
  * stepper (buttons with press-and-hold acceleration, or type a number)
  * moves a marker along a visible volume-discount scale; crossing a break
  * re-prices every seat and flashes the tier. Monthly / annual switch. The

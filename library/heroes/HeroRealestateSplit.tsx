@@ -1,5 +1,5 @@
 /**
- * HeroRealestateSplit — a private-office real-estate hero in a split layout.
+ * HeroRealestateSplit, a private-office real-estate hero in a split layout.
  * Left: editorial headline, search and a marquee of recent sales. Right: a
  * topographic coast map drawn in SVG (contours, sea soundings, the coast road,
  * village footprints, small-caps place names, graticule and scale bar) with

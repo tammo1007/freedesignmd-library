@@ -1,5 +1,5 @@
 /**
- * SearchCommand — a ⌘K command palette: fuzzy filtering with highlighted
+ * SearchCommand, a ⌘K command palette: fuzzy filtering with highlighted
  * matches, grouped sections, recent items, full keyboard navigation and a
  * footer with key hints.
  *
@@ -360,7 +360,7 @@ const SECTIONS: CommandSection[] = [
 
 const ROWS = [
   ["SHP-48213", "Rotterdam → Chicago", "In transit", "3 Nov", "ok"],
-  ["SHP-48190", "Shenzhen → Los Angeles", "Customs hold", "—", "warn"],
+  ["SHP-48190", "Shenzhen → Los Angeles", "Customs hold", "–", "warn"],
   ["SHP-48251", "Monterrey → Dallas", "Out for delivery", "Today", "ok"],
   ["SHP-48177", "Hamburg → Singapore", "Delivered", "27 Oct", "done"],
   ["SHP-48302", "Antwerp → Newark", "Booked", "9 Nov", "idle"],

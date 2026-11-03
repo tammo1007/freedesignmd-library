@@ -1,4 +1,4 @@
-# Atelier Nord — DESIGN.md
+# Atelier Nord, DESIGN.md
 
 A Scandinavian fashion e-commerce storefront: monochrome high fashion with giant condensed uppercase type, an art-directed asymmetric 12-column grid, and pre-rendered fabric photography (draped herringbone, cable knit, twill, poplin, check and leather, plus a CSS film-grain layer). It uses no web fonts.
 
@@ -15,7 +15,7 @@ All CSS lives in `Page.tsx` under the `.an` prefix. Every element is reset expli
 | Body text | `--an-graphite` | `#2A2A2A` |
 | Meta / captions | `--an-grey` | `#66645F` |
 | Hairlines | `--an-line` | `rgba(14,14,14,0.14)` |
-| Footer secondary text | — | `#A7A5A0` / `#BDBBB6` |
+| Footer secondary text |, | `#A7A5A0` / `#BDBBB6` |
 
 Product colourways (the only "colour", all desaturated):
 
@@ -64,7 +64,7 @@ Contrast: ink on paper is about 18:1, `--an-grey` on paper about 5.4:1, `#A7A5A0
 --fd-ease-in-out cubic-bezier(0.65, 0, 0.35, 1)
 --fd-spring      cubic-bezier(0.34, 1.56, 0.64, 1)
 --fd-dur-1 120ms · --fd-dur-2 240ms · --fd-dur-3 420ms · --fd-dur-4 700ms
-Physics spring (drawer, cursor label): stiffness 380, damping 30, mass 1 — integrated in rAF.
+Physics spring (drawer, cursor label): stiffness 380, damping 30, mass 1, integrated in rAF.
 ```
 
 ### Choreography
