@@ -71,21 +71,21 @@ That is it. Your agent now builds in a consistent, intentional style.
 
 | Family | Count | What you get |
 | --- | :-: | --- |
-| Liquid Glass | 9 | Real refraction, specular rims and morphing, the material from Apple's HIG, rebuilt for the web. |
-| Liquid Metal | 4 | Chrome that flows. WebGL shaders and CSS that read as polished, molten metal. |
-| Dither | 4 | Ordered and error-diffusion dithering for images, logos and gradients, interactive, GPU-fast. |
-| Buttons | 8 | Pressable, magnetic, shimmering. Every state designed: hover, press, focus, loading. |
-| Forms | 7 | Inputs, OTP, toggles, sliders and full forms with real validation states. |
-| Heroes | 15 | Above-the-fold sections with motion, from fintech to fashion. |
-| Tables | 5 | Data tables that sort, select and breathe, dense or editorial. |
-| Scroll & Hover Effects | 10 | Scroll-driven scenes, image ripples, split cards and hover transitions. |
-| Text Effects | 7 | Split, morph, repel, scramble and flip, typography that moves with intent. |
-| Cursors & Interactions | 4 | Cursor trails, magnetic docks, fisheye walls and 3D carousels. |
-| Navbars | 8 | Navigation that earns its place: mega menus, command bars, mastheads and menus that morph. |
-| Pricing | 7 | Pricing sections people actually read: toggles, calculators, receipts and menus. |
-| Feature Sections | 7 | Show what the product does: bento grids with live UI, sticky tours, before/after and spec sheets. |
-| Testimonials | 6 | Social proof with taste: quote walls, portrait carousels, case study cards and review grids. |
-| Footers | 6 | The last thing people see: giant wordmarks, curtain reveals, office clocks and sitemaps. |
+| Liquid Glass | 9 | Apple-style Liquid Glass for the web: real refraction, specular rims and controls that morph. |
+| Liquid Metal | 4 | Liquid metal shaders in WebGL and CSS: polished chrome that flows like molten metal. |
+| Dither | 4 | Dither effects for images, logos and gradients: ordered and error-diffusion, interactive and GPU-fast. |
+| Buttons | 8 | React buttons with every state: hover, press, focus and loading. Magnetic, shimmer and pressable styles. |
+| Forms | 7 | React form components: inputs, OTP fields, toggles, sliders and full forms with validation states. |
+| Heroes | 15 | React hero sections with motion, from fintech to fashion. |
+| Tables | 5 | React data tables that sort and select, in dense or editorial styles. |
+| Scroll & Hover Effects | 10 | Scroll and hover effects: scroll-driven scenes, image ripples, split cards and hover transitions. |
+| Text Effects | 7 | Text effects for React: split, morph, repel, scramble and flip. |
+| Cursors & Interactions | 4 | Custom cursors and interactions: cursor trails, magnetic docks, fisheye walls and 3D carousels. |
+| Navbars | 8 | React navbars: mega menus, command bars, mastheads and menus that morph. |
+| Pricing | 7 | Pricing sections for React: plan toggles, calculators, receipts and menus. |
+| Feature Sections | 7 | Feature sections: bento grids with live UI, sticky tours, before and after sliders and spec sheets. |
+| Testimonials | 6 | Testimonial sections: quote walls, portrait carousels, case study cards and review grids. |
+| Footers | 6 | Footer designs: giant wordmarks, curtain reveals, office clocks and sitemaps. |
 
 ### Landing pages (12)
 
