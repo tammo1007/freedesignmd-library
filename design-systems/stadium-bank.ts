@@ -5,20 +5,20 @@ export const system: System = {
   slug: "stadium-bank",
   name: "Stadium Bank",
   description:
-    "Sports-bank energy in bold navy and lime: condensed Barlow headlines, scoreboard numerals, a floodlit navy canvas and a single volt-lime action color. Built for fan-club banking, sports membership and fantasy-finance apps.",
+    "Sports-bank energy in bold navy and lime: condensed Barlow headlines, scoreboard numerals, a deep navy canvas and a single volt-lime action color. Built for fan-club banking, sports membership and fantasy-finance apps.",
   aesthetic: "expressive",
   industry: "sports",
   tags: ["sports", "banking", "navy", "lime", "bold"],
   defaultMode: "dark",
   personality: {
     summary:
-      "Stadium Bank banks like a matchday. Headlines are Barlow Condensed in heavy uppercase, set tight and large the way a scoreboard or a kit sponsor is. The canvas is floodlit navy-black, and volt lime `primary` is the only loud color: it marks the main action and a single highlighted number per screen. Balances and stats use scoreboard numerals with generous size, and cards are hard-edged with small radii, like ticket stubs. Light mode flips it: white pitch-side surfaces, navy type, and lime kept for accents on navy blocks.",
+      "Stadium Bank banks like a matchday. Headlines are Barlow Condensed in heavy uppercase, set tight and large the way a scoreboard or a kit sponsor is. The canvas is deep navy-black, and volt lime `primary` is the only loud color: it marks the main action and a single highlighted number per screen. Balances and stats use scoreboard numerals with generous size, and cards are hard-edged with small radii, like ticket stubs. Light mode flips it: white pitch-side surfaces, navy type, and lime kept for accents on navy blocks.",
     signatureMoves: [
       "Uppercase Barlow Condensed 800 display headlines at 96px with 0.01em tracking",
       "Scoreboard numerals: balances and stats set in display type at 48px+ with lime on the key number",
       "Ticket-stub cards: 6px radius, a dashed divider and notches on the left and right edge",
       "Volt-lime `primary` on navy in dark mode; navy `primary` with lime accent blocks in light mode",
-      "Diagonal 12deg slashes as section dividers, echoing pitch markings",
+      "2px hairline rules and dashed ticket perforations as the only dividers, echoing pitch markings",
     ],
   },
   fonts: {
@@ -48,7 +48,7 @@ export const system: System = {
     sectionYMobile: 64,
     measure: "58ch",
     notes: [
-      "Hero blocks run edge to edge on navy with a 12deg diagonal bottom edge; content stays inside 1280px.",
+      "Hero blocks run edge to edge on navy and end on a hard horizontal rule; content stays inside 1280px. The product (a pot screen on a phone, a matchday card) is shown hard-cropped by the hero edge, never floating.",
       "Stats rows use 4 equal ticket-stub cards with a 2px lime top rule on the featured one.",
       "Transaction lists use 64px rows with the club crest at 32px on the left and the amount on the right.",
     ],
@@ -114,13 +114,6 @@ export const system: System = {
       sm: "0 0 0 1px rgba(160,184,255,0.12)",
       md: "0 0 0 1px rgba(160,184,255,0.16), 0 14px 30px -12px rgba(0,0,0,0.7)",
       lg: "0 0 0 1px rgba(160,184,255,0.2), 0 40px 80px -20px rgba(0,0,0,0.85)",
-    },
-  },
-  extras: {
-    "floodlight": {
-      light: "radial-gradient(70% 90% at 80% 0%, rgba(204,242,77,0.35), transparent 65%)",
-      dark: "radial-gradient(70% 90% at 80% 0%, rgba(200,245,60,0.18), transparent 65%)",
-      usage: "Hero backdrop: a lime floodlight cone from the top right corner",
     },
   },
   motion: {
@@ -189,7 +182,7 @@ export const system: System = {
     link: link({ color: "var(--foreground)", decoration: "var(--primary)", hover: "color: var(--primary)", thickness: "3px", offset: 4 }),
   },
   imagery:
-    "Action photography shot from the stands: motion blur, floodlights and crowds, graded to deep navy shadows with a lime highlight pass. Players are cropped tight and tilted along the 12deg slash. Club crests appear at 32px in a white circle. No smiling stock-photo couples with phones.",
+    "Product first: the real app screen (a pot, a card, a ticket) on a phone or card object, hard-cropped by the section edge, in navy surface steps with lime on one number. Crowd photography, when used, is graded to deep navy shadows. Club crests appear at 32px in a white circle. No gradient fields standing in for photos, no stock couples with phones.",
   iconography:
     "24px solid-and-line hybrid icons at 2px stroke with square caps (Phosphor bold). Sport glyphs (ball, whistle, boot, trophy) are used for categories; lime marks the active one only.",
   dos: [
@@ -212,8 +205,8 @@ export const system: System = {
     content: {
       brand: "Stadium",
       nav: ["Accounts", "Cards", "Fan Perks", "Tickets", "Help"],
-      eyebrow: "Official club bank · Season 24/25",
-      headline: "Bank like it's matchday",
+      eyebrow: "Official club bank, Season 24/25",
+      headline: "Your card is your season ticket",
       subhead: "Earn 5% cashback at the club shop, split the cost of away trips and pay in a tap at every gate.",
       cta: ["Open account", "See perks"],
       stats: [

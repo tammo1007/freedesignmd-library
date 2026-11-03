@@ -14,9 +14,9 @@ Built for Claude Code, Cursor, Lovable, v0, Bolt, Windsurf and Codex. MIT licens
 [**Design lexicon**](https://freedesignmd.com/lexicon)
 
 ![License: MIT](https://img.shields.io/badge/license-MIT-black)
-![Components](https://img.shields.io/badge/components-68-black)
+![Components](https://img.shields.io/badge/components-107-black)
 ![DESIGN.md systems](https://img.shields.io/badge/DESIGN.md%20systems-30-black)
-![Landing pages](https://img.shields.io/badge/landing%20pages-13-black)
+![Landing pages](https://img.shields.io/badge/landing%20pages-12-black)
 ![React](https://img.shields.io/badge/React-19-black)
 ![PRs welcome](https://img.shields.io/badge/PRs-welcome-black)
 
@@ -62,29 +62,34 @@ That is it. Your agent now builds in a consistent, intentional style.
 
 | Folder | What it is |
 | --- | --- |
-| [`library/`](library) | 68 copy-paste React components in 10 families. One file each. |
+| [`library/`](library) | 107 copy-paste React components in 15 families. One file each. |
 | [`design-systems/`](design-systems) | 30 `DESIGN.md` systems with tokens, type, motion and components. |
-| [`landingpages/`](landingpages) | 13 complete landing pages, each with its own `DESIGN.md`. |
+| [`landingpages/`](landingpages) | 12 complete landing pages, each with its own `DESIGN.md`. |
 | [`public/img/`](public/img) | Demo photography used by the examples. Swap in your own. |
 
-### Components (68)
+### Components (107)
 
-| Family | Count | Highlights |
+| Family | Count | What you get |
 | --- | :-: | --- |
-| Liquid Glass | 9 | Glass button, slider, tab bar, toggle, menu, sheet, toolbar, media controls |
-| Liquid Metal | 4 | WebGL liquid metal surface, blob, button and text |
-| Dither | 4 | Dithered image and logo effects |
-| Buttons | 8 | Magnetic, shimmer, split, hold to confirm, icon groups |
-| Forms | 7 | Input field, OTP input, payment form, multi-step signup, command search |
-| Heroes | 10 | SaaS bento, climate data globe and more |
-| Effects | 10 | Zoom parallax, image ripple, horizontal pin gallery, hover transitions |
-| Text | 7 | Animated and interactive typography, particle text |
-| Tables | 5 | Data tables for dashboards |
-| Interactions | 4 | Cursor and pointer driven interactions |
+| Liquid Glass | 9 | Real refraction, specular rims and morphing, the material from Apple's HIG, rebuilt for the web. |
+| Liquid Metal | 4 | Chrome that flows. WebGL shaders and CSS that read as polished, molten metal. |
+| Dither | 4 | Ordered and error-diffusion dithering for images, logos and gradients, interactive, GPU-fast. |
+| Buttons | 8 | Pressable, magnetic, shimmering. Every state designed: hover, press, focus, loading. |
+| Forms | 7 | Inputs, OTP, toggles, sliders and full forms with real validation states. |
+| Heroes | 15 | Above-the-fold sections with motion, from fintech to fashion. |
+| Tables | 5 | Data tables that sort, select and breathe, dense or editorial. |
+| Scroll & Hover Effects | 10 | Scroll-driven scenes, image ripples, split cards and hover transitions. |
+| Text Effects | 7 | Split, morph, repel, scramble and flip, typography that moves with intent. |
+| Cursors & Interactions | 4 | Cursor trails, magnetic docks, fisheye walls and 3D carousels. |
+| Navbars | 8 | Navigation that earns its place: mega menus, command bars, mastheads and menus that morph. |
+| Pricing | 7 | Pricing sections people actually read: toggles, calculators, receipts and menus. |
+| Feature Sections | 7 | Show what the product does: bento grids with live UI, sticky tours, before/after and spec sheets. |
+| Testimonials | 6 | Social proof with taste: quote walls, portrait carousels, case study cards and review grids. |
+| Footers | 6 | The last thing people see: giant wordmarks, curtain reveals, office clocks and sitemaps. |
 
-### Landing pages (13)
+### Landing pages (12)
 
-Selene Base, Ares Colony, Orbit Launch, Halcyon Hotels, Terra Regen, Clara Health, Vault Fintech, Forge Devtool, Atelier Nord, Noir Parfum, Prism Glass, Kiln Studio and Arcade OS. Each one is a single file with its own `DESIGN.md`, covering space, hospitality, climate, health, fintech, developer tools, fashion, fragrance, glass UI, ceramics and gaming.
+Arcade OS, Ares, Atelier Nord, Clara, Forge, Halcyon, Kiln, Noir, Prism, Selene, Terra and Vault. Each one is a single file with its own `DESIGN.md`, covering space, hospitality, climate, health, fintech, developer tools, fashion, fragrance, glass UI, ceramics and gaming.
 
 ### Design systems (30)
 

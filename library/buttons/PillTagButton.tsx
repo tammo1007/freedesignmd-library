@@ -201,7 +201,7 @@ export function Demo() {
             {shown.map((l) => (
               <li key={l.id} className="fd-pill-demo-card">
                 <div className="fd-pill-demo-img" style={{ ["--hue" as string]: l.hue }} aria-hidden="true">
-                  <svg aria-hidden="true" focusable="false" viewBox="0 0 120 60" width="100%" height="100%" preserveAspectRatio="xMidYMax slice"><path d="M0 60V38l22-14 18 10 24-22 26 20 30-12v40z" fill="currentColor" opacity=".35" /><path d="M0 60V46l30-10 26 12 28-14 36 10v16z" fill="currentColor" opacity=".55" /></svg>
+                  <Facade type={l.type} />
                   <span>{l.type === "townhome" ? "Townhome" : l.type[0].toUpperCase() + l.type.slice(1)}</span>
                 </div>
                 <div className="fd-pill-demo-info">
@@ -218,6 +218,70 @@ export function Demo() {
   );
 }
 
+function Facade({ type }: { type: string }) {
+  const windows = (xs: number[], y: number, w = 12, h = 14) => xs.map((x) => (
+    <g key={`${x}-${y}`}><rect className="fd-pill-fg" x={x} y={y} width={w} height={h} /><path className="fd-pill-fl" d={`M${x + w / 2} ${y}v${h}M${x} ${y + h / 2}h${w}`} /></g>
+  ));
+  return (
+    <svg aria-hidden="true" focusable="false" viewBox="0 0 240 120" width="100%" height="100%" preserveAspectRatio="xMidYMax slice">
+      <rect className="fd-pill-fgr" x="0" y="100" width="240" height="20" />
+      {type === "house" && (
+        <g>
+          <rect className="fd-pill-fb" x="60" y="54" width="120" height="46" />
+          <path className="fd-pill-fr" d="M48 56 120 22 192 56z" />
+          <rect className="fd-pill-fr" x="148" y="26" width="10" height="20" />
+          <rect className="fd-pill-fd" x="112" y="72" width="16" height="28" />
+          {windows([76, 144], 68, 20, 16)}
+          <rect className="fd-pill-fs" x="106" y="98" width="28" height="3" />
+          <rect className="fd-pill-ft" x="208" y="82" width="4" height="18" /><circle className="fd-pill-fv" cx="210" cy="72" r="15" />
+        </g>
+      )}
+      {type === "condo" && (
+        <g>
+          <rect className="fd-pill-fb2" x="30" y="58" width="52" height="42" />
+          {windows([40, 58], 70, 10, 12)}
+          <rect className="fd-pill-fb" x="86" y="12" width="76" height="88" />
+          <rect className="fd-pill-fr" x="86" y="12" width="76" height="4" />
+          {[0, 1, 2, 3, 4].map((r) => (
+            <g key={r}>
+              {windows([96, 118, 140], 24 + r * 15, 14, 9)}
+              {r % 2 === 0 ? <rect className="fd-pill-fs" x="94" y={34 + r * 15} width="18" height="2" /> : null}
+            </g>
+          ))}
+          <rect className="fd-pill-fd" x="116" y="86" width="14" height="14" />
+          <rect className="fd-pill-fb2" x="170" y="70" width="44" height="30" />
+          {windows([180, 196], 80, 10, 10)}
+        </g>
+      )}
+      {type === "townhome" && (
+        <g>
+          {[{ x: 34, y: 42, k: "fb" }, { x: 90, y: 30, k: "fb2" }, { x: 146, y: 46, k: "fb3" }].map((u, i) => (
+            <g key={i}>
+              <rect className={`fd-pill-${u.k}`} x={u.x} y={u.y} width="56" height={100 - u.y} />
+              <rect className="fd-pill-fr" x={u.x - 2} y={u.y - 4} width="60" height="5" />
+              {windows([u.x + 8, u.x + 36], u.y + 12, 12, 16)}
+              {windows([u.x + 36], u.y + 40, 12, 16)}
+              <rect className="fd-pill-fd" x={u.x + 8} y="76" width="14" height="24" />
+              <rect className="fd-pill-fs" x={u.x + 5} y="98" width="20" height="3" />
+            </g>
+          ))}
+        </g>
+      )}
+      {type === "loft" && (
+        <g>
+          <rect className="fd-pill-fb" x="30" y="40" width="180" height="60" />
+          <path className="fd-pill-bk" d={Array.from({ length: 9 }, (_, i) => `M30 ${46 + i * 6.5}h180`).join("")} />
+          <rect className="fd-pill-fr" x="30" y="36" width="180" height="5" />
+          <rect className="fd-pill-ft" x="168" y="22" width="22" height="14" /><path className="fd-pill-ft" d="M171 36v6M187 36v6" />
+          {[48, 82, 116, 150].map((x) => <path key={x} className="fd-pill-fw" d={`M${x} 82V58a11 11 0 0 1 22 0v24z`} />)}
+          <rect className="fd-pill-fd" x="182" y="66" width="20" height="34" />
+          <path className="fd-pill-fl" d="M182 74h20M182 82h20M182 90h20" />
+        </g>
+      )}
+    </svg>
+  );
+}
+
 const demoCss = `
 :where(.fd-pill-demo,.fd-pill-demo *){box-sizing:border-box;margin:0;padding:0;font:inherit;letter-spacing:inherit;color:inherit;text-decoration:none;list-style:none}
 :where(.fd-pill-demo,.fd-pill-demo *)::before,:where(.fd-pill-demo,.fd-pill-demo *)::after{box-sizing:border-box}
@@ -225,9 +289,9 @@ const demoCss = `
 :where(.fd-pill-demo button){appearance:none;-webkit-appearance:none;background:none;border:0;border-radius:0}
 .fd-pill-demo{--d-font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;--d-disp:ui-sans-serif,-apple-system,"SF Pro Display","Inter",sans-serif;
   --fd-ease-out:cubic-bezier(.22,1,.36,1);--fd-dur-2:240ms;
-  --d-bg:#F7F7F9;--d-card:#fff;--d-ink:#0B0B0F;--d-mut:#6B6B76;--d-line:rgba(11,11,15,.08);--l:92%;--c:.04;
+  --d-bg:#F7F7F9;--d-card:#fff;--d-ink:#0B0B0F;--d-mut:#6B6B76;--d-line:rgba(11,11,15,.08);--d-sky:#E7EDEF;--d-ground:#CFD3C9;--d-glass:#C9D9E0;--d-stone:#E4E0D6;--d-stone-line:rgba(11,11,15,.28);--d-leaf:#8FA588;--d-warm:#F1D9A6;
   min-height:100vh;background:var(--d-bg);color:var(--d-ink);font:400 15px/1.45 var(--d-font);-webkit-font-smoothing:antialiased;transition:background-color var(--fd-dur-2) var(--fd-ease-out)}
-.fd-pill-demo[data-fd-theme="dark"]{--d-bg:#09090B;--d-card:#111115;--d-ink:#F5F5F7;--d-mut:#9A9AA6;--d-line:rgba(255,255,255,.09);--l:30%}
+.fd-pill-demo[data-fd-theme="dark"]{--d-bg:#09090B;--d-card:#111115;--d-ink:#F5F5F7;--d-mut:#9A9AA6;--d-line:rgba(255,255,255,.09);--d-sky:#161C1F;--d-ground:#242823;--d-glass:#33454E;--d-stone:#4A4840;--d-stone-line:rgba(255,255,255,.22);--d-leaf:#44594A;--d-warm:#C99B4A}
 .fd-pill-demo-bar{display:flex;align-items:center;gap:16px;height:60px;padding:0 clamp(16px,4vw,40px);border-bottom:1px solid var(--d-line)}
 .fd-pill-demo-brand{font:700 18px/1 var(--d-disp);letter-spacing:-.03em}
 .fd-pill-demo-loc{margin-right:auto;font:400 14px/1 var(--d-font);color:var(--d-mut)}
@@ -243,7 +307,12 @@ const demoCss = `
 .fd-pill-demo-count button{cursor:pointer;font:500 14px/1 var(--d-font);color:#007AFF}
 .fd-pill-demo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:16px}
 .fd-pill-demo-card{border-radius:20px;background:var(--d-card);box-shadow:0 0 0 1px var(--d-line),0 1px 2px rgba(0,0,0,.03);overflow:hidden;animation:fd-pill-in 420ms var(--fd-ease-out) both}
-.fd-pill-demo-img{position:relative;height:120px;color:hsl(var(--hue) 35% 45%);background:hsl(var(--hue) 40% var(--l))}
+.fd-pill-demo-img{position:relative;height:132px;overflow:hidden;background:var(--d-sky);--fbc:hsl(var(--hue) 20% 60%)}
+.fd-pill-fb{fill:var(--fbc)}.fd-pill-fb2{fill:hsl(var(--hue) 18% 74%)}.fd-pill-fb3{fill:hsl(calc(var(--hue) + 24) 16% 52%)}
+.fd-pill-fr{fill:hsl(var(--hue) 16% 24%)}.fd-pill-fd{fill:hsl(var(--hue) 20% 20%)}.fd-pill-fs{fill:var(--d-stone)}
+.fd-pill-fg{fill:var(--d-glass)}.fd-pill-fl{fill:none;stroke:var(--d-stone-line);stroke-width:1}
+.fd-pill-fgr{fill:var(--d-ground)}.fd-pill-ft{fill:hsl(30 18% 30%)}.fd-pill-fv{fill:var(--d-leaf)}
+.fd-pill-bk{fill:none;stroke:hsl(var(--hue) 20% 40%);stroke-width:.8;opacity:.45}.fd-pill-fw{fill:var(--d-warm)}
 .fd-pill-demo-img span{position:absolute;left:12px;top:12px;height:22px;display:inline-flex;align-items:center;padding:0 9px;border-radius:9999px;background:rgba(255,255,255,.85);color:#0B0B0F;font:600 11px/1 var(--d-font)}
 .fd-pill-demo-info{display:flex;flex-direction:column;gap:6px;padding:14px 16px 16px}
 .fd-pill-demo-info b{font:600 20px/1.1 var(--d-disp);letter-spacing:-.02em;font-variant-numeric:tabular-nums}

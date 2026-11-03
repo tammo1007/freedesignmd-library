@@ -205,7 +205,7 @@ export const system: System = {
       brand: "Doodlo",
       nav: ["Today", "Subjects", "Rewards", "Parents"],
       eyebrow: "Level 4 · Fractions",
-      headline: "Pizza time: share it fairly!",
+      headline: "Pizza time: share it fairly",
       subhead: "Cut the pizza into equal slices and feed the hungry robots.",
       cta: ["Start lesson", "Skip for now"],
       stats: [

@@ -14,6 +14,7 @@ export const system: System = {
     summary:
       "Atrium Folio reads like a drawing set pinned to a concrete wall. The canvas is cast-concrete grey `#e4e3df` with slightly lighter `#efeeea` panels, and ink is a cool near-black `#1b1c1d`. Familjen Grotesk sets headings with a quiet, slightly condensed grotesque voice; IBM Plex Mono labels every project with drawing-sheet metadata (`A-201 / SECTION / 1:50`). One signal color, construction orange `#c23d12`, marks the active project, the focus ring and the single call to action. Edges are square, borders are 1px, and project grids snap to a visible 12-column module.",
     signatureMoves: [
+      "Ink line drawings as project images: section, plan, axonometric and elevation with poche walls, grid bubbles and level markers",
       "Drawing-sheet labels in mono caps: sheet number, type and scale beside every project image",
       "Visible 12-column grid: 1px column rules show through at 6% on hero sections",
       "Concrete-grey surfaces stacked in two tones (`background`, `card`), never white or black",
@@ -188,7 +189,7 @@ export const system: System = {
     link: link({ color: "var(--foreground)", decoration: "var(--primary)", hover: "color: var(--primary)", thickness: "2px", offset: 4 }),
   },
   imagery:
-    "Straight-on architectural photography in flat overcast light, desaturated slightly toward grey, shot at 3:2 or 16:9 and printed edge to edge. Pair every exterior with an interior and a drawing: plan, section or axonometric as black line art on grey. No people posing, no sunset gradients, no filters.",
+    "Drawings lead, photographs follow. Every project opens on an ink line drawing on the card grey: a section with solid-black poche walls, a plan at 1:100, an axonometric of the structure or an elevation, with grid bubbles, level markers and a dimension string. Orange appears once per drawing, on a level marker or the circulation arrow. Photography is straight-on, in flat overcast light, desaturated slightly toward grey and printed edge to edge at 3:2 or 16:9. No people posing, no sunset gradients, no filters, never a placeholder gradient in place of a drawing.",
   iconography:
     "Technical 1.5px square-cap line icons at 20px: plan, section, elevation, download and ruler. Direction is shown with a plain arrow (→) in mono; the orange signal is never used for an icon fill.",
   dos: [

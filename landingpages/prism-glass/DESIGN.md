@@ -1,7 +1,7 @@
 # Prism, Design Brief
 
 A bright, optimistic AI product page built around Apple-style **Liquid
-Glass**. A soft pastel mesh drifts behind everything; content (product shots,
+Glass**. A soft, muted warm mesh drifts behind everything; content (product shots,
 quotes, plans) sits on solid white-ish cards; and glass is reserved for the
 **control layer** that floats above content, nav, prompt bar, sliders,
 scene chips, carousel buttons, the billing toggle and the lens demo.
@@ -18,8 +18,8 @@ Source of truth: `Page.tsx` in this folder.
 2. **Real refraction where possible, honest frost elsewhere.** Chromium gets
    SVG-displacement refraction with chromatic rim splitting; other browsers
    get `blur(18px) saturate(180%)` frost. Both look intentional.
-3. **Colour comes from light, not UI.** The UI is ink `#16161d` on pale
-   lavender paper with one violet accent `#5b3df5`. All other colour lives in
+3. **Colour comes from light, not UI.** The UI is ink `#16161d` on warm
+   stone paper with one sienna accent `#8a3f14`. All other colour lives in
    the mesh and the product photography.
 4. **Depth by parallax.** The hero stage, studio scene and gallery are built
    from layers that move at different rates with pointer and scroll.
@@ -37,16 +37,16 @@ Source of truth: `Page.tsx` in this folder.
 --fd-prs-ink:         #16161d;   /* text, primary buttons, hot plan */
 --fd-prs-ink-2:       #2a2a33;   /* nav links */
 --fd-prs-mute:        #4f4f5c;   /* body copy (AA on paper and glass) */
---fd-prs-paper:       #f6f4fb;   /* page base under the mesh */
+--fd-prs-paper:       #f5f2ec;   /* page base under the mesh */
 --fd-prs-card:        #ffffff;
 --fd-prs-line:        rgba(22,22,29,0.08);
---fd-prs-accent:      #5b3df5;   /* kickers, checkmarks, focus */
+--fd-prs-accent:      #8a3f14;   /* kickers, checkmarks, focus */
 --fd-prs-glass-tint:  rgba(255,255,255,0.22);   /* glass with refraction */
 --fd-prs-glass-frost: rgba(255,255,255,0.58);   /* frosted fallback */
 ```
 
-Mesh: five radial blobs (60vmax), rose `#ffc2d4`, lavender `#c6b6ff`, sky
-`#b3e1ff`, apricot `#ffdcb3`, mint `#bff3dd`, plus an SVG fractal-noise grain
+Mesh: five radial blobs (60vmax), clay `#f0d2bd`, sand `#dcd3c4`, stone
+`#d6dde0`, apricot `#f7dcb8`, sage `#d3dfcf`, plus an SVG fractal-noise grain
 at 35% in `soft-light`.
 
 Grades (product photography): Golden hour, North-light studio, Neon dusk,
@@ -121,7 +121,7 @@ refraction sliders, sun-azimuth dial, carousel arrows, billing toggle, and the
 | Backdrop | Mesh drift | blobs translate/scale with page scroll progress `--m` (not time, so refraction is only recomputed while scrolling) |
 | Nav | Condense into glass capsule | after 40px: glass fades in and `clip-path` insets to a 940px capsule; inner row narrows to match |
 | Hero | Entrance | blur-up + rise, staggered; the grade on all three photos cross-fades every 5.2s (stops when you type); clicking a side photo brings it to the front |
-| Hero | Generate | submit → button turns violet "Rendering…", a light sweep crosses the photos, next grade fades in |
+| Hero | Generate | submit → button turns sienna "Rendering…", a light sweep crosses the photos, next grade fades in |
 | Hero | Parallax | pointer sets `--px/--py` (±0.5); layers move 14 / 26 / 32 / 40px. Scroll sets `--sp`; the stage sinks 60px while chips rise 80–150px |
 | Hero | Key-light slider | 2700–7500K tints the photos warm or cool via a soft-light overlay |
 | Lens | Spring drag | spring integrator (k 380, c 30); idles on a Lissajous drift until touched; squash-and-stretch along velocity; arrow keys move it |

@@ -35,10 +35,10 @@ export interface HeroSaasBentoProps {
 const CYCLE = 7200;
 
 export function HeroSaasBento({
-  eyebrow = "New · Workflows 2.0",
+  eyebrow = "Workflows 2.0",
   title = (
     <>
-      Run procurement on <span className="fd-bto-hl">autopilot.</span>
+      Every purchase <span className="fd-bto-hl">approved</span> before the money moves.
     </>
   ),
   lede = "Plinth routes every purchase request, enforces policy before money moves, and syncs approved spend to NetSuite in real time.",
@@ -175,7 +175,7 @@ export function HeroSaasBento({
           <div className="fd-bto-th"><span>Requests</span><b className="fd-bto-count">{on(5) ? 3 : on(3) ? 2 : on(1) ? 1 : 0} new</b></div>
           <ul className="fd-bto-notes">
             {[
-              ["Figma Enterprise", "Design · $18,400/yr", "#A259FF", 1],
+              ["Figma Enterprise", "Design · $18,400/yr", "#0D5C4A", 1],
               ["AWS reserved instances", "Platform · $42,000", "#FF9900", 3],
               ["Offsite, Lisbon", "People · $9,850", "#22C55E", 5],
             ].map(([t, s, c, at]) => (
@@ -263,37 +263,34 @@ const css = `
   --fd-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --fd-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   --fd-dur-1: 120ms; --fd-dur-2: 240ms; --fd-dur-3: 420ms; --fd-dur-4: 700ms;
-  --fd-bto-bg: #FAFAFB;
+  --fd-bto-bg: #F6F5F1;
   --fd-bto-ink: #0B0B0F;
   --fd-bto-muted: #6B6B76;
-  --fd-bto-accent: #4F46E5;
+  --fd-bto-accent: #0D5C4A;
   --fd-bto-sans: "SF Pro Display", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
   position: relative; display: block; overflow: hidden; margin: 0; padding: 120px 32px 48px; min-height: 880px;
   background: var(--fd-bto-bg); color: var(--fd-bto-ink); font: 400 1rem/1.5 var(--fd-bto-sans); isolation: isolate;
 }
-.fd-bto-bgfx { position: absolute; inset: 0; z-index: -1; pointer-events: none;
-  background: radial-gradient(40% 30% at 50% 0%, rgba(99, 102, 241, 0.16), transparent 70%), radial-gradient(30% 30% at 85% 55%, rgba(236, 72, 153, 0.08), transparent 70%), radial-gradient(30% 30% at 15% 60%, rgba(14, 165, 233, 0.08), transparent 70%);
-}
-.fd-bto-bgfx::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(rgba(11,11,15,0.08) 1px, transparent 1px); background-size: 22px 22px; -webkit-mask-image: radial-gradient(60% 50% at 50% 20%, #000, transparent); mask-image: radial-gradient(60% 50% at 50% 20%, #000, transparent); }
+.fd-bto-bgfx { display: none; }
 .fd-bto-head { max-width: 820px; margin: 0 auto; text-align: center; will-change: transform, opacity; }
 .fd-bto-eyebrow {
-  display: inline-flex; align-items: center; gap: 10px; margin: 0 0 24px; padding: 4px 12px 4px 4px; border-radius: 9999px; text-decoration: none;
-  background: #fff; border: 1px solid rgba(11,11,15,0.08); box-shadow: 0 1px 2px rgba(11,11,15,0.04);
+  display: inline-flex; align-items: center; gap: 8px; margin: 0 0 24px; padding: 0; text-decoration: none;
+  background: transparent; border: 0; box-shadow: none;
   font: 500 0.8125rem/1 var(--fd-bto-sans); color: #3a3a44; animation: fd-bto-rise var(--fd-dur-4) var(--fd-ease-out) both;
   transition: border-color var(--fd-dur-1);
 }
-.fd-bto-eyebrow:hover { border-color: rgba(79,70,229,0.35); }
+.fd-bto-eyebrow:hover { color: var(--fd-bto-ink); }
 .fd-bto-eyebrow svg { display: block; }
-.fd-bto-eb-tag { padding: 5px 10px; border-radius: 9999px; background: rgba(79,70,229,0.1); color: var(--fd-bto-accent); font: 600 0.75rem/1 var(--fd-bto-sans); }
+.fd-bto-eb-tag { padding: 0; background: none; color: var(--fd-bto-accent); font: 600 0.8125rem/1 var(--fd-bto-sans); }
 .fd-bto-h1 { margin: 0; padding: 0; font: 600 clamp(2.75rem, 6.2vw, 5.25rem)/0.98 var(--fd-bto-sans); letter-spacing: -0.05em; color: var(--fd-bto-ink); text-wrap: balance; animation: fd-bto-blur 1000ms var(--fd-ease-out) 100ms both; }
-.fd-bto-hl { background: linear-gradient(92deg, #4F46E5, #9333EA 50%, #DB2777); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.fd-bto-hl { color: var(--fd-bto-accent); }
 .fd-bto-lede { margin: 22px auto 0; padding: 0; max-width: 34rem; font: 400 clamp(1rem, 1.25vw, 1.1875rem)/1.55 var(--fd-bto-sans); letter-spacing: -0.01em; color: var(--fd-bto-muted); text-wrap: pretty; animation: fd-bto-rise var(--fd-dur-4) var(--fd-ease-out) 240ms both; }
 .fd-bto-ctas { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin: 30px 0 0; animation: fd-bto-rise var(--fd-dur-4) var(--fd-ease-out) 340ms both; }
 .fd-bto-btn, .fd-bto-btn2 { display: inline-flex; align-items: center; margin: 0; height: 46px; padding: 0 20px; border-radius: 12px; text-decoration: none; font: 500 0.9375rem/1 var(--fd-bto-sans); letter-spacing: -0.01em; transition: transform var(--fd-dur-2) var(--fd-spring), box-shadow var(--fd-dur-2), background var(--fd-dur-1); }
-.fd-bto-btn { background: var(--fd-bto-ink); color: #fff; box-shadow: inset 0 1px 0 rgba(255,255,255,0.15), 0 8px 20px -8px rgba(11,11,15,0.5); }
+.fd-bto-btn { background: var(--fd-bto-ink); color: #fff; box-shadow: none; }
 .fd-bto-btn2 { background: #fff; color: var(--fd-bto-ink); box-shadow: 0 0 0 1px rgba(11,11,15,0.1), 0 2px 4px rgba(11,11,15,0.04); }
 .fd-bto-btn:active, .fd-bto-btn2:active { transform: scale(0.96); transition-duration: var(--fd-dur-1); }
-.fd-bto-btn:focus-visible, .fd-bto-btn2:focus-visible, .fd-bto-eyebrow:focus-visible { outline: 2px solid rgba(79,70,229,0.7); outline-offset: 2px; }
+.fd-bto-btn:focus-visible, .fd-bto-btn2:focus-visible, .fd-bto-eyebrow:focus-visible { outline: 2px solid rgba(13,92,74,0.7); outline-offset: 2px; }
 .fd-bto-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
 .fd-bto-grid {
@@ -307,9 +304,9 @@ const css = `
   box-shadow: 0 0 0 1px rgba(11,11,15,0.06), 0 1px 2px rgba(11,11,15,0.04), 0 12px 32px -16px rgba(11,11,15,0.14);
 }
 .fd-bto-tile::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; pointer-events: none;
-  background: radial-gradient(240px circle at var(--mx) var(--my), rgba(99,102,241,0.55), transparent 60%);
+  background: radial-gradient(240px circle at var(--mx) var(--my), rgba(11,11,15,0.3), transparent 60%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }
-.fd-bto-tile::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(300px circle at var(--mx) var(--my), rgba(99,102,241,0.05), transparent 60%); }
+.fd-bto-tile::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(300px circle at var(--mx) var(--my), rgba(11,11,15,0.03), transparent 60%); }
 .fd-bto-t-chart { grid-row: span 2; }
 .fd-bto-t-notes { grid-row: span 2; }
 .fd-bto-t-cmd { grid-column: 2 / -1; display: flex; align-items: center; padding: 10px; }
@@ -319,15 +316,15 @@ const css = `
 .fd-bto-big { margin: 10px 0 0; padding: 0; font: 600 2.25rem/1 var(--fd-bto-sans); letter-spacing: -0.04em; color: var(--fd-bto-ink); font-variant-numeric: tabular-nums; }
 .fd-bto-chart { display: block; width: 100%; height: 150px; margin: 14px 0 0; overflow: visible; }
 .fd-bto-plan { fill: none; stroke: rgba(11,11,15,0.18); stroke-width: 1.2; stroke-dasharray: 4 5; vector-effect: non-scaling-stroke; }
-.fd-bto-line { fill: none; stroke: #4F46E5; stroke-width: 2.5; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; }
-.fd-bto-area { fill: rgba(79,70,229,0.08); opacity: 0; }
-.fd-bto-dot { fill: #4F46E5; opacity: 0; transform-box: fill-box; transform-origin: center; }
+.fd-bto-line { fill: none; stroke: #0D5C4A; stroke-width: 2.5; vector-effect: non-scaling-stroke; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.fd-bto-area { fill: rgba(13,92,74,0.08); opacity: 0; }
+.fd-bto-dot { fill: #0D5C4A; opacity: 0; transform-box: fill-box; transform-origin: center; }
 .fd-bto-chart.is-on .fd-bto-line { stroke-dashoffset: 0; transition: stroke-dashoffset 1600ms var(--fd-ease-out); }
 .fd-bto-chart.is-on .fd-bto-area { opacity: 1; transition: opacity var(--fd-dur-4) var(--fd-ease-out) 900ms; }
 .fd-bto-chart.is-on .fd-bto-dot { opacity: 1; animation: fd-bto-ping 2s var(--fd-ease-out) 1500ms infinite; transition: opacity var(--fd-dur-2) 1400ms; }
 .fd-bto-axis { display: flex; justify-content: space-between; margin: 8px 0 0; font: 500 0.6875rem/1 var(--fd-bto-sans); color: #9a9aa5; }
 
-.fd-bto-count { font: 600 0.6875rem/1 var(--fd-bto-sans); color: var(--fd-bto-accent); background: rgba(79,70,229,0.1); padding: 4px 8px; border-radius: 9999px; font-variant-numeric: tabular-nums; }
+.fd-bto-count { font: 600 0.6875rem/1 var(--fd-bto-sans); color: var(--fd-bto-accent); background: rgba(13,92,74,0.1); padding: 4px 8px; border-radius: 9999px; font-variant-numeric: tabular-nums; }
 .fd-bto-notes { display: flex; flex-direction: column; gap: 8px; margin: 14px 0 0; padding: 0; list-style: none; }
 .fd-bto-notes li {
   display: grid; grid-template-columns: 8px minmax(0, 1fr) auto; gap: 10px; align-items: center; margin: 0; padding: 12px; border-radius: 14px; background: #FAFAFB;
@@ -344,7 +341,7 @@ const css = `
 .fd-bto-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 14px 0 0; font: 500 0.8125rem/1.2 var(--fd-bto-sans); color: var(--fd-bto-ink); }
 .fd-bto-sw { position: relative; flex: none; width: 36px; height: 22px; border-radius: 9999px; background: #E4E4EA; transition: background var(--fd-dur-2) var(--fd-ease-in-out); }
 .fd-bto-sw i { position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: 9999px; background: #fff; box-shadow: 0 1px 3px rgba(11,11,15,0.25); transition: transform var(--fd-dur-3) var(--fd-spring); }
-.fd-bto-sw.is-on { background: #4F46E5; }
+.fd-bto-sw.is-on { background: #0D5C4A; }
 .fd-bto-sw.is-on i { transform: translateX(14px); }
 
 .fd-bto-avs { display: flex; margin: 16px 0 0; }
@@ -406,7 +403,7 @@ export function Demo() {
         <a className="fd-bto-demo-logo" href="#top">
           <svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true">
             <rect x="2" y="12" width="16" height="5" rx="1.5" fill="#0B0B0F" />
-            <rect x="5" y="7" width="10" height="4" rx="1.2" fill="#4F46E5" />
+            <rect x="5" y="7" width="10" height="4" rx="1.2" fill="#0D5C4A" />
             <rect x="8" y="3" width="4" height="3" rx="1" fill="#0B0B0F" />
           </svg>
           Plinth
@@ -437,6 +434,6 @@ const demoCss = `
 .fd-bto-demo-nav a { color: #4a4a55; text-decoration: none; font: 500 0.875rem/1 ui-sans-serif, -apple-system, "Inter", sans-serif; }
 .fd-bto-demo-r { display: flex; align-items: center; gap: 18px; }
 .fd-bto-demo-r .fd-bto-demo-cta { display: inline-flex; align-items: center; height: 34px; padding: 0 14px; border-radius: 10px; background: #0B0B0F; color: #fff; }
-.fd-bto-demo-nav a:focus-visible { outline: 2px solid rgba(79,70,229,.7); outline-offset: 2px; border-radius: 6px; }
+.fd-bto-demo-nav a:focus-visible { outline: 2px solid rgba(13,92,74,.7); outline-offset: 2px; border-radius: 6px; }
 @media (max-width: 860px) { .fd-bto-demo-nav { padding: 0 16px; } .fd-bto-demo-nav nav, .fd-bto-demo-r a:not(.fd-bto-demo-cta) { display: none; } }
 `;

@@ -264,10 +264,48 @@ const css = `
 /* ───────────────────────────── demo ───────────────────────────── */
 
 const WORK = [
-  { t: "Halden Bank", k: "Identity · 2026", c1: "#2A3BFF", c2: "#9AA6FF", cursor: "View" },
-  { t: "Oda Hotels", k: "Booking · 2025", c1: "#E2582B", c2: "#FFC9A8", cursor: "View" },
-  { t: "Veloq E-bikes", k: "Launch film · 2026", c1: "#0F3D2E", c2: "#7FE0B6", cursor: "Play" },
+  { t: "Halden Bank", k: "Identity · 2026", bg: "#E8E3D6", ink: "#1B2A4A", cursor: "View" },
+  { t: "Oda Hotels", k: "Booking · 2025", bg: "#C2563A", ink: "#FFF4EA", cursor: "View" },
+  { t: "Veloq E-bikes", k: "Launch film · 2026", bg: "#12251F", ink: "#EAF6EE", cursor: "Play" },
 ];
+
+/** Flat case-study art, one drawn object per project. */
+function WorkArt({ id }: { id: string }) {
+  if (id === "Halden Bank") {
+    return (
+      <svg className="fd-cc-demo-art" viewBox="0 0 300 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+        <rect x="34" y="22" width="132" height="150" fill="#FBF9F3" />
+        <text x="48" y="48" fill="#1B2A4A" fontFamily="Georgia,'Times New Roman',serif" fontSize="15">Halden</text>
+        <g fill="#1B2A4A" opacity=".16"><rect x="48" y="72" width="90" height="4" /><rect x="48" y="84" width="104" height="4" /><rect x="48" y="96" width="76" height="4" /><rect x="48" y="116" width="100" height="4" /><rect x="48" y="128" width="92" height="4" /></g>
+        <rect x="148" y="84" width="124" height="76" fill="#1B2A4A" />
+        <g fill="#E8E3D6"><rect x="164" y="102" width="4" height="20" /><rect x="172" y="102" width="4" height="20" /><rect x="180" y="102" width="4" height="20" /><rect x="162" y="98" width="24" height="3" /><rect x="162" y="123" width="24" height="3" /></g>
+        <text x="164" y="146" fill="#E8E3D6" fontFamily="Georgia,'Times New Roman',serif" fontSize="12">Halden</text>
+      </svg>
+    );
+  }
+  if (id === "Oda Hotels") {
+    return (
+      <svg className="fd-cc-demo-art" viewBox="0 0 300 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+        <path d="M150 0V30" stroke="#FFF4EA" strokeWidth="3" opacity=".7" />
+        <rect x="104" y="30" width="92" height="132" rx="46" fill="#E3BE74" />
+        <rect x="104" y="30" width="92" height="132" rx="46" fill="none" stroke="#9A7430" strokeWidth="2" />
+        <circle cx="150" cy="62" r="9" fill="#C2563A" stroke="#9A7430" strokeWidth="2" />
+        <text x="150" y="124" textAnchor="middle" fill="#6B4E17" fontFamily="Georgia,'Times New Roman',serif" fontSize="38">12</text>
+        <text x="150" y="146" textAnchor="middle" fill="#6B4E17" fontFamily="ui-sans-serif,system-ui,sans-serif" fontSize="9" letterSpacing="2">ODA</text>
+      </svg>
+    );
+  }
+  return (
+    <svg className="fd-cc-demo-art" viewBox="0 0 300 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+      <g fill="none" stroke="#9BE3B8" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="86" cy="104" r="38" /><circle cx="214" cy="104" r="38" />
+        <path d="M86 104 L128 56 H178 L214 104 M128 56 L150 104 H86 M150 104 L178 56 M120 44 H138 M176 46 L170 34 H196" />
+      </g>
+      <rect x="116" y="76" width="32" height="12" rx="3" fill="#EAF6EE" transform="rotate(-40 132 82)" />
+      <rect x="34" y="166" width="232" height="3" fill="#EAF6EE" opacity=".25" /><rect x="34" y="166" width="96" height="3" fill="#EAF6EE" />
+    </svg>
+  );
+}
 
 export function Demo() {
   const [sent, setSent] = useState(false);
@@ -292,8 +330,8 @@ export function Demo() {
         <div className="fd-cc-demo-strip" data-cursor="Drag" role="region" aria-label="Selected work, scroll horizontally" tabIndex={0}>
           {WORK.map((w) => (
             <a key={w.t} href={`#${w.t.toLowerCase().replace(/\s/g, "-")}`} className="fd-cc-demo-card" data-cursor={w.cursor}
-              style={{ background: `radial-gradient(120% 90% at 20% 10%, ${w.c2} 0%, ${w.c1} 62%)` }}>
-              <span className="fd-cc-demo-shape" aria-hidden="true" />
+              style={{ background: w.bg, color: w.ink }}>
+              <WorkArt id={w.t} />
               <span className="fd-cc-demo-meta">
                 <strong>{w.t}</strong>
                 <span>{w.k}</span>
@@ -330,8 +368,8 @@ const demoCss = `
 .fd-cc-demo-h1 span{color:rgba(245,243,238,.42)}
 .fd-cc-demo-strip{display:flex;gap:16px;margin:clamp(24px,5vh,48px) 0 0;padding:0 0 8px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x mandatory}
 .fd-cc-demo-strip::-webkit-scrollbar{display:none}
-.fd-cc-demo-card{position:relative;flex:0 0 clamp(260px,30vw,400px);aspect-ratio:3/2;margin:0;padding:0;border-radius:24px;overflow:hidden;scroll-snap-align:start;text-decoration:none;color:#fff}
-.fd-cc-demo-shape{position:absolute;right:-12%;bottom:-24%;width:70%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.14);box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
+.fd-cc-demo-card{position:relative;flex:0 0 clamp(260px,30vw,400px);aspect-ratio:3/2;margin:0;padding:0;border-radius:24px;overflow:hidden;scroll-snap-align:start;text-decoration:none}
+.fd-cc-demo-art{position:absolute;left:0;top:10px;width:100%;height:calc(100% - 66px);display:block}
 .fd-cc-demo-meta{position:absolute;left:20px;bottom:18px;display:flex;flex-direction:column;gap:4px;margin:0}
 .fd-cc-demo-meta strong{font:600 20px/1.1 var(--d-disp);letter-spacing:-.01em}
 .fd-cc-demo-meta span{font:500 13px/1 var(--d-font);opacity:.8}
