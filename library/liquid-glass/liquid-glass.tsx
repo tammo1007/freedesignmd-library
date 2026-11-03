@@ -863,7 +863,7 @@ function Segmented({
   );
 }
 
-/** The content layer: an editorial spread with type, procedural photographs and fine line work. */
+/** The content layer: an editorial spread with type, abstract plates and fine line work. */
 function Spread() {
   return (
     <article className="fd-lgx-paper">
@@ -884,32 +884,32 @@ function Spread() {
           Glass doesn’t hide what’s behind it. It borrows it, curves it around its edges and hands it back a little brighter. A field guide to the
           physics behind the interfaces of 2026.
         </p>
-        <p className="fd-lgx-byline">Words by Ines Vahlkamp · Photographs by Teodor Brask</p>
+        <p className="fd-lgx-byline">Words by Ines Vahlkamp · Plates by Teodor Brask</p>
       </section>
 
-      <section className="fd-lgx-plates" aria-label="Photographs">
+      <section className="fd-lgx-plates" aria-label="Plates">
         <figure className="fd-lgx-plate">
-          <div className="fd-lgx-ph fd-lgx-ph--dune" />
+          <div className="fd-lgx-ph fd-lgx-ph--ring" />
           <figcaption>
-            <b>Atacama, 04:52.</b> First light on the salt flats near San Pedro.
+            <b>Plate 1.</b> A gradient ring, twelve pixels wide, lit from the left.
           </figcaption>
         </figure>
         <figure className="fd-lgx-plate">
-          <div className="fd-lgx-ph fd-lgx-ph--sea" />
+          <div className="fd-lgx-ph fd-lgx-ph--grid" />
           <figcaption>
-            <b>Faroe Islands.</b> Swell lines off Gásadalur, 1/2000 s.
+            <b>Plate 2.</b> A hairline grid. Straight lines show the bend best.
           </figcaption>
         </figure>
         <figure className="fd-lgx-plate">
-          <div className="fd-lgx-ph fd-lgx-ph--citrus" />
+          <div className="fd-lgx-ph fd-lgx-ph--conc" />
           <figcaption>
-            <b>Mercato di Ballarò.</b> Blood oranges, Palermo, February.
+            <b>Plate 3.</b> Concentric rings, one every fourteen pixels.
           </figcaption>
         </figure>
         <figure className="fd-lgx-plate">
-          <div className="fd-lgx-ph fd-lgx-ph--house" />
+          <div className="fd-lgx-ph fd-lgx-ph--type" />
           <figcaption>
-            <b>Glasshouse, Kyoto.</b> 1,184 panes, none of them flat.
+            <b>Plate 4.</b> Letterforms, set large, for reading the edge.
           </figcaption>
         </figure>
       </section>
@@ -946,7 +946,7 @@ function Spread() {
       <section className="fd-lgx-test" aria-label="Calibration plate">
         <div className="fd-lgx-bars" />
         <div className="fd-lgx-grid" />
-        <p className="fd-lgx-cap">Plate 7, calibration chart used for every photograph in this issue.</p>
+        <p className="fd-lgx-cap">Plate 7, calibration chart used for every plate in this issue.</p>
       </section>
 
       <section className="fd-lgx-quote">
@@ -964,6 +964,9 @@ function Spread() {
 const FONT = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
 const DISPLAY = `"SF Pro Display",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif`;
 const SERIF = `"New York","Iowan Old Style","Source Serif 4",Georgia,"Times New Roman",serif`;
+
+/* fine grain, an inline SVG feTurbulence tile (no network) */
+const GRAIN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1.4 0 0 0 -.2 1.4 0 0 0 -.2 1.4 0 0 0 -.2 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`;
 
 const DEMO_CSS = `
 .fd-lgx,.fd-lgx *,.fd-lgx *::before,.fd-lgx *::after{box-sizing:border-box}
@@ -986,25 +989,20 @@ const DEMO_CSS = `
 .fd-lgx-plate figcaption{margin:10px 0 0;font:400 13px/1.45 ${FONT};color:#3A3A44}
 .fd-lgx-plate figcaption b{font-weight:650;color:#0B0B0F}
 .fd-lgx-ph{display:block;aspect-ratio:4/5;border-radius:4px;overflow:hidden;position:relative}
-.fd-lgx-ph--dune{background:
-  radial-gradient(circle at 70% 38%,#FFF6D6 0 7%,rgba(255,220,150,0.6) 8%,transparent 22%),
-  linear-gradient(176deg,transparent 0 55%,rgba(120,40,20,0.25) 55.5%,transparent 70%),
-  repeating-linear-gradient(172deg,rgba(90,30,10,0.0) 0 10px,rgba(90,30,10,0.18) 10px 11px),
-  linear-gradient(180deg,#2B1B4F 0%,#B6427A 32%,#F28C4B 52%,#F6C177 62%,#C8693A 63%,#7A2E1C 100%)}
-.fd-lgx-ph--sea{background:
-  repeating-linear-gradient(178deg,rgba(255,255,255,0) 0 13px,rgba(255,255,255,0.55) 13px 14.5px,rgba(255,255,255,0) 14.5px 22px),
-  linear-gradient(180deg,#D8E8EE 0%,#9CC2CF 28%,#1F6F7A 30%,#0E4652 62%,#06222B 100%)}
-.fd-lgx-ph--citrus{background:
-  radial-gradient(circle at 28% 30%,#FFB347 0 13%,#E8590C 14%,#B42318 18%,transparent 18.5%),
-  radial-gradient(circle at 70% 26%,#FFC56E 0 11%,#F76707 12%,#A61E1E 15.5%,transparent 16%),
-  radial-gradient(circle at 52% 58%,#FFD08A 0 15%,#F08C00 16%,#C2255C 21%,transparent 21.5%),
-  radial-gradient(circle at 22% 80%,#FFE08A 0 12%,#FAB005 13%,#E8590C 17%,transparent 17.5%),
-  radial-gradient(circle at 80% 78%,#FF8787 0 12%,#E03131 13%,#7A0E14 17%,transparent 17.5%),
-  linear-gradient(160deg,#2F5D3A,#14301E)}
-.fd-lgx-ph--house{background:
-  repeating-linear-gradient(90deg,rgba(255,255,255,0.75) 0 1.5px,transparent 1.5px 26px),
-  repeating-linear-gradient(0deg,rgba(255,255,255,0.75) 0 1.5px,transparent 1.5px 26px),
-  radial-gradient(ellipse at 50% 110%,#E7F5C8 0%,#7FB069 30%,#2D6A4F 60%,#0B2B26 100%)}
+.fd-lgx-ph::before{content:"";position:absolute;inset:0;background-image:${GRAIN};background-size:180px 180px;mix-blend-mode:soft-light;opacity:0.4}
+.fd-lgx-ph--ring{background:
+  radial-gradient(circle at 62% 42%,transparent 0 21%,rgba(255,255,255,0.8) 21.5% 23.5%,transparent 24%),
+  radial-gradient(circle at 62% 42%,rgba(255,255,255,0.28),transparent 60%),
+  linear-gradient(160deg,#1B2150,#4B3B8C 58%,#B0707A)}
+.fd-lgx-ph--grid{background:
+  repeating-linear-gradient(90deg,rgba(255,255,255,0.6) 0 1px,transparent 1px 22px),
+  repeating-linear-gradient(0deg,rgba(255,255,255,0.6) 0 1px,transparent 1px 22px),
+  radial-gradient(ellipse at 50% 100%,#6D7BD8,#1B1F3B 72%)}
+.fd-lgx-ph--conc{background:
+  repeating-radial-gradient(circle at 50% 56%,transparent 0 13px,rgba(255,255,255,0.7) 13px 14.5px),
+  linear-gradient(180deg,#2F4A47,#0E1A19)}
+.fd-lgx-ph--type{background:linear-gradient(180deg,#E8DCCB,#D4C3AC)}
+.fd-lgx-ph--type::after{content:"Aa";position:absolute;left:50%;top:50%;transform:translate(-50%,-52%);font:800 7.5rem/1 ${DISPLAY};letter-spacing:-0.06em;color:#14131A}
 .fd-lgx-cols{columns:3 260px;column-gap:40px;margin:0 0 64px;font:400 1.0625rem/1.6 ${SERIF};color:#1C1C22}
 .fd-lgx-cols p{margin:0 0 16px;font:inherit}
 .fd-lgx-drop{float:left;margin:4px 10px 0 0;font:800 4.4rem/0.8 ${DISPLAY};color:#C2410C}

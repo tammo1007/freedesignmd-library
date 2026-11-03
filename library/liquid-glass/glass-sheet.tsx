@@ -245,12 +245,12 @@ const css = `
 @media (prefers-contrast: more){.fd-gsh .fd-lg-fill{background:#fff}.fd-gsh--dark .fd-gsh .fd-lg-fill{background:#000}}
 `;
 
-/* ───────────────────────── demo: maps / hotel booking ───────────────────────── */
+/* ───────────────────────── demo: hotel booking ───────────────────────── */
 
 const ROOMS = [
-  { n: "Deluxe King, harbour view", d: "32 m² · Breakfast for two · Free cancellation until 10 Jun", p: 318, c: ["#FFB199", "#FF0844"] },
-  { n: "Junior Suite with terrace", d: "48 m² · Terrace with daybeds · Late checkout", p: 452, c: ["#84FAB0", "#0BA360"] },
-  { n: "Twin Classic, courtyard", d: "26 m² · Quiet side · Pay at hotel", p: 246, c: ["#A1C4FD", "#3B5BDB"] },
+  { n: "Deluxe King, harbour view", d: "32 m² · Breakfast for two · Free cancellation until 10 Jun", p: 318, c: ["#E3D3BE", "#8C6F58"] },
+  { n: "Junior Suite with terrace", d: "48 m² · Terrace with daybeds · Late checkout", p: 452, c: ["#CBD3E2", "#66789B"] },
+  { n: "Twin Classic, courtyard", d: "26 m² · Quiet side · Pay at hotel", p: 246, c: ["#DCC9BE", "#9A7767"] },
 ];
 
 export function Demo() {
@@ -259,17 +259,14 @@ export function Demo() {
   return (
     <div className="fd-gshd">
       <style>{demoCss}</style>
+      <div className="fd-gshd-bg" aria-hidden="true">
+        <span className="fd-gshd-ring fd-gshd-ring--a" />
+        <span className="fd-gshd-ring fd-gshd-ring--b" />
+        <span className="fd-gshd-grid" />
+        <span className="fd-gshd-grain" />
+      </div>
       <div className="fd-gshd-device">
-        <MapLayer />
-        <div className="fd-gshd-pin" style={{ left: "58%", top: "36%" }} aria-hidden="true">
-          <span>€318</span>
-        </div>
-        <div className="fd-gshd-pin is-dim" style={{ left: "28%", top: "22%" }} aria-hidden="true">
-          <span>€204</span>
-        </div>
-        <div className="fd-gshd-pin is-dim" style={{ left: "76%", top: "18%" }} aria-hidden="true">
-          <span>€389</span>
-        </div>
+        <Screen />
         <GlassSheet
           detent={detent}
           onDetentChange={setDetent}
@@ -329,64 +326,82 @@ export function Demo() {
   );
 }
 
-function MapLayer() {
+/** The screen behind the sheet: a quiet search-results page, placeholder bars for everything that is not the story. */
+function Screen() {
   return (
-    <svg className="fd-gshd-map" viewBox="0 0 400 860" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <rect width="400" height="860" fill="#EDE9E0" />
-      <path d="M0 560 C80 520 150 600 230 560 S360 520 400 540 V860 H0 Z" fill="#9FD3F2" />
-      <path d="M0 600 C90 570 160 640 240 600 S360 570 400 590" fill="none" stroke="#B9E1F7" strokeWidth="6" />
-      <g fill="#C9E7B5">
-        <path d="M30 80h90v70H30z" />
-        <path d="M260 230l80 10-10 80-80-10z" />
-        <circle cx="150" cy="420" r="38" />
-      </g>
-      <g fill="#E1DCD1">
-        {Array.from({ length: 60 }, (_, i) => {
-          const x = (i * 67) % 380;
-          const y = ((i * 131) % 520) + 10;
-          return <rect key={i} x={x} y={y} width={18 + (i % 4) * 6} height={14 + (i % 3) * 6} rx="2" />;
-        })}
-      </g>
-      <g fill="none" stroke="#FFFFFF" strokeLinecap="round">
-        <path d="M-10 200 C100 180 200 260 410 220" strokeWidth="14" />
-        <path d="M120 -10 C140 200 100 380 180 560" strokeWidth="12" />
-        <path d="M-10 420 C120 400 250 470 410 430" strokeWidth="10" />
-        <path d="M300 -10 C280 140 330 300 290 560" strokeWidth="9" />
-        <path d="M-10 320 L410 300" strokeWidth="6" />
-        <path d="M60 -10 L40 560" strokeWidth="5" />
-        <path d="M210 -10 L230 560" strokeWidth="5" />
-      </g>
-      <g fill="none" stroke="#F6C445" strokeLinecap="round">
-        <path d="M-10 200 C100 180 200 260 410 220" strokeWidth="5" />
-      </g>
-      <path d="M120 -10 C140 200 100 380 180 560" fill="none" stroke="#E5484D" strokeWidth="3" strokeDasharray="1 7" strokeLinecap="round" />
-      <g fontFamily="ui-sans-serif,-apple-system,Inter,sans-serif" fontWeight="600" fill="#6B6B76" fontSize="10" letterSpacing="0.06em">
-        <text x="20" y="250">ALFAMA</text>
-        <text x="240" y="380">BAIXA</text>
-        <text x="40" y="640" fill="#3B82C4">RIO TEJO</text>
-      </g>
-    </svg>
+    <div className="fd-gshd-screen" aria-hidden="true">
+      <div className="fd-gshd-status">
+        <span>9:41</span>
+        <i />
+      </div>
+      <div className="fd-gshd-bar">
+        <div>
+          <p className="fd-gshd-city">Lisbon</p>
+          <p className="fd-gshd-dates">14 – 17 Jun · 2 guests</p>
+        </div>
+        <span className="fd-gshd-round" />
+      </div>
+      <div className="fd-gshd-filters">
+        <b className="is-on" /> <b /> <b /> <b />
+      </div>
+      {[246, 318, 452].map((p, i) => (
+        <div key={p} className="fd-gshd-card">
+          <span className={`fd-gshd-img fd-gshd-img--${i}`}>
+            <em>€{p}</em>
+          </span>
+          <span className="fd-gshd-lines">
+            <i />
+            <i />
+          </span>
+        </div>
+      ))}
+    </div>
   );
 }
 
 const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
 const D = `"SF Pro Display",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif`;
+/* fine grain, an inline SVG feTurbulence tile (no network) */
+const GRAIN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1.4 0 0 0 -.2 1.4 0 0 0 -.2 1.4 0 0 0 -.2 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`;
 const demoCss = `
 .fd-gshd,.fd-gshd *,.fd-gshd *::before,.fd-gshd *::after{box-sizing:border-box}
-.fd-gshd{min-height:100vh;width:100%;margin:0;padding:28px 16px;display:flex;align-items:center;justify-content:center;
-  background:radial-gradient(900px 600px at 20% 10%,#E6F0FF,transparent 60%),radial-gradient(900px 600px at 90% 90%,#FFEFE0,transparent 60%),#F2F2F7;color:#0B0B0F;font:400 15px/1.4 ${F};letter-spacing:normal}
-.fd-gshd-device{position:relative;width:390px;max-width:100%;height:min(820px,calc(100vh - 56px));min-height:620px;margin:0;border-radius:52px;overflow:hidden;background:#EDE9E0;
+.fd-gshd{position:relative;min-height:100vh;width:100%;margin:0;padding:28px 16px;display:flex;align-items:center;justify-content:center;overflow:hidden;
+  background:radial-gradient(900px 620px at 12% 0%,#DDE5FA,transparent 62%),radial-gradient(900px 620px at 96% 100%,#F3E2D6,transparent 62%),#ECEDF3;color:#0B0B0F;font:400 15px/1.4 ${F};letter-spacing:normal}
+.fd-gshd-bg{position:absolute;inset:0;margin:0;padding:0;pointer-events:none}
+.fd-gshd-bg > span{position:absolute;display:block}
+.fd-gshd-ring{border-radius:50%;border:1px solid rgba(11,11,15,0.10)}
+.fd-gshd-ring--a{left:calc(50% - 560px);top:50%;width:520px;height:520px;margin-top:-260px;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,0.7),rgba(255,255,255,0) 70%)}
+.fd-gshd-ring--b{right:calc(50% - 600px);top:12%;width:380px;height:380px;border-color:rgba(60,80,170,0.16);background:linear-gradient(160deg,rgba(120,140,230,0.16),rgba(120,140,230,0))}
+.fd-gshd-grid{inset:0;background:repeating-linear-gradient(90deg,rgba(11,11,15,0.05) 0 1px,transparent 1px 72px),repeating-linear-gradient(0deg,rgba(11,11,15,0.05) 0 1px,transparent 1px 72px);
+  -webkit-mask:radial-gradient(60% 70% at 50% 50%,#000,transparent);mask:radial-gradient(60% 70% at 50% 50%,#000,transparent)}
+.fd-gshd-grain{inset:0;background-image:${GRAIN};background-size:180px 180px;mix-blend-mode:soft-light;opacity:0.35}
+.fd-gshd-device{position:relative;width:390px;max-width:100%;height:min(820px,calc(100vh - 56px));min-height:620px;margin:0;border-radius:52px;overflow:hidden;background:#F1F1F4;isolation:isolate;
   box-shadow:0 0 0 10px #0B0B0F,0 0 0 11px #2A2A31,0 50px 100px -40px rgba(20,20,40,0.55)}
-.fd-gshd-map{position:absolute;inset:0;display:block;width:100%;height:100%}
-.fd-gshd-pin{position:absolute;margin:0;padding:0;transform:translate(-50%,-100%)}
-.fd-gshd-pin span{display:block;margin:0;padding:7px 11px;border-radius:999px;background:#0B0B0F;color:#fff;font:700 13px/1 ${F};box-shadow:0 6px 16px -4px rgba(0,0,0,0.4)}
-.fd-gshd-pin::after{content:"";display:block;width:10px;height:10px;margin:-5px auto 0;background:#0B0B0F;transform:rotate(45deg);border-radius:0 0 2px 0}
-.fd-gshd-pin.is-dim span{background:#fff;color:#0B0B0F}
-.fd-gshd-pin.is-dim::after{background:#fff}
+.fd-gshd-screen{position:absolute;inset:0;margin:0;padding:0 16px;overflow:hidden;background:#F1F1F4}
+.fd-gshd-status{display:flex;align-items:center;justify-content:space-between;height:52px;margin:0 6px;padding:6px 0 0;font:600 15px/1 ${F};color:#0B0B0F}
+.fd-gshd-status span{margin:0;padding:0 0 0 12px}
+.fd-gshd-status i{display:block;width:90px;height:26px;margin:0 auto 0 0;border-radius:999px;background:#0B0B0F;position:absolute;left:50%;top:12px;transform:translateX(-50%)}
+.fd-gshd-bar{display:flex;align-items:center;justify-content:space-between;margin:8px 0 14px;padding:0 4px}
+.fd-gshd-city{margin:0;font:800 30px/1.05 ${D};letter-spacing:-0.03em;color:#0B0B0F}
+.fd-gshd-dates{margin:4px 0 0;font:500 14px/1.2 ${F};color:#6B6B76}
+.fd-gshd-round{display:block;width:40px;height:40px;margin:0;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 1px rgba(11,11,15,0.08)}
+.fd-gshd-filters{display:flex;gap:8px;margin:0 0 16px;padding:0 4px}
+.fd-gshd-filters b{display:block;width:72px;height:32px;margin:0;border-radius:999px;background:#E3E3E9}
+.fd-gshd-filters b.is-on{width:92px;background:#1C1C22}
+.fd-gshd-card{display:block;margin:0 0 18px;padding:0}
+.fd-gshd-img{position:relative;display:block;width:100%;aspect-ratio:2/1;margin:0;border-radius:24px;overflow:hidden}
+.fd-gshd-img::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 74% 46%,transparent 0 38px,rgba(255,255,255,0.55) 39px 41px,transparent 42px),radial-gradient(circle at 74% 46%,rgba(255,255,255,0.22),transparent 90px)}
+.fd-gshd-img::after{content:"";position:absolute;inset:0;background-image:${GRAIN};background-size:180px 180px;mix-blend-mode:soft-light;opacity:0.4}
+.fd-gshd-img--0{background:linear-gradient(135deg,#2F3650,#93705A)}
+.fd-gshd-img--1{background:linear-gradient(135deg,#262E40,#7F8FAE)}
+.fd-gshd-img--2{background:linear-gradient(135deg,#34292F,#B08F7C)}
+.fd-gshd-img em{position:absolute;left:14px;top:14px;z-index:1;margin:0;padding:7px 11px;border-radius:999px;background:#fff;color:#0B0B0F;font:700 13px/1 ${F};font-style:normal;letter-spacing:-0.005em}
+.fd-gshd-lines{display:flex;flex-direction:column;gap:8px;margin:12px 4px 0;padding:0}
+.fd-gshd-lines i{display:block;height:10px;margin:0;border-radius:5px;background:#DEDEE5}
+.fd-gshd-lines i:last-child{width:46%;background:#E8E8EE}
 .fd-gshd-head{display:flex;align-items:center;gap:12px;margin:2px 0 0;padding:0}
-.fd-gshd-thumb{flex:none;width:52px;height:52px;margin:0;border-radius:14px;background:
-  linear-gradient(#fff 0 0) 20% 55%/16% 22% no-repeat,linear-gradient(#fff 0 0) 60% 50%/16% 26% no-repeat,
-  linear-gradient(180deg,#FFB86B,#E5484D 60%,#6E2B5A)}
+.fd-gshd-thumb{position:relative;flex:none;width:52px;height:52px;margin:0;border-radius:15px;overflow:hidden;background:linear-gradient(135deg,#2F3650,#93705A)}
+.fd-gshd-thumb::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 66% 40%,transparent 0 9px,rgba(255,255,255,0.6) 10px 11.5px,transparent 12.5px),radial-gradient(circle at 66% 40%,rgba(255,255,255,0.28),transparent 28px)}
 .fd-gshd-titles{flex:1;min-width:0;margin:0;padding:0}
 .fd-gshd-title{margin:0;font:700 1.375rem/1.15 ${D};letter-spacing:-0.02em;color:inherit}
 .fd-gshd-sub{margin:2px 0 0;font:500 13px/1.3 ${F};color:#6B6B76;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -411,6 +426,7 @@ const demoCss = `
 .fd-gshd-p{margin:0 0 12px;font:400 15px/1.5 ${F};color:#3A3A44}
 @media (max-width:480px){
   .fd-gshd{padding:0}
+  .fd-gshd-bg{display:none}
   .fd-gshd-device{width:100%;height:100vh;min-height:0;border-radius:0;box-shadow:none}
 }
 `;

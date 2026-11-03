@@ -12,10 +12,10 @@ export const system: System = {
   defaultMode: "light",
   personality: {
     summary:
-      "Warm Editorial is a printed page that happens to be on a screen. The canvas is cream `#f6f0e4`, never white, and text is a brown-black ink `#231c14` so long reads stay soft on the eye. Fraunces carries headlines at weight 600 with tight tracking; Source Serif 4 sets 18px body copy at a 1.65 leading for the measure of a newspaper column. Oxblood `#8a2a1c` is the only color of consequence: it marks the section kicker, the link underline and the subscribe button. Structure comes from thin ink rules, double rules under the masthead and generous column gutters, not boxes.",
+      "Warm Editorial is a printed page that happens to be on a screen. The canvas is cream `#f6f0e4`, never white, and text is a brown-black ink `#231c14` so long reads stay soft on the eye. Fraunces carries headlines at weight 500 in its large optical-size cut with tight tracking; Source Serif 4 sets 18px body copy at a 1.65 leading for the measure of a newspaper column. Oxblood `#8a2a1c` is the only color of consequence: it marks the section kicker, the link underline and the subscribe button. Structure comes from thin ink rules, double rules under the masthead and generous column gutters, not boxes.",
     signatureMoves: [
       "Double ink rule under the masthead, single 1px rules between stories",
-      "Fraunces headlines at weight 600, Source Serif 4 body at 18px with a 1.65 leading",
+      "Fraunces headlines at weight 500, Source Serif 4 body at 18px with a 1.65 leading",
       "Oxblood `primary` reserved for kickers, links and the subscribe action",
       "Mono datelines (`DM Mono`, 12px, uppercase) above every story: city, date, desk",
       "Drop cap on the first paragraph of a feature, set in Fraunces at 4 lines tall",
@@ -26,13 +26,13 @@ export const system: System = {
     body: "Source Serif 4",
     mono: "DM Mono",
     googleFontsUrl:
-      "https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600&family=Source+Serif+4:wght@400;600&family=DM+Mono:wght@400;500&display=swap",
+      "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=DM+Mono:wght@400;500&display=swap",
     fallbacks: { display: SERIF, body: SERIF, mono: MONO },
   },
   type: {
-    display: t("display", 84, 1.0, 600, "-0.03em"),
-    h1: t("display", 52, 1.06, 600, "-0.025em"),
-    h2: t("display", 30, 1.2, 600, "-0.015em"),
+    display: t("display", 84, 0.98, 500, "-0.035em"),
+    h1: t("display", 52, 1.05, 500, "-0.03em"),
+    h2: t("display", 30, 1.18, 500, "-0.02em"),
     h3: t("display", 21, 1.3, 600, "-0.005em"),
     body: t("body", 18, 1.65, 400, "0em"),
     small: t("body", 15, 1.5, 400, "0em"),
@@ -202,6 +202,11 @@ export const system: System = {
   showcase: {
     layout: "editorial",
     variant: "broadsheet",
+    media: {
+      hero: "/img/halcyon/positano-sunset.webp",
+      heroFocus: "50% 45%",
+      items: ["/img/lux/still-tea-800.webp"],
+    },
     content: {
       brand: "The Lantern Ledger",
       nav: ["Front page", "City Hall", "Business", "Culture", "Opinion"],
@@ -209,6 +214,7 @@ export const system: System = {
       headline: "The last ferry line votes to stay afloat",
       subhead: "After eleven years of falling ridership, a council coalition keeps the harbor route alive with a fare-capped subsidy.",
       cta: ["Subscribe", "Read the story"],
+      caption: "The harbor ferry landing at dusk, the line the council voted to keep running.",
       stats: [
         { label: "Subscribers", value: "41,208", delta: "+6%" },
         { label: "Stories this week", value: "63" },

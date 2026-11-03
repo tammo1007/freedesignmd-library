@@ -5,35 +5,35 @@ export const system: System = {
   slug: "hotel-riviere",
   name: "Hotel Riviere",
   description:
-    "Riviera hospitality in sea-blue and sand: sun-bleached ivory, deep Mediterranean teal, Marcellus capitals and Figtree text. For boutique hotels, beach clubs and coastal restaurants.",
+    "Riviera hospitality in sea-blue and sand: sun-bleached ivory, deep Mediterranean teal, Instrument Serif headlines and Hanken Grotesk text. For boutique hotels, beach clubs and coastal restaurants.",
   aesthetic: "warm",
   industry: "hospitality",
   tags: ["hotel", "riviera", "sea-blue", "sand"],
   defaultMode: "light",
   personality: {
     summary:
-      "Hotel Riviere is a sun-struck terrace on the Cote d'Azur. The canvas is sun-bleached sand `#f6efe2`; the ink is a deep harbor navy `#0f2a3a` rather than black; the one colored voice is Mediterranean blue `#0b5d7a`, used for the booking button, the date picker and the active nav tab. Marcellus sets headings in its Roman-inscription capitals, with generous tracking at small sizes, while Figtree keeps booking forms friendly and legible. Imagery is full-bleed and bright: striped awnings, white linen, water. Dark mode is the same terrace at night: deep sea `#08202c` with warm ivory type and a luminous `#6cc3dc` action.",
+      "Hotel Riviere is a sun-struck terrace on the Cote d'Azur. The canvas is sun-bleached sand `#f6efe2`; the ink is a deep harbor navy `#0f2a3a` rather than black; the one colored voice is Mediterranean blue `#0b5d7a`, used for the booking button, the date picker and the active nav tab. Instrument Serif sets headings in a tall, high-contrast display serif at large sizes, with italics for pull quotes, while Hanken Grotesk keeps booking forms friendly and legible and carries the tracked uppercase labels. Imagery is full-bleed and bright: striped awnings, white linen, water. Dark mode is the same terrace at night: deep sea `#08202c` with warm ivory type and a luminous `#6cc3dc` action.",
     signatureMoves: [
       "Booking bar pinned over the hero: dates, guests and a single sea-blue `Check availability` button",
-      "Marcellus capitals with +0.12em tracking for section labels and room names",
+      "Instrument Serif headlines at 112px and Hanken Grotesk 600 labels with +0.14em tracking for section names",
       "Sand and sea two-tone sections alternating down the page, split by a 1px wave-free rule",
       "Pill-radius booking controls against square-cornered photography",
-      "Rate chips in Figtree 600 (`From EUR 420 / night`) in soft sea-blue tint, never badges in red",
+      "Rate chips in Hanken Grotesk 600 (`From EUR 420 / night`) in soft sea-blue tint, never badges in red",
     ],
   },
   fonts: {
-    display: "Marcellus",
-    body: "Figtree",
+    display: "Instrument Serif",
+    body: "Hanken Grotesk",
     mono: "DM Mono",
     googleFontsUrl:
-      "https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@400;500;600&family=DM+Mono:wght@400&display=swap",
-    fallbacks: { display: "Georgia, 'Times New Roman', serif", body: SANS, mono: MONO },
+      "https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Hanken+Grotesk:wght@400;500;600&family=DM+Mono:wght@400&display=swap",
+    fallbacks: { display: "'Iowan Old Style', Georgia, 'Times New Roman', serif", body: SANS, mono: MONO },
   },
   type: {
-    display: t("display", 96, 1.02, 400, "-0.01em"),
-    h1: t("display", 56, 1.08, 400, "-0.005em"),
-    h2: t("display", 34, 1.15, 400, "0.005em"),
-    h3: t("display", 22, 1.25, 400, "0.02em"),
+    display: t("display", 112, 0.98, 400, "-0.015em"),
+    h1: t("display", 64, 1.04, 400, "-0.01em"),
+    h2: t("display", 40, 1.12, 400, "-0.005em"),
+    h3: t("display", 28, 1.15, 400, "0em"),
     body: t("body", 17, 1.65, 400, "0em"),
     small: t("body", 14, 1.5, 400, "0em"),
     label: t("body", 12, 1.3, 600, "0.14em", { uppercase: true }),
@@ -184,10 +184,10 @@ export const system: System = {
   imagery:
     "Bright, wide, sun-washed photography: striped awnings, white linen, terraces over the water, citrus on tiled tables. Full-bleed at 16:9 for heroes and 4:5 for rooms, color-graded warm with lifted shadows. People appear small and unposed. No dark moody interiors, no stock beach clichés.",
   iconography:
-    "Rounded 1.5px line icons at 22px for amenities (pool, spa, wifi, breakfast, sea view), drawn in `primary` sea-blue. Each amenity icon sits above a 13px Figtree label in a 4-up grid.",
+    "Rounded 1.5px line icons at 22px for amenities (pool, spa, wifi, breakfast, sea view), drawn in `primary` sea-blue. Each amenity icon sits above a 13px Hanken Grotesk label in a 4-up grid.",
   dos: [
     "Pin the booking bar to the hero with dates, guests and one primary button",
-    "Set room names in Marcellus with +0.02em tracking",
+    "Set room names in Instrument Serif at 28px with no extra tracking",
     "Alternate sand and pale-sea sections to pace long pages",
     "Show price as `From EUR 420 / night` in a soft sea-blue chip",
     "Use full-bleed bright photography at 16:9 and 4:5",
@@ -195,13 +195,18 @@ export const system: System = {
   donts: [
     "Don't use black; ink is harbor navy",
     "Don't use more than one saturated color; sea-blue carries every action",
-    "Don't set body text in Marcellus; it is for headings and room names",
+    "Don't set body text in Instrument Serif; it is for headings and room names",
     "Don't use dark, moody overlays on photographs; keep them bright",
     "Don't use red for promotions; use a sand-toned chip with the sea-blue label",
   ],
   showcase: {
     layout: "landing",
     variant: "photo",
+    media: {
+      hero: "/img/halcyon/pool-lemons.webp",
+      heroFocus: "50% 62%",
+      items: ["/img/halcyon/suite-900.webp", "/img/halcyon/courtyard-pool-900.webp", "/img/halcyon/positano-sunset-900.webp"],
+    },
     content: {
       brand: "Hotel Riviere",
       nav: ["Rooms", "Dining", "Spa", "Beach Club", "Offers"],
@@ -209,6 +214,7 @@ export const system: System = {
       headline: "Sleep above the sea",
       subhead: "Thirty-eight rooms and suites on a terraced hillside, with a private cove, a salt-water pool and breakfast served until noon.",
       cta: ["Check availability", "View rooms"],
+      search: ["Fri 12 June", "Mon 15 June", "2 adults"],
       stats: [
         { label: "Rooms & suites", value: "38" },
         { label: "Sea-view rooms", value: "31" },

@@ -5,34 +5,34 @@ export const system: System = {
   slug: "wanderstay-rentals",
   name: "Wanderstay Rentals",
   description:
-    "Warm travel marketplace in terracotta and sand: Fraunces headlines, Nunito Sans UI, photo-first listing cards and a sunset-clay booking button. Built for holiday rentals, boutique stays and host dashboards.",
+    "Warm travel marketplace in terracotta and sand: Fraunces headlines, Plus Jakarta Sans UI, photo-first listing cards and a sunset-clay booking button. Built for holiday rentals, boutique stays and host dashboards.",
   aesthetic: "warm",
   industry: "hospitality",
   tags: ["travel", "marketplace", "terracotta", "photo-first"],
   defaultMode: "light",
   personality: {
     summary:
-      "Wanderstay is a holiday album that you can book. Photography does the persuading, so the UI recedes into warm sand surfaces, soft 16px corners and a single terracotta `primary` that marks Reserve and nothing else. Fraunces gives headlines a hand-lettered warmth at 600 weight, Nunito Sans keeps listings and prices clear, and ratings and nights are set in a quiet mono. Listing cards are 4:3 photos with the details beneath, never on top, so the image stays honest. Dark mode becomes an evening terrace: warm brown-black with the same clay accent lifted for contrast.",
+      "Wanderstay is a holiday album that you can book. Photography does the persuading, so the UI recedes into warm sand surfaces, soft 16px corners and a single terracotta `primary` that marks Reserve and nothing else. Fraunces gives headlines a hand-lettered warmth at 500 weight in its optical-size cut, Plus Jakarta Sans keeps listings and prices clear, and ratings and nights are set in a quiet mono. Listing cards are 4:3 photos with the details beneath, never on top, so the image stays honest. Dark mode becomes an evening terrace: warm brown-black with the same clay accent lifted for contrast.",
     signatureMoves: [
       "Photo-first cards: 4:3 images with 16px corners, text below the image, never over it",
       "Terracotta `primary` reserved for Reserve, Request to book and Check availability",
-      "Fraunces 600 headlines with soft optical warmth; prices and nights in Nunito Sans 700",
+      "Fraunces 500 headlines with soft optical warmth; prices and nights in Plus Jakarta Sans 700",
       "Sticky booking panel on listing pages with the nightly price, dates and total always visible",
       "Sea-teal `accent` for host and trust signals: Superhost, Verified, Free cancellation",
     ],
   },
   fonts: {
     display: "Fraunces",
-    body: "Nunito Sans",
+    body: "Plus Jakarta Sans",
     mono: "Red Hat Mono",
     googleFontsUrl:
-      "https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Nunito+Sans:wght@400;600;700&family=Red+Hat+Mono:wght@400;500&display=swap",
+      "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700&family=Plus+Jakarta+Sans:wght@400;600;700&family=Red+Hat+Mono:wght@400;500&display=swap",
     fallbacks: { display: SERIF, body: SANS, mono: MONO },
   },
   type: {
-    display: t("display", 68, 1.05, 600, "-0.025em"),
-    h1: t("display", 44, 1.1, 600, "-0.02em"),
-    h2: t("display", 30, 1.2, 600, "-0.012em"),
+    display: t("display", 72, 1.02, 500, "-0.03em"),
+    h1: t("display", 46, 1.08, 500, "-0.025em"),
+    h2: t("display", 32, 1.18, 500, "-0.018em"),
     h3: t("body", 18, 1.35, 700, "0em"),
     body: t("body", 16, 1.6, 400, "0em"),
     small: t("body", 14, 1.5, 400, "0em"),
@@ -197,11 +197,18 @@ export const system: System = {
     "Don't place badges or gradients over listing photos, except the heart button",
     "Don't use cool greys; neutrals are always warm browns and sands",
     "Don't hide fees until the last step; the total is part of the listing card",
-    "Don't use Fraunces below 18px; small text is always Nunito Sans",
+    "Don't use Fraunces below 18px; small text is always Plus Jakarta Sans",
   ],
   showcase: {
     layout: "commerce",
     variant: "listings",
+    media: {
+      hero: "/img/halcyon/courtyard-pool.webp",
+      heroFocus: "50% 50%",
+      hero2: "/img/halcyon/positano-sunset-900.webp",
+      heroFocus2: "40% 40%",
+      items: ["/img/halcyon/pool-lemons-900.webp", "/img/halcyon/courtyard-pool-900.webp", "/img/halcyon/positano-sunset-900.webp", "/img/halcyon/ryokan-900.webp"],
+    },
     content: {
       brand: "Wanderstay",
       nav: ["Stays", "Experiences", "Host a home", "Trips"],
@@ -209,6 +216,8 @@ export const system: System = {
       headline: "Find a home away from home",
       subhead: "Book small hotels, farmhouses and seaside cottages from hosts who live nearby.",
       cta: ["Search stays", "Become a host"],
+      search: ["Algarve, Portugal", "12 – 19 Jun", "2 guests"],
+      tabs: ["Beachfront", "Countryside", "Cities", "Unique stays"],
       stats: [
         { label: "Verified stays", value: "12,400" },
         { label: "Avg. guest rating", value: "4.86" },

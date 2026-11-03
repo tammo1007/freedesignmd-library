@@ -5,16 +5,16 @@ export const system: System = {
   slug: "soft-linen",
   name: "Soft Linen",
   description:
-    "Quiet wellness and home goods in washed linen: Fraunces headlines, Jost body, a sage action color and slow, weightless motion. Built for candle, bedding and tea shops, spa booking and slow-living brands.",
+    "Quiet wellness and home goods in washed linen: Fraunces headlines, DM Sans body, a sage action color and slow, weightless motion. Built for candle, bedding and tea shops, spa booking and slow-living brands.",
   aesthetic: "soft",
   industry: "commerce",
   tags: ["wellness", "home goods", "linen", "sage", "quiet"],
   defaultMode: "light",
   personality: {
     summary:
-      "Soft Linen is a shop that lowers its voice. The canvas is washed linen, a warm off-white with a hint of oat, and surfaces step down by a few percent rather than by borders or shadows. Fraunces headlines are light and airy, Jost keeps product details clean, and sage `primary` is the only color with any chroma: it appears on the add-to-bag button and the selected variant, nothing else. Generous space, 1px stone hairlines and very slow transitions make browsing feel like folding laundry. Dark mode is an evening room: warm charcoal with the same sage lifted to a dusty green.",
+      "Soft Linen is a shop that lowers its voice. The canvas is washed linen, a warm off-white with a hint of oat, and surfaces step down by a few percent rather than by borders or shadows. Fraunces headlines are set in its soft, buttery cut and stay light and airy, DM Sans keeps product details clean, and sage `primary` is the only color with any chroma: it appears on the add-to-bag button and the selected variant, nothing else. Generous space, 1px stone hairlines and very slow transitions make browsing feel like folding laundry. Dark mode is an evening room: warm charcoal with the same sage lifted to a dusty green.",
     signatureMoves: [
-      "Light Fraunces headlines at weight 500 with wide leading, set in sentence case with no emphasis",
+      "Light Fraunces headlines at weight 400 in the soft optical cut with wide leading, set in sentence case with no emphasis",
       "Tonal layering instead of borders: oat, linen and stone surfaces separate content by a few percent of lightness",
       "Sage `primary` only on Add to bag, selected swatches and the focus ring",
       "Product photography on oat-colored 4:5 plates with 40px of breathing room around the object",
@@ -23,17 +23,17 @@ export const system: System = {
   },
   fonts: {
     display: "Fraunces",
-    body: "Jost",
+    body: "DM Sans",
     mono: "Spline Sans Mono",
     googleFontsUrl:
-      "https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=Jost:wght@400;500&family=Spline+Sans+Mono:wght@400&display=swap",
+      "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,100&family=DM+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400&display=swap",
     fallbacks: { display: SERIF, body: SANS, mono: MONO },
   },
   type: {
-    display: t("display", 80, 1.02, 500, "-0.02em"),
-    h1: t("display", 52, 1.08, 500, "-0.015em"),
-    h2: t("display", 36, 1.15, 500, "-0.01em"),
-    h3: t("display", 26, 1.25, 600, "0em"),
+    display: t("display", 84, 1.0, 400, "-0.03em"),
+    h1: t("display", 54, 1.06, 400, "-0.025em"),
+    h2: t("display", 36, 1.15, 400, "-0.015em"),
+    h3: t("display", 26, 1.22, 500, "-0.005em"),
     body: t("body", 16, 1.7, 400, "0.01em"),
     small: t("body", 14, 1.6, 400, "0.01em"),
     label: t("body", 12, 1.3, 500, "0.14em", { uppercase: true }),
@@ -188,20 +188,26 @@ export const system: System = {
   dos: [
     "Separate regions with a few percent of surface lightness before reaching for a border or shadow",
     "Keep Add to bag as the only sage-filled element in the product viewport",
-    "Set headlines in sentence case Fraunces; labels in Jost uppercase at 0.14em tracking",
+    "Set headlines in sentence case Fraunces; labels in DM Sans uppercase at 0.14em tracking",
     "Give products room: 40px around the object on every plate, 144px between sections",
     "Describe products with sensory, plain words: \"washed linen, stone-grey, 180 gsm\"",
   ],
   donts: [
     "Don't use drop shadows on cards; tonal layering is the elevation",
-    "Don't use Fraunces below 20px; small text is Jost",
+    "Don't use Fraunces below 20px; small text is DM Sans",
     "Don't use any transition faster than the `fast` token or any bounce",
     "Don't add sale banners, countdowns or red badges; quiet brands announce, they don't shout",
     "Don't use more than one accent color; sage is the only chroma",
   ],
   showcase: {
     layout: "commerce",
-    variant: "drop",
+    variant: "boutique",
+    media: {
+      hero: "/img/halcyon/suite.webp",
+      heroFocus: "50% 55%",
+      frame: "arch",
+      items: ["/img/halcyon/suite-900.webp", "/img/lux/lantern-800.webp", "/img/lux/still-tea-800.webp", "/img/lux/drape-oat-800.webp"],
+    },
     content: {
       brand: "Soft Linen",
       nav: ["Bedding", "Candles", "Tea", "Bath", "Journal"],

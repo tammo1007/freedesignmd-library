@@ -314,6 +314,23 @@ const SERIES = Array.from({ length: 120 }, (_, i) => {
   return Math.round((182 + Math.sin(t * 9) * 4 + Math.sin(t * 23 + 1) * 1.6 + t * 14 + Math.cos(t * 47) * 0.7) * 100) / 100;
 });
 
+const CH_H = 200;
+const LO = Math.min(...SERIES);
+const HI = Math.max(...SERIES);
+const yOf = (v: number) => 18 + (1 - (v - LO) / (HI - LO)) * (CH_H - 36);
+const PTS = SERIES.filter((_, i) => i % 6 === 0 || i === SERIES.length - 1);
+const XY: [number, number][] = PTS.map((v, i) => [(i / (PTS.length - 1)) * 1000, yOf(v)]);
+const LINE = XY.reduce((d, [x, y], i) => {
+  if (i === 0) return `M${x.toFixed(1)},${y.toFixed(1)}`;
+  const [px, py] = XY[i - 1];
+  const mx = (px + x) / 2;
+  return `${d} C${mx.toFixed(1)},${py.toFixed(1)} ${mx.toFixed(1)},${y.toFixed(1)} ${x.toFixed(1)},${y.toFixed(1)}`;
+}, "");
+const AREA = `${LINE} L1000,${CH_H} L0,${CH_H} Z`;
+const TICKS = [0.2, 0.5, 0.8].map((k) => ({ v: LO + (HI - LO) * (1 - k), y: 18 + k * (CH_H - 36) }));
+const END_Y = XY[XY.length - 1][1];
+const MONTH = ["3 Oct", "10 Oct", "17 Oct", "24 Oct", "31 Oct"];
+
 export function Demo() {
   const [toast, setToast] = useState<string | null>(null);
   const [range, setRange] = useState("1M");
@@ -322,13 +339,17 @@ export function Demo() {
     const t = window.setTimeout(() => setToast(null), 2200);
     return () => window.clearTimeout(t);
   }, [toast]);
-  const min = Math.min(...SERIES);
-  const max = Math.max(...SERIES);
-  const pts = SERIES.map((v, i) => `${((i / (SERIES.length - 1)) * 1000).toFixed(1)},${(260 - ((v - min) / (max - min)) * 220).toFixed(1)}`).join(" ");
   const RANGES = ["1D", "1W", "1M", "3M", "1Y", "All"];
   return (
     <div className="fd-gmnd">
       <style>{demoCss}</style>
+      <div className="fd-gmnd-bg" aria-hidden="true">
+        <span className="fd-gmnd-glow" />
+        <span className="fd-gmnd-grid" />
+        <span className="fd-gmnd-ring fd-gmnd-ring--a" />
+        <span className="fd-gmnd-ring fd-gmnd-ring--b" />
+        <span className="fd-gmnd-grain" />
+      </div>
       <div className="fd-gmnd-card">
         <header className="fd-gmnd-head">
           <div className="fd-gmnd-tick">
@@ -382,20 +403,35 @@ export function Demo() {
           <span className="fd-gmnd-big">SEK 198.42</span>
           <span className="fd-gmnd-chg">+12.86 (6.93%)</span>
         </div>
-        <p className="fd-gmnd-meta">Market value SEK 47 620.80 · Unrealised +SEK 3 086.40</p>
-        <svg className="fd-gmnd-chart" viewBox="0 0 1000 280" preserveAspectRatio="none" aria-label="Price chart, up 6.93% this month" role="img">
-          <defs>
-            <linearGradient id="fdgmndfill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stopColor="#30D158" stopOpacity="0.35" />
-              <stop offset="1" stopColor="#30D158" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-          {[40, 100, 160, 220].map((y) => (
-            <line key={y} x1="0" x2="1000" y1={y} y2={y} stroke="rgba(255,255,255,0.07)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+        <p className="fd-gmnd-meta">
+          <span>Market value SEK 47 620.80</span> · <span>Unrealised +SEK 3 086.40</span>
+        </p>
+        <div className="fd-gmnd-plot" role="img" aria-label="Price chart, up 6.93% this month">
+          <svg className="fd-gmnd-chart" viewBox={`0 0 1000 ${CH_H}`} preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <defs>
+              <linearGradient id="fdgmndfill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stopColor="#30D158" stopOpacity="0.28" />
+                <stop offset="1" stopColor="#30D158" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            {TICKS.map((t) => (
+              <line key={t.y} x1="0" x2="1000" y1={t.y} y2={t.y} stroke="rgba(255,255,255,0.08)" strokeWidth="1" strokeDasharray="2 6" vectorEffect="non-scaling-stroke" />
+            ))}
+            <path d={AREA} fill="url(#fdgmndfill)" />
+            <path d={LINE} fill="none" stroke="#30D158" strokeWidth="2.25" vectorEffect="non-scaling-stroke" strokeLinejoin="round" strokeLinecap="round" />
+          </svg>
+          {TICKS.map((t) => (
+            <span key={t.y} className="fd-gmnd-tickl" style={{ top: t.y }}>
+              {t.v.toFixed(0)}
+            </span>
           ))}
-          <polygon points={`0,280 ${pts} 1000,280`} fill="url(#fdgmndfill)" />
-          <polyline points={pts} fill="none" stroke="#30D158" strokeWidth="2.25" vectorEffect="non-scaling-stroke" strokeLinejoin="round" />
-        </svg>
+          <span className="fd-gmnd-end" style={{ top: END_Y }} />
+        </div>
+        <div className="fd-gmnd-xaxis" aria-hidden="true">
+          {MONTH.map((m) => (
+            <span key={m}>{m}</span>
+          ))}
+        </div>
         <dl className="fd-gmnd-stats">
           {[
             ["Open", "196.10"],
@@ -422,24 +458,44 @@ export function Demo() {
 const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
 const D = `"SF Pro Display",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif`;
 const M = `ui-monospace,"SF Mono","JetBrains Mono",Menlo,monospace`;
+/* fine film grain, an inline SVG feTurbulence tile (no network) */
+const GRAIN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1.4 0 0 0 -.2 1.4 0 0 0 -.2 1.4 0 0 0 -.2 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`;
 const demoCss = `
 .fd-gmnd,.fd-gmnd *,.fd-gmnd *::before,.fd-gmnd *::after{box-sizing:border-box}
-.fd-gmnd{position:relative;min-height:100vh;width:100%;margin:0;padding:48px 20px;display:flex;align-items:center;justify-content:center;overflow:hidden;
-  background:radial-gradient(700px 400px at 70% 10%,rgba(48,209,88,0.18),transparent 60%),radial-gradient(600px 500px at 10% 90%,rgba(10,132,255,0.16),transparent 60%),#0B0B0F;color:#F2F2F7;font:400 15px/1.4 ${F};letter-spacing:normal}
-.fd-gmnd-card{position:relative;width:100%;max-width:760px;margin:0;padding:24px;border-radius:28px;background:#16161B;box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.08),0 40px 80px -40px rgba(0,0,0,0.9)}
-.fd-gmnd-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 20px;padding:0}
+.fd-gmnd{position:relative;min-height:100vh;width:100%;margin:0;padding:36px 20px;display:flex;align-items:center;justify-content:center;overflow:hidden;
+  background:linear-gradient(160deg,#0F1530 0%,#0A0C1A 46%,#07080D 100%);color:#F2F2F7;font:400 15px/1.4 ${F};letter-spacing:normal}
+.fd-gmnd-bg{position:absolute;inset:0;margin:0;padding:0;pointer-events:none}
+.fd-gmnd-bg > span{position:absolute;display:block}
+.fd-gmnd-glow{inset:0;background:radial-gradient(46% 56% at 84% 14%,rgba(70,110,255,0.34),transparent 70%),radial-gradient(40% 50% at 8% 96%,rgba(48,209,160,0.16),transparent 70%)}
+.fd-gmnd-grid{inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,0.05) 0 1px,transparent 1px 80px),repeating-linear-gradient(0deg,rgba(255,255,255,0.05) 0 1px,transparent 1px 80px);
+  -webkit-mask:radial-gradient(70% 80% at 50% 50%,#000,transparent);mask:radial-gradient(70% 80% at 50% 50%,#000,transparent)}
+.fd-gmnd-ring{border-radius:50%;
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1px));mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1px))}
+.fd-gmnd-ring--a{left:calc(50% - 720px);top:-120px;width:560px;height:560px;background:conic-gradient(from 40deg,rgba(255,255,255,0),rgba(150,170,255,0.7),rgba(255,255,255,0) 60%)}
+.fd-gmnd-ring--b{right:calc(50% - 760px);bottom:-200px;width:620px;height:620px;background:conic-gradient(from 200deg,rgba(255,255,255,0),rgba(255,255,255,0.45),rgba(255,255,255,0) 55%)}
+.fd-gmnd-grain{inset:0;background-image:${GRAIN};background-size:180px 180px;mix-blend-mode:soft-light;opacity:0.3}
+.fd-gmnd-card{position:relative;width:100%;max-width:780px;margin:0;padding:26px 28px 14px;border-radius:28px;background:linear-gradient(180deg,#1A1B23,#13141A);box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.1),0 40px 80px -40px rgba(0,0,0,0.9)}
+.fd-gmnd-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 22px;padding:0}
 .fd-gmnd-tick{display:flex;align-items:center;gap:12px;min-width:0}
-.fd-gmnd-logo{display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#64D2FF,#5E5CE6);font:800 20px/1 ${D};color:#fff}
+.fd-gmnd-tick > div{min-width:0}
+.fd-gmnd-meta span{white-space:nowrap}
+.fd-gmnd-logo{display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,#7C8CFF,#4338CA);font:800 20px/1 ${D};color:#fff}
 .fd-gmnd-sym{margin:0;font:700 17px/1.2 ${F};letter-spacing:-0.01em;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .fd-gmnd-ex{margin:2px 0 0;font:500 13px/1.2 ${F};color:#8E8E99}
 .fd-gmnd-actions{display:flex;gap:10px;align-items:center;flex:none}
 .fd-gmnd-price{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:0 0 4px}
 .fd-gmnd-big{font:700 clamp(2.25rem,6vw,3.25rem)/1 ${D};letter-spacing:-0.035em;color:#fff;font-variant-numeric:tabular-nums}
 .fd-gmnd-chg{font:600 17px/1 ${F};color:#30D158;font-variant-numeric:tabular-nums}
-.fd-gmnd-meta{margin:0 0 16px;font:500 13px/1.4 ${F};color:#8E8E99}
-.fd-gmnd-chart{display:block;width:100%;height:220px;margin:0 0 16px}
-.fd-gmnd-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:0;padding:0;border-top:0.5px solid rgba(255,255,255,0.1)}
+.fd-gmnd-meta{margin:0 0 18px;font:500 13px/1.4 ${F};color:#8E8E99}
+.fd-gmnd-plot{position:relative;height:${CH_H}px;margin:0;padding:0}
+.fd-gmnd-chart{position:absolute;inset:0;display:block;width:100%;height:100%;margin:0;overflow:visible}
+.fd-gmnd-tickl{position:absolute;left:0;margin:-17px 0 0;padding:0;font:500 11px/1 ${M};color:rgba(255,255,255,0.38);font-variant-numeric:tabular-nums}
+.fd-gmnd-end{position:absolute;right:-5px;display:block;width:10px;height:10px;margin:-5px 0 0;padding:0;border-radius:50%;background:#30D158;box-shadow:0 0 0 4px rgba(48,209,88,0.22),0 0 18px rgba(48,209,88,0.6)}
+.fd-gmnd-xaxis{display:flex;justify-content:space-between;margin:10px 0 18px;padding:0}
+.fd-gmnd-xaxis span{margin:0;font:500 11px/1 ${M};color:rgba(255,255,255,0.38)}
+.fd-gmnd-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0 24px;margin:0;padding:0;border-top:0.5px solid rgba(255,255,255,0.1)}
 .fd-gmnd-stats div{margin:0;padding:12px 0;border-bottom:0.5px solid rgba(255,255,255,0.08)}
+.fd-gmnd-stats div:nth-last-child(-n+3){border-bottom:0}
 .fd-gmnd-stats dt{margin:0 0 2px;font:500 12px/1.2 ${F};color:#8E8E99}
 .fd-gmnd-stats dd{margin:0;font:500 15px/1.3 ${M};color:#F2F2F7}
 .fd-gmnd-toast{position:absolute;left:50%;bottom:28px;margin:0;padding:12px 18px;border-radius:999px;background:#F2F2F7;color:#0B0B0F;font:600 14px/1 ${F};white-space:nowrap;
@@ -447,13 +503,15 @@ const demoCss = `
 .fd-gmnd-toast.is-on{opacity:1;transform:translate(-50%,0)}
 @media (max-width:560px){
   .fd-gmnd{padding:20px 12px;align-items:flex-start}
-  .fd-gmnd-card{padding:18px}
+  .fd-gmnd-card{padding:18px 18px 8px}
   .fd-gmnd-ex{display:none}
-  .fd-gmnd-sym{font-size:15px}
+  .fd-gmnd-sym{font-size:15px;white-space:normal}
   .fd-gmnd-tick{gap:10px}
   .fd-gmnd-logo{width:38px;height:38px;font-size:17px}
   .fd-gmnd-actions{gap:8px}
   .fd-gmnd-stats{grid-template-columns:repeat(2,1fr)}
-  .fd-gmnd-chart{height:160px}
+  .fd-gmnd-stats div:nth-last-child(-n+3){border-bottom:0.5px solid rgba(255,255,255,0.08)}
+  .fd-gmnd-stats div:nth-last-child(-n+2){border-bottom:0}
+  .fd-gmnd-plot{height:${CH_H}px}
 }
 `;

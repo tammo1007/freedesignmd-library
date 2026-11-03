@@ -245,44 +245,90 @@ const css = `
 
 /* ───────────────────────── demo: EV climate controls ───────────────────────── */
 
-const Ico = ({ children }: { children: ReactNode }) => (
-  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    {children}
-  </svg>
-);
-
 export function Demo() {
   const [temp, setTemp] = useState(21.5);
+  const [fan, setFan] = useState(3);
+  const [seat, setSeat] = useState(2);
   return (
     <div className="fd-gsld">
       <style>{demoCss}</style>
+      <div className="fd-gsld-bg" aria-hidden="true">
+        <span className="fd-gsld-glow" />
+        <span className="fd-gsld-grid" />
+        <span className="fd-gsld-ring fd-gsld-ring--a" />
+        <span className="fd-gsld-ring fd-gsld-ring--b" />
+        <span className="fd-gsld-grain" />
+      </div>
       <div className="fd-gsld-box">
-        <div className="fd-gsld-top">
-          <label className="fd-gsld-lbl" id="fd-gsld-t">Temperature</label>
-          <span className="fd-gsld-val">{temp.toFixed(1)} °C</span>
+        <p className="fd-gsld-kicker">Climate · Driver</p>
+        <p className="fd-gsld-temp" aria-hidden="true">
+          {temp.toFixed(1)}
+          <span>°C</span>
+        </p>
+
+        <div className="fd-gsld-row">
+          <div className="fd-gsld-top">
+            <label className="fd-gsld-lbl" id="fd-gsld-t">Temperature</label>
+            <span className="fd-gsld-val">{temp.toFixed(1)} °C</span>
+          </div>
+          <GlassSlider
+            value={temp}
+            onChange={setTemp}
+            min={16}
+            max={28}
+            step={0.5}
+            aria-labelledby="fd-gsld-t"
+            valueText={(v) => `${v.toFixed(1)} degrees Celsius`}
+            tone="dark"
+            accent="linear-gradient(90deg,#3B82F6,#7DD3FC 40%,#FDE68A 70%,#FB7185)"
+          />
         </div>
-        <GlassSlider
-          value={temp}
-          onChange={setTemp}
-          min={16}
-          max={28}
-          step={0.5}
-          aria-labelledby="fd-gsld-t"
-          valueText={(v) => `${v.toFixed(1)} degrees Celsius`}
-          tone="dark"
-          accent="linear-gradient(90deg,#0A84FF,#64D2FF 40%,#FFD60A 70%,#FF453A)"
-        />
+
+        <div className="fd-gsld-row">
+          <div className="fd-gsld-top">
+            <label className="fd-gsld-lbl" id="fd-gsld-f">Fan speed</label>
+            <span className="fd-gsld-val">{fan} of 5</span>
+          </div>
+          <GlassSlider value={fan} onChange={setFan} min={1} max={5} step={1} ticks={5} aria-labelledby="fd-gsld-f" valueText={(v) => `Level ${v} of 5`} tone="dark" accent="#E7E9F5" />
+        </div>
+
+        <div className="fd-gsld-row">
+          <div className="fd-gsld-top">
+            <label className="fd-gsld-lbl" id="fd-gsld-s">Seat heating</label>
+            <span className="fd-gsld-val">{["Off", "Low", "Medium", "High"][seat]}</span>
+          </div>
+          <GlassSlider value={seat} onChange={setSeat} min={0} max={3} step={1} ticks={4} aria-labelledby="fd-gsld-s" valueText={(v) => ["Off", "Low", "Medium", "High"][v]} tone="dark" accent="linear-gradient(90deg,#FDBA74,#F97316)" />
+        </div>
       </div>
     </div>
   );
 }
 
 const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
+const D = `"SF Pro Display",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif`;
+/* fine film grain, an inline SVG feTurbulence tile (no network) */
+const GRAIN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1.4 0 0 0 -.2 1.4 0 0 0 -.2 1.4 0 0 0 -.2 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`;
 const demoCss = `
 .fd-gsld,.fd-gsld *,.fd-gsld *::before,.fd-gsld *::after{box-sizing:border-box}
-.fd-gsld{position:relative;min-height:100vh;width:100%;margin:0;padding:32px 24px;display:flex;align-items:center;justify-content:center;background:#0a0b0f;color:#F2F2F7;font:400 15px/1.4 ${F};letter-spacing:normal}
-.fd-gsld-box{width:min(100%,360px);margin:0;padding:0}
-.fd-gsld-top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 14px;padding:0}
+.fd-gsld{position:relative;min-height:100vh;width:100%;margin:0;padding:32px 20px;display:flex;align-items:center;justify-content:center;overflow:hidden;
+  background:linear-gradient(150deg,#101733 0%,#0A0D1C 50%,#07080F 100%);color:#F2F2F7;font:400 15px/1.4 ${F};letter-spacing:normal}
+.fd-gsld-bg{position:absolute;inset:0;margin:0;padding:0;pointer-events:none}
+.fd-gsld-bg > span{position:absolute;display:block}
+.fd-gsld-glow{inset:0;background:radial-gradient(44% 56% at 12% 20%,rgba(60,120,255,0.30),transparent 70%),radial-gradient(40% 52% at 92% 88%,rgba(251,113,133,0.20),transparent 70%)}
+.fd-gsld-grid{inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,0.05) 0 1px,transparent 1px 80px),repeating-linear-gradient(0deg,rgba(255,255,255,0.05) 0 1px,transparent 1px 80px);
+  -webkit-mask:radial-gradient(70% 80% at 50% 50%,#000,transparent);mask:radial-gradient(70% 80% at 50% 50%,#000,transparent)}
+.fd-gsld-ring{border-radius:50%;
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1px));mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1px))}
+.fd-gsld-ring--a{left:calc(50% - 640px);top:50%;width:520px;height:520px;margin-top:-260px;background:conic-gradient(from 30deg,rgba(255,255,255,0),rgba(125,180,255,0.8),rgba(255,255,255,0) 60%)}
+.fd-gsld-ring--b{right:calc(50% - 660px);top:50%;width:440px;height:440px;margin-top:-180px;background:conic-gradient(from 210deg,rgba(255,255,255,0),rgba(251,140,160,0.7),rgba(255,255,255,0) 55%)}
+.fd-gsld-grain{inset:0;background-image:${GRAIN};background-size:180px 180px;mix-blend-mode:soft-light;opacity:0.3}
+.fd-gsld-box{position:relative;width:min(100%,420px);margin:0;padding:30px 30px 26px;border-radius:32px;background:linear-gradient(180deg,rgba(28,31,44,0.86),rgba(18,20,30,0.9));box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.12),0 40px 80px -40px rgba(0,0,0,0.9)}
+.fd-gsld-kicker{margin:0 0 6px;font:600 12px/1.2 ${F};letter-spacing:0.1em;text-transform:uppercase;color:#8E94AA}
+.fd-gsld-temp{margin:0 0 26px;font:300 88px/1 ${D};letter-spacing:-0.04em;color:#fff;font-variant-numeric:tabular-nums}
+.fd-gsld-temp span{margin:0 0 0 4px;font:300 32px/1 ${D};letter-spacing:-0.02em;color:#8E94AA;vertical-align:top;position:relative;top:10px}
+.fd-gsld-row{margin:0 0 22px;padding:0}
+.fd-gsld-row:last-child{margin-bottom:0}
+.fd-gsld-top{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 10px;padding:0}
 .fd-gsld-lbl{margin:0;padding:0;font:600 15px/1.3 ${F};letter-spacing:-0.005em;color:#F2F2F7;cursor:default}
-.fd-gsld-val{margin:0;font:500 15px/1.3 ${F};color:#AEAEB8;font-variant-numeric:tabular-nums}
+.fd-gsld-val{margin:0;font:500 15px/1.3 ${F};color:#A6ABBD;font-variant-numeric:tabular-nums}
 `;

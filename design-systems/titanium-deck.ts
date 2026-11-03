@@ -5,14 +5,14 @@ export const system: System = {
   slug: "titanium-deck",
   name: "Titanium Deck",
   description:
-    "Brushed-titanium hardware spec sheet: warm grey metal surfaces with fine grain, beveled edges, Barlow Semi Condensed headings, mono model numbers and a single safety-orange action. For hardware, industrial and tooling brands.",
+    "Brushed-titanium hardware spec sheet: warm grey metal surfaces with fine grain, beveled edges, Mona Sans headings, Geist text, Geist Mono model numbers and a single safety-orange action. For hardware, industrial and tooling brands.",
   aesthetic: "technical",
   industry: "automotive",
   tags: ["light", "metal", "hardware", "industrial"],
   defaultMode: "light",
   personality: {
     summary:
-      "Titanium Deck looks like the faceplate of a well-made instrument. Surfaces are warm grey brushed metal (`#e2e1de`) with a 1px vertical grain, edges carry a two-tone bevel (light above, dark below) instead of drop shadows, and every product carries a mono model number like `TD-4400-R`. Headlines are Barlow Semi Condensed in tight caps-and-lowercase; specs live in IBM Plex Mono tables. Safety orange (`#c2410c`) is the only color and it behaves like a physical indicator: the one button, the active mode, the fault light.",
+      "Titanium Deck looks like the faceplate of a well-made instrument. Surfaces are warm grey brushed metal (`#e2e1de`) with a 1px vertical grain, edges carry a two-tone bevel (light above, dark below) instead of drop shadows, and every product carries a mono model number like `TD-4400-R`. Headlines are Mona Sans in tight, heavy sentence case; running text is Geist; specs live in Geist Mono tables. Safety orange (`#c2410c`) is the only color and it behaves like a physical indicator: the one button, the active mode, the fault light.",
     signatureMoves: [
       "Brushed grain: `--brushed` 1px vertical line texture over cards and the nav bar",
       "Two-tone bevels: white highlight on top edge, dark line on bottom edge, no blurred shadows",
@@ -22,18 +22,18 @@ export const system: System = {
     ],
   },
   fonts: {
-    display: "Barlow Semi Condensed",
-    body: "Barlow",
-    mono: "IBM Plex Mono",
+    display: "Mona Sans",
+    body: "Geist",
+    mono: "Geist Mono",
     googleFontsUrl:
-      "https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap",
+      "https://fonts.googleapis.com/css2?family=Mona+Sans:wght@600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap",
     fallbacks: { display: SANS, body: SANS, mono: MONO },
   },
   type: {
-    display: t("display", 80, 0.98, 700, "-0.02em"),
-    h1: t("display", 48, 1.05, 700, "-0.015em"),
-    h2: t("display", 30, 1.15, 600, "-0.01em"),
-    h3: t("display", 20, 1.25, 600, "0em"),
+    display: t("display", 76, 1.0, 700, "-0.035em"),
+    h1: t("display", 44, 1.08, 700, "-0.03em"),
+    h2: t("display", 28, 1.18, 600, "-0.02em"),
+    h3: t("display", 19, 1.28, 600, "-0.01em"),
     body: t("body", 16, 1.55, 400, "0em"),
     small: t("body", 14, 1.5, 400, "0em"),
     label: t("mono", 11, 1.3, 500, "0.12em", { uppercase: true }),
@@ -145,7 +145,7 @@ export const system: System = {
   },
   components: {
     button: {
-      base: btnBase({ font: "display", size: 15, weight: 600, height: 44, px: 22, radius: "md", tracking: "0.02em", uppercase: true }),
+      base: btnBase({ font: "display", size: 15, weight: 600, height: 44, px: 22, radius: "md", tracking: "0em" }),
       primary: {
         rest: "background: var(--primary); color: var(--primary-foreground); border-color: color-mix(in oklab, var(--primary) 70%, black); box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -2px 0 rgba(0,0,0,0.25)",
         hover: "background: color-mix(in oklab, var(--primary) 92%, white)",
@@ -190,14 +190,14 @@ export const system: System = {
       hover: "border-color: var(--foreground)",
     }),
     badge: badge({ height: 22, px: 8, radius: "sm", size: 11, weight: 500, font: "mono", uppercase: true, tracking: "0.08em", softPct: 14 }),
-    nav: nav({ height: 60, background: "var(--brushed), var(--card)", border: "1px solid var(--border)", size: 14, weight: 600, font: "display", uppercase: true, tracking: "0.04em", style: "block" }),
+    nav: nav({ height: 60, background: "var(--brushed), var(--card)", border: "1px solid var(--border)", size: 14, weight: 600, font: "display", tracking: "-0.005em", style: "block" }),
     table: table({ size: 13, rowHeight: 44, head: "rule", headUppercase: true, headFont: "mono", headSize: 11, headWeight: 500, numeric: "mono" }),
     dialog: dialog({ overlay: "rgba(20,21,23,0.6)", radius: "lg", border: "1px solid var(--foreground)", padding: 28, width: 520 }),
-    tabs: tabs({ style: "boxed", size: 13, weight: 600, font: "display", uppercase: true, tracking: "0.05em", height: 40 }),
+    tabs: tabs({ style: "boxed", size: 13, weight: 600, font: "display", tracking: "0em", height: 40 }),
     link: link({ color: "var(--foreground)", decoration: "var(--primary)", hover: "color: var(--primary)", offset: 4, thickness: "2px" }),
   },
   imagery:
-    "Hardware photographed on a grey seamless with one hard softbox, showing machined edges and fastener detail. Exploded-view line drawings in 1px strokes. Every image carries a mono caption with part number and finish.",
+    "Hardware photographed on a grey seamless with one hard softbox, showing machined edges and fastener detail. Where there is no photograph, dimensioned line drawings in 1.5px strokes on a brushed plate, with 1px dimension lines in `muted-foreground`. Every image carries a mono caption with part number and finish.",
   iconography:
     "Square-cap 1.75px stroke icons at 20px with 2px corner radius, drawn on a 24px grid. Status indicators are 8px round lights: orange for active, green for ready, red for fault, each with a 1px dark ring.",
   dos: [
@@ -216,7 +216,7 @@ export const system: System = {
   ],
   showcase: {
     layout: "landing",
-    variant: "split",
+    variant: "spec",
     content: {
       brand: "Forgeline",
       nav: ["Drives", "Controllers", "Sensors", "Support", "Distributors"],

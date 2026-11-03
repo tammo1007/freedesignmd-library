@@ -14,7 +14,7 @@ export const system: System = {
     summary:
       "Maison Folio is a fashion house lookbook: ivory `#f4f0e8` paper, black `#0e0d0c` ink and nothing else. Bodoni Moda is set enormous, up to 168px at -0.05em, with hairline serifs thin enough to feel cut; then the scale drops straight to 15px Inter Tight body with no middle step. Collection names, season codes and prices are small uppercase tracked labels. Every corner is square. The primary button is a solid black rectangle that inverts to ivory outlined on hover; in dark mode the whole page flips to ink black with ivory type.",
     signatureMoves: [
-      "Bodoni Moda display up to 168px with -0.05em tracking, often cropped by the viewport edge",
+      "Bodoni Moda display up to 168px with -0.05em tracking, optical size following the font size so the hairlines stay cut-sharp",
       "A deliberate scale gap: 168px hero, 15px body, only 12px tracked labels between",
       "Zero radius everywhere; 1px black rules and full-bleed imagery instead of cards",
       "Season codes in tracked uppercase labels (`FW 26 / LOOK 14`) beside every product",
@@ -26,7 +26,7 @@ export const system: System = {
     body: "Inter Tight",
     mono: "JetBrains Mono",
     googleFontsUrl:
-      "https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500&family=Inter+Tight:wght@400;500&family=JetBrains+Mono:wght@400&display=swap",
+      "https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400&family=Inter+Tight:wght@400;500&family=JetBrains+Mono:wght@400&display=swap",
     fallbacks: { display: "'Didot', 'Bodoni 72', Georgia, serif", body: SANS, mono: MONO },
   },
   type: {
@@ -183,11 +183,11 @@ export const system: System = {
     link: link({ color: "var(--foreground)", decoration: "var(--foreground)", hover: "color: var(--muted-foreground); text-decoration-color: var(--muted-foreground)", offset: 5 }),
   },
   imagery:
-    "Full-bleed runway and studio photography, black-and-white or desaturated to ivory tones, shot tall at 4:5 and cropped hard at the edge. One image per screen; the model's silhouette is large and the garment fills the frame. No lifestyle clutter, no stock, no overlays other than a tracked caption.",
+    "Full-bleed runway and studio photography, black-and-white or desaturated to ivory tones, shot tall at 4:5 and cropped hard at the frame. One image per screen; the model's silhouette is large and the garment fills the frame. No lifestyle clutter, no stock, no overlays other than a tracked caption.",
   iconography:
     "Almost none. Use a 1px line arrow (→) and a plus/minus pair at 16px with stroke-width 1; the bag, search and menu are always words in tracked uppercase labels, not icons.",
   dos: [
-    "Set the hero in Bodoni Moda at 168px with -0.05em tracking and let it crop at the edge",
+    "Set the hero in Bodoni Moda at 168px with -0.05em tracking and let the optical size follow the font size; never crop it",
     "Jump straight from display to 15px body; keep the gap dramatic",
     "Label every look with a tracked uppercase season code and number",
     "Use a single black or ivory rectangle as the primary action",
@@ -203,6 +203,13 @@ export const system: System = {
   showcase: {
     layout: "commerce",
     variant: "fashion",
+    media: {
+      hero: "/img/lux/drape-ink.webp",
+      heroFocus: "50% 30%",
+      hero2: "/img/lux/drape-oat.webp",
+      heroFocus2: "50% 40%",
+      items: ["/img/lux/drape-oat-800.webp", "/img/lux/drape-terra-800.webp", "/img/lux/still-grey-800.webp", "/img/lux/drape-ink-800.webp"],
+    },
     content: {
       brand: "MAISON VALEN",
       nav: ["Women", "Men", "Ateliers", "Journal", "Bag (0)"],

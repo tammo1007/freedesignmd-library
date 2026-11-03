@@ -205,7 +205,7 @@ const css = `
 @media (prefers-reduced-motion: reduce){.fd-gmc-pp svg{transition-duration:120ms;transform:none !important}}
 `;
 
-/* ───────────────────────── demo: a travel film player ───────────────────────── */
+/* ───────────────────────── demo: a film player ───────────────────────── */
 
 const DURATION = 7 * 60 + 42;
 
@@ -248,41 +248,66 @@ export function Demo() {
   }, [playing]);
 
   return (
-    <div ref={stage} className={`fd-gmcd${playing ? " is-playing" : ""}${shown ? "" : " is-hidden"}`}>
+    <div className="fd-gmcd">
       <style>{demoCss}</style>
-      <div className="fd-gmcd-film" aria-hidden="true">
-        <div className="fd-gmcd-sky" />
-        <div className="fd-gmcd-sun" />
-        <div className="fd-gmcd-m3" />
-        <div className="fd-gmcd-m2" />
-        <div className="fd-gmcd-m1" />
-        <div className="fd-gmcd-lake" />
-        <div className="fd-gmcd-grain" />
-      </div>
-      <div className="fd-gmcd-top">
-        <div className="fd-gmcd-meta">
-          <p className="fd-gmcd-kicker">Northbound · Episode 3</p>
-          <h1 className="fd-gmcd-title">The Lofoten Light</h1>
+      <div className="fd-gmcd-page">
+        <header className="fd-gmcd-nav">
+          <span className="fd-gmcd-mark" aria-hidden="true" />
+          <span className="fd-gmcd-word">Northbound</span>
+          <span className="fd-gmcd-navbars" aria-hidden="true">
+            <i /> <i /> <i />
+          </span>
+          <span className="fd-gmcd-avatar" aria-hidden="true" />
+        </header>
+
+        <div ref={stage} className={`fd-gmcd-frame${playing ? " is-playing" : ""}${shown ? "" : " is-hidden"}`}>
+          <div className="fd-gmcd-film" aria-hidden="true">
+            <div className="fd-gmcd-glow" />
+            <div className="fd-gmcd-streak" />
+            <div className="fd-gmcd-grid" />
+            <div className="fd-gmcd-ring" />
+            <div className="fd-gmcd-frag">03</div>
+            <div className="fd-gmcd-vignette" />
+            <div className="fd-gmcd-grain" />
+          </div>
+          <div className="fd-gmcd-top">
+            <div className="fd-gmcd-meta">
+              <p className="fd-gmcd-kicker">Northbound · Episode 3</p>
+              <h1 className="fd-gmcd-title">The Lofoten Light</h1>
+            </div>
+            <button type="button" role="switch" aria-checked={dim} className="fd-gmcd-dim" onClick={() => setDim((d) => !d)}>
+              <span className="fd-gmcd-dim-dot" aria-hidden="true" />
+              Dimming layer {dim ? "on" : "off"}
+            </button>
+          </div>
+          <div className="fd-gmcd-controls">
+            <GlassMediaControls
+              title="Northbound, episode 3: The Lofoten Light"
+              playing={playing}
+              onPlayingChange={setPlaying}
+              time={time}
+              duration={DURATION}
+              onSeek={setTime}
+              volume={volume}
+              onVolumeChange={setVolume}
+              muted={muted}
+              onMutedChange={setMuted}
+              dim={dim}
+            />
+          </div>
         </div>
-        <button type="button" role="switch" aria-checked={dim} className="fd-gmcd-dim" onClick={() => setDim((d) => !d)}>
-          <span className="fd-gmcd-dim-dot" aria-hidden="true" />
-          Dimming layer {dim ? "on" : "off"}
-        </button>
-      </div>
-      <div className="fd-gmcd-controls">
-        <GlassMediaControls
-          title="Northbound, episode 3: The Lofoten Light"
-          playing={playing}
-          onPlayingChange={setPlaying}
-          time={time}
-          duration={DURATION}
-          onSeek={setTime}
-          volume={volume}
-          onVolumeChange={setVolume}
-          muted={muted}
-          onMutedChange={setMuted}
-          dim={dim}
-        />
+
+        <div className="fd-gmcd-eps" aria-hidden="true">
+          {["01", "02", "03"].map((n) => (
+            <div key={n} className={`fd-gmcd-ep${n === "03" ? " is-current" : ""}`}>
+              <span className="fd-gmcd-ep-th">
+                <b>{n}</b>
+              </span>
+              <i />
+              <i />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -290,42 +315,75 @@ export function Demo() {
 
 const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
 const D = `"SF Pro Display",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif`;
+/* fine film grain, an inline SVG feTurbulence tile (no network) */
+const GRAIN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1.4 0 0 0 -.2 1.4 0 0 0 -.2 1.4 0 0 0 -.2 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`;
 const demoCss = `
 .fd-gmcd,.fd-gmcd *,.fd-gmcd *::before,.fd-gmcd *::after{box-sizing:border-box}
-.fd-gmcd{position:relative;height:100vh;min-height:620px;width:100%;margin:0;padding:0;overflow:hidden;background:#0B0B0F;color:#fff;font:400 15px/1.4 ${F};letter-spacing:normal}
-.fd-gmcd-film{position:absolute;inset:0;overflow:hidden}
-.fd-gmcd-film > div{position:absolute;margin:0;padding:0;display:block}
-.fd-gmcd-sky{inset:0;background:linear-gradient(180deg,#FDE7C8 0%,#FFC9A3 22%,#FF9E8A 40%,#E86F9A 56%,#7C5BC4 78%,#2B3A8C 100%)}
-.fd-gmcd-sun{left:50%;top:44%;width:240px;height:240px;margin:-120px 0 0 -120px !important;border-radius:50%;background:radial-gradient(circle,#FFFDF2 0 22%,rgba(255,240,200,0.9) 26%,rgba(255,210,170,0.4) 46%,transparent 70%);animation:fd-gmcd-drift 22s ease-in-out infinite alternate;animation-play-state:paused}
-.fd-gmcd-m3{left:-5%;right:-5%;bottom:34%;height:34%;background:#B66C9F;clip-path:polygon(0 100%,0 60%,8% 42%,14% 52%,22% 24%,30% 46%,38% 30%,47% 50%,55% 20%,63% 44%,72% 28%,80% 48%,88% 34%,100% 52%,100% 100%);opacity:0.75;animation:fd-gmcd-pan 30s linear infinite alternate;animation-play-state:paused}
-.fd-gmcd-m2{left:-5%;right:-5%;bottom:30%;height:30%;background:#6F3F8A;clip-path:polygon(0 100%,0 52%,10% 30%,18% 46%,27% 12%,36% 40%,44% 22%,52% 44%,61% 8%,70% 36%,79% 24%,88% 46%,96% 30%,100% 40%,100% 100%);animation:fd-gmcd-pan 24s linear infinite alternate-reverse;animation-play-state:paused}
-.fd-gmcd-m1{left:-5%;right:-5%;bottom:22%;height:24%;background:#2C1D4F;clip-path:polygon(0 100%,0 38%,7% 52%,15% 26%,24% 48%,34% 30%,42% 56%,52% 40%,60% 60%,70% 34%,78% 50%,90% 22%,100% 46%,100% 100%)}
-.fd-gmcd-lake{left:0;right:0;bottom:0;height:24%;background:
-  repeating-linear-gradient(180deg,rgba(255,240,225,0) 0 6px,rgba(255,240,225,0.5) 6px 7.5px,rgba(255,240,225,0) 7.5px 12px),
-  linear-gradient(180deg,#4A2F78 0%,#B0679E 22%,#F29A93 55%,#FFD3A8 100%)}
-.fd-gmcd-lake::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:180px;margin-left:-90px;background:repeating-linear-gradient(180deg,rgba(255,244,220,0) 0 4px,rgba(255,244,220,0.85) 4px 5.5px,rgba(255,244,220,0) 5.5px 10px);
-  -webkit-mask:radial-gradient(ellipse 50% 100% at 50% 0,#000 0 30%,transparent 100%);mask:radial-gradient(ellipse 50% 100% at 50% 0,#000 0 30%,transparent 100%)}
-.fd-gmcd-grain{inset:0;background:radial-gradient(ellipse at 50% 40%,transparent 50%,rgba(0,0,0,0.35) 100%)}
-.fd-gmcd.is-playing .fd-gmcd-sun,.fd-gmcd.is-playing .fd-gmcd-m3,.fd-gmcd.is-playing .fd-gmcd-m2{animation-play-state:running}
-@keyframes fd-gmcd-drift{to{transform:translate(40px,30px)}}
-@keyframes fd-gmcd-pan{to{transform:translateX(3%)}}
-.fd-gmcd-top{position:absolute;left:0;right:0;top:0;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin:0;padding:28px 32px;
-  background:linear-gradient(180deg,rgba(0,0,0,0.28),transparent);transition:opacity 420ms cubic-bezier(0.22,1,0.36,1),transform 420ms cubic-bezier(0.22,1,0.36,1)}
-.fd-gmcd-meta{margin:0;padding:0;text-shadow:0 1px 12px rgba(0,0,0,0.25)}
-.fd-gmcd-kicker{margin:0 0 6px;font:600 13px/1.2 ${F};letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.9)}
-.fd-gmcd-title{margin:0;font:700 clamp(2rem,4.4vw,3.5rem)/1 ${D};letter-spacing:-0.035em;color:#fff}
-.fd-gmcd-dim{display:inline-flex;align-items:center;gap:8px;flex:none;margin:0;padding:9px 14px;border:0;border-radius:999px;background:rgba(0,0,0,0.38);color:#fff;font:600 13px/1 ${F};cursor:pointer;-webkit-appearance:none;appearance:none;
+.fd-gmcd{position:relative;display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:24px 20px;overflow:hidden;
+  background:radial-gradient(900px 420px at 50% -10%,rgba(120,130,255,0.14),transparent 70%),#0B0C10;color:#fff;font:400 15px/1.4 ${F};letter-spacing:normal}
+.fd-gmcd-page{display:flex;flex-direction:column;gap:18px;width:min(960px,100%,calc((100vh - 236px) * 16 / 9));min-width:min(100%,560px);margin:0;padding:0}
+.fd-gmcd-nav{display:flex;align-items:center;gap:10px;height:32px;margin:0;padding:0}
+.fd-gmcd-mark{display:block;width:22px;height:22px;margin:0;border-radius:7px;background:linear-gradient(135deg,#8E9BFF,#3B3FB8)}
+.fd-gmcd-word{margin:0 18px 0 0;font:650 15px/1 ${D};letter-spacing:-0.01em;color:#fff}
+.fd-gmcd-navbars{display:flex;align-items:center;gap:8px;flex:1;margin:0;padding:0}
+.fd-gmcd-navbars i{display:block;width:56px;height:8px;border-radius:4px;background:rgba(255,255,255,0.09)}
+.fd-gmcd-avatar{display:block;flex:none;width:28px;height:28px;margin:0;border-radius:50%;background:rgba(255,255,255,0.12)}
+.fd-gmcd-frame{position:relative;width:100%;aspect-ratio:16/9;margin:0;padding:0;overflow:hidden;border-radius:28px;background:#0B0B14;isolation:isolate;box-shadow:0 0 0 1px rgba(255,255,255,0.07),0 40px 80px -40px rgba(0,0,0,0.8)}
+.fd-gmcd-film{position:absolute;inset:0;margin:0;padding:0;overflow:hidden;
+  background:linear-gradient(155deg,#141A3D 0%,#1D2358 34%,#2A2066 58%,#0C0B18 100%)}
+.fd-gmcd-film > div{position:absolute;display:block;margin:0;padding:0}
+.fd-gmcd-glow{inset:-20%;background:
+  radial-gradient(38% 46% at 78% 24%,rgba(125,110,255,0.55),transparent 70%),
+  radial-gradient(34% 44% at 18% 82%,rgba(40,170,210,0.38),transparent 70%);animation:fd-gmcd-drift 26s ease-in-out infinite alternate;animation-play-state:paused}
+.fd-gmcd-streak{left:-10%;right:-10%;top:-30%;bottom:-30%;background:linear-gradient(112deg,transparent 38%,rgba(170,185,255,0.30) 49%,rgba(255,255,255,0.40) 50%,rgba(170,185,255,0.22) 52%,transparent 63%);filter:blur(6px);animation:fd-gmcd-pan 30s ease-in-out infinite alternate;animation-play-state:paused}
+.fd-gmcd-grid{inset:0;background:
+  repeating-linear-gradient(90deg,rgba(255,255,255,0.10) 0 1px,transparent 1px 64px),
+  repeating-linear-gradient(0deg,rgba(255,255,255,0.10) 0 1px,transparent 1px 64px);
+  -webkit-mask:radial-gradient(70% 80% at 50% 45%,#000 0%,transparent 100%);mask:radial-gradient(70% 80% at 50% 45%,#000 0%,transparent 100%)}
+.fd-gmcd-ring{right:7%;top:14%;width:54%;aspect-ratio:1;max-height:none;border-radius:50%;
+  background:conic-gradient(from 200deg,rgba(255,255,255,0),rgba(255,255,255,0.7) 30%,rgba(150,160,255,0.25) 58%,rgba(255,255,255,0) 82%);
+  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 12px),#000 calc(100% - 11px));mask:radial-gradient(farthest-side,transparent calc(100% - 12px),#000 calc(100% - 11px))}
+.fd-gmcd-frag{left:5%;bottom:12%;font:800 clamp(10rem,27vw,21rem)/0.72 ${D};letter-spacing:-0.06em;color:rgba(255,255,255,0.05);-webkit-text-stroke:2px rgba(255,255,255,0.32);white-space:nowrap}
+.fd-gmcd-vignette{inset:0;background:radial-gradient(120% 100% at 50% 40%,transparent 55%,rgba(0,0,0,0.5) 100%),linear-gradient(0deg,rgba(0,0,0,0.25),transparent 40%)}
+.fd-gmcd-grain{inset:0;background-image:${GRAIN};background-size:180px 180px;mix-blend-mode:soft-light;opacity:0.3}
+.fd-gmcd-frame.is-playing .fd-gmcd-glow,.fd-gmcd-frame.is-playing .fd-gmcd-streak{animation-play-state:running}
+@keyframes fd-gmcd-drift{to{transform:translate(4%,3%) scale(1.06)}}
+@keyframes fd-gmcd-pan{to{transform:translateX(7%)}}
+.fd-gmcd-top{position:absolute;left:0;right:0;top:0;display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin:0;padding:26px 28px;
+  background:linear-gradient(180deg,rgba(0,0,0,0.30),transparent);transition:opacity 420ms cubic-bezier(0.22,1,0.36,1),transform 420ms cubic-bezier(0.22,1,0.36,1)}
+.fd-gmcd-meta{margin:0;padding:0;text-shadow:0 1px 12px rgba(0,0,0,0.3)}
+.fd-gmcd-kicker{margin:0 0 6px;font:600 12px/1.2 ${F};letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.8)}
+.fd-gmcd-title{margin:0;font:700 clamp(1.75rem,3.4vw,2.75rem)/1 ${D};letter-spacing:-0.035em;color:#fff}
+.fd-gmcd-dim{display:inline-flex;align-items:center;gap:8px;flex:none;margin:0;padding:9px 14px;border:0;border-radius:999px;background:rgba(0,0,0,0.38);color:#fff;font:600 13px/1 ${F};letter-spacing:normal;cursor:pointer;-webkit-appearance:none;appearance:none;
   -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
 .fd-gmcd-dim-dot{display:block;width:10px;height:10px;border-radius:50%;background:#8E8E93;transition:background-color 240ms}
 .fd-gmcd-dim[aria-checked="true"] .fd-gmcd-dim-dot{background:#30D158}
 .fd-gmcd-dim:focus-visible{outline:2px solid color-mix(in srgb,#0A84FF 70%,transparent);outline-offset:2px}
-.fd-gmcd-controls{position:absolute;left:50%;bottom:32px;width:min(760px,calc(100% - 32px));margin:0;padding:0;transform:translateX(-50%);transition:opacity 420ms cubic-bezier(0.22,1,0.36,1),transform 420ms cubic-bezier(0.22,1,0.36,1)}
-.fd-gmcd.is-hidden .fd-gmcd-controls{opacity:0;transform:translate(-50%,16px);pointer-events:none}
-.fd-gmcd.is-hidden .fd-gmcd-top{opacity:0;transform:translateY(-10px)}
-.fd-gmcd.is-hidden{cursor:none}
+.fd-gmcd-controls{position:absolute;left:50%;bottom:24px;width:min(640px,calc(100% - 32px));margin:0;padding:0;transform:translateX(-50%);transition:opacity 420ms cubic-bezier(0.22,1,0.36,1),transform 420ms cubic-bezier(0.22,1,0.36,1)}
+.fd-gmcd-frame.is-hidden .fd-gmcd-controls{opacity:0;transform:translate(-50%,16px);pointer-events:none}
+.fd-gmcd-frame.is-hidden .fd-gmcd-top{opacity:0;transform:translateY(-10px)}
+.fd-gmcd-frame.is-hidden{cursor:none}
+.fd-gmcd-eps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:0;padding:0}
+.fd-gmcd-ep{display:grid;grid-template-columns:96px 1fr;grid-template-rows:1fr 1fr;column-gap:12px;row-gap:8px;align-items:center;margin:0;padding:8px;border-radius:16px;background:rgba(255,255,255,0.03);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.05)}
+.fd-gmcd-ep.is-current{background:rgba(255,255,255,0.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,0.16)}
+.fd-gmcd-ep-th{grid-row:1/3;position:relative;display:grid;place-items:center;aspect-ratio:16/9;margin:0;border-radius:10px;overflow:hidden;background:linear-gradient(150deg,#1D2358,#0F1030)}
+.fd-gmcd-ep-th b{margin:0;font:700 17px/1 ${D};letter-spacing:-0.02em;color:rgba(255,255,255,0.7)}
+.fd-gmcd-ep > i{display:block;height:8px;margin:0;border-radius:4px;background:rgba(255,255,255,0.1)}
+.fd-gmcd-ep > i:last-child{width:62%}
+.fd-gmcd-ep > i:nth-of-type(1){align-self:end}
+.fd-gmcd-ep > i:nth-of-type(2){align-self:start}
 @media (max-width:640px){
-  .fd-gmcd-top{flex-direction:column;padding:20px 16px}
-  .fd-gmcd-controls{bottom:20px}
+  .fd-gmcd{align-items:flex-start;padding:16px 16px 24px}
+  .fd-gmcd-page{width:100%;min-width:0}
+  .fd-gmcd-frame{aspect-ratio:9/15;border-radius:24px}
+  .fd-gmcd-top{flex-direction:column;padding:20px 18px}
+  .fd-gmcd-controls{bottom:16px}
+  .fd-gmcd-ring{right:4%;top:26%;width:84%}
+  .fd-gmcd-frag{left:6%;bottom:auto;top:32%}
+  .fd-gmcd-navbars i:nth-child(n+3){display:none}
+  .fd-gmcd-eps{gap:8px}
+  .fd-gmcd-ep{grid-template-columns:1fr;grid-template-rows:auto 8px 8px;padding:6px}
+  .fd-gmcd-ep-th{grid-row:auto}
 }
-@media (prefers-reduced-motion: reduce){.fd-gmcd-sun,.fd-gmcd-m3,.fd-gmcd-m2{animation:none}}
+@media (prefers-reduced-motion: reduce){.fd-gmcd-glow,.fd-gmcd-streak{animation:none}}
 `;

@@ -338,8 +338,8 @@ function Canvas() {
       <p className="fd-gtbd-crumb">Orbit Pay / Checkout v3 / Spec</p>
       <h1 className="fd-gtbd-h1">One-tap checkout</h1>
       <p className="fd-gtbd-lead">
-        Reduce the card flow from four screens to one sheet. Target: +6.5% conversion on mobile web, no increase in chargebacks. Ships behind
-        <code>checkout_v3</code> to 10% of EU traffic on 12 Nov.
+        Cut the card flow from four screens to one sheet. Target: +6.5% conversion on mobile web, no rise in chargebacks. Ships behind <code>checkout_v3</code>{" "}
+        to 10% of EU traffic on 12 Nov.
       </p>
       <div className="fd-gtbd-boards">
         <div className="fd-gtbd-board">
@@ -418,19 +418,19 @@ const demoCss = `
 .fd-gtbd-scroll::-webkit-scrollbar{display:none}
 .fd-gtbd-top{position:absolute;left:16px;right:16px;top:14px;z-index:3;margin:0;padding:0}
 .fd-gtbd-bottom{position:absolute;left:0;right:0;bottom:22px;z-index:3;display:flex;justify-content:center;margin:0;padding:0 12px}
-.fd-gtbd-doc{max-width:860px;margin:0 auto;padding:110px 32px 160px}
-.fd-gtbd-doc h1,.fd-gtbd-doc h2,.fd-gtbd-doc p,.fd-gtbd-doc ol,.fd-gtbd-doc li,.fd-gtbd-doc table{margin:0;padding:0;border:0;color:inherit}
+.fd-gtbd-doc{max-width:960px;margin:0 auto;padding:104px 32px 160px}
+:where(.fd-gtbd-doc) :where(h1,h2,p,ol,li,table){margin:0;padding:0;border:0;color:inherit}
 .fd-gtbd-crumb{margin:0 0 10px;font:500 13px/1.3 ${F};color:#6B6B76}
 .fd-gtbd-h1{margin:0 0 14px;font:800 clamp(2.5rem,6vw,4rem)/1 ${D};letter-spacing:-0.04em;color:#0B0B0F}
-.fd-gtbd-lead{margin:0 0 32px;max-width:62ch;font:400 1.25rem/1.5 ${F};letter-spacing:-0.01em;color:#3A3A44}
+.fd-gtbd-lead{margin:0 0 30px;max-width:72ch;font:400 1.25rem/1.5 ${F};letter-spacing:-0.01em;color:#3A3A44}
 .fd-gtbd-doc code{margin:0 2px;padding:2px 6px;border-radius:6px;background:#E7E7EC;font:500 0.85em/1 ${M};color:#C2255C}
-.fd-gtbd-boards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:0 0 40px}
+.fd-gtbd-boards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:0 0 44px}
 .fd-gtbd-board{display:flex;flex-direction:column;gap:8px;margin:0;padding:0}
 .fd-gtbd-label{font:600 12px/1 ${F};color:#6B6B76}
-.fd-gtbd-phone{position:relative;aspect-ratio:9/17;margin:0;padding:22px 14px;border-radius:26px;background:#fff;box-shadow:0 0 0 1px #E2E2E8,0 20px 40px -24px rgba(20,20,40,0.35);display:flex;flex-direction:column;gap:10px;overflow:hidden}
-.fd-gtbd-phone i{display:block;height:46px;border-radius:12px;background:linear-gradient(90deg,#FFD6A5 0 46px,#F2F2F7 46px)}
-.fd-gtbd-phone i:nth-child(2){background:linear-gradient(90deg,#BDE0FE 0 46px,#F2F2F7 46px)}
-.fd-gtbd-phone i:nth-child(3){background:linear-gradient(90deg,#CAFFBF 0 46px,#F2F2F7 46px)}
+.fd-gtbd-phone{position:relative;aspect-ratio:4/5;margin:0;padding:22px 14px;border-radius:26px;background:#fff;box-shadow:0 0 0 1px #E2E2E8,0 20px 40px -24px rgba(20,20,40,0.35);display:flex;flex-direction:column;gap:10px;overflow:hidden}
+.fd-gtbd-phone i{display:block;height:46px;border-radius:12px;background:linear-gradient(90deg,#DCDCE4 0 46px,#F2F2F7 46px)}
+.fd-gtbd-phone i:nth-child(2){background:linear-gradient(90deg,#CFD3E0 0 46px,#F2F2F7 46px)}
+.fd-gtbd-phone i:nth-child(3){background:linear-gradient(90deg,#D9D3CE 0 46px,#F2F2F7 46px)}
 .fd-gtbd-phone b{display:block;margin-top:auto;height:44px;border-radius:999px;background:#0B0B0F}
 .fd-gtbd-phone--b{background:linear-gradient(180deg,#E9EEF8,#C9D4EA)}
 .fd-gtbd-phone--b::before{content:"";position:absolute;left:8px;right:8px;bottom:8px;top:42%;border-radius:22px;background:#fff;box-shadow:0 -8px 30px rgba(20,20,40,0.15)}
@@ -438,7 +438,7 @@ const demoCss = `
 .fd-gtbd-phone--b i:first-child{margin-top:auto}
 .fd-gtbd-phone--b b{margin-top:0;background:#007AFF}
 .fd-gtbd-phone--c{align-items:center;justify-content:center}
-.fd-gtbd-phone--c em{display:block;width:72px;height:72px;margin:auto 0 0;border-radius:50%;background:#34C759;box-shadow:inset 0 0 0 0 #fff;position:relative}
+.fd-gtbd-phone--c em{display:block;width:72px;height:72px;margin:auto 0 0;border-radius:50%;background:#1C1C22;position:relative}
 .fd-gtbd-phone--c em::after{content:"";position:absolute;left:26px;top:18px;width:16px;height:30px;border:solid #fff;border-width:0 5px 5px 0;transform:rotate(45deg)}
 .fd-gtbd-phone--c b{width:100%}
 .fd-gtbd-doc .fd-gtbd-h2{margin:8px 0 12px;font:700 1.5rem/1.2 ${D};letter-spacing:-0.02em;color:#0B0B0F}
@@ -453,8 +453,8 @@ const demoCss = `
 .fd-gtbd-sw{display:inline-block;width:12px;height:12px;margin:0 8px -1px 0;border-radius:4px;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.08)}
 .fd-gtbd-p{margin:0 0 16px;max-width:66ch;font:400 17px/1.6 ${F};color:#1C1C22}
 @media (max-width:760px){
-  .fd-gtbd-top .fd-gtb > :nth-child(n+5):nth-child(-n+8){display:none}
-  .fd-gtbd-top .fd-gtb > :nth-child(4){flex:1 1 12px}
+  /* children: 1 style, then View, spacer, History, flexible spacer, Mode, spacer, Present, spacer, Share */
+  .fd-gtbd-top .fd-gtb > :nth-child(n+6):nth-child(-n+9){display:none}
   .fd-gtbd-doc{padding:96px 18px 150px}
   .fd-gtbd-boards{gap:10px}
   .fd-gtbd-phone{border-radius:18px;padding:14px 8px;gap:6px}

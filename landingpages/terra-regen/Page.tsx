@@ -2,18 +2,17 @@
  * Terra, regenerative agriculture & climate-farming collective.
  *
  * The page itself grows. The hero is a pinned vertical cross-section from sky
- * to root zone: as you scroll, procedural SVG wheat, cover crops and a tree
- * rise out of the soil, root systems branch downward through five soil
+ * to root zone: as you scroll, root systems branch downward through five soil
  * horizons, carbon particles fall from the sky and are banked as green flecks
  * in the earth, and a live per-hectare counter climbs. A season slider (always
  * on screen) re-tints the whole site spring -> summer -> autumn -> winter,
- * moving the sun, thinning the foliage and laying snow on the ground.
+ * moving the sun, shifting the sky and laying snow on the ground.
  *
  * Below: topographic contour lines that draw across the field, a live carbon
  * ledger with growing bars and a drawn trend line, an interactive field map
  * (hover / focus / tap a plot and its crop rows are drawn in and its soil
  * data appears), a mycelium network with travelling signals, grower voices
- * that grow in, and a wheat field that rises under the sign-up form.
+ * that grow in, and a calm sign-up form.
  *
  * Everything is procedural SVG + CSS custom properties driven from a single
  * rAF scroll loop (no React state per frame). No images, no web fonts, no
@@ -344,7 +343,6 @@ function Scene() {
       {STRATA_PATHS.map((s) => <path key={s.y} d={s.d} fill={s.fill} />)}
       <rect y={HZ} width="1200" height="542" fill="url(#tr-fade)" />
       {S.specks.map((p, i) => <circle key={i} cx={f1(p.x)} cy={f1(p.y)} r={f1(p.r)} fill={p.c} opacity=".55" />)}
-      {S.worms.map((d, i) => <path key={i} d={d} fill="none" stroke="#d99a8e" strokeWidth="4" strokeLinecap="round" opacity=".7" />)}
 
       {/* snow */}
       <path className="tr-snow" d={`M0 ${HZ - 4}Q60 ${HZ - 12} 120 ${HZ - 4}T240 ${HZ - 4}T360 ${HZ - 4}T480 ${HZ - 4}T600 ${HZ - 4}T720 ${HZ - 4}T840 ${HZ - 4}T960 ${HZ - 4}T1080 ${HZ - 4}T1200 ${HZ - 4}V${HZ + 6}H0Z`} fill="#f7fbfc" />
@@ -357,32 +355,6 @@ function Scene() {
       {/* stored carbon */}
       <g className="tr-store">
         {S.store.map((c, i) => <rect key={i} className="tr-fleck" x={f1(c.x)} y={f1(c.y)} width="5" height="5" style={v({ "--d": c.delay })} />)}
-      </g>
-
-      {/* plants */}
-      <g>
-        {S.stems.map((p, i) => <path key={i} className="tr-ds" pathLength={1} d={p.d} fill="none" stroke={p.w > 8 ? "#5b3d26" : p.w > 4 ? "#6b4a2e" : "var(--stem, #8b9a4a)"} strokeWidth={p.w} strokeLinecap="round" style={v({ "--d": p.delay })} />)}
-        {S.blades.map((p, i) => <path key={i} className="tr-ds" pathLength={1} d={p.d} fill="none" stroke="var(--leaf)" strokeWidth={p.w} strokeLinecap="round" style={v({ "--d": p.delay })} />)}
-        {S.leaves.map((l, i) => (
-          <ellipse key={i} className="tr-sc" cx={f1(l.x)} cy={f1(l.y)} rx={l.rx} ry={l.ry} fill={l.c === 1 ? "var(--leaf)" : "var(--leaf2)"} transform={`rotate(${l.rot})`} style={v({ "--d": l.delay, "--o": "50% 50%" })} />
-        ))}
-        {S.flowers.map((fl, i) => (
-          <g key={i} className="tr-sc" style={v({ "--d": fl.delay })}>
-            {[0, 72, 144, 216, 288].map((a) => <circle key={a} cx={f1(fl.x + Math.cos((a * Math.PI) / 180) * 5)} cy={f1(fl.y + Math.sin((a * Math.PI) / 180) * 5)} r="3.6" fill="var(--wheat)" />)}
-            <circle cx={fl.x} cy={fl.y} r="2.6" fill="#7a4a1c" />
-          </g>
-        ))}
-        {S.ears.map((e, i) => (
-          <g key={i} className="tr-sc" transform={`rotate(${f1(e.rot)})`} style={v({ "--d": e.delay })}>
-            {[0, 1, 2, 3, 4].map((k) => (
-              <g key={k}>
-                <ellipse cx={f1(e.x - 4)} cy={f1(e.y - 4 - k * 7)} rx="2.8" ry="5.6" fill="var(--wheat)" transform={`rotate(-24 ${f1(e.x - 4)} ${f1(e.y - 4 - k * 7)})`} />
-                <ellipse cx={f1(e.x + 4)} cy={f1(e.y - 7 - k * 7)} rx="2.8" ry="5.6" fill="var(--wheat)" transform={`rotate(24 ${f1(e.x + 4)} ${f1(e.y - 7 - k * 7)})`} />
-              </g>
-            ))}
-            <path d={`M${f1(e.x)} ${f1(e.y - 38)}l0 -22`} stroke="var(--wheat)" strokeWidth="1.5" />
-          </g>
-        ))}
       </g>
 
       {/* falling carbon */}
@@ -735,24 +707,6 @@ function Voices() {
   );
 }
 
-function Field() {
-  const stalks = useMemo(() => {
-    const r = rng(77);
-    return Array.from({ length: 56 }, (_, i) => ({ x: i * 22 + r() * 12, h: 60 + r() * 90, d: r() * 0.4, s: 3 + r() * 3, del: -r() * 5 }));
-  }, []);
-  return (
-    <svg className="tr-field" viewBox="0 0 1240 180" preserveAspectRatio="none" aria-hidden="true">
-      {stalks.map((s, i) => (
-        <g key={i} className="tr-fs" style={v({ "--d": s.d, animationDuration: `${s.s}s`, animationDelay: `${s.del}s`, transformOrigin: `${f1(s.x)}px 180px` })}>
-          <path d={`M${f1(s.x)} 180Q${f1(s.x + 4)} ${180 - s.h / 2} ${f1(s.x + 2)} ${180 - s.h}`} stroke="var(--wheat)" strokeWidth="2.5" fill="none" />
-          <ellipse cx={f1(s.x + 2)} cy={180 - s.h - 8} rx="3.4" ry="9" fill="var(--wheat)" />
-          <path d={`M${f1(s.x)} ${180 - s.h * 0.3}q-14 -10 -20 -26`} stroke="var(--leaf)" strokeWidth="2.5" fill="none" />
-        </g>
-      ))}
-    </svg>
-  );
-}
-
 function Join() {
   const [done, setDone] = useState(false);
   const [ha, setHa] = useState("50-200");
@@ -790,7 +744,6 @@ function Join() {
           </form>
         )}
       </div>
-      <Field />
       <footer className="tr-foot">
         <span>Terra Regenerative Collective, 2026</span>
         <span>Soil is the largest living carbon store we can rebuild.</span>
@@ -1108,12 +1061,8 @@ ellipse.tr-sc{transform-origin:50% 50%}
 .tr-form button:hover{transform:translateY(-2px)}
 .tr-err{grid-column:1/-1;color:#ff9d8a;margin:0;font-size:14px}
 .tr-done{margin-top:28px;padding:20px;border:1.5px solid var(--chl);max-width:560px;border-radius:4px}
-.tr-field{position:absolute;left:0;right:0;bottom:46px;width:100%;height:180px;transform-origin:50% 100%;transform:scaleY(clamp(0,calc(var(--sp) * 1.3 - .2),1));opacity:clamp(0,calc(var(--sp) * 4 - .5),1)}
-.tr-fs{animation:tr-sway 4s ease-in-out infinite alternate}
-@keyframes tr-sway{from{transform:rotate(-2.5deg)}to{transform:rotate(2.5deg)}}
 .tr-foot{position:relative;z-index:2;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:14px 28px;font-family:var(--mono);font-size:12px;background:#1a110a;margin-top:140px;color:var(--cream)}
 .tr-join{padding-bottom:0}
-.tr-join .tr-field{bottom:46px}
 
 /* season slider */
 .tr-season{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);z-index:60;width:min(420px,calc(100vw - 32px));background:rgba(243,236,218,.94);border:1.5px solid var(--ink);border-radius:14px;padding:8px 16px 8px;box-shadow:5px 5px 0 var(--soil2);display:grid;grid-template-columns:auto 1fr;gap:2px 14px;align-items:center}
@@ -1154,6 +1103,6 @@ ellipse.tr-sc{transform-origin:50% 50%}
   .tr-line{stroke-dashoffset:0}.tr-area,.tr-dot,.tr-nd{opacity:1}
   .tr-hy{stroke-dashoffset:0}
   .tr-row{stroke-dashoffset:0}
-  .tr-field{--sp:1}
+  
 }
 `;
