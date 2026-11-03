@@ -12,7 +12,7 @@ export const template: Template = {
   lexiconTerms: [],
   patternSlugs: [],
   Component: lazyPage(() => import("./Page")),
-  order: 24,
+  order: 4,
   motion: [
     "BIOS boot sequence",
     "Draggable focusable windows",

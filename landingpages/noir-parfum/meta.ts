@@ -12,7 +12,7 @@ export const template: Template = {
   lexiconTerms: [],
   patternSlugs: [],
   Component: lazyPage(() => import("./Page")),
-  order: 23,
+  order: 3,
   motion: [
     "Cursor-stirred smoke canvas",
     "Letter-rise title",

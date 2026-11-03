@@ -22,7 +22,7 @@ export const template: Template = {
   ],
   patternSlugs: ["full-bleed-grid", "asymmetric-split"],
   Component: lazyPage(() => import("./Page")),
-  order: 10,
+  order: 1,
   motion: [
     "Headline mask reveal",
     "Live balance odometer",

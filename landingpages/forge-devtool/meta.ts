@@ -21,7 +21,7 @@ export const template: Template = {
   ],
   patternSlugs: ["bento-quiet", "sticky-index-rail"],
   Component: lazyPage(() => import("./Page")),
-  order: 20,
+  order: 2,
   motion: [
     "Terminal typing hero",
     "Scroll-drawn PR timeline",

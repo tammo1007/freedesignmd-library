@@ -21,7 +21,7 @@ export const template: Template = {
   ],
   patternSlugs: ["centered-column", "asymmetric-split"],
   Component: lazyPage(() => import("./Page")),
-  order: 5,
+  order: 7,
   motion: [
     "SVG refraction Liquid Glass",
     "Nav condenses to glass capsule",

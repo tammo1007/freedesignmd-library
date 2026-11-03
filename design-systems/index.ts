@@ -31,10 +31,18 @@ import { system as tokenMesh } from "./token-mesh";
 import { system as wanderstayRentals } from "./wanderstay-rentals";
 import { system as warmEditorial } from "./warm-editorial";
 
+/** Pinned to the top of the library, in this order. Everything else follows alphabetically. */
+const FEATURED_ORDER = ["acid-chrome", "liquid-metal", "linear-orbit", "magazine-bold", "null-grid", "argent-machined"];
+
 /** The 30 live design systems (explicit imports — also works under bun for the prebuild verifier). */
 export const systems: System[] = [
   acidChrome, arcadeNight, argentMachined, atriumFolio, auroraGlass, champagneFoundry, citrineIde, clinicPearl, darkTerminal, devshellMono, hotelRiviere, irisPay, linearOrbit, liquidMetal, magazineBold, maisonFolio, monolithCli, neoMemphis, nullGrid, obsidianGlass, parchmentAtelier, prismConic, risographPress, signalAi, softLinen, stadiumBank, titaniumDeck, tokenMesh, wanderstayRentals, warmEditorial,
-].sort((a, b) => a.name.localeCompare(b.name));
+].sort((a, b) => {
+  const ia = FEATURED_ORDER.indexOf(a.slug);
+  const ib = FEATURED_ORDER.indexOf(b.slug);
+  if (ia !== -1 || ib !== -1) return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
+  return a.name.localeCompare(b.name);
+});
 
 export const getSystemBySlug = (slug: string): System | undefined => systems.find((s) => s.slug === slug);
 
