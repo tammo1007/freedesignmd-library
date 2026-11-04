@@ -130,196 +130,27 @@ const css = `
 
 /* ───────────────────────────── demo ───────────────────────────── */
 
-type Listing = { id: string; addr: string; hood: string; price: number; beds: number; baths: number; sqft: number; type: string; tags: string[]; hue: number };
-const LISTINGS: Listing[] = [
-  { id: "l1", addr: "2208 Rainey St #4C", hood: "Rainey District", price: 612000, beds: 2, baths: 2, sqft: 1104, type: "condo", tags: ["parking", "pool", "pets"], hue: 212 },
-  { id: "l2", addr: "4410 Duval St", hood: "Hyde Park", price: 925000, beds: 3, baths: 2, sqft: 1860, type: "house", tags: ["pets", "yard"], hue: 28 },
-  { id: "l3", addr: "1700 E 6th St #12", hood: "East Austin", price: 489000, beds: 1, baths: 1, sqft: 842, type: "loft", tags: ["new", "parking"], hue: 164 },
-  { id: "l4", addr: "908 Barton Springs Rd", hood: "Zilker", price: 1380000, beds: 4, baths: 3, sqft: 2610, type: "house", tags: ["pool", "pets", "yard", "parking"], hue: 100 },
-  { id: "l5", addr: "3301 Manor Rd Unit 7", hood: "Windsor Park", price: 538000, beds: 2, baths: 2, sqft: 1290, type: "townhome", tags: ["new", "parking", "pets"], hue: 330 },
-  { id: "l6", addr: "711 W Cesar Chavez #1905", hood: "Downtown", price: 799000, beds: 2, baths: 2, sqft: 1320, type: "condo", tags: ["pool", "parking", "new"], hue: 250 },
-  { id: "l7", addr: "5215 Avenue F", hood: "Hyde Park", price: 1095000, beds: 3, baths: 3, sqft: 2140, type: "house", tags: ["yard", "parking", "pets"], hue: 48 },
-  { id: "l8", addr: "1109 S 1st St #3", hood: "SoCo", price: 574000, beds: 2, baths: 1, sqft: 1010, type: "townhome", tags: ["pets", "yard"], hue: 190 },
+const TYPES: PillOption[] = [
+  { id: "houses", label: "Houses", count: 48 },
+  { id: "condos", label: "Condos", count: 64 },
+  { id: "townhomes", label: "Townhomes", count: 21 },
+  { id: "lofts", label: "Lofts", count: 9 },
 ];
-const TYPES: PillOption[] = ["house", "condo", "townhome", "loft"].map((t) => ({ id: t, label: t === "townhome" ? "Townhomes" : t === "loft" ? "Lofts" : t === "house" ? "Houses" : "Condos", count: LISTINGS.filter((l) => l.type === t).length }));
-const glyph = (p: string) => (
-  <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d={p} /></svg>
-);
-const AMENITIES: PillOption[] = [
-  { id: "pets", label: "Pet friendly", icon: glyph("M11 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zM16 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zM7 10a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zM20 10a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zM12 11c-3 0-5 3-5 5 0 2 1.5 3 3 3 1 0 1.4-.5 2-.5s1 .5 2 .5c1.5 0 3-1 3-3 0-2-2-5-5-5z") },
-  { id: "pool", label: "Pool", icon: glyph("M2 18c1.5 0 1.5 1 3 1s1.5-1 3-1 1.5 1 3 1 1.5-1 3-1 1.5 1 3 1 1.5-1 3-1M8 14V6a2 2 0 0 1 4 0M16 14V6a2 2 0 0 0-4 0M8 9h8") },
-  { id: "parking", label: "Parking", icon: glyph("M5 4h8a5 5 0 0 1 0 10H8v6M5 4v16") },
-  { id: "yard", label: "Yard", icon: glyph("M12 21v-8M12 13c-3 0-5-2-5-5 3 0 5 2 5 5zM12 13c3 0 5-2 5-5-3 0-5 2-5 5zM6 21h12") },
-  { id: "new", label: "New build", icon: glyph("M12 3l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z") },
-];
-const money = (n: number) => "$" + n.toLocaleString("en-US");
 
 export function Demo() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
-  const [types, setTypes] = useState<string[]>(["condo", "townhome"]);
-  const [am, setAm] = useState<string[]>([]);
-  const [beds, setBeds] = useState<string[]>([]);
-
-  const shown = LISTINGS.filter((l) => (types.length === 0 || types.includes(l.type)) && am.every((a) => l.tags.includes(a)) && (beds.length === 0 || l.beds >= Number(beds[0])));
-  const any = types.length + am.length + beds.length > 0;
-
+  const [value, setValue] = useState<string[]>(["condos"]);
   return (
-    <div className="fd-pill-demo" data-fd-theme={theme}>
+    <div className="fd-pilld">
       <style>{demoCss}</style>
-      <header className="fd-pill-demo-bar">
-        <span className="fd-pill-demo-brand">Openhaus</span>
-        <span className="fd-pill-demo-loc">Austin, TX</span>
-        <button type="button" className="fd-pill-demo-theme" aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"} onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>{theme === "dark" ? "Light" : "Dark"}</button>
-      </header>
-
-      <main className="fd-pill-demo-main">
-        <h1>Homes for sale in Austin</h1>
-        <div className="fd-pill-demo-filters">
-          <div className="fd-pill-demo-frow">
-            <span id="fd-pill-t">Home type</span>
-            <PillTagButton aria-label="Home type" options={TYPES} value={types} onChange={setTypes} />
-          </div>
-          <div className="fd-pill-demo-frow">
-            <span id="fd-pill-a">Must have</span>
-            <PillTagButton aria-label="Amenities" options={AMENITIES} value={am} onChange={setAm} tone="accent" size="sm" />
-          </div>
-          <div className="fd-pill-demo-frow">
-            <span id="fd-pill-b">Bedrooms</span>
-            <PillTagButton aria-label="Minimum bedrooms" multiple={false} options={[{ id: "2", label: "2+" }, { id: "3", label: "3+" }, { id: "4", label: "4+" }]} value={beds} onChange={setBeds} size="sm" />
-          </div>
-        </div>
-
-        <div className="fd-pill-demo-count" aria-live="polite">
-          <span><b>{shown.length}</b> {shown.length === 1 ? "home" : "homes"}</span>
-          {any && <button type="button" onClick={() => { setTypes([]); setAm([]); setBeds([]); }}>Clear all</button>}
-        </div>
-
-        {shown.length === 0 ? (
-          <p className="fd-pill-demo-empty">No homes match every filter. Try removing an amenity.</p>
-        ) : (
-          <ul className="fd-pill-demo-grid">
-            {shown.map((l) => (
-              <li key={l.id} className="fd-pill-demo-card">
-                <div className="fd-pill-demo-img" style={{ ["--hue" as string]: l.hue }} aria-hidden="true">
-                  <Facade type={l.type} />
-                  <span>{l.type === "townhome" ? "Townhome" : l.type[0].toUpperCase() + l.type.slice(1)}</span>
-                </div>
-                <div className="fd-pill-demo-info">
-                  <b>{money(l.price)}</b>
-                  <span>{l.beds} bd · {l.baths} ba · {l.sqft.toLocaleString("en-US")} sqft</span>
-                  <small>{l.addr}, {l.hood}</small>
-                </div>
-              </li>
-            ))}
-          </ul>
-        )}
-      </main>
+      <div className="fd-pilld-box">
+        <PillTagButton aria-label="Home type" options={TYPES} value={value} onChange={setValue} />
+      </div>
     </div>
   );
 }
 
-function Facade({ type }: { type: string }) {
-  const windows = (xs: number[], y: number, w = 12, h = 14) => xs.map((x) => (
-    <g key={`${x}-${y}`}><rect className="fd-pill-fg" x={x} y={y} width={w} height={h} /><path className="fd-pill-fl" d={`M${x + w / 2} ${y}v${h}M${x} ${y + h / 2}h${w}`} /></g>
-  ));
-  return (
-    <svg aria-hidden="true" focusable="false" viewBox="0 0 240 120" width="100%" height="100%" preserveAspectRatio="xMidYMax slice">
-      <rect className="fd-pill-fgr" x="0" y="100" width="240" height="20" />
-      {type === "house" && (
-        <g>
-          <rect className="fd-pill-fb" x="60" y="54" width="120" height="46" />
-          <path className="fd-pill-fr" d="M48 56 120 22 192 56z" />
-          <rect className="fd-pill-fr" x="148" y="26" width="10" height="20" />
-          <rect className="fd-pill-fd" x="112" y="72" width="16" height="28" />
-          {windows([76, 144], 68, 20, 16)}
-          <rect className="fd-pill-fs" x="106" y="98" width="28" height="3" />
-          <rect className="fd-pill-ft" x="208" y="82" width="4" height="18" /><circle className="fd-pill-fv" cx="210" cy="72" r="15" />
-        </g>
-      )}
-      {type === "condo" && (
-        <g>
-          <rect className="fd-pill-fb2" x="30" y="58" width="52" height="42" />
-          {windows([40, 58], 70, 10, 12)}
-          <rect className="fd-pill-fb" x="86" y="12" width="76" height="88" />
-          <rect className="fd-pill-fr" x="86" y="12" width="76" height="4" />
-          {[0, 1, 2, 3, 4].map((r) => (
-            <g key={r}>
-              {windows([96, 118, 140], 24 + r * 15, 14, 9)}
-              {r % 2 === 0 ? <rect className="fd-pill-fs" x="94" y={34 + r * 15} width="18" height="2" /> : null}
-            </g>
-          ))}
-          <rect className="fd-pill-fd" x="116" y="86" width="14" height="14" />
-          <rect className="fd-pill-fb2" x="170" y="70" width="44" height="30" />
-          {windows([180, 196], 80, 10, 10)}
-        </g>
-      )}
-      {type === "townhome" && (
-        <g>
-          {[{ x: 34, y: 42, k: "fb" }, { x: 90, y: 30, k: "fb2" }, { x: 146, y: 46, k: "fb3" }].map((u, i) => (
-            <g key={i}>
-              <rect className={`fd-pill-${u.k}`} x={u.x} y={u.y} width="56" height={100 - u.y} />
-              <rect className="fd-pill-fr" x={u.x - 2} y={u.y - 4} width="60" height="5" />
-              {windows([u.x + 8, u.x + 36], u.y + 12, 12, 16)}
-              {windows([u.x + 36], u.y + 40, 12, 16)}
-              <rect className="fd-pill-fd" x={u.x + 8} y="76" width="14" height="24" />
-              <rect className="fd-pill-fs" x={u.x + 5} y="98" width="20" height="3" />
-            </g>
-          ))}
-        </g>
-      )}
-      {type === "loft" && (
-        <g>
-          <rect className="fd-pill-fb" x="30" y="40" width="180" height="60" />
-          <path className="fd-pill-bk" d={Array.from({ length: 9 }, (_, i) => `M30 ${46 + i * 6.5}h180`).join("")} />
-          <rect className="fd-pill-fr" x="30" y="36" width="180" height="5" />
-          <rect className="fd-pill-ft" x="168" y="22" width="22" height="14" /><path className="fd-pill-ft" d="M171 36v6M187 36v6" />
-          {[48, 82, 116, 150].map((x) => <path key={x} className="fd-pill-fw" d={`M${x} 82V58a11 11 0 0 1 22 0v24z`} />)}
-          <rect className="fd-pill-fd" x="182" y="66" width="20" height="34" />
-          <path className="fd-pill-fl" d="M182 74h20M182 82h20M182 90h20" />
-        </g>
-      )}
-    </svg>
-  );
-}
-
 const demoCss = `
-:where(.fd-pill-demo,.fd-pill-demo *){box-sizing:border-box;margin:0;padding:0;font:inherit;letter-spacing:inherit;color:inherit;text-decoration:none;list-style:none}
-:where(.fd-pill-demo,.fd-pill-demo *)::before,:where(.fd-pill-demo,.fd-pill-demo *)::after{box-sizing:border-box}
-:where(.fd-pill-demo svg){display:block;flex-shrink:0}
-:where(.fd-pill-demo button){appearance:none;-webkit-appearance:none;background:none;border:0;border-radius:0}
-.fd-pill-demo{--d-font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;--d-disp:ui-sans-serif,-apple-system,"SF Pro Display","Inter",sans-serif;
-  --fd-ease-out:cubic-bezier(.22,1,.36,1);--fd-dur-2:240ms;
-  --d-bg:#F7F7F9;--d-card:#fff;--d-ink:#0B0B0F;--d-mut:#6B6B76;--d-line:rgba(11,11,15,.08);--d-sky:#E7EDEF;--d-ground:#CFD3C9;--d-glass:#C9D9E0;--d-stone:#E4E0D6;--d-stone-line:rgba(11,11,15,.28);--d-leaf:#8FA588;--d-warm:#F1D9A6;
-  min-height:100vh;background:var(--d-bg);color:var(--d-ink);font:400 15px/1.45 var(--d-font);-webkit-font-smoothing:antialiased;transition:background-color var(--fd-dur-2) var(--fd-ease-out)}
-.fd-pill-demo[data-fd-theme="dark"]{--d-bg:#09090B;--d-card:#111115;--d-ink:#F5F5F7;--d-mut:#9A9AA6;--d-line:rgba(255,255,255,.09);--d-sky:#161C1F;--d-ground:#242823;--d-glass:#33454E;--d-stone:#4A4840;--d-stone-line:rgba(255,255,255,.22);--d-leaf:#44594A;--d-warm:#C99B4A}
-.fd-pill-demo-bar{display:flex;align-items:center;gap:16px;height:60px;padding:0 clamp(16px,4vw,40px);border-bottom:1px solid var(--d-line)}
-.fd-pill-demo-brand{font:700 18px/1 var(--d-disp);letter-spacing:-.03em}
-.fd-pill-demo-loc{margin-right:auto;font:400 14px/1 var(--d-font);color:var(--d-mut)}
-.fd-pill-demo-theme{cursor:pointer;height:32px;padding:0 14px;border-radius:9999px;box-shadow:0 0 0 1px var(--d-line);font:500 13px/1 var(--d-font);color:var(--d-mut)}
-.fd-pill-demo-theme:hover{color:var(--d-ink)}.fd-pill-demo-theme:focus-visible,.fd-pill-demo-count button:focus-visible{outline:2px solid rgba(10,132,255,.7);outline-offset:2px;border-radius:6px}
-.fd-pill-demo-main{max-width:1040px;margin:0 auto;padding:36px clamp(16px,4vw,40px) 64px}
-.fd-pill-demo-main h1{font:600 clamp(24px,4vw,32px)/1.15 var(--d-disp);letter-spacing:-.025em}
-.fd-pill-demo-filters{display:flex;flex-direction:column;gap:14px;margin-top:24px;padding:20px;border-radius:20px;background:var(--d-card);box-shadow:0 0 0 1px var(--d-line),0 1px 2px rgba(0,0,0,.03)}
-.fd-pill-demo-frow{display:grid;grid-template-columns:96px minmax(0,1fr);align-items:center;gap:12px}
-.fd-pill-demo-frow>span{font:500 13px/1 var(--d-font);color:var(--d-mut)}
-.fd-pill-demo-count{display:flex;align-items:center;gap:16px;margin:24px 0 16px;font:400 14px/1 var(--d-font);color:var(--d-mut)}
-.fd-pill-demo-count b{color:var(--d-ink);font-weight:600;font-variant-numeric:tabular-nums}
-.fd-pill-demo-count button{cursor:pointer;font:500 14px/1 var(--d-font);color:#007AFF}
-.fd-pill-demo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:16px}
-.fd-pill-demo-card{border-radius:20px;background:var(--d-card);box-shadow:0 0 0 1px var(--d-line),0 1px 2px rgba(0,0,0,.03);overflow:hidden;animation:fd-pill-in 420ms var(--fd-ease-out) both}
-.fd-pill-demo-img{position:relative;height:132px;overflow:hidden;background:var(--d-sky);--fbc:hsl(var(--hue) 20% 60%)}
-.fd-pill-fb{fill:var(--fbc)}.fd-pill-fb2{fill:hsl(var(--hue) 18% 74%)}.fd-pill-fb3{fill:hsl(calc(var(--hue) + 24) 16% 52%)}
-.fd-pill-fr{fill:hsl(var(--hue) 16% 24%)}.fd-pill-fd{fill:hsl(var(--hue) 20% 20%)}.fd-pill-fs{fill:var(--d-stone)}
-.fd-pill-fg{fill:var(--d-glass)}.fd-pill-fl{fill:none;stroke:var(--d-stone-line);stroke-width:1}
-.fd-pill-fgr{fill:var(--d-ground)}.fd-pill-ft{fill:hsl(30 18% 30%)}.fd-pill-fv{fill:var(--d-leaf)}
-.fd-pill-bk{fill:none;stroke:hsl(var(--hue) 20% 40%);stroke-width:.8;opacity:.45}.fd-pill-fw{fill:var(--d-warm)}
-.fd-pill-demo-img span{position:absolute;left:12px;top:12px;height:22px;display:inline-flex;align-items:center;padding:0 9px;border-radius:9999px;background:rgba(255,255,255,.85);color:#0B0B0F;font:600 11px/1 var(--d-font)}
-.fd-pill-demo-info{display:flex;flex-direction:column;gap:6px;padding:14px 16px 16px}
-.fd-pill-demo-info b{font:600 20px/1.1 var(--d-disp);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.fd-pill-demo-info span{font:400 14px/1.3 var(--d-font)}
-.fd-pill-demo-info small{font:400 13px/1.3 var(--d-font);color:var(--d-mut)}
-.fd-pill-demo-empty{padding:48px 0;text-align:center;color:var(--d-mut)}
-@keyframes fd-pill-in{from{opacity:0;transform:translateY(8px)}}
-@media (max-width:640px){.fd-pill-demo-frow{grid-template-columns:1fr;gap:8px}.fd-pill-demo-filters{padding:16px}}
-@media (prefers-reduced-motion:reduce){.fd-pill-demo-card{animation:none}}
+.fd-pilld,.fd-pilld *,.fd-pilld *::before,.fd-pilld *::after{box-sizing:border-box}
+.fd-pilld{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 20px;overflow:hidden;background:#f4f4f4;color:#1d1d1f;font:400 15px/1.4 ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;letter-spacing:normal;-webkit-font-smoothing:antialiased}
+.fd-pilld-box{display:flex;justify-content:center;max-width:560px;margin:0;padding:0}
 `;

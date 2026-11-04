@@ -478,63 +478,17 @@ const css = `
 
 export function Demo() {
   return (
-    <section className="fd-lmtext-demo">
+    <div className="fd-lmtextd">
       <style>{demoCss}</style>
-      <div className="fd-lmtext-demo-top">
-        <span>NOVA ATLAS</span>
-        <span>New album · 14.11.2026</span>
-      </div>
-      <div className="fd-lmtext-demo-center">
-        <p className="fd-lmtext-demo-pre">The third studio album</p>
-        <LiquidMetalText className="fd-lmtext-demo-title">MERCURY</LiquidMetalText>
-        <p className="fd-lmtext-demo-sub">Eleven tracks recorded live to tape in Reykjavík. Pre-save now and get the chrome vinyl edition, limited to 3,000 copies.</p>
-        <div className="fd-lmtext-demo-actions">
-          <a className="fd-lmtext-demo-primary" href="#presave" onClick={(e) => e.preventDefault()}>
-            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="currentColor" /></svg>
-            Pre-save
-          </a>
-          <a className="fd-lmtext-demo-secondary" href="#vinyl" onClick={(e) => e.preventDefault()}>Chrome vinyl · €39</a>
-        </div>
-      </div>
-      <ol className="fd-lmtext-demo-tracks">
-        <li><span>01</span>Quicksilver</li>
-        <li><span>02</span>Low Orbit</li>
-        <li><span>03</span>Hg</li>
-        <li><span>04</span>Liquid Hours</li>
-        <li><span>05</span>Cold Mirror</li>
-      </ol>
-    </section>
+      <LiquidMetalText className="fd-lmtextd-word" as="p">Chrome</LiquidMetalText>
+    </div>
   );
 }
 
+const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
+
 const demoCss = `
-.fd-lmtext-demo, .fd-lmtext-demo *, .fd-lmtext-demo *::before, .fd-lmtext-demo *::after { box-sizing: border-box; }
-.fd-lmtext-demo {
-  position: relative; min-height: 100vh; margin: 0; padding: 28px clamp(20px, 4vw, 56px); overflow: hidden;
-  display: flex; flex-direction: column; justify-content: space-between; gap: 32px;
-  background: radial-gradient(70% 60% at 50% 45%, #1d1e24 0%, #08080A 70%); color: #F5F5F7;
-  font: 400 15px/1.5 ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif;
-}
-.fd-lmtext-demo-top { display: flex; justify-content: space-between; margin: 0; padding: 0; color: #A1A1A6; font: 600 12px/1 ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace; letter-spacing: .14em; text-transform: uppercase; }
-.fd-lmtext-demo-center { display: flex; flex-direction: column; align-items: center; text-align: center; margin: 0; padding: 0; }
-.fd-lmtext-demo-pre { margin: 0 0 8px; padding: 0; color: #8E8E93; font: 500 15px/1.3 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: -0.01em; }
-.fd-lmtext-demo-title.fd-lmtext { font-size: clamp(4rem, 17vw, 15rem); }
-.fd-lmtext-demo-title.fd-lmtext .fd-lmtext-text { letter-spacing: -0.05em; }
-.fd-lmtext-demo-sub { max-width: 46ch; margin: 12px 0 28px; padding: 0; color: #A1A1A6; font: 400 1.0625rem/1.5 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: -0.01em; }
-.fd-lmtext-demo-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 0; padding: 0; }
-.fd-lmtext-demo-primary, .fd-lmtext-demo-secondary {
-  display: inline-flex; align-items: center; gap: 8px; height: 48px; margin: 0; padding: 0 24px; border-radius: 9999px; text-decoration: none;
-  font: 600 15px/1 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: -0.01em;
-  transition: transform 120ms cubic-bezier(0.22, 1, 0.36, 1), background 120ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-.fd-lmtext-demo-primary { border: 0; background: #F5F5F7; color: #0B0B0F; }
-.fd-lmtext-demo-primary svg { display: block; }
-.fd-lmtext-demo-primary:hover { background: #FFFFFF; }
-.fd-lmtext-demo-secondary { border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.04); color: #F5F5F7; }
-.fd-lmtext-demo-secondary:hover { background: rgba(255,255,255,.1); }
-.fd-lmtext-demo-primary:active, .fd-lmtext-demo-secondary:active { transform: scale(0.96); }
-.fd-lmtext-demo-primary:focus-visible, .fd-lmtext-demo-secondary:focus-visible { outline: 2px solid rgba(10,132,255,.7); outline-offset: 2px; }
-.fd-lmtext-demo-tracks { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 28px; margin: 0; padding: 0; list-style: none; }
-.fd-lmtext-demo-tracks li { margin: 0; padding: 0; list-style: none; color: #C7C7CC; font: 500 13px/1.4 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; }
-.fd-lmtext-demo-tracks span { margin: 0 8px 0 0; padding: 0; color: #6B6B76; font: 500 12px/1 ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace; }
+.fd-lmtextd,.fd-lmtextd *,.fd-lmtextd *::before,.fd-lmtextd *::after{box-sizing:border-box}
+.fd-lmtextd{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 20px;overflow:hidden;color:#1d1d1f;font:400 15px/1.4 ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;letter-spacing:normal;background:#f2f2f2}
+.fd-lmtextd-word.fd-lmtext{display:block;width:max-content;max-width:100%;margin:0;padding:0;font-size:clamp(4.5rem,18vw,10rem)}
 `;

@@ -399,70 +399,17 @@ const css = `
 
 export function Demo() {
   return (
-    <DitherGradient className="fd-dgrad-demo" shade={0.7} brightness={-0.04}>
+    <div className="fd-dgradd">
       <style>{demoCss}</style>
-      <header className="fd-dgrad-demo-nav">
-        <span className="fd-dgrad-demo-logo">
-          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-            <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="2" />
-            <path d="M5 15c3-1 4-6 7-6s4 5 7 6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-          Canopy Grid
-        </span>
-        <span className="fd-dgrad-demo-status">
-          <span className="fd-dgrad-demo-pulse" aria-hidden="true" /> Live · 2.41 GW flowing
-        </span>
-      </header>
-      <div className="fd-dgrad-demo-hero">
-        <p className="fd-dgrad-demo-kicker">Community solar for the Nordics</p>
-        <h1 className="fd-dgrad-demo-title">Power that grows<br />where you live.</h1>
-        <p className="fd-dgrad-demo-body">
-          Subscribe to a share of a solar farm near you. Canopy feeds clean kilowatt-hours straight into your local grid, no roof, no installer, 12% off your bill from the first month.
-        </p>
-        <div className="fd-dgrad-demo-actions">
-          <a className="fd-dgrad-demo-primary" href="#join" onClick={(e) => e.preventDefault()}>Check your postcode</a>
-          <a className="fd-dgrad-demo-secondary" href="#farms" onClick={(e) => e.preventDefault()}>See our 14 farms →</a>
-        </div>
-      </div>
-      <dl className="fd-dgrad-demo-stats">
-        <div><dt>Households powered</dt><dd>186,420</dd></div>
-        <div><dt>CO₂ avoided, 2026</dt><dd>212 kt</dd></div>
-        <div><dt>Avg. saving / yr</dt><dd>€318</dd></div>
-      </dl>
-    </DitherGradient>
+      <DitherGradient className="fd-dgradd-tile" palette={["#243056", "#6F7FC4", "#F2B8C6", "#FBEFE6"]} pixelSize={2} scale={1.8} shade={0.5} />
+    </div>
   );
 }
 
+const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
+
 const demoCss = `
-.fd-dgrad-demo { min-height: 100vh; }
-.fd-dgrad-demo .fd-dgrad-content {
-  display: flex; flex-direction: column; min-height: 100vh; margin: 0; padding: 0 clamp(20px, 5vw, 72px);
-  color: #F2F6E6; font: 400 15px/1.5 ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif;
-}
-.fd-dgrad-demo-nav { display: flex; align-items: center; justify-content: space-between; height: 76px; margin: 0; padding: 0; }
-.fd-dgrad-demo-logo { display: inline-flex; align-items: center; gap: 10px; margin: 0; padding: 0; color: #F2F6E6; font: 650 17px/1 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: -0.01em; }
-.fd-dgrad-demo-logo svg { display: block; }
-.fd-dgrad-demo-status { display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 7px 12px; border-radius: 9999px; background: rgba(11, 26, 20, .72); color: #E4EDC9; font: 500 12px/1 ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace; letter-spacing: 0.02em; }
-.fd-dgrad-demo-pulse { display: block; width: 7px; height: 7px; margin: 0; padding: 0; border-radius: 50%; background: #B9E06A; box-shadow: 0 0 0 0 rgba(185,224,106,.6); animation: fd-dgrad-pulse 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite; }
-@keyframes fd-dgrad-pulse { 0% { box-shadow: 0 0 0 0 rgba(185,224,106,.55); } 100% { box-shadow: 0 0 0 10px rgba(185,224,106,0); } }
-.fd-dgrad-demo-hero { flex: 1; display: flex; flex-direction: column; justify-content: center; max-width: 760px; margin: 0; padding: clamp(32px, 8vh, 96px) 0; }
-.fd-dgrad-demo-kicker { margin: 0 0 20px; padding: 0; color: #CFE0A8; font: 600 13px/1.3 ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace; letter-spacing: 0.1em; text-transform: uppercase; text-shadow: 0 1px 12px rgba(11,26,20,.7); }
-.fd-dgrad-demo-title { margin: 0 0 24px; padding: 0; color: #F7FAEE; letter-spacing: -0.045em; font: 700 clamp(3rem, 7.4vw, 6.75rem)/0.94 "SF Pro Display", ui-sans-serif, -apple-system, "Inter", "Segoe UI", Roboto, sans-serif; text-shadow: 0 2px 40px rgba(11,26,20,.55); }
-.fd-dgrad-demo-body { max-width: 50ch; margin: 0 0 36px; padding: 0; color: #E2EBD2; font: 400 1.0625rem/1.55 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: -0.01em; text-shadow: 0 1px 16px rgba(11,26,20,.9); }
-.fd-dgrad-demo-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin: 0; padding: 0; }
-.fd-dgrad-demo-primary { display: inline-flex; align-items: center; height: 52px; margin: 0; padding: 0 26px; border: 0; border-radius: 9999px; background: #E4EDC9; color: #0B1A14; text-decoration: none; font: 650 0.9375rem/1 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: -0.01em; transition: transform 120ms cubic-bezier(0.22, 1, 0.36, 1), background 120ms cubic-bezier(0.22, 1, 0.36, 1); }
-.fd-dgrad-demo-primary:hover { background: #FFFFFF; }
-.fd-dgrad-demo-primary:active { transform: scale(0.96); }
-.fd-dgrad-demo-secondary { margin: 0; padding: 0; color: #F2F6E6; text-decoration: none; font: 550 0.9375rem/1 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; text-shadow: 0 1px 12px rgba(11,26,20,.8); }
-.fd-dgrad-demo-secondary:hover { text-decoration: underline; text-underline-offset: 4px; }
-.fd-dgrad-demo-primary:focus-visible, .fd-dgrad-demo-secondary:focus-visible { outline: 2px solid rgba(228,237,201,.7); outline-offset: 2px; }
-.fd-dgrad-demo-stats { display: grid; grid-template-columns: repeat(3, minmax(0, max-content)); gap: clamp(20px, 6vw, 88px); margin: 0 0 40px; padding: 20px 24px; border-radius: 20px; background: rgba(11, 26, 20, .82); width: max-content; max-width: 100%; }
-.fd-dgrad-demo-stats div { margin: 0; padding: 0; }
-.fd-dgrad-demo-stats dt { margin: 0 0 6px; padding: 0; color: #8FAF8A; font: 500 12px/1.2 ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace; letter-spacing: 0.04em; text-transform: uppercase; }
-.fd-dgrad-demo-stats dd { margin: 0; padding: 0; color: #F2F6E6; font: 650 24px/1.1 "SF Pro Display", ui-sans-serif, -apple-system, "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
-@media (max-width: 640px) {
-  .fd-dgrad-demo-stats { grid-template-columns: 1fr 1fr; width: auto; }
-  .fd-dgrad-demo-status { display: none; }
-}
-@media (prefers-reduced-motion: reduce) { .fd-dgrad-demo-pulse { animation: none; } }
+.fd-dgradd,.fd-dgradd *,.fd-dgradd *::before,.fd-dgradd *::after{box-sizing:border-box}
+.fd-dgradd{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 20px;overflow:hidden;color:#1d1d1f;font:400 15px/1.4 ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;letter-spacing:normal;background:#f2f2f2}
+.fd-dgradd-tile.fd-dgrad{width:min(100%,560px);aspect-ratio:3/2;margin:0;padding:0;border-radius:28px;box-shadow:0 1px 1px rgba(0,0,0,.06),0 24px 60px -24px rgba(0,0,0,.3)}
 `;

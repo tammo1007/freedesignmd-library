@@ -15,7 +15,7 @@
  * Browser support: refraction in Chromium; frosted glass elsewhere.
  */
 import { useEffect, useRef, useState } from "react";
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties } from "react";
 import { GlassScope, LiquidGlass, useGlassEnv, useSpring } from "./liquid-glass";
 
 export interface GlassToggleProps {
@@ -173,116 +173,29 @@ const css = `
 @media (prefers-reduced-transparency: reduce){.fd-gtg-solid{opacity:1 !important}}
 `;
 
-/* ───────────────────────── demo: smart-home settings ───────────────────────── */
-
-type Row = { id: string; title: string; sub: string; icon: ReactNode; color: string; on: boolean; accent?: string };
-
-const svg = (d: ReactNode) => (
-  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    {d}
-  </svg>
-);
-
-const INITIAL: Row[] = [
-  { id: "away", title: "Away mode", sub: "Lights follow your usual evening pattern", color: "#5856D6", on: true, icon: svg(<path d="M4 20V9l8-5 8 5v11M9 20v-6h6v6" />) },
-  { id: "heat", title: "Underfloor heating", sub: "Bathroom & hallway · 21.5 °C", color: "#FF9500", on: true, icon: svg(<path d="M8 4c-2 3 2 5 0 8s2 5 0 8M16 4c-2 3 2 5 0 8s2 5 0 8" />) },
-  { id: "blinds", title: "Sunrise blinds", sub: "Open gradually from 06:40", color: "#FF2D55", on: false, icon: svg(<><circle cx="12" cy="15" r="4" /><path d="M3 15h2M19 15h2M12 3v4M5.6 8.6l1.4 1.4M18.4 8.6 17 10M3 20h18" /></>) },
-  { id: "leak", title: "Leak alerts", sub: "Kitchen, laundry, water heater", color: "#0A84FF", on: true, icon: svg(<path d="M12 3.5s6 6.4 6 10.5a6 6 0 0 1-12 0c0-4.1 6-10.5 6-10.5Z" />) },
-  { id: "solar", title: "Charge car from solar only", sub: "Wait for > 3.2 kW surplus", color: "#34C759", on: false, icon: svg(<><rect x="3" y="6" width="18" height="11" rx="2" /><path d="M3 11.5h18M9 6v11M15 6v11M12 17v3" /></>) },
-];
+/* ───────────────────────── demo ───────────────────────── */
 
 export function Demo() {
-  const [rows, setRows] = useState(INITIAL);
-  const [night, setNight] = useState(true);
-  const set = (id: string, v: boolean) => setRows((r) => r.map((x) => (x.id === id ? { ...x, on: v } : x)));
-  const on = rows.filter((r) => r.on).length;
+  const [a, setA] = useState(true);
+  const [b, setB] = useState(false);
+  const [c, setC] = useState(true);
   return (
     <div className="fd-gtgd">
       <style>{demoCss}</style>
-      <div className="fd-gtgd-wrap">
-        <header className="fd-gtgd-head">
-          <p className="fd-gtgd-eyebrow">Haus Lindenhof · 4 rooms</p>
-          <h1 className="fd-gtgd-h">Automations</h1>
-          <p className="fd-gtgd-sub">
-            {on} of {rows.length} running · last change 18:42
-          </p>
-        </header>
-
-        <section className="fd-gtgd-feature">
-          <div className="fd-gtgd-feature-art" aria-hidden="true" />
-          <div className="fd-gtgd-feature-body">
-            <p className="fd-gtgd-feature-t" id="fd-gtgd-night">
-              Night scene
-            </p>
-            <p className="fd-gtgd-feature-s">Dims 14 lights to 8%, locks the front door, arms the garden cameras at 23:00.</p>
-          </div>
-          <GlassToggle size="l" checked={night} onChange={setNight} aria-labelledby="fd-gtgd-night" accent="#FF9F0A" />
-        </section>
-
-        <ul className="fd-gtgd-list" aria-label="Automations">
-          {rows.map((r) => (
-            <li key={r.id} className="fd-gtgd-row">
-              <span className="fd-gtgd-ic" style={{ background: r.color }}>
-                {r.icon}
-              </span>
-              <span className="fd-gtgd-txt">
-                <span className="fd-gtgd-t" id={`fd-gtgd-${r.id}`}>
-                  {r.title}
-                </span>
-                <span className="fd-gtgd-s" id={`fd-gtgd-${r.id}-s`}>
-                  {r.sub}
-                </span>
-              </span>
-              <GlassToggle checked={r.on} onChange={(v) => set(r.id, v)} aria-labelledby={`fd-gtgd-${r.id}`} aria-describedby={`fd-gtgd-${r.id}-s`} />
-            </li>
-          ))}
-          <li className="fd-gtgd-row">
-            <span className="fd-gtgd-ic" style={{ background: "#8E8E93" }}>
-              {svg(<><rect x="5" y="10" width="14" height="10" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3" /></>)}
-            </span>
-            <span className="fd-gtgd-txt">
-              <span className="fd-gtgd-t" id="fd-gtgd-lock">
-                Auto-lock garage
-              </span>
-              <span className="fd-gtgd-s">Requires the Hallo Gate hub</span>
-            </span>
-            <GlassToggle checked={false} onChange={() => {}} disabled aria-labelledby="fd-gtgd-lock" />
-          </li>
-        </ul>
-        <p className="fd-gtgd-foot">Press and hold a switch, the knob turns to glass. Drag it across.</p>
+      <div className="fd-gtgd-row">
+        <GlassToggle size="l" checked={a} onChange={setA} label="Wi-Fi" />
+        <GlassToggle size="l" checked={b} onChange={setB} label="Bluetooth" />
+        <GlassToggle size="l" checked={c} onChange={setC} label="Focus" accent="#0A84FF" />
       </div>
     </div>
   );
 }
 
 const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
-const D = `"SF Pro Display",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif`;
-/* fine grain, an inline SVG feTurbulence tile (no network) */
-const GRAIN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1.4 0 0 0 -.2 1.4 0 0 0 -.2 1.4 0 0 0 -.2 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`;
+
 const demoCss = `
 .fd-gtgd,.fd-gtgd *,.fd-gtgd *::before,.fd-gtgd *::after{box-sizing:border-box}
-.fd-gtgd{position:relative;overflow:hidden;min-height:100vh;width:100%;margin:0;padding:56px 20px;display:flex;justify-content:center;align-items:flex-start;
-  background:radial-gradient(900px 500px at 12% -10%,#E3E7F8 0%,transparent 60%),radial-gradient(800px 560px at 108% 24%,#F2E4DA 0%,transparent 58%),#F2F2F6;color:#0B0B0F;font:400 15px/1.4 ${F};letter-spacing:normal}
-.fd-gtgd::before{content:"";position:absolute;inset:0;background-image:${GRAIN};background-size:180px 180px;mix-blend-mode:soft-light;opacity:0.35;pointer-events:none}
-.fd-gtgd-wrap{position:relative;width:100%;max-width:560px;margin:0;padding:0}
-.fd-gtgd-head{margin:0 0 20px;padding:0 4px}
-.fd-gtgd-eyebrow{margin:0 0 4px;font:600 13px/1.3 ${F};letter-spacing:0.02em;text-transform:uppercase;color:#6B6B76}
-.fd-gtgd-h{margin:0 0 4px;font:800 2.75rem/1.05 ${D};letter-spacing:-0.035em;color:#0B0B0F}
-.fd-gtgd-sub{margin:0;font:500 15px/1.4 ${F};color:#6B6B76}
-.fd-gtgd-feature{display:flex;align-items:center;gap:16px;margin:0 0 16px;padding:14px 18px 14px 14px;border-radius:24px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,0.04),0 12px 32px -16px rgba(20,20,40,0.18)}
-.fd-gtgd-feature-art{position:relative;flex:none;width:64px;height:64px;margin:0;border-radius:16px;overflow:hidden;background:linear-gradient(150deg,#1D2358,#4A3A78 58%,#C98A5A)}
-.fd-gtgd-feature-art::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 68% 34%,transparent 0 11px,rgba(255,255,255,0.6) 12px 13.5px,transparent 14.5px),radial-gradient(circle at 68% 34%,rgba(255,255,255,0.25),transparent 34px)}
-.fd-gtgd-feature-body{flex:1;min-width:0;margin:0;padding:0}
-.fd-gtgd-feature-t{margin:0 0 2px;font:700 17px/1.25 ${F};letter-spacing:-0.01em;color:#0B0B0F}
-.fd-gtgd-feature-s{margin:0;font:400 13px/1.4 ${F};color:#6B6B76}
-.fd-gtgd-list{list-style:none;margin:0;padding:6px 0;border-radius:24px;background:#fff;box-shadow:0 1px 2px rgba(0,0,0,0.04),0 12px 32px -16px rgba(20,20,40,0.18)}
-.fd-gtgd-row{position:relative;display:flex;align-items:center;gap:14px;margin:0;padding:12px 18px 12px 14px;min-height:64px}
-.fd-gtgd-row + .fd-gtgd-row::before{content:"";position:absolute;left:62px;right:0;top:0;height:0.5px;background:#E2E2E8}
-.fd-gtgd-ic{flex:none;display:grid;place-items:center;width:34px;height:34px;margin:0;border-radius:9px;color:#fff}
-.fd-gtgd-ic svg{display:block}
-.fd-gtgd-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;margin:0;padding:0}
-.fd-gtgd-t{display:block;font:600 16px/1.3 ${F};letter-spacing:-0.01em;color:#0B0B0F}
-.fd-gtgd-s{display:block;font:400 13px/1.35 ${F};color:#6B6B76}
-.fd-gtgd-foot{margin:16px 0 0;padding:0 4px;font:400 13px/1.4 ${F};color:#8A8A94;text-align:center}
-@media (max-width:480px){.fd-gtgd{padding:32px 16px}.fd-gtgd-h{font-size:2.25rem}}
+.fd-gtgd{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 20px;overflow:hidden;color:#1d1d1f;font:400 15px/1.4 ${F};letter-spacing:normal;
+  background:radial-gradient(46% 62% at 28% 32%,#ffcfa6 0%,transparent 70%),radial-gradient(44% 58% at 74% 68%,#b7c3ff 0%,transparent 70%),radial-gradient(30% 40% at 62% 22%,#ffc2dc 0%,transparent 70%),#f1eeea}
+.fd-gtgd-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:28px;margin:0;padding:0}
 `;

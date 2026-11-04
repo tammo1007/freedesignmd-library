@@ -294,23 +294,9 @@ const ICONS: Record<string, ReactNode> = {
       {[26, 34, 42, 50].map((y) => <rect key={y} x="11" y={y} width={y === 50 ? 26 : 42} height="2" rx="1" fill="#B79A3A" opacity=".55" />)}
     </Icon>
   ),
-  board: (
-    <Icon bg={["#B48CFF", "#6B3DF0"]}>
-      <rect x="11" y="13" width="12" height="38" rx="3" fill="#fff" opacity=".95" />
-      <rect x="26" y="13" width="12" height="26" rx="3" fill="#fff" opacity=".8" />
-      <rect x="41" y="13" width="12" height="32" rx="3" fill="#fff" opacity=".65" />
-    </Icon>
-  ),
   chat: (
     <Icon bg={["#5BF08A", "#16B84B"]}>
       <path d="M32 14c11 0 20 7 20 16s-9 16-20 16c-2.4 0-4.6-.3-6.6-.9L16 49l2.6-7.4C14.5 38.6 12 34.5 12 30c0-9 9-16 20-16z" fill="#fff" />
-    </Icon>
-  ),
-  docs: (
-    <Icon bg={["#2B2B33", "#121216"]}>
-      <path d="M20 12h17l9 9v31H20z" fill="#F5F5F7" />
-      <path d="M37 12v9h9" fill="#C9C9D1" />
-      {[30, 36, 42].map((y) => <rect key={y} x="25" y={y} width={y === 42 ? 12 : 16} height="2.4" rx="1.2" fill="#5E5CE6" />)}
     </Icon>
   ),
   music: (
@@ -327,90 +313,32 @@ const ICONS: Record<string, ReactNode> = {
       </g>
     </Icon>
   ),
-  trash: (
-    <Icon bg={["#E9EEF4", "#C9D2DC"]}>
-      <path d="M20 22h24l-2.5 28a3 3 0 0 1-3 2.7H25.5a3 3 0 0 1-3-2.7z" fill="#fff" stroke="#93A0AF" strokeWidth="1.6" />
-      {[27, 32, 37].map((x) => <path key={x} d={`M${x} 27v20`} stroke="#B3BECB" strokeWidth="1.4" />)}
-      <rect x="17" y="18" width="30" height="5" rx="2" fill="#AAB6C3" />
-    </Icon>
-  ),
 };
 
 /* ───────────────────────────── demo ───────────────────────────── */
 
 const APPS: DockApp[] = [
   { id: "finder", label: "Files", icon: ICONS.finder, running: true },
-  { id: "mail", label: "Mail", icon: ICONS.mail, running: true, badge: 12 },
-  { id: "calendar", label: "Calendar", icon: ICONS.calendar, running: true },
+  { id: "mail", label: "Mail", icon: ICONS.mail, running: true, badge: 3 },
+  { id: "calendar", label: "Calendar", icon: ICONS.calendar },
   { id: "notes", label: "Notes", icon: ICONS.notes },
-  { id: "board", label: "Boards", icon: ICONS.board, running: true },
-  { id: "chat", label: "Threads", icon: ICONS.chat, badge: 3 },
-  { id: "docs", label: "Docs", icon: ICONS.docs },
-  { id: "music", label: "Focus Radio", icon: ICONS.music },
+  { id: "chat", label: "Messages", icon: ICONS.chat },
+  { id: "music", label: "Music", icon: ICONS.music },
   { id: "settings", label: "Settings", icon: ICONS.settings },
-  { id: "trash", label: "Trash", icon: ICONS.trash },
 ];
 
 export function Demo() {
   const [apps, setApps] = useState(APPS);
-  const [active, setActive] = useState("Boards");
-  const launch = (id: string) => {
-    setApps((as) => as.map((a) => (a.id === id ? { ...a, running: true, badge: undefined } : a)));
-    setActive(APPS.find((a) => a.id === id)?.label ?? "");
-  };
+  const launch = (id: string) => setApps((as) => as.map((a) => (a.id === id ? { ...a, running: true, badge: undefined } : a)));
   return (
-    <div className="fd-dock-demo">
+    <div className="fd-dockd">
       <style>{demoCss}</style>
-      <div className="fd-dock-demo-wall" aria-hidden="true" />
-      <header className="fd-dock-demo-menu">
-        <svg className="fd-dock-demo-logo" width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="currentColor" strokeWidth="1.6" /><path d="M8 1.5a6.5 6.5 0 0 1 0 13z" fill="currentColor" /></svg>
-        <strong>{active}</strong>
-        <span>File</span><span>Edit</span><span>View</span><span>Window</span>
-        <span className="fd-dock-demo-clock">Sat 14 Nov 09:41</span>
-      </header>
-      <main className="fd-dock-demo-desk">
-        <section className="fd-dock-demo-win" aria-label="Today">
-          <div className="fd-dock-demo-tl" aria-hidden="true"><i /><i /><i /></div>
-          <p className="fd-dock-demo-k">Orbit Workspace · Today</p>
-          <h1 className="fd-dock-demo-h1">3 meetings, 1 deep-work block, 12 unread.</h1>
-          <ul className="fd-dock-demo-agenda">
-            <li><time>10:00</time> Q4 roadmap review <span>Boards</span></li>
-            <li><time>13:30</time> Design crit, onboarding v3 <span>Docs</span></li>
-            <li><time>15:00</time> Focus · no notifications <span>Focus Radio</span></li>
-          </ul>
-        </section>
-      </main>
-      <div className="fd-dock-demo-dockwrap">
-        <MagneticDock apps={apps} onLaunch={launch} separatorAfter={8} />
-      </div>
+      <MagneticDock apps={apps} onLaunch={launch} />
     </div>
   );
 }
 
 const demoCss = `
-.fd-dock-demo,.fd-dock-demo *,.fd-dock-demo *::before,.fd-dock-demo *::after{box-sizing:border-box}
-.fd-dock-demo{--d-font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;--d-disp:"SF Pro Display",ui-sans-serif,-apple-system,"Inter Display","Inter",sans-serif;
-  position:relative;display:flex;flex-direction:column;min-height:100vh;margin:0;padding:0;overflow:hidden;color:#1C1C22;font:400 15px/1.5 var(--d-font);-webkit-font-smoothing:antialiased;background:#9AB6D8}
-.fd-dock-demo-wall{position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(70% 60% at 15% 20%,#F8C8A8 0%,transparent 60%),radial-gradient(60% 70% at 85% 30%,#B9A4F2 0%,transparent 62%),
-  radial-gradient(80% 60% at 50% 100%,#6E9BE0 0%,transparent 70%),linear-gradient(180deg,#E9D6E6,#A7BDE6)}
-.fd-dock-demo-menu{position:relative;display:flex;align-items:center;gap:18px;height:30px;margin:0;padding:0 16px;background:rgba(255,255,255,.35);
-  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);font:500 13px/1 var(--d-font);color:#1C1C22}
-.fd-dock-demo-menu strong{font-weight:700}
-.fd-dock-demo-logo{display:block}
-.fd-dock-demo-clock{margin-left:auto}
-.fd-dock-demo-desk{position:relative;flex:1;display:flex;align-items:flex-start;justify-content:center;margin:0;padding:clamp(24px,7vh,72px) 16px 0}
-.fd-dock-demo-win{width:100%;max-width:560px;margin:0;padding:22px 26px 26px;border-radius:20px;background:rgba(255,255,255,.78);-webkit-backdrop-filter:blur(30px);backdrop-filter:blur(30px);
-  box-shadow:0 0 0 1px rgba(255,255,255,.6),0 30px 60px -24px rgba(20,30,60,.45)}
-.fd-dock-demo-tl{display:flex;gap:8px;margin:0 0 18px}
-.fd-dock-demo-tl i{display:block;width:12px;height:12px;border-radius:50%;background:#FF5F57}
-.fd-dock-demo-tl i:nth-child(2){background:#FEBC2E}.fd-dock-demo-tl i:nth-child(3){background:#28C840}
-.fd-dock-demo-k{margin:0 0 6px;color:#6B6B76;font:500 13px/1 var(--d-font)}
-.fd-dock-demo-h1{margin:0;color:#1C1C22;font:600 clamp(24px,3vw,32px)/1.1 var(--d-disp);letter-spacing:-.025em;text-wrap:balance}
-.fd-dock-demo-agenda{margin:20px 0 0;padding:0;list-style:none}
-.fd-dock-demo-agenda li{display:flex;align-items:center;gap:14px;margin:0;padding:12px 0;border-top:1px solid rgba(28,28,34,.08);font:500 15px/1.3 var(--d-font)}
-.fd-dock-demo-agenda time{width:44px;color:#6B6B76;font:500 13px/1 ui-monospace,"SF Mono",Menlo,monospace}
-.fd-dock-demo-agenda span{margin-left:auto;color:#6B6B76;font:400 13px/1 var(--d-font)}
-.fd-dock-demo-dockwrap{position:relative;display:flex;justify-content:center;margin:0;padding:96px 12px 14px}
-@media (max-width:640px){.fd-dock-demo-menu span:not(.fd-dock-demo-clock):not(.fd-dock-demo-logo){display:none}}
+.fd-dockd,.fd-dockd *,.fd-dockd *::before,.fd-dockd *::after{box-sizing:border-box}
+.fd-dockd{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 12px;overflow:hidden;background:#ececec;color:#1d1d1f;font:400 15px/1.4 ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;letter-spacing:normal}
 `;

@@ -266,119 +266,30 @@ const css = `
 
 const emailOk = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
 
-function pwScore(v: string) {
-  let s = 0;
-  if (v.length >= 10) s++;
-  if (/[A-Z]/.test(v) && /[a-z]/.test(v)) s++;
-  if (/\d/.test(v)) s++;
-  if (/[^A-Za-z0-9]/.test(v)) s++;
-  return s;
-}
-
 export function Demo() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
   const [name, setName] = useState("Amara Okonkwo");
-  const [email, setEmail] = useState("amara.okonkwo@");
-  const [emailTouched, setEmailTouched] = useState(true);
-  const [phone, setPhone] = useState("(415) 555-0142");
-  const [member, setMember] = useState("BCX-2204-9187");
-  const [pharmacy, setPharmacy] = useState("Mission Bay Pharmacy");
-  const [note, setNote] = useState("Prefers text reminders before 6 pm. Allergic to penicillin.");
+  const [email, setEmail] = useState("amara.okonkwo@example.com");
+  const [touched, setTouched] = useState(false);
   const [pw, setPw] = useState("");
-  const [pwTouched, setPwTouched] = useState(false);
 
-  const score = pwScore(pw);
-  const emailErr = emailTouched && !emailOk(email) ? (email ? "Enter a full address, like amara@example.com" : "Email is required so we can send visit summaries") : undefined;
+  const err = touched && !emailOk(email) ? "Enter a full address, like amara@example.com" : undefined;
 
   return (
-    <div className="fd-in-demo" data-fd-theme={theme}>
+    <div className="fd-inputd">
       <style>{demoCss}</style>
-      <header className="fd-in-demo-bar">
-        <span className="fd-in-demo-brand"><i aria-hidden="true" />Northfield Health</span>
-        <span className="fd-in-demo-who">Amara O.</span>
-        <button type="button" className="fd-in-demo-theme" aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"} onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>{theme === "dark" ? "Light" : "Dark"}</button>
-      </header>
-
-      <main className="fd-in-demo-main">
-        <div className="fd-in-demo-title">
-          <h1>Account settings</h1>
-          <p>Keep your contact details current so your care team can reach you.</p>
-        </div>
-
-        <section className="fd-in-demo-card" aria-labelledby="fd-in-profile">
-          <div className="fd-in-demo-cardhead"><h2 id="fd-in-profile">Personal information</h2><p>Shown to your care team and on visit summaries.</p></div>
-          <div className="fd-in-demo-grid">
-            <InputField label="Full name" value={name} onChange={setName} clearable autoComplete="name" success={name.trim().split(" ").length > 1 ? "Matches your insurance card" : false} />
-            <InputField label="Email" type="email" value={email} onChange={setEmail} onBlur={() => setEmailTouched(true)} error={emailErr} success={!emailErr && emailOk(email)} autoComplete="email" helper="Used for visit summaries and billing." />
-            <InputField label="Mobile phone" type="tel" prefix="+1" value={phone} onChange={setPhone} helper="We text appointment reminders. Msg rates may apply." autoComplete="tel-national" />
-            <InputField label="Insurance member ID" value={member} onChange={setMember} suffix="Blue Cross" helper="Find it on the front of your card." />
-            <InputField label="Preferred pharmacy" value={pharmacy} onChange={setPharmacy} clearable placeholder="Search by name or ZIP" />
-            <InputField label="Date of birth" value="1988-03-14" readOnly helper="Contact support to change a verified date of birth." />
-          </div>
-          <InputField label="Notes for your care team" multiline rows={3} maxLength={120} value={note} onChange={setNote} helper="Visible to clinicians only." />
-        </section>
-
-        <section className="fd-in-demo-card" aria-labelledby="fd-in-sec">
-          <div className="fd-in-demo-cardhead"><h2 id="fd-in-sec">Security</h2><p>Use at least 10 characters with a mix of letters, numbers and symbols.</p></div>
-          <div className="fd-in-demo-grid">
-            <div>
-              <InputField
-                label="New password"
-                type="password"
-                value={pw}
-                onChange={setPw}
-                onBlur={() => setPwTouched(true)}
-                autoComplete="new-password"
-                error={pwTouched && pw && score < 3 ? "Too easy to guess. Add a number or symbol." : undefined}
-                success={score >= 3 ? "Strong password" : false}
-              />
-              <div className="fd-in-demo-meter" aria-hidden="true" data-score={score}><i /><i /><i /><i /></div>
-            </div>
-            <InputField label="Current password" type="password" disabled defaultValue="••••••••••" helper="Sign in again to confirm changes." />
-          </div>
-        </section>
-
-        <div className="fd-in-demo-actions">
-          <button type="button" className="fd-in-demo-btn" data-v="ghost">Cancel</button>
-          <button type="button" className="fd-in-demo-btn" data-v="primary">Save changes</button>
-        </div>
-      </main>
+      <form className="fd-inputd-card" onSubmit={(e) => e.preventDefault()} noValidate>
+        <InputField label="Full name" value={name} onChange={setName} clearable autoComplete="name" />
+        <InputField label="Email" type="email" value={email} onChange={setEmail} onBlur={() => setTouched(true)} error={err} success={!err && emailOk(email)} autoComplete="email" />
+        <InputField label="Password" type="password" value={pw} onChange={setPw} autoComplete="new-password" helper="At least 10 characters." />
+      </form>
     </div>
   );
 }
 
+const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
+
 const demoCss = `
-:where(.fd-in-demo,.fd-in-demo *){box-sizing:border-box;margin:0;padding:0;font:inherit;letter-spacing:inherit;color:inherit;text-decoration:none;list-style:none}
-:where(.fd-in-demo,.fd-in-demo *)::before,:where(.fd-in-demo,.fd-in-demo *)::after{box-sizing:border-box}
-:where(.fd-in-demo button){appearance:none;-webkit-appearance:none;background:none;border:0;border-radius:0}
-.fd-in-demo{--d-font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;--d-disp:ui-sans-serif,-apple-system,"SF Pro Display","Inter",sans-serif;
-  --fd-ease-out:cubic-bezier(.22,1,.36,1);--fd-dur-2:240ms;
-  --d-bg:#F5F6F8;--d-card:#fff;--d-ink:#0B0B0F;--d-mut:#6B6B76;--d-line:rgba(11,11,15,.08);--d-accent:#007AFF;--d-teal:#0E8F7E;
-  min-height:100vh;background:var(--d-bg);color:var(--d-ink);font:400 15px/1.45 var(--d-font);-webkit-font-smoothing:antialiased;transition:background-color var(--fd-dur-2) var(--fd-ease-out)}
-.fd-in-demo[data-fd-theme="dark"]{--d-bg:#09090B;--d-card:#111115;--d-ink:#F5F5F7;--d-mut:#9A9AA6;--d-line:rgba(255,255,255,.09);--d-accent:#0A84FF;--d-teal:#2DD4BF}
-.fd-in-demo-bar{display:flex;align-items:center;gap:16px;height:60px;padding:0 clamp(16px,4vw,40px);background:var(--d-card);border-bottom:1px solid var(--d-line)}
-.fd-in-demo-brand{display:flex;align-items:center;gap:10px;margin-right:auto;font:600 16px/1 var(--d-disp);letter-spacing:-.02em}
-.fd-in-demo-brand i{display:block;width:20px;height:20px;border-radius:6px;background:var(--d-teal);position:relative}
-.fd-in-demo-brand i::before,.fd-in-demo-brand i::after{content:"";position:absolute;background:#fff;border-radius:1px}
-.fd-in-demo-brand i::before{left:9px;top:4px;width:2px;height:12px}.fd-in-demo-brand i::after{left:4px;top:9px;width:12px;height:2px}
-.fd-in-demo-who{font:400 14px/1 var(--d-font);color:var(--d-mut)}
-.fd-in-demo-theme{cursor:pointer;height:32px;padding:0 14px;border-radius:9999px;box-shadow:0 0 0 1px var(--d-line);font:500 13px/1 var(--d-font);color:var(--d-mut)}
-.fd-in-demo-theme:hover{color:var(--d-ink)}.fd-in-demo-theme:focus-visible,.fd-in-demo-btn:focus-visible{outline:2px solid rgba(10,132,255,.7);outline-offset:2px}
-.fd-in-demo-main{max-width:760px;margin:0 auto;padding:40px clamp(16px,4vw,40px) 72px;display:flex;flex-direction:column;gap:20px}
-.fd-in-demo-title h1{font:600 28px/1.15 var(--d-disp);letter-spacing:-.025em}
-.fd-in-demo-title p{margin-top:8px;font:400 15px/1.4 var(--d-font);color:var(--d-mut)}
-.fd-in-demo-card{display:flex;flex-direction:column;gap:20px;padding:28px;border-radius:24px;background:var(--d-card);box-shadow:0 0 0 1px var(--d-line),0 1px 2px rgba(0,0,0,.03),0 16px 32px -24px rgba(0,0,0,.18)}
-.fd-in-demo-cardhead h2{font:600 17px/1.2 var(--d-font);letter-spacing:-.01em}
-.fd-in-demo-cardhead p{margin-top:6px;font:400 14px/1.4 var(--d-font);color:var(--d-mut)}
-.fd-in-demo-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 16px;align-items:start}
-.fd-in-demo-meter{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:10px 4px 0}
-.fd-in-demo-meter i{height:4px;border-radius:9999px;background:var(--d-line);transition:background-color var(--fd-dur-2) var(--fd-ease-out)}
-.fd-in-demo-meter[data-score="1"] i:nth-child(-n+1){background:#FF453A}.fd-in-demo-meter[data-score="2"] i:nth-child(-n+2){background:#FF9F0A}
-.fd-in-demo-meter[data-score="3"] i:nth-child(-n+3){background:#30D158}.fd-in-demo-meter[data-score="4"] i{background:#30D158}
-.fd-in-demo-actions{display:flex;justify-content:flex-end;gap:8px}
-.fd-in-demo-btn{cursor:pointer;height:44px;padding:0 22px;border-radius:9999px;font:500 15px/1 var(--d-font);transition:transform 420ms cubic-bezier(.34,1.56,.64,1)}
-.fd-in-demo-btn:active{transform:scale(.96);transition-duration:120ms}
-.fd-in-demo-btn[data-v="primary"]{background:var(--d-accent);color:#fff;box-shadow:0 1px 0 rgba(255,255,255,.22) inset,0 1px 2px rgba(0,40,120,.3)}
-.fd-in-demo-btn[data-v="ghost"]{color:var(--d-mut)}.fd-in-demo-btn[data-v="ghost"]:hover{color:var(--d-ink)}
-@media (max-width:640px){.fd-in-demo-grid{grid-template-columns:1fr}.fd-in-demo-card{padding:20px;border-radius:20px}}
+.fd-inputd,.fd-inputd *,.fd-inputd *::before,.fd-inputd *::after{box-sizing:border-box}
+.fd-inputd{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 20px;color:#1d1d1f;font:400 15px/1.4 ${F};letter-spacing:normal;background:#f1f1f2}
+.fd-inputd-card{display:flex;flex-direction:column;gap:18px;width:100%;max-width:380px;margin:0;padding:28px;border-radius:24px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.04),0 1px 2px rgba(0,0,0,.03),0 18px 40px -22px rgba(0,0,0,.2)}
 `;

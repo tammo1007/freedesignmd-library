@@ -18,6 +18,7 @@ export type LibraryCategory =
   | "effects"
   | "text"
   | "interactions"
+  | "micro-interactions"
   | "navbars"
   | "pricing"
   | "features"

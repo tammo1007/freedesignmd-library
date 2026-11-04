@@ -248,7 +248,7 @@ const css = `
 @media (prefers-reduced-motion: reduce){.fd-gtb-item:active:not(:disabled){transform:none}.fd-gtb-tip{transition-duration:0ms}}
 `;
 
-/* ───────────────────────── demo: a design-doc editor ───────────────────────── */
+/* ───────────────────────── demo ───────────────────────── */
 
 const s = (d: ReactNode) => (
   <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
@@ -256,9 +256,6 @@ const s = (d: ReactNode) => (
   </svg>
 );
 const IC = {
-  sidebar: s(<><rect x="3.5" y="4.5" width="17" height="15" rx="3" /><path d="M9.5 4.5v15" /></>),
-  undo: s(<path d="M9 7 4.5 11.5 9 16M5 11.5h9.5a5 5 0 0 1 0 10H12" />),
-  redo: s(<path d="m15 7 4.5 4.5L15 16M19 11.5H9.5a5 5 0 0 0 0 10H12" />),
   select: s(<path d="m5.5 4 13 6.2-5.6 1.8-1.8 5.6Z" />),
   frame: s(<path d="M8 3.5v17M16 3.5v17M3.5 8h17M3.5 16h17" />),
   pen: s(<><path d="M12 19.5 19.5 12l-3-3L9 16.5Z" /><path d="m16.5 9-2-6-11 3.5L7 17.5l2-1M4 6.5l5 5" /></>),
@@ -267,52 +264,17 @@ const IC = {
   bold: s(<path d="M7 4.5h6a3.5 3.5 0 0 1 0 7H7Zm0 7h7a4 4 0 0 1 0 8H7Z" />),
   italic: s(<path d="M10 4.5h8M6 19.5h8M14 4.5l-4 15" />),
   link: s(<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" />),
-  play: s(<path d="M7.5 5.5v13l11-6.5Z" />),
 };
 
 export function Demo() {
   const [tool, setTool] = useState("select");
   const [bold, setBold] = useState(false);
   const [italic, setItalic] = useState(true);
-  const [mode, setMode] = useState("design");
   return (
     <div className="fd-gtbd">
       <style>{demoCss}</style>
-      <div className="fd-gtbd-scroll" tabIndex={0} aria-label="Document canvas">
-        <Canvas />
-      </div>
-      <ScrollEdge edge="top" size={110} />
-      <ScrollEdge edge="bottom" size={110} />
-
-      <div className="fd-gtbd-top">
-        <GlassToolbar label="Document">
-          <ToolbarGroup label="View">
-            <ToolbarItem id="sidebar" label="Toggle sidebar" icon={IC.sidebar} shortcut="⌘ ." />
-          </ToolbarGroup>
-          <ToolbarSpacer />
-          <ToolbarGroup label="History">
-            <ToolbarItem id="undo" label="Undo" icon={IC.undo} shortcut="⌘ Z" />
-            <ToolbarItem id="redo" label="Redo" icon={IC.redo} shortcut="⇧ ⌘ Z" disabled />
-          </ToolbarGroup>
-          <ToolbarSpacer flexible />
-          <ToolbarGroup label="Mode" selectable value={mode} onChange={setMode}>
-            <ToolbarItem id="design" label="Design" text="Design" />
-            <ToolbarItem id="prototype" label="Prototype" text="Prototype" />
-            <ToolbarItem id="dev" label="Dev mode" text="Dev" />
-          </ToolbarGroup>
-          <ToolbarSpacer flexible />
-          <ToolbarGroup label="Share">
-            <ToolbarItem id="play" label="Present" icon={IC.play} shortcut="⌥ ⌘ ↵" />
-          </ToolbarGroup>
-          <ToolbarSpacer />
-          <ToolbarGroup label="Publish">
-            <ToolbarItem id="share" label="Share" text="Share" />
-          </ToolbarGroup>
-        </GlassToolbar>
-      </div>
-
-      <div className="fd-gtbd-bottom">
-        <GlassToolbar label="Tools" tooltips="above">
+      <div className="fd-gtbd-stage">
+        <GlassToolbar label="Tools">
           <ToolbarGroup label="Tools" selectable value={tool} onChange={setTool}>
             <ToolbarItem id="select" label="Move" icon={IC.select} shortcut="V" />
             <ToolbarItem id="frame" label="Frame" icon={IC.frame} shortcut="F" />
@@ -332,136 +294,11 @@ export function Demo() {
   );
 }
 
-function Canvas() {
-  return (
-    <div className="fd-gtbd-doc">
-      <p className="fd-gtbd-crumb">Orbit Pay / Checkout v3 / Spec</p>
-      <h1 className="fd-gtbd-h1">One-tap checkout</h1>
-      <p className="fd-gtbd-lead">
-        Cut the card flow from four screens to one sheet. Target: +6.5% conversion on mobile web, no rise in chargebacks. Ships behind <code>checkout_v3</code>{" "}
-        to 10% of EU traffic on 12 Nov.
-      </p>
-      <div className="fd-gtbd-boards">
-        <div className="fd-gtbd-board">
-          <span className="fd-gtbd-label">01 · Cart</span>
-          <div className="fd-gtbd-phone fd-gtbd-phone--a">
-            <i /> <i /> <i />
-            <b />
-          </div>
-        </div>
-        <div className="fd-gtbd-board">
-          <span className="fd-gtbd-label">02 · Sheet</span>
-          <div className="fd-gtbd-phone fd-gtbd-phone--b">
-            <i /> <i />
-            <b />
-          </div>
-        </div>
-        <div className="fd-gtbd-board">
-          <span className="fd-gtbd-label">03 · Done</span>
-          <div className="fd-gtbd-phone fd-gtbd-phone--c">
-            <em />
-            <b />
-          </div>
-        </div>
-      </div>
-      <h2 className="fd-gtbd-h2">Flow</h2>
-      <ol className="fd-gtbd-ol">
-        <li>Customer taps <strong>Pay €48.20</strong>. The sheet rises with saved card and shipping prefilled.</li>
-        <li>Biometric confirm. On failure, fall back to 3-D Secure inline, never a redirect.</li>
-        <li>Receipt animates in place; the order number is copyable and the sheet dismisses after 2.4 s.</li>
-      </ol>
-      <h2 className="fd-gtbd-h2">Tokens</h2>
-      <table className="fd-gtbd-table">
-        <thead>
-          <tr>
-            <th scope="col">Token</th>
-            <th scope="col">Light</th>
-            <th scope="col">Dark</th>
-          </tr>
-        </thead>
-        <tbody>
-          {[
-            ["accent", "#007AFF", "#0A84FF"],
-            ["success", "#34C759", "#30D158"],
-            ["sheet.radius", "34px", "34px"],
-            ["sheet.inset", "8px", "8px"],
-            ["button.height", "54px", "54px"],
-          ].map(([a, b, c]) => (
-            <tr key={a}>
-              <td><code>{a}</code></td>
-              <td>{b.startsWith("#") ? <span className="fd-gtbd-sw" style={{ background: b }} /> : null}{b}</td>
-              <td>{c.startsWith("#") ? <span className="fd-gtbd-sw" style={{ background: c }} /> : null}{c}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      <h2 className="fd-gtbd-h2">Open questions</h2>
-      <p className="fd-gtbd-p">
-        Do we keep the promo-code field visible, or tuck it behind “Add code”? Data from the Lisbon pilot says the visible field costs us 1.1 points of
-        conversion but raises AOV by €3.40. Leaning towards hiding it for returning customers only.
-      </p>
-      <p className="fd-gtbd-p">
-        Apple Pay and Google Pay stay as the first option where available; the card sheet is the fallback. Klarna moves to the payment method picker.
-      </p>
-    </div>
-  );
-}
-
 const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
-const D = `"SF Pro Display",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif`;
-const M = `ui-monospace,"SF Mono","JetBrains Mono",Menlo,monospace`;
+
 const demoCss = `
 .fd-gtbd,.fd-gtbd *,.fd-gtbd *::before,.fd-gtbd *::after{box-sizing:border-box}
-.fd-gtbd{position:relative;height:100vh;min-height:640px;width:100%;margin:0;padding:0;overflow:hidden;background:#F7F7F9;color:#0B0B0F;font:400 15px/1.5 ${F};letter-spacing:normal}
-.fd-gtbd-scroll{position:absolute;inset:0;overflow:auto;margin:0;padding:0;outline:none;scrollbar-width:none;
-  background-color:#F7F7F9;background-image:radial-gradient(circle,#D4D4DC 1px,transparent 1.2px);background-size:22px 22px}
-.fd-gtbd-scroll::-webkit-scrollbar{display:none}
-.fd-gtbd-top{position:absolute;left:16px;right:16px;top:14px;z-index:3;margin:0;padding:0}
-.fd-gtbd-bottom{position:absolute;left:0;right:0;bottom:22px;z-index:3;display:flex;justify-content:center;margin:0;padding:0 12px}
-.fd-gtbd-doc{max-width:960px;margin:0 auto;padding:104px 32px 160px}
-:where(.fd-gtbd-doc) :where(h1,h2,p,ol,li,table){margin:0;padding:0;border:0;color:inherit}
-.fd-gtbd-crumb{margin:0 0 10px;font:500 13px/1.3 ${F};color:#6B6B76}
-.fd-gtbd-h1{margin:0 0 14px;font:800 clamp(2.5rem,6vw,4rem)/1 ${D};letter-spacing:-0.04em;color:#0B0B0F}
-.fd-gtbd-lead{margin:0 0 30px;max-width:72ch;font:400 1.25rem/1.5 ${F};letter-spacing:-0.01em;color:#3A3A44}
-.fd-gtbd-doc code{margin:0 2px;padding:2px 6px;border-radius:6px;background:#E7E7EC;font:500 0.85em/1 ${M};color:#C2255C}
-.fd-gtbd-boards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin:0 0 44px}
-.fd-gtbd-board{display:flex;flex-direction:column;gap:8px;margin:0;padding:0}
-.fd-gtbd-label{font:600 12px/1 ${F};color:#6B6B76}
-.fd-gtbd-phone{position:relative;aspect-ratio:4/5;margin:0;padding:22px 14px;border-radius:26px;background:#fff;box-shadow:0 0 0 1px #E2E2E8,0 20px 40px -24px rgba(20,20,40,0.35);display:flex;flex-direction:column;gap:10px;overflow:hidden}
-.fd-gtbd-phone i{display:block;height:46px;border-radius:12px;background:linear-gradient(90deg,#DCDCE4 0 46px,#F2F2F7 46px)}
-.fd-gtbd-phone i:nth-child(2){background:linear-gradient(90deg,#CFD3E0 0 46px,#F2F2F7 46px)}
-.fd-gtbd-phone i:nth-child(3){background:linear-gradient(90deg,#D9D3CE 0 46px,#F2F2F7 46px)}
-.fd-gtbd-phone b{display:block;margin-top:auto;height:44px;border-radius:999px;background:#0B0B0F}
-.fd-gtbd-phone--b{background:linear-gradient(180deg,#E9EEF8,#C9D4EA)}
-.fd-gtbd-phone--b::before{content:"";position:absolute;left:8px;right:8px;bottom:8px;top:42%;border-radius:22px;background:#fff;box-shadow:0 -8px 30px rgba(20,20,40,0.15)}
-.fd-gtbd-phone--b i,.fd-gtbd-phone--b b{position:relative;z-index:1}
-.fd-gtbd-phone--b i:first-child{margin-top:auto}
-.fd-gtbd-phone--b b{margin-top:0;background:#007AFF}
-.fd-gtbd-phone--c{align-items:center;justify-content:center}
-.fd-gtbd-phone--c em{display:block;width:72px;height:72px;margin:auto 0 0;border-radius:50%;background:#1C1C22;position:relative}
-.fd-gtbd-phone--c em::after{content:"";position:absolute;left:26px;top:18px;width:16px;height:30px;border:solid #fff;border-width:0 5px 5px 0;transform:rotate(45deg)}
-.fd-gtbd-phone--c b{width:100%}
-.fd-gtbd-doc .fd-gtbd-h2{margin:8px 0 12px;font:700 1.5rem/1.2 ${D};letter-spacing:-0.02em;color:#0B0B0F}
-.fd-gtbd-doc .fd-gtbd-ol{margin:0 0 32px;padding:0 0 0 24px;list-style:decimal outside;font:400 17px/1.6 ${F};color:#1C1C22}
-.fd-gtbd-doc .fd-gtbd-ol li{margin:0 0 8px;padding:0 0 0 4px}
-.fd-gtbd-doc .fd-gtbd-ol li::marker{font-weight:600;color:#6B6B76}
-.fd-gtbd-ol strong{font-weight:650}
-.fd-gtbd-table{width:100%;margin:0 0 32px;border-collapse:collapse;font:400 15px/1.4 ${F};background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 0 0 1px #E2E2E8}
-.fd-gtbd-table th{padding:10px 14px;text-align:left;font:600 12px/1.2 ${F};letter-spacing:0.04em;text-transform:uppercase;color:#6B6B76;background:#FAFAFC;border-bottom:1px solid #E7E7EC}
-.fd-gtbd-table td{padding:10px 14px;border-bottom:1px solid #F0F0F3;color:#1C1C22;font:500 14px/1.3 ${M}}
-.fd-gtbd-table td code{margin:0;color:#0B0B0F;background:none;padding:0}
-.fd-gtbd-sw{display:inline-block;width:12px;height:12px;margin:0 8px -1px 0;border-radius:4px;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.08)}
-.fd-gtbd-p{margin:0 0 16px;max-width:66ch;font:400 17px/1.6 ${F};color:#1C1C22}
-@media (max-width:760px){
-  /* children: 1 style, then View, spacer, History, flexible spacer, Mode, spacer, Present, spacer, Share */
-  .fd-gtbd-top .fd-gtb > :nth-child(n+6):nth-child(-n+9){display:none}
-  .fd-gtbd-doc{padding:96px 18px 150px}
-  .fd-gtbd-boards{gap:10px}
-  .fd-gtbd-phone{border-radius:18px;padding:14px 8px;gap:6px}
-  .fd-gtbd-phone i{height:28px;border-radius:8px}
-  .fd-gtbd-phone b{height:28px}
-  .fd-gtbd-phone--c em{width:40px;height:40px}
-  .fd-gtbd-phone--c em::after{left:14px;top:8px;width:10px;height:18px;border-width:0 4px 4px 0}
-  .fd-gtbd-bottom .fd-gtb-item{width:36px}
-}
+.fd-gtbd{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 16px;overflow:hidden;color:#1d1d1f;font:400 15px/1.4 ${F};letter-spacing:normal;
+  background:radial-gradient(46% 62% at 28% 32%,#ffcfa6 0%,transparent 70%),radial-gradient(44% 58% at 74% 68%,#b7c3ff 0%,transparent 70%),radial-gradient(30% 40% at 62% 22%,#ffc2dc 0%,transparent 70%),#f1eeea}
+.fd-gtbd-stage{display:flex;justify-content:center;max-width:100%;margin:0;padding:0 0 40px}
 `;

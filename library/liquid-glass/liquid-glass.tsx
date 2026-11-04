@@ -32,7 +32,7 @@
  * (no spring/scale, glow fades only).
  */
 import { createContext, forwardRef, useContext, useEffect, useId, useImperativeHandle, useLayoutEffect, useRef, useState } from "react";
-import type { AllHTMLAttributes, CSSProperties, ElementType, KeyboardEvent as ReactKeyboardEvent, ReactNode } from "react";
+import type { AllHTMLAttributes, CSSProperties, ElementType, ReactNode } from "react";
 
 export type GlassVariant = "regular" | "clear";
 export type GlassTone = "light" | "dark";
@@ -581,25 +581,14 @@ export const LiquidGlass = forwardRef<HTMLElement, LiquidGlassProps>(function Li
   );
 });
 
-/* ───────────────────────── demo: a lens over an editorial spread ───────────────────────── */
+/* ───────────────────────── demo ───────────────────────── */
 
-type LensShape = "capsule" | "circle" | "rounded";
-const LENS_SIZE: Record<LensShape, (compact: boolean) => { w: number; h: number; r: number }> = {
-  capsule: (c) => (c ? { w: 232, h: 96, r: 48 } : { w: 340, h: 132, r: 66 }),
-  circle: (c) => (c ? { w: 148, h: 148, r: 74 } : { w: 196, h: 196, r: 98 }),
-  rounded: (c) => (c ? { w: 220, h: 150, r: 34 } : { w: 300, h: 200, r: 44 }),
-};
+const LENS = 184;
 
 export function Demo() {
   const stage = useRef<HTMLDivElement | null>(null);
   const lens = useRef<HTMLElement | null>(null);
-  const [variant, setVariant] = useState<GlassVariant>("clear");
-  const [shape, setShape] = useState<LensShape>("capsule");
-  const [dim, setDim] = useState(false);
-  const [touched, setTouched] = useState(false);
-  const [compact, setCompact] = useState(false);
   const env = useGlassEnv();
-  const motion = useRef({ x: 0, y: 0, dragging: false });
 
   const paint = () => {
     const node = lens.current;
@@ -609,81 +598,39 @@ export function Demo() {
   };
   const sx = useSpring(0, paint, { stiffness: 380, damping: 30 });
   const sy = useSpring(0, paint, { stiffness: 380, damping: 30 });
-  const sw = useSpring(340, (v) => lens.current?.style.setProperty("width", `${v}px`), { stiffness: 380, damping: 28 });
-  const sh = useSpring(132, (v) => lens.current?.style.setProperty("height", `${v}px`), { stiffness: 380, damping: 28 });
-  const sr = useSpring(66, (v) => lens.current?.style.setProperty("border-radius", `${v}px`), { stiffness: 380, damping: 30 });
 
   const bounds = () => {
     const s = stage.current!;
-    const n = lens.current!;
-    return { maxX: s.clientWidth - n.offsetWidth, maxY: s.clientHeight - n.offsetHeight - (compact ? 92 : 96) };
+    return { maxX: Math.max(0, s.clientWidth - LENS), maxY: Math.max(0, s.clientHeight - LENS) };
   };
 
-  // initial placement + a gentle entrance glide
+  // start centred, a little off to the left so the lens straddles the shapes
   useEffect(() => {
     const s = stage.current;
     if (!s) return;
-    const c = s.clientWidth < 640;
-    setCompact(c);
-    const z = LENS_SIZE.capsule(c);
-    sw.set(z.w);
-    sh.set(z.h);
-    sr.set(z.r);
-    const h1 = s.querySelector(".fd-lgx-h1")?.getBoundingClientRect();
-    const sr0 = s.getBoundingClientRect();
-    const tx = h1 ? Math.min(h1.left - sr0.left + (c ? 24 : h1.width * 0.18), s.clientWidth - z.w - 12) : 24;
-    const ty = h1 ? h1.top - sr0.top + h1.height * (c ? 0.5 : 0.46) - z.h / 2 : 140;
-    if (env.reducedMotion) {
-      sx.set(tx);
-      sy.set(ty);
-    } else {
-      sx.set(tx - 140);
-      sy.set(ty + 40);
-      sx.stiffness = sy.stiffness = 90;
-      sx.damping = sy.damping = 16;
-      sx.to(tx);
-      sy.to(ty);
-    }
+    sx.set(s.clientWidth / 2 - LENS / 2 - 36);
+    sy.set(s.clientHeight / 2 - LENS / 2 + 4);
     const onResize = () => {
       const b = bounds();
-      sx.to(Math.min(Math.max(sx.target, 0), Math.max(0, b.maxX)));
-      sy.to(Math.min(Math.max(sy.target, 0), Math.max(0, b.maxY)));
+      sx.to(Math.min(Math.max(sx.target, 0), b.maxX));
+      sy.to(Math.min(Math.max(sy.target, 0), b.maxY));
     };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [env.reducedMotion]);
-
-  // morph between shapes, keeping the lens centred
-  useEffect(() => {
-    if (!stage.current) return;
-    const z = LENS_SIZE[shape](compact);
-    const cx = sx.target + sw.target / 2;
-    const cy = sy.target + sh.target / 2;
-    const s = stage.current;
-    const nx = Math.min(Math.max(cx - z.w / 2, 0), s.clientWidth - z.w);
-    const ny = Math.min(Math.max(cy - z.h / 2, 0), s.clientHeight - z.h - 96);
-    if (env.reducedMotion) {
-      sw.set(z.w), sh.set(z.h), sr.set(z.r), sx.set(nx), sy.set(ny);
-      return;
-    }
-    sx.stiffness = sy.stiffness = 380;
-    sx.damping = sy.damping = 30;
-    sw.to(z.w), sh.to(z.h), sr.to(z.r), sx.to(nx), sy.to(ny);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [shape]);
+  }, []);
 
   // dragging with elastic stretch and a springy throw
   useEffect(() => {
     const node = lens.current;
     if (!node) return;
     const vt = createVelocityTracker();
+    let dragging = false;
     let ox = 0, oy = 0;
     const down = (e: PointerEvent) => {
       if (e.button !== 0) return;
       node.setPointerCapture(e.pointerId);
-      setTouched(true);
-      motion.current.dragging = true;
+      dragging = true;
       ox = e.clientX - sx.value;
       oy = e.clientY - sy.value;
       vt.reset();
@@ -692,17 +639,16 @@ export function Demo() {
       sx.damping = sy.damping = env.reducedMotion ? 130 : 42;
     };
     const move = (e: PointerEvent) => {
-      if (!motion.current.dragging) return;
+      if (!dragging) return;
       vt.push(e.clientX, e.clientY);
       const b = bounds();
-      // rubber-band past the edges
       const rb = (v: number, max: number) => (v < 0 ? v * 0.35 : v > max ? max + (v - max) * 0.35 : v);
       sx.to(rb(e.clientX - ox, b.maxX));
       sy.to(rb(e.clientY - oy, b.maxY));
     };
     const up = () => {
-      if (!motion.current.dragging) return;
-      motion.current.dragging = false;
+      if (!dragging) return;
+      dragging = false;
       const { vx, vy } = vt.get();
       const b = bounds();
       const k = env.reducedMotion ? 0 : 0.11;
@@ -717,7 +663,6 @@ export function Demo() {
       const v = d[e.key];
       if (!v) return;
       e.preventDefault();
-      setTouched(true);
       const b = bounds();
       sx.stiffness = sy.stiffness = 380;
       sx.damping = sy.damping = 30;
@@ -737,16 +682,15 @@ export function Demo() {
       node.removeEventListener("keydown", key);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [env.reducedMotion, compact]);
+  }, [env.reducedMotion]);
 
   return (
     <div className="fd-lgx" ref={stage}>
       <style>{DEMO_CSS}</style>
+      <span className="fd-lgx-shape fd-lgx-shape--a" aria-hidden="true" />
+      <span className="fd-lgx-shape fd-lgx-shape--b" aria-hidden="true" />
+      <span className="fd-lgx-shape fd-lgx-shape--c" aria-hidden="true" />
       <GlassScope>
-        <div className="fd-lgx-scroll" tabIndex={0} aria-label="Lumen, issue 14, scrollable article">
-          <Spread />
-        </div>
-
         <LiquidGlass
           ref={lens}
           as="div"
@@ -754,310 +698,30 @@ export function Demo() {
           tabIndex={0}
           aria-label="Glass lens. Drag it, or use the arrow keys to move it."
           className="fd-lgx-lens"
-          variant={variant}
-          tone="light"
-          radius="auto"
-          dim={variant === "clear" && dim}
+          variant="clear"
+          radius={LENS / 2}
           interactive
           pressScale={1.06}
-          refraction={1.1}
-          dispersion={0.06}
-        >
-          <span className={`fd-lgx-hint${touched ? " is-gone" : ""}`} aria-hidden="true">
-            <svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5v13M1.5 8h13M8 1.5 6 3.5M8 1.5l2 2M8 14.5l-2-2M8 14.5l2-2M1.5 8l2-2M1.5 8l2 2M14.5 8l-2-2M14.5 8l-2 2" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" /></svg>
-            Drag me
-          </span>
-        </LiquidGlass>
-
-        <LiquidGlass as="div" className="fd-lgx-bar" variant="regular" tone="light" role="toolbar" aria-label="Lens settings">
-          <Segmented
-            label="Variant"
-            value={variant}
-            onChange={(v) => setVariant(v as GlassVariant)}
-            options={[
-              { value: "regular", label: "Regular" },
-              { value: "clear", label: "Clear" },
-            ]}
-          />
-          <span className="fd-lgx-sep" aria-hidden="true" />
-          <Segmented
-            label="Shape"
-            value={shape}
-            onChange={(v) => setShape(v as LensShape)}
-            options={[
-              { value: "capsule", label: "Capsule", icon: <rect x="2" y="5.5" width="14" height="7" rx="3.5" /> },
-              { value: "circle", label: "Circle", icon: <circle cx="9" cy="9" r="6" /> },
-              { value: "rounded", label: "Rounded", icon: <rect x="2.5" y="4" width="13" height="10" rx="3" /> },
-            ]}
-            iconOnly
-          />
-          <span className="fd-lgx-sep" aria-hidden="true" />
-          <button
-            type="button"
-            className="fd-lgx-dim"
-            role="switch"
-            aria-checked={dim}
-            disabled={variant !== "clear"}
-            onClick={() => setDim((d) => !d)}
-            title="35% dimming layer for clear glass over bright content"
-          >
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
-              <circle cx="9" cy="9" r="6.25" stroke="currentColor" strokeWidth="1.5" />
-              <path d="M9 2.75a6.25 6.25 0 0 1 0 12.5Z" fill="currentColor" />
-            </svg>
-            <span>Dim</span>
-          </button>
-        </LiquidGlass>
+          refraction={1.2}
+          dispersion={0.08}
+        />
       </GlassScope>
     </div>
   );
 }
 
-function Segmented({
-  label,
-  value,
-  options,
-  onChange,
-  iconOnly,
-}: {
-  label: string;
-  value: string;
-  options: { value: string; label: string; icon?: ReactNode }[];
-  onChange: (v: string) => void;
-  iconOnly?: boolean;
-}) {
-  const idx = Math.max(0, options.findIndex((o) => o.value === value));
-  const onKey = (e: ReactKeyboardEvent) => {
-    const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
-    if (!d) return;
-    e.preventDefault();
-    const n = (idx + d + options.length) % options.length;
-    onChange(options[n].value);
-    const btn = (e.currentTarget as HTMLElement).querySelectorAll("button")[n];
-    btn?.focus();
-  };
-  return (
-    <div className={`fd-lgx-seg${iconOnly ? " is-icons" : ""}`} role="radiogroup" aria-label={label} onKeyDown={onKey} style={{ "--n": options.length, "--i": idx } as CSSProperties}>
-      <span className="fd-lgx-seg-thumb" aria-hidden="true" />
-      {options.map((o) => (
-        <button
-          key={o.value}
-          type="button"
-          role="radio"
-          aria-checked={o.value === value}
-          aria-label={iconOnly ? o.label : undefined}
-          title={iconOnly ? o.label : undefined}
-          tabIndex={o.value === value ? 0 : -1}
-          className="fd-lgx-seg-btn"
-          onClick={() => onChange(o.value)}
-        >
-          {o.icon ? (
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-              {o.icon}
-            </svg>
-          ) : null}
-          {!iconOnly && <span>{o.label}</span>}
-        </button>
-      ))}
-    </div>
-  );
-}
-
-/** The content layer: an editorial spread with type, abstract plates and fine line work. */
-function Spread() {
-  return (
-    <article className="fd-lgx-paper">
-      <header className="fd-lgx-mast">
-        <span className="fd-lgx-logo">LUMEN</span>
-        <span>Journal of light &amp; material</span>
-        <span>No. 14, Winter 2026</span>
-        <span>€14 / CHF 16</span>
-      </header>
-      <div className="fd-lgx-rules" aria-hidden="true" />
-      <section className="fd-lgx-hero">
-        <p className="fd-lgx-kicker">Feature · Optics</p>
-        <h1 className="fd-lgx-h1">
-          Light,<br />
-          <em>bent.</em>
-        </h1>
-        <p className="fd-lgx-dek">
-          Glass doesn’t hide what’s behind it. It borrows it, curves it around its edges and hands it back a little brighter. A field guide to the
-          physics behind the interfaces of 2026.
-        </p>
-        <p className="fd-lgx-byline">Words by Ines Vahlkamp · Plates by Teodor Brask</p>
-      </section>
-
-      <section className="fd-lgx-plates" aria-label="Plates">
-        <figure className="fd-lgx-plate">
-          <div className="fd-lgx-ph fd-lgx-ph--ring" />
-          <figcaption>
-            <b>Plate 1.</b> A gradient ring, twelve pixels wide, lit from the left.
-          </figcaption>
-        </figure>
-        <figure className="fd-lgx-plate">
-          <div className="fd-lgx-ph fd-lgx-ph--grid" />
-          <figcaption>
-            <b>Plate 2.</b> A hairline grid. Straight lines show the bend best.
-          </figcaption>
-        </figure>
-        <figure className="fd-lgx-plate">
-          <div className="fd-lgx-ph fd-lgx-ph--conc" />
-          <figcaption>
-            <b>Plate 3.</b> Concentric rings, one every fourteen pixels.
-          </figcaption>
-        </figure>
-        <figure className="fd-lgx-plate">
-          <div className="fd-lgx-ph fd-lgx-ph--type" />
-          <figcaption>
-            <b>Plate 4.</b> Letterforms, set large, for reading the edge.
-          </figcaption>
-        </figure>
-      </section>
-
-      <section className="fd-lgx-cols">
-        <p>
-          <span className="fd-lgx-drop">E</span>very lens is a negotiation between thickness and curvature. Near its rim, a slab of glass meets the
-          air at a steep angle, and the light passing through is bent hardest there, straight lines bow, letters lean inward, colour separates into
-          a thin prism of red and blue. Towards the centre the surface flattens out and the world comes through almost untouched.
-        </p>
-        <p>
-          That is the whole trick behind the new generation of interface materials. A control drawn as a slab of glass reads as an object that
-          floats above the page, not a hole cut into it. It stays legible because the middle stays calm, and it feels physical because the edges
-          do exactly what a real edge would do.
-        </p>
-        <p>
-          Designers at the Hokuto studio in Kyoto spent eleven months measuring how light falls across curved panes before settling on a squircle
-          profile: a curve that rises quickly at the rim and then levels off, so the refraction band stays narrow and bright.
-        </p>
-      </section>
-
-      <section className="fd-lgx-index" aria-label="Refractive index table">
-        <h2 className="fd-lgx-h2">Index of refraction</h2>
-        <ul>
-          <li><span>Air</span><i /><b>1.000</b></li>
-          <li><span>Water, 20 °C</span><i /><b>1.333</b></li>
-          <li><span>Crown glass</span><i /><b>1.520</b></li>
-          <li><span>Flint glass</span><i /><b>1.620</b></li>
-          <li><span>Sapphire</span><i /><b>1.770</b></li>
-          <li><span>Diamond</span><i /><b>2.417</b></li>
-        </ul>
-      </section>
-
-      <section className="fd-lgx-test" aria-label="Calibration plate">
-        <div className="fd-lgx-bars" />
-        <div className="fd-lgx-grid" />
-        <p className="fd-lgx-cap">Plate 7, calibration chart used for every plate in this issue.</p>
-      </section>
-
-      <section className="fd-lgx-quote">
-        <p>“The best material is the one you only notice at its edges.”</p>
-        <span>– Mariko Tsuji, Hokuto Glassworks</span>
-      </section>
-      <footer className="fd-lgx-foot">
-        <span>LUMEN 14</span>
-        <span>Page 38</span>
-      </footer>
-    </article>
-  );
-}
-
 const FONT = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
-const DISPLAY = `"SF Pro Display",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif`;
-const SERIF = `"New York","Iowan Old Style","Source Serif 4",Georgia,"Times New Roman",serif`;
-
-/* fine grain, an inline SVG feTurbulence tile (no network) */
-const GRAIN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1.4 0 0 0 -.2 1.4 0 0 0 -.2 1.4 0 0 0 -.2 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`;
 
 const DEMO_CSS = `
 .fd-lgx,.fd-lgx *,.fd-lgx *::before,.fd-lgx *::after{box-sizing:border-box}
-.fd-lgx{position:relative;height:100vh;min-height:600px;width:100%;overflow:hidden;margin:0;padding:0;background:#F3EFE6;color:#0B0B0F;font:400 15px/1.5 ${FONT};letter-spacing:normal;touch-action:pan-y}
-.fd-lgx-scroll{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;margin:0;padding:0;outline:none;scrollbar-width:none;overscroll-behavior:contain}
-.fd-lgx-scroll::-webkit-scrollbar{display:none}
-.fd-lgx-paper{display:block;max-width:1180px;margin:0 auto;padding:28px 40px 160px;background:none;color:#0B0B0F}
-.fd-lgx-paper h1,.fd-lgx-paper h2,.fd-lgx-paper p,.fd-lgx-paper figure,.fd-lgx-paper figcaption,.fd-lgx-paper ul,.fd-lgx-paper li{margin:0;padding:0;border:0;background:none;color:inherit}
-.fd-lgx-mast{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin:0;padding:0 0 12px;font:500 12px/1.3 ${FONT};letter-spacing:0.08em;text-transform:uppercase;color:#0B0B0F}
-.fd-lgx-logo{font:800 24px/1 ${DISPLAY};letter-spacing:0.18em}
-.fd-lgx-rules{height:14px;margin:0 0 40px;background:repeating-linear-gradient(180deg,#0B0B0F 0 1.5px,transparent 1.5px 4px)}
-.fd-lgx-hero{display:grid;grid-template-columns:1.25fr 1fr;grid-template-areas:"k k" "h d" "h b";column-gap:56px;align-items:end;margin:0 0 56px}
-.fd-lgx-kicker{grid-area:k;margin:0 0 8px;font:600 13px/1.3 ${FONT};letter-spacing:0.12em;text-transform:uppercase;color:#C2410C}
-.fd-lgx-h1{grid-area:h;margin:0;font:800 clamp(4rem,11vw,9.5rem)/0.86 ${DISPLAY};letter-spacing:-0.055em;color:#0B0B0F}
-.fd-lgx-h1 em{font:italic 400 1em/0.86 ${SERIF};letter-spacing:-0.035em;color:#1D4ED8}
-.fd-lgx-dek{grid-area:d;margin:0 0 18px;font:400 1.25rem/1.45 ${SERIF};color:#1C1C22;max-width:30ch}
-.fd-lgx-byline{grid-area:b;margin:0 0 10px;font:500 13px/1.4 ${FONT};color:#6B6B76}
-.fd-lgx-plates{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:0 0 56px}
-.fd-lgx-plate{display:block;margin:0}
-.fd-lgx-plate figcaption{margin:10px 0 0;font:400 13px/1.45 ${FONT};color:#3A3A44}
-.fd-lgx-plate figcaption b{font-weight:650;color:#0B0B0F}
-.fd-lgx-ph{display:block;aspect-ratio:4/5;border-radius:4px;overflow:hidden;position:relative}
-.fd-lgx-ph::before{content:"";position:absolute;inset:0;background-image:${GRAIN};background-size:180px 180px;mix-blend-mode:soft-light;opacity:0.4}
-.fd-lgx-ph--ring{background:
-  radial-gradient(circle at 62% 42%,transparent 0 21%,rgba(255,255,255,0.8) 21.5% 23.5%,transparent 24%),
-  radial-gradient(circle at 62% 42%,rgba(255,255,255,0.28),transparent 60%),
-  linear-gradient(160deg,#1B2150,#4B3B8C 58%,#B0707A)}
-.fd-lgx-ph--grid{background:
-  repeating-linear-gradient(90deg,rgba(255,255,255,0.6) 0 1px,transparent 1px 22px),
-  repeating-linear-gradient(0deg,rgba(255,255,255,0.6) 0 1px,transparent 1px 22px),
-  radial-gradient(ellipse at 50% 100%,#6D7BD8,#1B1F3B 72%)}
-.fd-lgx-ph--conc{background:
-  repeating-radial-gradient(circle at 50% 56%,transparent 0 13px,rgba(255,255,255,0.7) 13px 14.5px),
-  linear-gradient(180deg,#2F4A47,#0E1A19)}
-.fd-lgx-ph--type{background:linear-gradient(180deg,#E8DCCB,#D4C3AC)}
-.fd-lgx-ph--type::after{content:"Aa";position:absolute;left:50%;top:50%;transform:translate(-50%,-52%);font:800 7.5rem/1 ${DISPLAY};letter-spacing:-0.06em;color:#14131A}
-.fd-lgx-cols{columns:3 260px;column-gap:40px;margin:0 0 64px;font:400 1.0625rem/1.6 ${SERIF};color:#1C1C22}
-.fd-lgx-cols p{margin:0 0 16px;font:inherit}
-.fd-lgx-drop{float:left;margin:4px 10px 0 0;font:800 4.4rem/0.8 ${DISPLAY};color:#C2410C}
-.fd-lgx-index{margin:0 0 64px;padding:28px 0 0;border-top:2px solid #0B0B0F}
-.fd-lgx-h2{margin:0 0 18px;font:700 2rem/1.1 ${DISPLAY};letter-spacing:-0.025em;color:#0B0B0F}
-.fd-lgx-index ul{list-style:none;margin:0;padding:0;columns:2 300px;column-gap:56px}
-.fd-lgx-index li{display:flex;align-items:baseline;gap:10px;margin:0;padding:10px 0;border-bottom:1px solid #0B0B0F;font:500 1.0625rem/1.3 ${FONT};break-inside:avoid}
-.fd-lgx-index li i{flex:1;height:1px;border-bottom:1.5px dotted #6B6B76}
-.fd-lgx-index li b{font:600 1.0625rem/1.3 ui-monospace,"SF Mono","JetBrains Mono",Menlo,monospace;color:#1D4ED8}
-.fd-lgx-test{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin:0 0 64px}
-.fd-lgx-bars{height:220px;border-radius:4px;background:linear-gradient(90deg,#FFFFFF 0 14.28%,#FFD60A 14.28% 28.56%,#32D7E6 28.56% 42.84%,#30D158 42.84% 57.12%,#FF2D9B 57.12% 71.4%,#FF3B30 71.4% 85.68%,#0A3DFF 85.68%);box-shadow:inset 0 -46px 0 #0B0B0F,inset 0 -48px 0 #fff}
-.fd-lgx-grid{height:220px;border-radius:4px;background:repeating-conic-gradient(#0B0B0F 0 25%,#F3EFE6 0 50%) 0 0/22px 22px}
-.fd-lgx-cap{grid-column:1/-1;font:400 13px/1.4 ${FONT};color:#6B6B76}
-.fd-lgx-quote{margin:0 0 56px;padding:56px 0;border-top:1px solid #0B0B0F;border-bottom:1px solid #0B0B0F;text-align:center}
-.fd-lgx-quote p{margin:0 auto 14px;max-width:18ch;font:italic 400 clamp(2rem,4.6vw,4rem)/1.06 ${SERIF};letter-spacing:-0.025em;color:#0B0B0F}
-.fd-lgx-quote span{font:500 13px/1.4 ${FONT};letter-spacing:0.06em;text-transform:uppercase;color:#6B6B76}
-.fd-lgx-foot{display:flex;justify-content:space-between;font:500 12px/1 ${FONT};letter-spacing:0.08em;text-transform:uppercase;color:#6B6B76}
-
-.fd-lgx-lens{position:absolute;left:0;top:0;width:340px;height:132px;border-radius:66px;display:flex;align-items:flex-end;justify-content:center;cursor:grab;touch-action:none;will-change:transform;z-index:2}
+.fd-lgx{position:relative;height:100vh;min-height:520px;width:100%;overflow:hidden;margin:0;padding:0;color:#1d1d1f;font:400 15px/1.4 ${FONT};letter-spacing:normal;touch-action:none;
+  background:radial-gradient(46% 62% at 28% 32%,#ffcfa6 0%,transparent 70%),radial-gradient(44% 58% at 74% 68%,#b7c3ff 0%,transparent 70%),radial-gradient(30% 40% at 62% 22%,#ffc2dc 0%,transparent 70%),#f1eeea}
+.fd-lgx-shape{position:absolute;display:block;margin:0;padding:0;pointer-events:none}
+.fd-lgx-shape--a{left:calc(50% - 190px);top:calc(50% - 70px);width:150px;height:150px;border-radius:50%;background:#ff8a6b}
+.fd-lgx-shape--b{left:calc(50% - 20px);top:calc(50% - 130px);width:150px;height:150px;border-radius:38px;background:#5b6cff;transform:rotate(14deg)}
+.fd-lgx-shape--c{left:calc(50% - 30px);top:calc(50% + 40px);width:210px;height:34px;border-radius:999px;background:#fff}
+.fd-lgx-lens{position:absolute;left:0;top:0;width:${LENS}px;height:${LENS}px;border-radius:50%;cursor:grab;touch-action:none;will-change:transform;z-index:2}
 .fd-lgx-lens.fd-lg--pressed{cursor:grabbing}
-.fd-lgx-hint{display:inline-flex;align-items:center;gap:6px;margin:0 0 -40px;padding:6px 12px;border-radius:999px;background:rgba(11,11,15,0.82);color:#fff;font:600 12px/1 ${FONT};letter-spacing:0.01em;text-shadow:none;white-space:nowrap;pointer-events:none;transition:opacity var(--fd-dur-3) var(--fd-ease-out),transform var(--fd-dur-3) var(--fd-ease-out)}
-.fd-lgx-hint svg{display:block}
-.fd-lgx-hint.is-gone{opacity:0;transform:translateY(-6px)}
-
-.fd-lgx-bar{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);display:flex;align-items:center;gap:6px;padding:6px;z-index:3;white-space:nowrap}
-.fd-lgx-sep{display:block;width:1px;height:22px;margin:0 2px;background:rgba(11,11,15,0.14)}
-.fd-lgx-seg{position:relative;display:grid;grid-auto-flow:column;grid-auto-columns:minmax(max-content,1fr);margin:0;padding:0}
-.fd-lgx-seg-thumb{position:absolute;top:0;bottom:0;left:0;width:calc(100% / var(--n));transform:translateX(calc(100% * var(--i)));border-radius:999px;background:#0B0B0F;box-shadow:0 2px 8px rgba(0,0,0,0.18);transition:transform var(--fd-dur-3) var(--fd-spring)}
-.fd-lgx-seg-btn,.fd-lgx-dim{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:6px;height:40px;min-width:40px;margin:0;padding:0 16px;border:0;border-radius:999px;background:transparent;color:#1C1C22;font:600 14px/1 ${FONT};letter-spacing:-0.005em;text-shadow:none;cursor:pointer;-webkit-appearance:none;appearance:none;transition:color var(--fd-dur-2) var(--fd-ease-out),background-color var(--fd-dur-1) linear}
-.fd-lgx-seg.is-icons .fd-lgx-seg-btn{padding:0 11px}
-.fd-lgx-seg-btn svg,.fd-lgx-dim svg{display:block;flex:none}
-.fd-lgx-seg-btn[aria-checked="true"]{color:#fff}
-.fd-lgx-seg-btn:not([aria-checked="true"]):hover,.fd-lgx-dim:not(:disabled):hover{background:rgba(11,11,15,0.06)}
-.fd-lgx-dim[aria-checked="true"]{background:#0B0B0F;color:#fff}
-.fd-lgx-dim:disabled{opacity:0.35;cursor:default}
-.fd-lgx-seg-btn:focus-visible,.fd-lgx-dim:focus-visible,.fd-lgx-scroll:focus-visible{outline:2px solid color-mix(in srgb,#007AFF 70%,transparent);outline-offset:2px}
-
-@media (max-width:820px){
-  .fd-lgx-paper{padding:20px 20px 150px}
-  .fd-lgx-mast span:not(.fd-lgx-logo):not(:nth-child(3)){display:none}
-  .fd-lgx-hero{grid-template-columns:1fr;grid-template-areas:"k" "h" "d" "b";margin-bottom:40px}
-  .fd-lgx-h1{margin:0 0 20px;font-size:clamp(4.4rem,24vw,7rem)}
-  .fd-lgx-plates{grid-template-columns:repeat(2,1fr);gap:12px}
-  .fd-lgx-test{grid-template-columns:1fr}
-  .fd-lgx-bars,.fd-lgx-grid{height:150px}
-  .fd-lgx-bar{bottom:20px;gap:2px;padding:4px;max-width:calc(100% - 16px)}
-  .fd-lgx-sep{margin:0 1px}
-  .fd-lgx-seg-btn,.fd-lgx-dim{height:38px;min-width:36px;padding:0 10px;font-size:13px}
-  .fd-lgx-seg.is-icons .fd-lgx-seg-btn{padding:0 8px}
-  .fd-lgx-seg.is-icons .fd-lgx-seg-btn{padding:0 9px}
-  .fd-lgx-dim span{display:none}
-}
-@media (prefers-reduced-motion: reduce){
-  .fd-lgx-seg-thumb,.fd-lgx-hint{transition-duration:120ms;transition-timing-function:linear}
-}
 `;
 
 const GLASS_CSS = `

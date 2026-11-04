@@ -559,113 +559,57 @@ const css = `
 
 /* ───────────────────────── demo ───────────────────────── */
 
+function drawScene(ctx: CanvasRenderingContext2D, w: number, h: number) {
+  const sky = ctx.createLinearGradient(0, 0, 0, h);
+  sky.addColorStop(0, "#2a2a2a");
+  sky.addColorStop(0.62, "#d8d8d8");
+  sky.addColorStop(1, "#f4f4f4");
+  ctx.fillStyle = sky;
+  ctx.fillRect(0, 0, w, h);
+  const cx = w * 0.5;
+  const cy = h * 0.46;
+  const r = Math.min(w, h) * 0.3;
+  const orb = ctx.createRadialGradient(cx - r * 0.35, cy - r * 0.4, r * 0.05, cx, cy, r);
+  orb.addColorStop(0, "#ffffff");
+  orb.addColorStop(0.55, "#9a9a9a");
+  orb.addColorStop(1, "#111111");
+  ctx.fillStyle = orb;
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.fill();
+  const floor = ctx.createRadialGradient(cx, cy + r * 1.15, 0, cx, cy + r * 1.15, r * 1.1);
+  floor.addColorStop(0, "rgba(0,0,0,0.55)");
+  floor.addColorStop(1, "rgba(0,0,0,0)");
+  ctx.fillStyle = floor;
+  ctx.save();
+  ctx.translate(0, cy + r * 1.15);
+  ctx.scale(1, 0.18);
+  ctx.translate(0, -(cy + r * 1.15));
+  ctx.fillRect(0, 0, w, h * 6);
+  ctx.restore();
+}
+
 export function Demo() {
   return (
-    <section className="fd-dimg-demo">
+    <div className="fd-dimgd">
       <style>{demoCss}</style>
-      <div className="fd-dimg-demo-copy">
-        <p className="fd-dimg-demo-kicker">Vesper Nº 14, The Winter Issue</p>
-        <h2 className="fd-dimg-demo-title">Shot in shadow. Printed in dots.</h2>
-        <p className="fd-dimg-demo-body">
-          Forty-two looks in wool, felt and charcoal, photographed by Mara Lindqvist and set in a three-ink risograph palette.
-          Move across the cover to bring the shoot into focus.
-        </p>
-        <div className="fd-dimg-demo-row">
-          <a className="fd-dimg-demo-cta" href="#subscribe" onClick={(e) => e.preventDefault()}>
-            Subscribe, 4 issues €48
-          </a>
-          <span className="fd-dimg-demo-meta">On newsstands 12 Nov 2026</span>
-        </div>
-      </div>
       <DitherImage
-        className="fd-dimg-demo-cover"
-        src="/img/people/p2.webp"
-        palette={["#15120F", "#A8402A", "#EFE7D8"]}
+        className="fd-dimgd-frame"
+        draw={drawScene}
+        drawSize={[900, 1100]}
+        palette={["#1d1d1f", "#8a8a8e", "#f6f6f4"]}
         pixelSize={3}
         algorithm="bayer8"
-        contrast={1.25}
-        lensRadius={130}
-        alt="Vesper magazine cover: a bearded man in a black tee against a white studio backdrop, dithered in rust and cream"
-      >
-        <div className="fd-dimg-demo-mast">VESPER</div>
-        <div className="fd-dimg-demo-issue">
-          <span>Nº 14</span>
-          <span>Winter 2026</span>
-          <span>€14 · £12</span>
-        </div>
-        <div className="fd-dimg-demo-lines">
-          <p className="fd-dimg-demo-line-big">The Quiet Season</p>
-          <p className="fd-dimg-demo-line">42 looks in wool, felt &amp; shadow</p>
-          <p className="fd-dimg-demo-line fd-dimg-demo-line-sep">Ines Okafor on building Atelier Nord from a Lagos rooftop</p>
-        </div>
-        <div className="fd-dimg-demo-side">Paris Couture,<br />decoded</div>
-      </DitherImage>
-    </section>
+        alt="A sphere dithered in three inks"
+      />
+    </div>
   );
 }
 
+const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
+
 const demoCss = `
-.fd-dimg-demo, .fd-dimg-demo *, .fd-dimg-demo *::before, .fd-dimg-demo *::after { box-sizing: border-box; }
-.fd-dimg-demo {
-  --fd-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --fd-dur-1: 120ms;
-  min-height: 100vh; margin: 0; padding: clamp(28px, 6vw, 88px);
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(32px, 6vw, 96px);
-  align-items: center; background: #ECE5D8; color: #15120F;
-  font: 400 15px/1.5 ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif;
-}
-.fd-dimg-demo-copy { max-width: 460px; justify-self: end; margin: 0; padding: 0; }
-.fd-dimg-demo-kicker {
-  margin: 0 0 20px; padding: 0; color: #A8402A; letter-spacing: 0.12em; text-transform: uppercase;
-  font: 600 12px/1.4 ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
-}
-.fd-dimg-demo-title {
-  margin: 0 0 20px; padding: 0; color: #15120F; letter-spacing: -0.04em;
-  font: 700 clamp(2.75rem, 5.4vw, 5.5rem)/0.95 "SF Pro Display", ui-sans-serif, -apple-system, "Inter", "Segoe UI", Roboto, sans-serif;
-}
-.fd-dimg-demo-body { margin: 0 0 32px; padding: 0; color: #4A433B; font: 400 1.0625rem/1.55 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: -0.01em; max-width: 40ch; }
-.fd-dimg-demo-row { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 24px; margin: 0; padding: 0; }
-.fd-dimg-demo-cta {
-  display: inline-flex; align-items: center; height: 48px; margin: 0; padding: 0 24px; border: 0; border-radius: 9999px;
-  background: #15120F; color: #EFE7D8; text-decoration: none;
-  font: 600 0.9375rem/1 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: -0.01em;
-  transition: transform var(--fd-dur-1) var(--fd-ease-out), background var(--fd-dur-1) var(--fd-ease-out);
-}
-.fd-dimg-demo-cta:hover { background: #A8402A; }
-.fd-dimg-demo-cta:active { transform: scale(0.96); }
-.fd-dimg-demo-cta:focus-visible { outline: 2px solid rgba(168, 64, 42, .7); outline-offset: 2px; }
-.fd-dimg-demo-meta { margin: 0; padding: 0; color: #6B6258; font: 500 13px/1.4 ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace; }
-.fd-dimg-demo-cover.fd-dimg {
-  width: min(100%, 560px); aspect-ratio: 3 / 4; justify-self: start; container-type: inline-size;
-  --fd-dimg-radius: 4px;
-  box-shadow: 0 1px 0 rgba(0,0,0,.06), 0 30px 60px -20px rgba(40, 28, 16, .45), 0 60px 120px -40px rgba(40, 28, 16, .35);
-  cursor: crosshair;
-}
-.fd-dimg-demo-mast {
-  position: absolute; left: 5%; right: 5%; top: 3.2%; margin: 0; padding: 0;
-  color: #15120F; text-align: center; letter-spacing: -0.06em;
-  font: 800 clamp(3.5rem, 11vw, 9.4rem)/0.82 "SF Pro Display", ui-sans-serif, -apple-system, "Inter", "Segoe UI", Roboto, sans-serif;
-  font-size: 25.5cqw;
-}
-.fd-dimg-demo-issue {
-  position: absolute; left: 5%; right: 5%; top: 1.4%; display: flex; justify-content: space-between; margin: 0; padding: 0;
-  color: #15120F; font: 600 10px/1 ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace; letter-spacing: 0.14em; text-transform: uppercase;
-}
-.fd-dimg-demo-lines { position: absolute; left: 5%; bottom: 5%; max-width: 58%; margin: 0; padding: 0; }
-.fd-dimg-demo-line-big {
-  margin: 0 0 6px; padding: 0; color: #EFE7D8; letter-spacing: -0.035em;
-  font: 700 clamp(1.75rem, 3.6vw, 2.75rem)/0.95 "SF Pro Display", ui-sans-serif, -apple-system, "Inter", "Segoe UI", Roboto, sans-serif;
-  font-size: clamp(1.5rem, 8cqw, 2.75rem);
-}
-.fd-dimg-demo-line { margin: 0; padding: 0; color: #EFE7D8; font: 500 0.8125rem/1.35 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: 0; }
-.fd-dimg-demo-line-sep { margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(239, 231, 216, .5); max-width: 26ch; }
-.fd-dimg-demo-side {
-  position: absolute; right: 5%; bottom: 5%; max-width: 32%; margin: 0; padding: 6px 10px; background: #A8402A; color: #EFE7D8; text-align: right;
-  font: 700 0.8125rem/1.15 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: 0.02em; text-transform: uppercase;
-}
-@media (max-width: 820px) {
-  .fd-dimg-demo { grid-template-columns: 1fr; padding: 28px 20px 40px; }
-  .fd-dimg-demo-copy { justify-self: start; }
-  .fd-dimg-demo-cover.fd-dimg { justify-self: center; }
-}
+.fd-dimgd,.fd-dimgd *,.fd-dimgd *::before,.fd-dimgd *::after{box-sizing:border-box}
+.fd-dimgd{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 20px;overflow:hidden;color:#1d1d1f;font:400 15px/1.4 ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;letter-spacing:normal;background:#f2f2f2}
+.fd-dimgd-frame.fd-dimg{width:min(100%,360px);aspect-ratio:9/11;margin:0;padding:0;--fd-dimg-radius:20px;cursor:crosshair;box-shadow:0 1px 1px rgba(0,0,0,.06),0 24px 60px -24px rgba(0,0,0,.35)}
 `;

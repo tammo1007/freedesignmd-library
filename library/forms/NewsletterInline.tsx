@@ -184,82 +184,25 @@ const css = `
 /* ───────────────────────────── demo ───────────────────────────── */
 
 export function Demo() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
   return (
-    <div className="fd-nl-demo" data-fd-theme={theme}>
+    <div className="fd-nld">
       <style>{demoCss}</style>
-      <header className="fd-nl-demo-bar">
-        <span className="fd-nl-demo-brand">Marlow<i>&amp;</i>Finch</span>
-        <nav aria-label="Primary"><a href="#shop">Shop</a><a href="#subscriptions">Subscriptions</a><a href="#brew">Brew guides</a><a href="#roastery">Roastery</a></nav>
-        <button type="button" className="fd-nl-demo-theme" aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"} onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>{theme === "dark" ? "Light" : "Dark"}</button>
-      </header>
-
-      <main className="fd-nl-demo-main">
-        <section className="fd-nl-demo-copy" aria-labelledby="fd-nl-h">
-          <p className="fd-nl-demo-eyebrow">The Roast Letter · every other Thursday</p>
-          <h1 id="fd-nl-h">First pick of every small-lot roast.</h1>
-          <p className="fd-nl-demo-sub">Tasting notes, brew recipes and early access to limited harvests from Huila, Yirgacheffe and Kerinci, straight from our roastery in Portland.</p>
-          <NewsletterInline
-            theme={theme}
-            cta="Join free"
-            placeholder="you@email.com"
-            onSubmit={(email) => new Promise<void>((res, rej) => window.setTimeout(() => (email.toLowerCase() === "taken@example.com" ? rej(new Error("That address is already subscribed. Check your inbox for the latest letter.")) : res()), 700))}
-            successTitle="Welcome to the Roast Letter"
-            successBody={() => "Confirm in your inbox to claim 10% off."}
-          />
-          <ul className="fd-nl-demo-perks">
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>10% off your first bag</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>Early access to micro-lots</li>
-            <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>Unsubscribe in one click</li>
-          </ul>
-          <p className="fd-nl-demo-fine">18,400 readers · No spam. Read our <a href="#privacy">privacy policy</a>.</p>
-        </section>
-
-        <div className="fd-nl-demo-art" aria-hidden="true">
-          <svg aria-hidden="true" focusable="false" viewBox="0 0 360 440" width="100%" height="100%">
-            <ellipse cx="180" cy="410" rx="130" ry="14" fill="rgba(26,20,16,.16)" />
-            <path d="M82 96 Q180 70 278 96 L296 400 Q180 424 64 400 Z" fill="#C9A06B" />
-            <path d="M82 96 Q180 70 278 96 L278 120 Q180 96 82 120 Z" fill="#B58B57" />
-            <path d="M82 96 Q180 70 278 96" fill="none" stroke="#A67B48" strokeWidth="3" />
-            <rect x="106" y="190" width="148" height="164" rx="10" fill="#FBF4E8" />
-            <circle cx="180" cy="236" r="26" fill="#1A1410" />
-            <ellipse cx="180" cy="236" rx="9" ry="22" fill="#FBF4E8" transform="rotate(24 180 236)" />
-            <rect x="126" y="282" width="108" height="9" rx="4" fill="#1A1410" />
-            <rect x="140" y="302" width="80" height="6" rx="3" fill="#1A1410" opacity=".5" />
-            <rect x="148" y="318" width="64" height="6" rx="3" fill="#1A1410" opacity=".3" />
-            <path d="M82 96 L74 70 Q180 54 286 70 L278 96" fill="#9C713F" />
-          </svg>
-          <span className="fd-nl-demo-tag">Huila Pink Bourbon<small>Notes of plum, jasmine, brown sugar</small></span>
-        </div>
-      </main>
+      <div className="fd-nld-box">
+        <NewsletterInline
+          theme="light"
+          cta="Subscribe"
+          placeholder="you@email.com"
+          onSubmit={() => new Promise<void>((res) => window.setTimeout(res, 700))}
+        />
+      </div>
     </div>
   );
 }
 
+const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
+
 const demoCss = `
-:where(.fd-nl-demo,.fd-nl-demo *){box-sizing:border-box;margin:0;padding:0;font:inherit;letter-spacing:inherit;color:inherit;text-decoration:none;list-style:none}
-:where(.fd-nl-demo,.fd-nl-demo *)::before,:where(.fd-nl-demo,.fd-nl-demo *)::after{box-sizing:border-box}
-:where(.fd-nl-demo svg){display:block;flex-shrink:0}
-:where(.fd-nl-demo button){appearance:none;-webkit-appearance:none;background:none;border:0;border-radius:0}
-.fd-nl-demo{--d-font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;--d-disp:ui-sans-serif,-apple-system,"SF Pro Display","Inter",sans-serif;
-  --fd-ease-out:cubic-bezier(.22,1,.36,1);--fd-dur-2:240ms;
-  --d-bg:#F4EBDD;--d-ink:#1A1410;--d-mut:#6F6358;--d-line:rgba(26,20,16,.12);--d-art:#E8D6BA;--d-accent:#B8541C;
-  min-height:100vh;background:var(--d-bg);color:var(--d-ink);font:400 15px/1.45 var(--d-font);-webkit-font-smoothing:antialiased;transition:background-color var(--fd-dur-2) var(--fd-ease-out)}
-.fd-nl-demo[data-fd-theme="dark"]{--d-bg:#17110D;--d-ink:#F6EEE6;--d-mut:#A89A8C;--d-line:rgba(246,238,230,.12);--d-art:#2A1F17;--d-accent:#FF9A55}
-.fd-nl-demo-bar{display:flex;align-items:center;gap:32px;height:68px;padding:0 clamp(16px,4vw,48px)}
-.fd-nl-demo-brand{margin-right:auto;font:700 20px/1 var(--d-disp);letter-spacing:-.04em}.fd-nl-demo-brand i{font-style:normal;color:var(--d-accent);margin:0 2px}
-.fd-nl-demo-bar nav{display:flex;gap:28px;font:500 14px/1 var(--d-font);color:var(--d-mut)}.fd-nl-demo-bar nav a{padding:8px 0}.fd-nl-demo-bar nav a:hover{color:var(--d-ink)}
-.fd-nl-demo-bar a:focus-visible,.fd-nl-demo-theme:focus-visible,.fd-nl-demo-fine a:focus-visible{outline:2px solid var(--d-accent);outline-offset:2px;border-radius:4px}
-.fd-nl-demo-theme{cursor:pointer;height:32px;padding:0 14px;border-radius:9999px;box-shadow:0 0 0 1px var(--d-line);font:500 13px/1 var(--d-font);color:var(--d-mut)}.fd-nl-demo-theme:hover{color:var(--d-ink)}
-.fd-nl-demo-main{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(24px,5vw,72px);align-items:center;max-width:1160px;margin:0 auto;padding:clamp(24px,6vh,72px) clamp(16px,4vw,48px) 64px}
-.fd-nl-demo-eyebrow{font:600 12px/1 var(--d-font);letter-spacing:.08em;text-transform:uppercase;color:var(--d-accent)}
-.fd-nl-demo-copy h1{margin:20px 0 0;font:600 clamp(36px,5.2vw,64px)/1.02 var(--d-disp);letter-spacing:-.04em;max-width:11em}
-.fd-nl-demo-sub{margin:20px 0 32px;max-width:30em;font:400 17px/1.55 var(--d-font);letter-spacing:-.01em;color:var(--d-mut)}
-.fd-nl-demo-perks{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:24px;font:500 14px/1 var(--d-font)}
-.fd-nl-demo-perks li{display:flex;align-items:center;gap:8px}.fd-nl-demo-perks svg{color:var(--d-accent)}
-.fd-nl-demo-fine{margin-top:20px;font:400 13px/1.4 var(--d-font);color:var(--d-mut)}.fd-nl-demo-fine a{text-decoration:underline;text-underline-offset:3px}
-.fd-nl-demo-art{position:relative;aspect-ratio:1/1.15;max-height:560px;border-radius:32px;background:var(--d-art);padding:8% 12% 4%;box-shadow:0 0 0 1px var(--d-line)}
-.fd-nl-demo-tag{position:absolute;left:20px;bottom:20px;display:flex;flex-direction:column;gap:4px;padding:12px 16px;border-radius:14px;background:var(--d-bg);box-shadow:0 0 0 1px var(--d-line),0 8px 24px -12px rgba(0,0,0,.3);font:600 14px/1.2 var(--d-font)}
-.fd-nl-demo-tag small{font:400 12px/1.3 var(--d-font);color:var(--d-mut)}
-@media (max-width:860px){.fd-nl-demo-main{grid-template-columns:1fr}.fd-nl-demo-bar nav{display:none}.fd-nl-demo-art{max-height:380px;aspect-ratio:auto;height:340px;padding:6% 24% 3%}}
+.fd-nld,.fd-nld *,.fd-nld *::before,.fd-nld *::after{box-sizing:border-box}
+.fd-nld{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 20px;color:#1d1d1f;font:400 15px/1.4 ${F};letter-spacing:normal;background:#f1f1f2}
+.fd-nld-box{width:100%;max-width:480px;margin:0;padding:0}
 `;

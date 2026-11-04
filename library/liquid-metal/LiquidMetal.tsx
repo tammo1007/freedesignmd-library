@@ -461,117 +461,19 @@ const css = `
 
 /* ───────────────────────── demo ───────────────────────── */
 
-const FINISHES: { id: MetalTint; name: string; price: string; swatch: string }[] = [
-  { id: "silver", name: "Polished steel", price: "CHF 12,400", swatch: "linear-gradient(135deg,#fafafa,#8e9299 55%,#e9eaec)" },
-  { id: "titanium", name: "Grade 5 titanium", price: "CHF 13,900", swatch: "linear-gradient(135deg,#e3e6eb,#6d737d 55%,#c9ced6)" },
-  { id: "gold", name: "18k yellow gold", price: "CHF 38,500", swatch: "linear-gradient(135deg,#fff0c4,#b0853a 55%,#f3d891)" },
-  { id: "black-chrome", name: "Black DLC", price: "CHF 14,800", swatch: "linear-gradient(135deg,#7b7e85,#0d0e10 55%,#4a4d53)" },
-  { id: "iridescent", name: "Oil-slick PVD", price: "CHF 16,200", swatch: "linear-gradient(135deg,#f4e3ff,#6f8fb3 45%,#e7d39a 75%,#b9e2d4)" },
-];
-
 export function Demo() {
-  const [finish, setFinish] = useState<MetalTint>("silver");
-  const current = FINISHES.find((f) => f.id === finish)!;
   return (
-    <section className="fd-lmetal-demo">
+    <div className="fd-lmetald">
       <style>{demoCss}</style>
-      <header className="fd-lmetal-demo-head">
-        <p className="fd-lmetal-demo-kicker">Halden Chronométrie · Ref. 41 Mercure</p>
-        <h1 className="fd-lmetal-demo-title">Cast in liquid light.</h1>
-        <p className="fd-lmetal-demo-sub">A 41 mm monobloc case, hand-polished for 31 hours until it reads like poured metal. Limited to 410 pieces worldwide.</p>
-      </header>
-      <LiquidMetal className="fd-lmetal-demo-panel" tint={finish}>
-        <div className="fd-lmetal-demo-bar" role="group" aria-label="Case finish">
-          <div className="fd-lmetal-demo-swatches">
-            {FINISHES.map((f) => (
-              <button
-                key={f.id}
-                type="button"
-                className="fd-lmetal-demo-swatch"
-                aria-pressed={finish === f.id}
-                aria-label={f.name}
-                title={f.name}
-                onClick={() => setFinish(f.id)}
-                style={{ background: f.swatch }}
-              />
-            ))}
-          </div>
-          <div className="fd-lmetal-demo-info">
-            <span className="fd-lmetal-demo-finish">{current.name}</span>
-            <span className="fd-lmetal-demo-price">{current.price}</span>
-          </div>
-          <a className="fd-lmetal-demo-cta" href="#reserve" onClick={(e) => e.preventDefault()}>Reserve</a>
-        </div>
-      </LiquidMetal>
-      <dl className="fd-lmetal-demo-specs">
-        <div><dt>Movement</dt><dd>HC-07 manual, 72 h</dd></div>
-        <div><dt>Water resistance</dt><dd>100 m</dd></div>
-        <div><dt>Thickness</dt><dd>9.8 mm</dd></div>
-        <div><dt>Deliveries</dt><dd>From March 2027</dd></div>
-      </dl>
-    </section>
+      <LiquidMetal className="fd-lmetald-panel" tint="silver" scale={1.9} distortion={0.6} />
+    </div>
   );
 }
 
+const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
+
 const demoCss = `
-.fd-lmetal-demo, .fd-lmetal-demo *, .fd-lmetal-demo *::before, .fd-lmetal-demo *::after { box-sizing: border-box; }
-.fd-lmetal-demo {
-  --fd-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --fd-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  min-height: 100vh; margin: 0; padding: clamp(48px, 9vh, 104px) clamp(16px, 4vw, 48px) 48px;
-  display: flex; flex-direction: column; align-items: center; gap: clamp(32px, 5vh, 56px);
-  background: #000; color: #F5F5F7;
-  font: 400 15px/1.5 ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif;
-}
-.fd-lmetal-demo-head { max-width: 760px; margin: 0; padding: 0; text-align: center; }
-.fd-lmetal-demo-kicker { margin: 0 0 14px; padding: 0; color: #A1A1A6; font: 500 13px/1.3 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: 0.06em; text-transform: uppercase; }
-.fd-lmetal-demo-title {
-  margin: 0 0 18px; padding: 0; letter-spacing: -0.045em;
-  font: 700 clamp(2.75rem, 7vw, 5.5rem)/1 "SF Pro Display", ui-sans-serif, -apple-system, "Inter", "Segoe UI", Roboto, sans-serif;
-  color: #F5F5F7;
-  background: linear-gradient(180deg, #FFFFFF 0%, #D2D3D8 55%, #8E9097 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-}
-.fd-lmetal-demo-sub { max-width: 52ch; margin: 0 auto; padding: 0; color: #A1A1A6; font: 400 1.0625rem/1.5 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: -0.01em; }
-.fd-lmetal-demo-panel.fd-lmetal { width: 100%; max-width: 1280px; aspect-ratio: 16 / 8; min-height: 380px; --fd-lmetal-radius: 28px; cursor: grab; }
-.fd-lmetal-demo-panel:active { cursor: grabbing; }
-.fd-lmetal-demo-panel.fd-lmetal .fd-lmetal-content { display: flex; align-items: flex-end; justify-content: center; padding: 24px; }
-.fd-lmetal-demo-bar {
-  display: flex; align-items: center; gap: 18px; margin: 0; padding: 8px 8px 8px 14px;
-  border: 1px solid rgba(255,255,255,.12); border-radius: 9999px;
-  background: rgba(14, 14, 16, .72); -webkit-backdrop-filter: blur(20px) saturate(1.4); backdrop-filter: blur(20px) saturate(1.4);
-  box-shadow: 0 20px 50px -20px rgba(0,0,0,.6);
-}
-.fd-lmetal-demo-swatches { display: flex; gap: 8px; margin: 0; padding: 0; }
-.fd-lmetal-demo-swatch {
-  appearance: none; -webkit-appearance: none; display: block; width: 26px; height: 26px; margin: 0; padding: 0;
-  border: 0; border-radius: 50%; cursor: pointer;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.25), 0 0 0 2px rgba(14,14,16,1), 0 0 0 3px transparent;
-  transition: transform 120ms var(--fd-ease-out), box-shadow 240ms var(--fd-ease-out);
-}
-.fd-lmetal-demo-swatch:hover { transform: scale(1.08); }
-.fd-lmetal-demo-swatch:active { transform: scale(0.96); }
-.fd-lmetal-demo-swatch[aria-pressed="true"] { box-shadow: inset 0 0 0 1px rgba(255,255,255,.25), 0 0 0 2px rgba(14,14,16,1), 0 0 0 3.5px #F5F5F7; }
-.fd-lmetal-demo-swatch:focus-visible { outline: 2px solid rgba(10,132,255,.7); outline-offset: 4px; }
-.fd-lmetal-demo-info { display: flex; flex-direction: column; min-width: 128px; margin: 0; padding: 0 4px; }
-.fd-lmetal-demo-finish { margin: 0; padding: 0; color: #F5F5F7; font: 600 13px/1.3 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: 0; }
-.fd-lmetal-demo-price { margin: 0; padding: 0; color: #A1A1A6; font: 500 12px/1.3 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; font-variant-numeric: tabular-nums; letter-spacing: 0; }
-.fd-lmetal-demo-cta {
-  display: inline-flex; align-items: center; height: 40px; margin: 0; padding: 0 20px; border: 0; border-radius: 9999px;
-  background: #F5F5F7; color: #0B0B0F; text-decoration: none;
-  font: 600 14px/1 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: -0.01em;
-  transition: transform 120ms var(--fd-ease-out), background 120ms var(--fd-ease-out);
-}
-.fd-lmetal-demo-cta:hover { background: #FFFFFF; }
-.fd-lmetal-demo-cta:active { transform: scale(0.96); transition-timing-function: var(--fd-spring); }
-.fd-lmetal-demo-cta:focus-visible { outline: 2px solid rgba(10,132,255,.7); outline-offset: 2px; }
-.fd-lmetal-demo-specs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; width: 100%; max-width: 1280px; margin: 0; padding: 0 8px; }
-.fd-lmetal-demo-specs div { margin: 0; padding: 16px 0 0; border-top: 1px solid #2A2A2E; }
-.fd-lmetal-demo-specs dt { margin: 0 0 4px; padding: 0; color: #86868B; font: 500 12px/1.3 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: 0.02em; }
-.fd-lmetal-demo-specs dd { margin: 0; padding: 0; color: #F5F5F7; font: 600 17px/1.3 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: -0.01em; }
-@media (max-width: 720px) {
-  .fd-lmetal-demo-panel.fd-lmetal { aspect-ratio: 4 / 5; min-height: 0; }
-  .fd-lmetal-demo-bar { flex-wrap: wrap; justify-content: center; border-radius: 24px; padding: 12px; gap: 12px; }
-  .fd-lmetal-demo-info { align-items: center; }
-  .fd-lmetal-demo-specs { grid-template-columns: 1fr 1fr; }
-}
+.fd-lmetald,.fd-lmetald *,.fd-lmetald *::before,.fd-lmetald *::after{box-sizing:border-box}
+.fd-lmetald{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 20px;overflow:hidden;color:#1d1d1f;font:400 15px/1.4 ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;letter-spacing:normal;background:#f2f2f2}
+.fd-lmetald-panel.fd-lmetal{width:min(100%,640px);aspect-ratio:16/9;margin:0;padding:0;--fd-lmetal-radius:28px;box-shadow:0 1px 1px rgba(0,0,0,.06),0 24px 60px -24px rgba(0,0,0,.35)}
 `;

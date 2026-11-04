@@ -426,100 +426,18 @@ const css = `
 
 /* ───────────────────────── demo ───────────────────────── */
 
-const Arrow = (
-  <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
-    <path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
 export function Demo() {
-  const [plan, setPlan] = useState<"yearly" | "monthly">("yearly");
   return (
-    <section className="fd-lmbtn-demo">
+    <div className="fd-lmbtnd">
       <style>{demoCss}</style>
-      <div className="fd-lmbtn-demo-card" aria-hidden="true">
-        <div className="fd-lmbtn-demo-card-top">
-          <span className="fd-lmbtn-demo-card-brand">Northvale</span>
-          <span className="fd-lmbtn-demo-card-tier">METAL</span>
-        </div>
-        <div className="fd-lmbtn-demo-chip" />
-        <div className="fd-lmbtn-demo-card-num">•••• •••• •••• 4821</div>
-        <div className="fd-lmbtn-demo-card-bottom">
-          <span>ELIF DEMIR</span>
-          <span>09/31</span>
-        </div>
-      </div>
-      <div className="fd-lmbtn-demo-panel">
-        <p className="fd-lmbtn-demo-kicker">Northvale Metal</p>
-        <h2 className="fd-lmbtn-demo-title">18 grams of stainless steel. 3% back on everything.</h2>
-        <ul className="fd-lmbtn-demo-perks">
-          <li>3% cashback, no category caps</li>
-          <li>Airport lounges in 1,400 cities</li>
-          <li>0% FX on 150+ currencies</li>
-        </ul>
-        <div className="fd-lmbtn-demo-toggle" role="radiogroup" aria-label="Billing">
-          <button type="button" role="radio" aria-checked={plan === "yearly"} onClick={() => setPlan("yearly")}>Yearly · €16.60/mo</button>
-          <button type="button" role="radio" aria-checked={plan === "monthly"} onClick={() => setPlan("monthly")}>Monthly · €19.90</button>
-        </div>
-        <div className="fd-lmbtn-demo-actions">
-          <LiquidMetalButton icon={Arrow}>Upgrade to Metal</LiquidMetalButton>
-          <LiquidMetalButton variant="solid" size="md">Compare plans</LiquidMetalButton>
-        </div>
-        <div className="fd-lmbtn-demo-alt">
-          <span className="fd-lmbtn-demo-alt-label">CSS-only fallback</span>
-          <MetalButtonCSS size="md" icon={Arrow}>Upgrade</MetalButtonCSS>
-          <MetalButtonCSS size="md" variant="solid" tint="gold">Gold</MetalButtonCSS>
-          <MetalButtonCSS size="md" variant="solid" tint="black-chrome">Black</MetalButtonCSS>
-        </div>
-        <p className="fd-lmbtn-demo-fine">Billed €199 yearly. Cancel anytime in the app. Card ships in 5–7 days.</p>
-      </div>
-    </section>
+      <LiquidMetalButton>Continue</LiquidMetalButton>
+    </div>
   );
 }
 
+const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
+
 const demoCss = `
-.fd-lmbtn-demo, .fd-lmbtn-demo *, .fd-lmbtn-demo *::before, .fd-lmbtn-demo *::after { box-sizing: border-box; }
-.fd-lmbtn-demo {
-  min-height: 100vh; margin: 0; padding: clamp(32px, 6vw, 80px) clamp(16px, 4vw, 48px);
-  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(32px, 6vw, 96px);
-  background: radial-gradient(900px 600px at 25% 40%, #23242A 0%, #0B0B0F 70%); color: #F5F5F7;
-  font: 400 15px/1.5 ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif;
-}
-.fd-lmbtn-demo-card {
-  justify-self: end; width: min(100%, 420px); aspect-ratio: 1.586; margin: 0; padding: 26px 28px; border-radius: 20px;
-  display: flex; flex-direction: column; justify-content: space-between; color: #1A1B1F;
-  background:
-    repeating-linear-gradient(90deg, rgba(255,255,255,.06) 0 1px, transparent 1px 3px),
-    linear-gradient(125deg, #f2f3f5 0%, #a9adb4 28%, #eef0f2 46%, #6e727a 64%, #d9dce0 82%, #9a9ea6 100%);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.8), inset 0 -1px 0 rgba(0,0,0,.25), 0 40px 80px -30px rgba(0,0,0,.8), 0 0 0 1px rgba(0,0,0,.4);
-  transform: perspective(1200px) rotateY(14deg) rotateX(6deg) rotateZ(-3deg);
-}
-.fd-lmbtn-demo-card-top { display: flex; justify-content: space-between; align-items: center; margin: 0; padding: 0; }
-.fd-lmbtn-demo-card-brand { margin: 0; padding: 0; font: 700 20px/1 "SF Pro Display", ui-sans-serif, -apple-system, "Inter", sans-serif; letter-spacing: -0.03em; color: #1A1B1F; }
-.fd-lmbtn-demo-card-tier { margin: 0; padding: 0; font: 600 11px/1 ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace; letter-spacing: .2em; color: #3A3C42; }
-.fd-lmbtn-demo-chip { width: 46px; height: 34px; margin: 0; padding: 0; border-radius: 7px; background: linear-gradient(135deg, #e8d29a, #b0904a 50%, #f1e0b0); box-shadow: inset 0 0 0 1px rgba(0,0,0,.2); }
-.fd-lmbtn-demo-card-num { margin: 0; padding: 0; font: 500 19px/1 ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace; letter-spacing: .08em; color: #23252A; text-shadow: 0 1px 0 rgba(255,255,255,.5); }
-.fd-lmbtn-demo-card-bottom { display: flex; justify-content: space-between; margin: 0; padding: 0; font: 600 12px/1 ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace; letter-spacing: .12em; color: #2A2C31; }
-.fd-lmbtn-demo-panel { max-width: 480px; margin: 0; padding: 0; }
-.fd-lmbtn-demo-kicker { margin: 0 0 12px; padding: 0; color: #A1A1A6; font: 600 13px/1.3 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: 0.06em; text-transform: uppercase; }
-.fd-lmbtn-demo-title { margin: 0 0 20px; padding: 0; color: #F5F5F7; font: 700 clamp(2rem, 3.6vw, 2.75rem)/1.05 "SF Pro Display", ui-sans-serif, -apple-system, "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: -0.03em; }
-.fd-lmbtn-demo-perks { margin: 0 0 24px; padding: 0; list-style: none; }
-.fd-lmbtn-demo-perks li { position: relative; margin: 0; padding: 7px 0 7px 26px; color: #C7C7CC; font: 400 15px/1.4 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; list-style: none; }
-.fd-lmbtn-demo-perks li::before { content: ""; position: absolute; left: 2px; top: 12px; width: 12px; height: 7px; border-left: 2px solid #D2D4D9; border-bottom: 2px solid #D2D4D9; transform: rotate(-45deg); }
-.fd-lmbtn-demo-toggle { display: inline-flex; margin: 0 0 28px; padding: 4px; border-radius: 9999px; background: #1C1C22; box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); }
-.fd-lmbtn-demo-toggle button {
-  appearance: none; -webkit-appearance: none; margin: 0; padding: 9px 16px; border: 0; border-radius: 9999px; background: transparent; color: #8E8E93; cursor: pointer;
-  font: 500 13px/1 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: 0;
-  transition: background 240ms cubic-bezier(0.65, 0, 0.35, 1), color 240ms cubic-bezier(0.65, 0, 0.35, 1);
-}
-.fd-lmbtn-demo-toggle button[aria-checked="true"] { background: #3A3A40; color: #F5F5F7; }
-.fd-lmbtn-demo-toggle button:focus-visible { outline: 2px solid rgba(10,132,255,.7); outline-offset: 2px; }
-.fd-lmbtn-demo-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin: 0 0 28px; padding: 0; }
-.fd-lmbtn-demo-alt { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0 0 20px; padding: 18px 0 0; border-top: 1px solid #2A2A2E; }
-.fd-lmbtn-demo-alt-label { width: 100%; margin: 0 0 2px; padding: 0; color: #6B6B76; font: 500 12px/1.2 ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace; letter-spacing: .04em; }
-.fd-lmbtn-demo-fine { margin: 0; padding: 0; color: #6B6B76; font: 400 13px/1.4 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; }
-@media (max-width: 860px) {
-  .fd-lmbtn-demo { grid-template-columns: 1fr; }
-  .fd-lmbtn-demo-card { justify-self: center; transform: none; width: min(100%, 360px); }
-}
+.fd-lmbtnd,.fd-lmbtnd *,.fd-lmbtnd *::before,.fd-lmbtnd *::after{box-sizing:border-box}
+.fd-lmbtnd{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 20px;overflow:hidden;color:#1d1d1f;font:400 15px/1.4 ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;letter-spacing:normal;background:#f2f2f2}
 `;

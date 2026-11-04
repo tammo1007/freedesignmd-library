@@ -384,100 +384,22 @@ const css = `
 
 /* ───────────────────────────── demo ───────────────────────────── */
 
-const TEST = [
-  ["Visa", "4242424242424242"],
-  ["Mastercard", "5555555555554444"],
-  ["Amex", "378282246310005"],
-];
-
 export function Demo() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
   return (
-    <div className="fd-pay-demo" data-fd-theme={theme}>
+    <div className="fd-payd">
       <style>{demoCss}</style>
-      <header className="fd-pay-demo-bar">
-        <span className="fd-pay-demo-brand"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M3 17l8-4.5V6a2 2 0 1 1 4 0v6.5l6 3.5v2l-6-1.5V19l2 1v1.5l-3.5-1L10 21.5V20l2-1v-3.5L3 19z" /></svg>Wayfarer</span>
-        <ol className="fd-pay-demo-steps" aria-label="Checkout progress"><li>Trip</li><li>Travellers</li><li aria-current="step">Payment</li></ol>
-        <button type="button" className="fd-pay-demo-theme" aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"} onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>{theme === "dark" ? "Light" : "Dark"}</button>
-      </header>
-
-      <main className="fd-pay-demo-main">
-        <section className="fd-pay-demo-pane" aria-labelledby="fd-pay-h">
-          <h1 id="fd-pay-h">Payment</h1>
-          <p className="fd-pay-demo-sub">Pay securely to confirm your booking.</p>
-          <div className="fd-pay-demo-test" aria-label="Fill with a test card">
-            <span>Try a test card</span>
-            {TEST.map(([n, v]) => (
-              <button key={n} type="button" onClick={(e) => fill(e.currentTarget, v)}>{n}</button>
-            ))}
-          </div>
-          <PaymentForm amountLabel="€1,248.60" defaultName="Sofia Lindqvist" theme={theme} />
-        </section>
-
-        <aside className="fd-pay-demo-sum" aria-label="Booking summary">
-          <div className="fd-pay-demo-pic" aria-hidden="true">
-            <svg aria-hidden="true" focusable="false" viewBox="0 0 400 180" preserveAspectRatio="xMidYMid slice" width="100%" height="100%"><rect width="400" height="180" fill="#FBD9B5" /><circle cx="290" cy="64" r="34" fill="#F7A072" /><path d="M0 180V118l60-28 50 26 70-44 60 40 70-30 90 40v58z" fill="#E9825B" opacity=".85" /><path d="M0 180v-34l70-22 60 24 80-30 70 28 120-26v60z" fill="#C45A3C" /></svg>
-            <span>Lisbon, Portugal</span>
-          </div>
-          <h2>Casa do Alfama · 4 nights</h2>
-          <p className="fd-pay-demo-meta">Thu 12 Nov – Mon 16 Nov · 2 adults</p>
-          <dl>
-            <div><dt>Room, 4 nights × €142.00</dt><dd>€568.00</dd></div>
-            <div><dt>Flights LHR → LIS, return</dt><dd>€612.00</dd></div>
-            <div><dt>City tax</dt><dd>€16.00</dd></div>
-            <div><dt>Service fee</dt><dd>€52.60</dd></div>
-            <div data-total><dt>Total (EUR)</dt><dd>€1,248.60</dd></div>
-          </dl>
-          <p className="fd-pay-demo-cancel"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" /></svg>Free cancellation until 9 Nov</p>
-        </aside>
-      </main>
+      <div className="fd-payd-card">
+        <PaymentForm amountLabel="$48.00" defaultName="Sofia Lindqvist" theme="light" />
+      </div>
     </div>
   );
 }
 
-/** Demo helper: type a number into the card field of the mounted form. */
-function fill(btn: HTMLElement, digits: string) {
-  const input = btn.closest(".fd-pay-demo-pane")?.querySelector<HTMLInputElement>('input[autocomplete="cc-number"]');
-  if (!input) return;
-  const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value")?.set;
-  setter?.call(input, digits);
-  input.dispatchEvent(new Event("input", { bubbles: true }));
-  input.focus();
-}
+const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
 
 const demoCss = `
-:where(.fd-pay-demo,.fd-pay-demo *){box-sizing:border-box;margin:0;padding:0;font:inherit;letter-spacing:inherit;color:inherit;text-decoration:none;list-style:none}
-:where(.fd-pay-demo,.fd-pay-demo *)::before,:where(.fd-pay-demo,.fd-pay-demo *)::after{box-sizing:border-box}
-:where(.fd-pay-demo svg){display:block;flex-shrink:0}
-:where(.fd-pay-demo button){appearance:none;-webkit-appearance:none;background:none;border:0;border-radius:0}
-.fd-pay-demo{--d-font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;--d-disp:ui-sans-serif,-apple-system,"SF Pro Display","Inter",sans-serif;
-  --fd-ease-out:cubic-bezier(.22,1,.36,1);--fd-dur-2:240ms;
-  --d-bg:#F6F4F1;--d-card:#fff;--d-ink:#0B0B0F;--d-mut:#6B6B76;--d-line:rgba(11,11,15,.08);--d-accent:#007AFF;
-  min-height:100vh;background:var(--d-bg);color:var(--d-ink);font:400 15px/1.45 var(--d-font);-webkit-font-smoothing:antialiased;transition:background-color var(--fd-dur-2) var(--fd-ease-out)}
-.fd-pay-demo[data-fd-theme="dark"]{--d-bg:#09090B;--d-card:#111115;--d-ink:#F5F5F7;--d-mut:#9A9AA6;--d-line:rgba(255,255,255,.09);--d-accent:#0A84FF}
-.fd-pay-demo-bar{display:flex;align-items:center;gap:24px;height:60px;padding:0 clamp(16px,4vw,40px)}
-.fd-pay-demo-brand{display:flex;align-items:center;gap:8px;font:700 17px/1 var(--d-disp);letter-spacing:-.03em}
-.fd-pay-demo-steps{display:flex;gap:20px;margin:0 auto;font:500 13px/1 var(--d-font);color:var(--d-mut)}
-.fd-pay-demo-steps li{display:flex;align-items:center;gap:20px}.fd-pay-demo-steps li:not(:last-child)::after{content:"";width:24px;height:1px;background:var(--d-line)}
-.fd-pay-demo-steps li[aria-current]{color:var(--d-ink)}
-.fd-pay-demo-theme{cursor:pointer;height:32px;padding:0 14px;border-radius:9999px;box-shadow:0 0 0 1px var(--d-line);font:500 13px/1 var(--d-font);color:var(--d-mut)}
-.fd-pay-demo-theme:hover{color:var(--d-ink)}.fd-pay-demo-theme:focus-visible,.fd-pay-demo-test button:focus-visible{outline:2px solid rgba(10,132,255,.7);outline-offset:2px}
-.fd-pay-demo-main{display:grid;grid-template-columns:minmax(0,460px) minmax(0,360px);gap:32px;justify-content:center;align-items:start;padding:24px clamp(16px,4vw,40px) 64px}
-.fd-pay-demo-pane{padding:32px;border-radius:28px;background:var(--d-card);box-shadow:0 0 0 1px var(--d-line),0 1px 2px rgba(0,0,0,.04),0 32px 64px -40px rgba(0,0,0,.3)}
-.fd-pay-demo-pane h1{font:600 24px/1.2 var(--d-disp);letter-spacing:-.02em}
-.fd-pay-demo-sub{margin-top:6px;font:400 14px/1.4 var(--d-font);color:var(--d-mut)}
-.fd-pay-demo-test{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:20px 0 20px;font:400 13px/1 var(--d-font);color:var(--d-mut)}
-.fd-pay-demo-test button{cursor:pointer;height:26px;padding:0 10px;border-radius:9999px;box-shadow:0 0 0 1px var(--d-line);font:500 12px/1 var(--d-font);color:var(--d-ink)}
-.fd-pay-demo-test button:hover{background:var(--d-line)}
-.fd-pay-demo-sum{position:sticky;top:24px;padding:20px;border-radius:24px;background:var(--d-card);box-shadow:0 0 0 1px var(--d-line)}
-.fd-pay-demo-pic{position:relative;height:150px;border-radius:14px;overflow:hidden}
-.fd-pay-demo-pic span{position:absolute;left:12px;bottom:12px;height:24px;display:inline-flex;align-items:center;padding:0 10px;border-radius:9999px;background:rgba(255,255,255,.9);color:#0B0B0F;font:600 12px/1 var(--d-font)}
-.fd-pay-demo-sum h2{margin-top:16px;font:600 17px/1.25 var(--d-font);letter-spacing:-.01em}
-.fd-pay-demo-meta{margin-top:4px;font:400 14px/1.4 var(--d-font);color:var(--d-mut)}
-.fd-pay-demo-sum dl{display:flex;flex-direction:column;gap:12px;margin-top:20px;padding-top:16px;border-top:1px solid var(--d-line);font:400 14px/1.3 var(--d-font)}
-.fd-pay-demo-sum dl div{display:flex;justify-content:space-between;gap:16px}.fd-pay-demo-sum dt{color:var(--d-mut)}.fd-pay-demo-sum dd{font-variant-numeric:tabular-nums}
-.fd-pay-demo-sum dl div[data-total]{margin-top:4px;padding-top:16px;border-top:1px solid var(--d-line);font:600 17px/1.2 var(--d-font)}.fd-pay-demo-sum dl div[data-total] dt{color:var(--d-ink)}
-.fd-pay-demo-cancel{display:flex;align-items:center;gap:8px;margin-top:16px;font:500 13px/1 var(--d-font);color:#1C9A44}
-@media (max-width:900px){.fd-pay-demo-main{grid-template-columns:minmax(0,460px)}.fd-pay-demo-sum{position:static;order:-1}.fd-pay-demo-steps{display:none}}
-@media (max-width:520px){.fd-pay-demo-pane{padding:20px;border-radius:22px}}
+.fd-payd,.fd-payd *,.fd-payd *::before,.fd-payd *::after{box-sizing:border-box}
+.fd-payd{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:24px 20px;color:#1d1d1f;font:400 15px/1.4 ${F};letter-spacing:normal;background:#f1f1f2}
+.fd-payd-card{width:100%;max-width:420px;margin:0;padding:24px;border-radius:28px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.04),0 1px 2px rgba(0,0,0,.03),0 18px 40px -22px rgba(0,0,0,.2)}
+@media (max-width:520px){.fd-payd-card{padding:20px;border-radius:22px}}
 `;

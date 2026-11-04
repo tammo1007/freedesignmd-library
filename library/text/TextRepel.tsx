@@ -210,69 +210,26 @@ const css = `
 export function Demo() {
   const [mode, setMode] = useState<"repel" | "attract">("repel");
   return (
-    <div className="fd-tr-demo">
+    <div className="fd-trd">
       <style>{demoCss}</style>
-      <header className="fd-tr-demo-bar">
-        <span className="fd-tr-demo-brand">Marrow<span>&amp;</span>Pine</span>
-        <span className="fd-tr-demo-loc">Rotterdam, 51.92°N</span>
-        <div className="fd-tr-demo-seg" role="radiogroup" aria-label="Cursor field">
-          {(["repel", "attract"] as const).map((m) => (
-            <button key={m} type="button" role="radio" aria-checked={mode === m} onClick={() => setMode(m)}>
-              {m === "repel" ? "Repel" : "Attract"}
-            </button>
-          ))}
-        </div>
-      </header>
-      <main className="fd-tr-demo-main">
-        <p className="fd-tr-demo-eyebrow">Independent brand &amp; motion studio · Est. 2014</p>
-        <TextRepel text="We make brands people can’t scroll past." mode={mode} className="fd-tr-demo-h1" radius={180} strength={mode === "repel" ? 64 : 36} />
-        <div className="fd-tr-demo-row">
-          <p className="fd-tr-demo-copy">
-            Identity, motion and digital product for companies that would rather be remembered than merely seen. Currently shaping launches for a Dutch
-            e-bike maker, a Lisbon hotel group and a climate fund.
-          </p>
-          <a className="fd-tr-demo-cta" href="#work">
-            See selected work
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-          </a>
-        </div>
-        <ul className="fd-tr-demo-tags" aria-label="Disciplines">
-          {["Brand systems", "Motion identity", "Type design", "Product UI", "Launch films"].map((t) => <li key={t}>{t}</li>)}
-        </ul>
-      </main>
-      <footer className="fd-tr-demo-foot">
-        <span>Clients incl. Veloq, Oda Hotels, Northbound Fund</span>
-        <span>hello@marrowpine.studio</span>
-      </footer>
+      <TextRepel as="h2" text="Hold still if you can." mode={mode} className="fd-trd-text" radius={170} strength={mode === "repel" ? 60 : 34} />
+      <div className="fd-trd-seg" role="radiogroup" aria-label="Cursor field">
+        {(["repel", "attract"] as const).map((m) => (
+          <button key={m} type="button" role="radio" aria-checked={mode === m} onClick={() => setMode(m)}>
+            {m === "repel" ? "Repel" : "Attract"}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
 
 const demoCss = `
-.fd-tr-demo,.fd-tr-demo *,.fd-tr-demo *::before,.fd-tr-demo *::after{box-sizing:border-box}
-.fd-tr-demo{--d-font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;--d-disp:"SF Pro Display",ui-sans-serif,-apple-system,"Inter Display","Inter",sans-serif;
-  --d-bg:#E9FF5B;--d-ink:#111110;--d-mut:rgba(17,17,16,.62);
-  display:flex;flex-direction:column;margin:0;padding:0;min-height:100vh;background:var(--d-bg);color:var(--d-ink);font:400 15px/1.5 var(--d-font);-webkit-font-smoothing:antialiased}
-.fd-tr-demo-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0;padding:20px clamp(16px,4vw,48px)}
-.fd-tr-demo-brand{margin:0;font:700 20px/1 var(--d-disp);letter-spacing:-.03em}
-.fd-tr-demo-brand span{margin:0 2px;font-style:italic;font-weight:400;font-family:ui-serif,Georgia,serif}
-.fd-tr-demo-loc{margin:0;font:500 13px/1 ui-monospace,"SF Mono","JetBrains Mono",Menlo,monospace;color:var(--d-mut)}
-.fd-tr-demo-seg{display:inline-flex;margin:0;padding:3px;border-radius:9999px;background:rgba(17,17,16,.08)}
-.fd-tr-demo-seg button{appearance:none;-webkit-appearance:none;margin:0;height:30px;padding:0 14px;border:0;border-radius:9999px;background:transparent;color:var(--d-mut);
-  font:500 13px/1 var(--d-font);cursor:pointer;transition:background-color 240ms cubic-bezier(.65,0,.35,1),color 240ms}
-.fd-tr-demo-seg button[aria-checked="true"]{background:var(--d-ink);color:var(--d-bg)}
-.fd-tr-demo button:focus-visible,.fd-tr-demo a:focus-visible{outline:2px solid rgba(10,132,255,.7);outline-offset:2px}
-.fd-tr-demo-main{flex:1;display:flex;flex-direction:column;justify-content:center;margin:0 auto;padding:clamp(24px,6vh,64px) clamp(16px,4vw,48px);width:100%;max-width:1440px}
-.fd-tr-demo-eyebrow{margin:0 0 24px;font:500 13px/1 ui-monospace,"SF Mono","JetBrains Mono",Menlo,monospace;color:var(--d-mut);text-transform:uppercase;letter-spacing:.04em}
-.fd-tr-demo-h1{max-width:11ch;color:var(--d-ink);font:800 clamp(52px,10.4vw,152px)/.88 var(--d-disp);letter-spacing:-.055em;cursor:crosshair}
-.fd-tr-demo-row{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;margin:clamp(32px,6vh,64px) 0 0}
-.fd-tr-demo-copy{max-width:30em;margin:0;font:400 17px/1.5 var(--d-font);letter-spacing:-.01em;color:var(--d-ink)}
-.fd-tr-demo-cta{display:inline-flex;align-items:center;gap:10px;height:56px;margin:0;padding:0 26px;border-radius:9999px;background:var(--d-ink);color:var(--d-bg);
-  font:500 17px/1 var(--d-font);text-decoration:none;transition:transform 120ms cubic-bezier(.22,1,.36,1)}
-.fd-tr-demo-cta:active{transform:scale(.96)}
-.fd-tr-demo-cta svg{display:block}
-.fd-tr-demo-tags{display:flex;flex-wrap:wrap;gap:8px;margin:32px 0 0;padding:0;list-style:none}
-.fd-tr-demo-tags li{margin:0;padding:8px 14px;border-radius:9999px;box-shadow:inset 0 0 0 1px rgba(17,17,16,.3);font:500 13px/1 var(--d-font)}
-.fd-tr-demo-foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin:0;padding:20px clamp(16px,4vw,48px);border-top:1px solid rgba(17,17,16,.16);font:500 13px/1.3 var(--d-font);color:var(--d-mut)}
-@media (max-width:640px){.fd-tr-demo-loc{display:none}}
+.fd-trd,.fd-trd *,.fd-trd *::before,.fd-trd *::after{box-sizing:border-box}
+.fd-trd{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:56px;min-height:100vh;width:100%;margin:0;padding:32px 20px;overflow:hidden;background:#f2f2f2;color:#1d1d1f;font:400 15px/1.4 ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;letter-spacing:normal;-webkit-font-smoothing:antialiased}
+.fd-trd .fd-trd-text{margin:0;padding:0;max-width:11em;text-align:center;color:#1d1d1f;font:600 clamp(40px,8.4vw,96px)/1.04 "SF Pro Display",ui-sans-serif,-apple-system,"Inter Display","Inter",sans-serif;letter-spacing:-.045em;cursor:default}
+.fd-trd-seg{display:inline-flex;gap:2px;margin:0;padding:3px;border-radius:9999px;background:rgba(0,0,0,.06)}
+.fd-trd-seg button{appearance:none;-webkit-appearance:none;margin:0;height:30px;padding:0 14px;border:0;border-radius:9999px;background:transparent;color:#6e6e73;font:500 13px/1 ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;letter-spacing:normal;cursor:pointer;transition:background-color 220ms cubic-bezier(.65,0,.35,1),color 220ms}
+.fd-trd-seg button[aria-checked="true"]{background:#fff;color:#1d1d1f;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.fd-trd-seg button:focus-visible{outline:2px solid rgba(10,132,255,.8);outline-offset:2px}
 `;

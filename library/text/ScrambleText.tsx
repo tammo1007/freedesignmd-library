@@ -182,109 +182,24 @@ const css = `
 
 /* ───────────────────────────── demo ───────────────────────────── */
 
-const LOG = [
-  { t: "09:41:07", k: "BLOCK", m: "Credential stuffing · 1,284 req/min from AS 49981", c: "#FF6B6B" },
-  { t: "09:41:12", k: "ISOLATE", m: "Host fin-ws-0217 · beacon to 185.220.101.4", c: "#FFB547" },
-  { t: "09:41:19", k: "PATCH", m: "CVE-2026-31337 · OpenSSH 9.8p1 on 42 nodes", c: "#5BE3A8" },
-  { t: "09:41:23", k: "VERIFY", m: "Token rotation complete · 0 sessions orphaned", c: "#7AA7FF" },
-];
-
 export function Demo() {
   const [n, setN] = useState(0);
   return (
-    <div className="fd-sc-demo">
+    <div className="fd-scd">
       <style>{demoCss}</style>
-      <div className="fd-sc-demo-grid" aria-hidden="true" />
-      <header className="fd-sc-demo-bar">
-        <span className="fd-sc-demo-brand">
-          <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l8 3v6.2c0 4.7-3.3 8.4-8 9.8-4.7-1.4-8-5.1-8-9.8V5.5z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" /><path d="M8.5 12.2l2.3 2.3 4.7-4.8" fill="none" stroke="#5BE3A8" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
-          <ScrambleText text="SENTRYLINE" trigger="mount" speed={18} />
-        </span>
-        <nav className="fd-sc-demo-nav" aria-label="Primary">
-          {["Platform", "Threat intel", "Customers", "Docs"].map((l) => (
-            <a key={l} href={`#${l.toLowerCase().replace(/\s/g, "-")}`}>
-              <ScrambleText text={l} trigger="manual" speed={60} scramble={4} />
-            </a>
-          ))}
-        </nav>
-        <span className="fd-sc-demo-status"><span aria-hidden="true" />All systems nominal</span>
-      </header>
-
-      <main className="fd-sc-demo-main">
-        <p className="fd-sc-demo-eyebrow">
-          <ScrambleText text="// AUTONOMOUS SOC · v4.2" trigger="mount" speed={40} />
-        </p>
-        <h1 className="fd-sc-demo-h1">
-          <ScrambleText text="Breaches decoded" trigger="mount" speed={16} scramble={10} replay={n} />
-          <br />
-          <span className="fd-sc-demo-h1b"><ScrambleText text="before they land." trigger="mount" speed={18} scramble={18} replay={n} /></span>
-        </h1>
-        <p className="fd-sc-demo-sub">
-          Sentryline correlates 2.3 billion events a day across endpoint, identity and cloud, and contains threats in a median 38 seconds, with a human-readable
-          reason for every action.
-        </p>
-        <div className="fd-sc-demo-cta">
-          <a className="fd-sc-demo-btn" href="#trial"><ScrambleText text="Start 14-day trial" trigger="manual" speed={50} scramble={5} /></a>
-          <button type="button" className="fd-sc-demo-btn fd-sc-demo-btn--ghost" onClick={() => setN((v) => v + 1)}>
-            <ScrambleText text="Re-run decrypt" trigger="manual" speed={50} scramble={5} />
-          </button>
-        </div>
-
-        <section className="fd-sc-demo-panel" aria-label="Live response log">
-          <div className="fd-sc-demo-panelhead">
-            <span>response.log</span>
-            <span>tail -f · eu-central-1</span>
-          </div>
-          <ol className="fd-sc-demo-log">
-            {LOG.map((l, i) => (
-              <li key={l.t}>
-                <span className="fd-sc-demo-time">{l.t}</span>
-                <span className="fd-sc-demo-kind" style={{ color: l.c }}>
-                  <ScrambleText text={l.k.padEnd(7, " ")} speed={20} scramble={10 + i * 6} replay={n} />
-                </span>
-                <ScrambleText className="fd-sc-demo-msg" text={l.m} speed={70} scramble={14 + i * 8} replay={n} />
-              </li>
-            ))}
-          </ol>
-        </section>
-      </main>
+      <p className="fd-scd-line">
+        <ScrambleText text="Decode the signal" trigger="mount" speed={16} scramble={10} replay={n} />
+      </p>
+      <button type="button" className="fd-scd-btn" onClick={() => setN((v) => v + 1)}>Replay</button>
     </div>
   );
 }
 
 const demoCss = `
-.fd-sc-demo,.fd-sc-demo *,.fd-sc-demo *::before,.fd-sc-demo *::after{box-sizing:border-box}
-.fd-sc-demo{--d-mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,monospace;--d-font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;
-  --d-ink:#E8EEF2;--d-mut:#8693A0;--d-line:rgba(232,238,242,.1);--d-acc:#5BE3A8;
-  position:relative;overflow:hidden;margin:0;padding:0;min-height:100vh;background:#07090C;color:var(--d-ink);font:400 15px/1.5 var(--d-font);-webkit-font-smoothing:antialiased}
-.fd-sc-demo-grid{position:absolute;inset:0;pointer-events:none;
-  background-image:linear-gradient(rgba(91,227,168,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(91,227,168,.05) 1px,transparent 1px);background-size:48px 48px;
-  mask-image:radial-gradient(70% 60% at 50% 30%,#000,transparent);-webkit-mask-image:radial-gradient(70% 60% at 50% 30%,#000,transparent)}
-.fd-sc-demo-bar{position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0;padding:18px clamp(16px,4vw,48px);border-bottom:1px solid var(--d-line)}
-.fd-sc-demo-brand{display:inline-flex;align-items:center;gap:10px;margin:0;font:600 15px/1 var(--d-mono);letter-spacing:.12em}
-.fd-sc-demo-brand svg{display:block}
-.fd-sc-demo-nav{display:flex;gap:28px;margin:0}
-.fd-sc-demo-nav a{margin:0;padding:6px 0;color:var(--d-mut);font:500 13px/1 var(--d-mono);text-decoration:none;text-transform:uppercase;letter-spacing:.06em}
-.fd-sc-demo-nav a:hover{color:var(--d-ink)}
-.fd-sc-demo-status{display:inline-flex;align-items:center;gap:8px;margin:0;color:var(--d-mut);font:500 12px/1 var(--d-mono)}
-.fd-sc-demo-status span{display:block;width:7px;height:7px;border-radius:50%;background:var(--d-acc);box-shadow:0 0 12px var(--d-acc)}
-.fd-sc-demo-main{position:relative;max-width:1200px;margin:0 auto;padding:clamp(40px,9vh,96px) clamp(16px,4vw,48px) 48px}
-.fd-sc-demo-eyebrow{margin:0 0 24px;color:var(--d-acc);font:500 13px/1 var(--d-mono);letter-spacing:.08em}
-.fd-sc-demo-h1{margin:0;color:var(--d-ink);font:600 clamp(40px,7vw,92px)/1 var(--d-mono);letter-spacing:-.05em}
-.fd-sc-demo-h1b{color:var(--d-acc)}
-.fd-sc-demo-sub{max-width:36em;margin:28px 0 0;color:var(--d-mut);font:400 17px/1.55 var(--d-font);letter-spacing:-.01em;text-wrap:pretty}
-.fd-sc-demo-cta{display:flex;flex-wrap:wrap;gap:12px;margin:32px 0 0}
-.fd-sc-demo-btn{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;height:46px;margin:0;padding:0 22px;border:0;border-radius:9999px;background:var(--d-acc);color:#04120B;
-  font:600 14px/1 var(--d-mono);text-decoration:none;cursor:pointer;letter-spacing:.02em;transition:transform 120ms cubic-bezier(.22,1,.36,1)}
-.fd-sc-demo-btn:active{transform:scale(.96)}
-.fd-sc-demo-btn--ghost{background:transparent;color:var(--d-ink);box-shadow:inset 0 0 0 1px rgba(232,238,242,.24)}
-.fd-sc-demo a:focus-visible,.fd-sc-demo button:focus-visible{outline:2px solid rgba(10,132,255,.8);outline-offset:2px}
-.fd-sc-demo-panel{margin:clamp(40px,8vh,72px) 0 0;border-radius:20px;background:rgba(232,238,242,.03);box-shadow:inset 0 0 0 1px var(--d-line);overflow:hidden}
-.fd-sc-demo-panelhead{display:flex;justify-content:space-between;gap:12px;margin:0;padding:12px 18px;border-bottom:1px solid var(--d-line);color:var(--d-mut);font:500 12px/1 var(--d-mono)}
-.fd-sc-demo-log{margin:0;padding:10px 0;list-style:none}
-.fd-sc-demo-log li{display:grid;grid-template-columns:88px 92px 1fr;gap:12px;margin:0;padding:9px 18px;font:400 13px/1.4 var(--d-mono);color:var(--d-ink)}
-.fd-sc-demo-time{color:var(--d-mut)}
-.fd-sc-demo-kind{font-weight:600}
-@media (max-width:820px){.fd-sc-demo-nav{display:none}.fd-sc-demo-log li{grid-template-columns:72px 1fr}.fd-sc-demo-msg{grid-column:1/-1;color:var(--d-mut)}}
-@media (max-width:480px){.fd-sc-demo-status{display:none}}
+.fd-scd,.fd-scd *,.fd-scd *::before,.fd-scd *::after{box-sizing:border-box}
+.fd-scd{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;min-height:100vh;width:100%;margin:0;padding:32px 20px;overflow:hidden;background:#f2f2f2;color:#1d1d1f;font:400 15px/1.4 ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;letter-spacing:normal;-webkit-font-smoothing:antialiased}
+.fd-scd-line{margin:0;padding:0;max-width:100%;color:#1d1d1f;text-align:center;font:500 clamp(28px,7.2vw,72px)/1.1 ui-monospace,"SF Mono","JetBrains Mono",Menlo,monospace;letter-spacing:-.04em;--fd-sc-dim:rgba(29,29,31,.3)}
+.fd-scd-btn{appearance:none;-webkit-appearance:none;margin:0;height:34px;padding:0 16px;border:0;border-radius:9999px;background:rgba(0,0,0,.06);color:#3c3c43;font:500 13px/1 ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;letter-spacing:normal;cursor:pointer;transition:background-color 200ms}
+.fd-scd-btn:hover{background:rgba(0,0,0,.1)}
+.fd-scd-btn:focus-visible{outline:2px solid rgba(10,132,255,.8);outline-offset:2px}
 `;

@@ -152,147 +152,40 @@ const css = `
 
 /* ───────────────────────────── demo ───────────────────────────── */
 
-type Asset = { sym: string; name: string; price: number; open: number; hold: number; color: string; vol: number };
-
-const START: Asset[] = [
-  { sym: "BTC", name: "Bitcoin", price: 98412.55, open: 96870.1, hold: 0.4182, color: "#F7931A", vol: 0.0016 },
-  { sym: "ETH", name: "Ether", price: 3641.28, open: 3702.9, hold: 6.25, color: "#8C8CF6", vol: 0.0022 },
-  { sym: "SOL", name: "Solana", price: 212.47, open: 205.12, hold: 84, color: "#2DD4BF", vol: 0.0035 },
-  { sym: "LINK", name: "Chainlink", price: 24.083, open: 24.51, hold: 640, color: "#3B82F6", vol: 0.004 },
-  { sym: "EURC", name: "Euro Coin", price: 1.0842, open: 1.0839, hold: 12500, color: "#A3E635", vol: 0.0002 },
-];
-
 export function Demo() {
-  const [assets, setAssets] = useState(START);
-  const [live, setLive] = useState(true);
-  const [ccy, setCcy] = useState<"USD" | "EUR">("USD");
-  const fx = ccy === "USD" ? 1 : 0.9223;
+  const [value, setValue] = useState(12480.5);
+  const seed = useRef(11);
+  const step = () => {
+    seed.current = (seed.current * 16807) % 2147483647;
+    const r = seed.current / 2147483647 - 0.5;
+    setValue((v) => Math.max(1000, Number((v + r * 4200).toFixed(2))));
+  };
 
   useEffect(() => {
-    if (!live) return;
     if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
-    let seed = 7;
-    const rnd = () => ((seed = (seed * 16807) % 2147483647) / 2147483647) * 2 - 1;
     const id = window.setInterval(() => {
-      if (document.hidden) return;
-      setAssets((as) =>
-        as.map((a, i) => {
-          if (rnd() < -0.2 && i !== 0) return a; // not every asset ticks every time
-          const p = a.price * (1 + rnd() * a.vol * 2.2);
-          const dp = a.price > 1000 ? 2 : a.price > 10 ? 2 : 4;
-          return { ...a, price: Number(p.toFixed(dp)) };
-        }),
-      );
-    }, 1700);
+      if (!document.hidden) step();
+    }, 2600);
     return () => window.clearInterval(id);
-  }, [live]);
-
-  const total = assets.reduce((s, a) => s + a.price * a.hold, 0) * fx;
-  const opened = assets.reduce((s, a) => s + a.open * a.hold, 0) * fx;
-  const pnl = total - opened;
-  const money = (max: number): Intl.NumberFormatOptions => ({ style: "currency", currency: ccy, minimumFractionDigits: 2, maximumFractionDigits: max });
+  }, []);
 
   return (
-    <div className="fd-an-demo">
+    <div className="fd-and">
       <style>{demoCss}</style>
-      <div className="fd-an-demo-card">
-        <header className="fd-an-demo-head">
-          <span className="fd-an-demo-brand">
-            <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="6" fill="#0E1116" /><path d="M7 15l3.2-4 2.6 2.4L17 8" fill="none" stroke="#5EEAD4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
-            Ledgerline
-          </span>
-          <div className="fd-an-demo-tools">
-            <div className="fd-an-demo-seg" role="radiogroup" aria-label="Display currency">
-              {(["USD", "EUR"] as const).map((c) => (
-                <button key={c} type="button" role="radio" aria-checked={ccy === c} onClick={() => setCcy(c)}>{c}</button>
-              ))}
-            </div>
-            <button type="button" className="fd-an-demo-live" aria-pressed={live} onClick={() => setLive((l) => !l)}>
-              <span aria-hidden="true" data-on={live ? "" : undefined} />
-              {live ? "Live" : "Paused"}
-            </button>
-          </div>
-        </header>
-
-        <section className="fd-an-demo-total" aria-label="Portfolio value">
-          <p className="fd-an-demo-k">Portfolio value</p>
-          <AnimatedNumber value={total} format={money(2)} locale={ccy === "USD" ? "en-US" : "de-DE"} className="fd-an-demo-big" duration={900} />
-          <p className="fd-an-demo-pnl">
-            <AnimatedNumber value={pnl} format={{ ...money(2), signDisplay: "always" }} locale={ccy === "USD" ? "en-US" : "de-DE"} signColor flash={false} />
-            <span className="fd-an-demo-dot" aria-hidden="true">·</span>
-            <AnimatedNumber value={pnl / opened} format={{ style: "percent", minimumFractionDigits: 2, maximumFractionDigits: 2, signDisplay: "always" }} signColor flash={false} />
-            <span className="fd-an-demo-today">today</span>
-          </p>
-        </section>
-
-        <table className="fd-an-demo-table">
-          <caption className="fd-an-sr">Holdings, prices update every two seconds</caption>
-          <thead>
-            <tr><th scope="col">Asset</th><th scope="col">Price</th><th scope="col">24h</th><th scope="col">Holding</th></tr>
-          </thead>
-          <tbody>
-            {assets.map((a) => {
-              const ch = (a.price - a.open) / a.open;
-              const p = a.price * fx;
-              const frac = a.price < 10 ? 4 : a.price < 100 ? 3 : 2;
-              return (
-                <tr key={a.sym}>
-                  <th scope="row">
-                    <span className="fd-an-demo-coin" style={{ background: a.color }} aria-hidden="true">{a.sym[0]}</span>
-                    <span className="fd-an-demo-sym">{a.sym}<small>{a.name}</small></span>
-                  </th>
-                  <td><AnimatedNumber value={p} format={{ ...money(frac), minimumFractionDigits: frac }} locale={ccy === "USD" ? "en-US" : "de-DE"} /></td>
-                  <td><AnimatedNumber value={ch} format={{ style: "percent", minimumFractionDigits: 2, maximumFractionDigits: 2, signDisplay: "always" }} signColor flash={false} className="fd-an-demo-chg" /></td>
-                  <td><AnimatedNumber value={p * a.hold} format={money(2)} locale={ccy === "USD" ? "en-US" : "de-DE"} flash={false} className="fd-an-demo-hold" /></td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-        <p className="fd-an-demo-foot">Prices are indicative mid-market quotes. Not investment advice.</p>
-      </div>
+      <AnimatedNumber value={value} format={{ style: "currency", currency: "USD", minimumFractionDigits: 2, maximumFractionDigits: 2 }} className="fd-and-num" duration={900} />
+      <button type="button" className="fd-and-btn" onClick={step}>Update</button>
     </div>
   );
 }
 
+const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
+const FD = `"SF Pro Display",ui-sans-serif,-apple-system,"Inter Display","Inter",sans-serif`;
+
 const demoCss = `
-.fd-an-demo,.fd-an-demo *,.fd-an-demo *::before,.fd-an-demo *::after{box-sizing:border-box}
-.fd-an-demo{--d-font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;--d-disp:"SF Pro Display",ui-sans-serif,-apple-system,"Inter Display","Inter",sans-serif;
-  --d-ink:#ECEFF3;--d-mut:#8A93A0;--d-line:rgba(236,239,243,.08);
-  display:grid;place-items:center;margin:0;padding:clamp(16px,4vw,48px) clamp(16px,4vw,48px);min-height:100vh;
-  background:radial-gradient(80% 60% at 50% 0%,#14202A 0%,#080A0D 70%);color:var(--d-ink);font:400 15px/1.5 var(--d-font);-webkit-font-smoothing:antialiased}
-.fd-an-demo .fd-an{--fd-an-up:#34D399;--fd-an-down:#F87171}
-.fd-an-demo .fd-an-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
-.fd-an-demo-card{width:100%;max-width:820px;margin:0;padding:clamp(18px,3vw,32px);border-radius:28px;background:rgba(16,20,26,.85);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),inset 0 0 0 1px rgba(255,255,255,.05),0 40px 80px -40px rgba(0,0,0,.8)}
-.fd-an-demo-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0}
-.fd-an-demo-brand{display:inline-flex;align-items:center;gap:10px;margin:0;font:600 17px/1 var(--d-disp);letter-spacing:-.01em}
-.fd-an-demo-brand svg{display:block}
-.fd-an-demo-tools{display:flex;gap:8px;margin:0}
-.fd-an-demo-seg{display:inline-flex;margin:0;padding:3px;border-radius:9999px;background:rgba(255,255,255,.06)}
-.fd-an-demo-seg button,.fd-an-demo-live{appearance:none;-webkit-appearance:none;margin:0;height:30px;padding:0 12px;border:0;border-radius:9999px;background:transparent;color:var(--d-mut);
-  font:500 13px/1 var(--d-font);cursor:pointer;transition:background-color 240ms cubic-bezier(.65,0,.35,1),color 240ms}
-.fd-an-demo-seg button[aria-checked="true"]{background:rgba(255,255,255,.12);color:var(--d-ink)}
-.fd-an-demo-live{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 14px;background:rgba(255,255,255,.06)}
-.fd-an-demo-live span{display:block;width:7px;height:7px;border-radius:50%;background:var(--d-mut)}
-.fd-an-demo-live span[data-on]{background:#34D399;box-shadow:0 0 0 3px rgba(52,211,153,.2)}
-.fd-an-demo button:focus-visible{outline:2px solid rgba(10,132,255,.8);outline-offset:2px}
-.fd-an-demo-total{margin:clamp(24px,4vh,40px) 0 0}
-.fd-an-demo-k{margin:0 0 10px;color:var(--d-mut);font:500 13px/1 var(--d-font)}
-.fd-an-demo-big{color:var(--d-ink);font:600 clamp(40px,7vw,72px)/1 var(--d-disp);letter-spacing:-.04em}
-.fd-an-demo-pnl{display:flex;align-items:baseline;flex-wrap:wrap;gap:8px;margin:14px 0 0;font:500 15px/1.2 var(--d-font)}
-.fd-an-demo-dot,.fd-an-demo-today{color:var(--d-mut)}
-.fd-an-demo-table{width:100%;margin:clamp(24px,4vh,40px) 0 0;border-collapse:collapse;border:0;font:400 15px/1.2 var(--d-font)}
-.fd-an-demo-table thead th{margin:0;padding:0 0 10px;border:0;border-bottom:1px solid var(--d-line);color:var(--d-mut);font:500 12px/1 var(--d-font);text-transform:uppercase;letter-spacing:.06em;text-align:right}
-.fd-an-demo-table thead th:first-child{text-align:left}
-.fd-an-demo-table tbody th,.fd-an-demo-table td{margin:0;padding:14px 0;border:0;border-bottom:1px solid var(--d-line);text-align:right;font:500 15px/1.2 var(--d-font);color:var(--d-ink)}
-.fd-an-demo-table tbody tr:last-child th,.fd-an-demo-table tbody tr:last-child td{border-bottom:0}
-.fd-an-demo-table tbody th{display:flex;align-items:center;gap:12px;text-align:left}
-.fd-an-demo-coin{display:grid;place-items:center;flex:none;width:32px;height:32px;border-radius:50%;color:#0B0D10;font:700 13px/1 var(--d-font)}
-.fd-an-demo-sym{display:flex;flex-direction:column;gap:3px;margin:0;font:600 15px/1 var(--d-font)}
-.fd-an-demo-sym small{color:var(--d-mut);font:400 13px/1 var(--d-font)}
-.fd-an-demo-chg{font-size:13px}
-.fd-an-demo-hold{color:var(--d-mut)}
-.fd-an-demo-foot{margin:18px 0 0;color:rgba(138,147,160,.8);font:400 12px/1.4 var(--d-font)}
-@media (max-width:560px){.fd-an-demo-table thead th:nth-child(4),.fd-an-demo-table td:nth-child(4){display:none}}
+.fd-and,.fd-and *,.fd-and *::before,.fd-and *::after{box-sizing:border-box}
+.fd-and{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px;min-height:100vh;width:100%;margin:0;padding:32px 20px;overflow:hidden;background:#f2f2f2;color:#1d1d1f;font:400 15px/1.4 ${F};letter-spacing:normal;-webkit-font-smoothing:antialiased}
+.fd-and .fd-and-num{margin:0;padding:0;color:#1d1d1f;font:600 clamp(44px,11vw,88px)/1 ${FD};letter-spacing:-.04em}
+.fd-and-btn{appearance:none;-webkit-appearance:none;margin:0;height:34px;padding:0 16px;border:0;border-radius:9999px;background:rgba(0,0,0,.06);color:#3c3c43;font:500 13px/1 ${F};letter-spacing:normal;cursor:pointer;transition:background-color 200ms}
+.fd-and-btn:hover{background:rgba(0,0,0,.1)}
+.fd-and-btn:focus-visible{outline:2px solid rgba(10,132,255,.8);outline-offset:2px}
 `;

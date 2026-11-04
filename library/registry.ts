@@ -16,6 +16,7 @@ export const CATEGORIES: CategoryMeta[] = [
   { id: "effects", name: "Scroll & Hover Effects", order: 7, blurb: "Scroll and hover effects: scroll-driven scenes, image ripples, split cards and hover transitions." },
   { id: "text", name: "Text Effects", order: 8, blurb: "Text effects for React: split, morph, repel, scramble and flip." },
   { id: "interactions", name: "Cursors & Interactions", order: 9, blurb: "Custom cursors and interactions: cursor trails, magnetic docks, fisheye walls and 3D carousels." },
+  { id: "micro-interactions", name: "Micro-interactions", order: 9.5, blurb: "Micro-interactions for React: tilt cards, card stacks, photo docks, accordions and lenses. Calm, tiny, zero dependencies." },
   { id: "navbars", name: "Navbars", order: 10, blurb: "React navbars: mega menus, command bars, mastheads and menus that morph." },
   { id: "pricing", name: "Pricing", order: 11, blurb: "Pricing sections for React: plan toggles, calculators, receipts and menus." },
   { id: "features", name: "Feature Sections", order: 12, blurb: "Feature sections: bento grids with live UI, sticky tours, before and after sliders and spec sheets." },

@@ -325,7 +325,7 @@ const css = `
 @media (prefers-contrast: more){.fd-gtab-lens{background:rgba(0,0,0,0.16);box-shadow:inset 0 0 0 1px rgba(0,0,0,0.6)}.fd-gtab--dark .fd-gtab-lens{background:rgba(255,255,255,0.22);box-shadow:inset 0 0 0 1px #fff}}
 `;
 
-/* ───────────────────────── demo: music streaming app ───────────────────────── */
+/* ───────────────────────── demo ───────────────────────── */
 
 const ico = (d: ReactNode) => (
   <svg aria-hidden="true" focusable="false" viewBox="0 0 26 26" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
@@ -368,106 +368,24 @@ const TABS: GlassTab[] = [
   },
 ];
 
-const ART = ["#2F3650,#93705A", "#262E40,#7F8FAE", "#34292F,#B08F7C", "#1F3A3A,#6F9C95", "#3A2F4A,#9D8DC0", "#40302A,#C79A6B"];
-
 export function Demo() {
   const [tab, setTab] = useState("home");
-  const scroller = useRef<HTMLDivElement | null>(null);
   return (
     <div className="fd-gtd">
       <style>{demoCss}</style>
-      <div className="fd-gtd-bg" aria-hidden="true">
-        <span className="fd-gtd-ring fd-gtd-ring--a" />
-        <span className="fd-gtd-ring fd-gtd-ring--b" />
-        <span className="fd-gtd-grid" />
-        <span className="fd-gtd-grain" />
-      </div>
-      <div className="fd-gtd-device">
-        <div ref={scroller} className="fd-gtd-scroll" tabIndex={0} aria-label="Listen Now, scrollable">
-          <div className="fd-gtd-status" aria-hidden="true">
-            <span>9:41</span>
-            <i />
-          </div>
-          <h1 className="fd-gtd-h1">Listen Now</h1>
-          <div className="fd-gtd-hero" aria-hidden="true">
-            <p className="fd-gtd-hero-k">Made for you</p>
-            <p className="fd-gtd-hero-t">Slow Hours</p>
-          </div>
-          <h2 className="fd-gtd-h2">Recently played</h2>
-          <div className="fd-gtd-row" aria-hidden="true">
-            {ART.slice(0, 3).map((c, i) => (
-              <div key={i} className="fd-gtd-item">
-                <span className="fd-gtd-art" style={{ background: `linear-gradient(135deg,${c.split(",")[0]},${c.split(",")[1]})` }} />
-                <i />
-                <i />
-              </div>
-            ))}
-          </div>
-          <h2 className="fd-gtd-h2">Top picks</h2>
-          <div className="fd-gtd-grid2" aria-hidden="true">
-            {ART.map((c, i) => (
-              <div key={i} className="fd-gtd-item">
-                <span className="fd-gtd-art" style={{ background: `linear-gradient(${150 + i * 20}deg,${c.split(",")[1]},${c.split(",")[0]})` }} />
-                <i />
-                <i />
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="fd-gtd-bar">
-          <GlassTabBar tabs={TABS} value={tab} onChange={setTab} accent="#FA2D48" minimizeOnScroll={scroller} />
-        </div>
+      <div className="fd-gtd-bar">
+        <GlassTabBar tabs={TABS} value={tab} onChange={setTab} accent="#FA2D48" />
       </div>
     </div>
   );
 }
 
 const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
-const D = `"SF Pro Display",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif`;
-/* fine grain, an inline SVG feTurbulence tile (no network) */
-const GRAIN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1.4 0 0 0 -.2 1.4 0 0 0 -.2 1.4 0 0 0 -.2 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`;
+
 const demoCss = `
 .fd-gtd,.fd-gtd *,.fd-gtd *::before,.fd-gtd *::after{box-sizing:border-box}
-.fd-gtd{position:relative;display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:28px 16px;overflow:hidden;
-  background:radial-gradient(900px 620px at 12% 0%,#DDE5FA,transparent 62%),radial-gradient(900px 620px at 96% 100%,#F3E2D6,transparent 62%),#ECEDF3;color:#0B0B0F;font:400 15px/1.4 ${F};letter-spacing:normal}
-.fd-gtd-bg{position:absolute;inset:0;margin:0;padding:0;pointer-events:none}
-.fd-gtd-bg > span{position:absolute;display:block}
-.fd-gtd-ring{border-radius:50%;border:1px solid rgba(11,11,15,0.10)}
-.fd-gtd-ring--a{left:calc(50% - 560px);top:50%;width:520px;height:520px;margin-top:-260px;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,0.7),rgba(255,255,255,0) 70%)}
-.fd-gtd-ring--b{right:calc(50% - 600px);top:12%;width:380px;height:380px;border-color:rgba(60,80,170,0.16);background:linear-gradient(160deg,rgba(120,140,230,0.16),rgba(120,140,230,0))}
-.fd-gtd-grid{inset:0;background:repeating-linear-gradient(90deg,rgba(11,11,15,0.05) 0 1px,transparent 1px 72px),repeating-linear-gradient(0deg,rgba(11,11,15,0.05) 0 1px,transparent 1px 72px);
-  -webkit-mask:radial-gradient(60% 70% at 50% 50%,#000,transparent);mask:radial-gradient(60% 70% at 50% 50%,#000,transparent)}
-.fd-gtd-grain{inset:0;background-image:${GRAIN};background-size:180px 180px;mix-blend-mode:soft-light;opacity:0.35}
-.fd-gtd-device{position:relative;width:390px;max-width:100%;height:min(820px,calc(100vh - 56px));min-height:620px;margin:0;border-radius:52px;overflow:hidden;background:#F1F1F4;isolation:isolate;
-  box-shadow:0 0 0 10px #0B0B0F,0 0 0 11px #2A2A31,0 50px 100px -40px rgba(20,20,40,0.55)}
-.fd-gtd-scroll{position:absolute;inset:0;margin:0;padding:0 18px 140px;overflow-y:auto;overflow-x:hidden;outline:none;scrollbar-width:none;overscroll-behavior:contain;background:#F1F1F4}
-.fd-gtd-scroll::-webkit-scrollbar{display:none}
-.fd-gtd-status{position:relative;display:flex;align-items:center;height:52px;margin:0 6px;padding:6px 0 0;font:600 15px/1 ${F};color:#0B0B0F}
-.fd-gtd-status span{margin:0;padding:0 0 0 12px}
-.fd-gtd-status i{display:block;width:90px;height:26px;margin:0;border-radius:999px;background:#0B0B0F;position:absolute;left:50%;top:12px;transform:translateX(-50%)}
-.fd-gtd-h1{margin:6px 0 16px;padding:0 2px;font:800 34px/1.05 ${D};letter-spacing:-0.03em;color:#0B0B0F}
-.fd-gtd-h2{margin:26px 0 12px;padding:0 2px;font:700 20px/1.2 ${D};letter-spacing:-0.02em;color:#0B0B0F}
-.fd-gtd-hero{position:relative;display:flex;flex-direction:column;justify-content:flex-end;aspect-ratio:16/11;margin:0;padding:20px;border-radius:28px;overflow:hidden;color:#fff;
-  background:linear-gradient(140deg,#1F2447 0%,#4A3A78 52%,#B0707A 100%)}
-.fd-gtd-hero::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 72% 34%,transparent 0 58px,rgba(255,255,255,0.6) 59px 61px,transparent 62px),radial-gradient(circle at 72% 34%,rgba(255,255,255,0.28),transparent 130px)}
-.fd-gtd-hero::after{content:"";position:absolute;inset:0;background-image:${GRAIN};background-size:180px 180px;mix-blend-mode:soft-light;opacity:0.4}
-.fd-gtd-hero p{position:relative;z-index:1;margin:0}
-.fd-gtd-hero-k{font:600 12px/1.2 ${F};letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.8)}
-.fd-gtd-hero-t{margin:4px 0 0 !important;font:800 34px/1.05 ${D};letter-spacing:-0.03em;color:#fff}
-.fd-gtd-row,.fd-gtd-grid2{display:grid;gap:14px 12px;margin:0;padding:0}
-.fd-gtd-row{grid-template-columns:repeat(3,1fr)}
-.fd-gtd-grid2{grid-template-columns:repeat(2,1fr)}
-.fd-gtd-item{display:flex;flex-direction:column;gap:7px;margin:0;padding:0}
-.fd-gtd-art{position:relative;display:block;aspect-ratio:1;margin:0 0 3px;border-radius:18px;overflow:hidden}
-.fd-gtd-art::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 68% 36%,transparent 0 16%,rgba(255,255,255,0.5) 16.5% 18.5%,transparent 19%),radial-gradient(circle at 68% 36%,rgba(255,255,255,0.22),transparent 55%)}
-.fd-gtd-art::after{content:"";position:absolute;inset:0;background-image:${GRAIN};background-size:180px 180px;mix-blend-mode:soft-light;opacity:0.4}
-.fd-gtd-item > i{display:block;height:9px;margin:0;border-radius:5px;background:#DEDEE5}
-.fd-gtd-item > i:last-child{width:55%;background:#E8E8EE}
-.fd-gtd-bar{position:absolute;left:14px;right:14px;bottom:18px;z-index:5;margin:0;padding:0}
+.fd-gtd{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 16px;overflow:hidden;color:#1d1d1f;font:400 15px/1.4 ${F};letter-spacing:normal;
+  background:radial-gradient(46% 62% at 28% 32%,#ffcfa6 0%,transparent 70%),radial-gradient(44% 58% at 74% 68%,#b7c3ff 0%,transparent 70%),radial-gradient(30% 40% at 62% 22%,#ffc2dc 0%,transparent 70%),#f1eeea}
+.fd-gtd-bar{width:min(100%,360px);margin:0;padding:0}
 .fd-gtd-bar .fd-gtab{width:100%}
-@media (max-width:480px){
-  .fd-gtd{padding:0}
-  .fd-gtd-bg{display:none}
-  .fd-gtd-device{width:100%;height:100vh;min-height:0;border-radius:0;box-shadow:none}
-}
 `;

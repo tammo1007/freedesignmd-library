@@ -263,123 +263,24 @@ const css = `
 
 /* ───────────────────────────── demo ───────────────────────────── */
 
-const WORK = [
-  { t: "Halden Bank", k: "Identity · 2026", bg: "#E8E3D6", ink: "#1B2A4A", cursor: "View" },
-  { t: "Oda Hotels", k: "Booking · 2025", bg: "#C2563A", ink: "#FFF4EA", cursor: "View" },
-  { t: "Veloq E-bikes", k: "Launch film · 2026", bg: "#12251F", ink: "#EAF6EE", cursor: "Play" },
-];
-
-/** Flat case-study art, one drawn object per project. */
-function WorkArt({ id }: { id: string }) {
-  if (id === "Halden Bank") {
-    return (
-      <svg className="fd-cc-demo-art" viewBox="0 0 300 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
-        <rect x="34" y="22" width="132" height="150" fill="#FBF9F3" />
-        <text x="48" y="48" fill="#1B2A4A" fontFamily="Georgia,'Times New Roman',serif" fontSize="15">Halden</text>
-        <g fill="#1B2A4A" opacity=".16"><rect x="48" y="72" width="90" height="4" /><rect x="48" y="84" width="104" height="4" /><rect x="48" y="96" width="76" height="4" /><rect x="48" y="116" width="100" height="4" /><rect x="48" y="128" width="92" height="4" /></g>
-        <rect x="148" y="84" width="124" height="76" fill="#1B2A4A" />
-        <g fill="#E8E3D6"><rect x="164" y="102" width="4" height="20" /><rect x="172" y="102" width="4" height="20" /><rect x="180" y="102" width="4" height="20" /><rect x="162" y="98" width="24" height="3" /><rect x="162" y="123" width="24" height="3" /></g>
-        <text x="164" y="146" fill="#E8E3D6" fontFamily="Georgia,'Times New Roman',serif" fontSize="12">Halden</text>
-      </svg>
-    );
-  }
-  if (id === "Oda Hotels") {
-    return (
-      <svg className="fd-cc-demo-art" viewBox="0 0 300 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
-        <path d="M150 0V30" stroke="#FFF4EA" strokeWidth="3" opacity=".7" />
-        <rect x="104" y="30" width="92" height="132" rx="46" fill="#E3BE74" />
-        <rect x="104" y="30" width="92" height="132" rx="46" fill="none" stroke="#9A7430" strokeWidth="2" />
-        <circle cx="150" cy="62" r="9" fill="#C2563A" stroke="#9A7430" strokeWidth="2" />
-        <text x="150" y="124" textAnchor="middle" fill="#6B4E17" fontFamily="Georgia,'Times New Roman',serif" fontSize="38">12</text>
-        <text x="150" y="146" textAnchor="middle" fill="#6B4E17" fontFamily="ui-sans-serif,system-ui,sans-serif" fontSize="9" letterSpacing="2">ODA</text>
-      </svg>
-    );
-  }
-  return (
-    <svg className="fd-cc-demo-art" viewBox="0 0 300 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
-      <g fill="none" stroke="#9BE3B8" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="86" cy="104" r="38" /><circle cx="214" cy="104" r="38" />
-        <path d="M86 104 L128 56 H178 L214 104 M128 56 L150 104 H86 M150 104 L178 56 M120 44 H138 M176 46 L170 34 H196" />
-      </g>
-      <rect x="116" y="76" width="32" height="12" rx="3" fill="#EAF6EE" transform="rotate(-40 132 82)" />
-      <rect x="34" y="166" width="232" height="3" fill="#EAF6EE" opacity=".25" /><rect x="34" y="166" width="96" height="3" fill="#EAF6EE" />
-    </svg>
-  );
-}
-
 export function Demo() {
-  const [sent, setSent] = useState(false);
   return (
-    <CustomCursor className="fd-cc-demo">
+    <CustomCursor className="fd-ccd">
       <style>{demoCss}</style>
-      <header className="fd-cc-demo-bar">
-        <span className="fd-cc-demo-brand">Studio Tannery</span>
-        <nav className="fd-cc-demo-nav" aria-label="Primary">
-          {["Work", "Approach", "Journal"].map((n) => (
-            <a key={n} href={`#${n.toLowerCase()}`} data-cursor-magnetic>{n}</a>
-          ))}
-        </nav>
-        <a className="fd-cc-demo-pill" href="#contact" data-cursor-magnetic>Start a project</a>
-      </header>
-
-      <main className="fd-cc-demo-main">
-        <h1 className="fd-cc-demo-h1">
-          Brand worlds for companies <span>with something to say.</span>
-        </h1>
-
-        <div className="fd-cc-demo-strip" data-cursor="Drag" role="region" aria-label="Selected work, scroll horizontally" tabIndex={0}>
-          {WORK.map((w) => (
-            <a key={w.t} href={`#${w.t.toLowerCase().replace(/\s/g, "-")}`} className="fd-cc-demo-card" data-cursor={w.cursor}
-              style={{ background: w.bg, color: w.ink }}>
-              <WorkArt id={w.t} />
-              <span className="fd-cc-demo-meta">
-                <strong>{w.t}</strong>
-                <span>{w.k}</span>
-              </span>
-            </a>
-          ))}
-        </div>
-
-        <form className="fd-cc-demo-form" onSubmit={(e) => { e.preventDefault(); setSent(true); }}>
-          <label className="fd-cc-demo-lab" htmlFor="fd-cc-demo-email">Get our quarterly letter</label>
-          <div className="fd-cc-demo-row">
-            <input id="fd-cc-demo-email" type="email" required placeholder="you@company.com" className="fd-cc-demo-input" />
-            <button type="submit" className="fd-cc-demo-btn" data-cursor-magnetic>{sent ? "Subscribed" : "Subscribe"}</button>
-          </div>
-        </form>
-      </main>
+      <div className="fd-ccd-row">
+        <div className="fd-ccd-tile" data-cursor="View" />
+        <button type="button" className="fd-ccd-pill" data-cursor-magnetic>Continue</button>
+      </div>
     </CustomCursor>
   );
 }
 
 const demoCss = `
-.fd-cc-demo,.fd-cc-demo *,.fd-cc-demo *::before,.fd-cc-demo *::after{box-sizing:border-box}
-.fd-cc-demo{--d-font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;--d-disp:"SF Pro Display",ui-sans-serif,-apple-system,"Inter Display","Inter",sans-serif;
-  min-height:100vh;margin:0;padding:0;background:#0E0E10;color:#F5F3EE;font:400 15px/1.5 var(--d-font);-webkit-font-smoothing:antialiased;overflow:hidden}
-.fd-cc-demo-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0;padding:20px clamp(16px,4vw,48px)}
-.fd-cc-demo-brand{margin:0;font:600 17px/1 var(--d-disp);letter-spacing:-.01em}
-.fd-cc-demo-nav{display:flex;gap:8px;margin:0}
-.fd-cc-demo-nav a{display:inline-flex;align-items:center;height:36px;margin:0;padding:0 14px;border-radius:9999px;color:rgba(245,243,238,.7);font:500 15px/1 var(--d-font);text-decoration:none}
-.fd-cc-demo-nav a:hover{color:#F5F3EE}
-.fd-cc-demo-pill{display:inline-flex;align-items:center;height:40px;margin:0;padding:0 18px;border-radius:9999px;background:#F5F3EE;color:#0E0E10;font:600 14px/1 var(--d-font);text-decoration:none}
-.fd-cc-demo a:focus-visible,.fd-cc-demo button:focus-visible,.fd-cc-demo-strip:focus-visible{outline:2px solid rgba(10,132,255,.8);outline-offset:2px}
-.fd-cc-demo-main{max-width:1320px;margin:0 auto;padding:clamp(16px,4vh,48px) clamp(16px,4vw,48px) 48px}
-.fd-cc-demo-h1{max-width:14ch;margin:0;color:#F5F3EE;font:600 clamp(40px,5.6vw,84px)/.95 var(--d-disp);letter-spacing:-.045em;text-wrap:balance}
-.fd-cc-demo-h1 span{color:rgba(245,243,238,.42)}
-.fd-cc-demo-strip{display:flex;gap:16px;margin:clamp(24px,5vh,48px) 0 0;padding:0 0 8px;overflow-x:auto;scrollbar-width:none;scroll-snap-type:x mandatory}
-.fd-cc-demo-strip::-webkit-scrollbar{display:none}
-.fd-cc-demo-card{position:relative;flex:0 0 clamp(260px,30vw,400px);aspect-ratio:3/2;margin:0;padding:0;border-radius:24px;overflow:hidden;scroll-snap-align:start;text-decoration:none}
-.fd-cc-demo-art{position:absolute;left:0;top:10px;width:100%;height:calc(100% - 66px);display:block}
-.fd-cc-demo-meta{position:absolute;left:20px;bottom:18px;display:flex;flex-direction:column;gap:4px;margin:0}
-.fd-cc-demo-meta strong{font:600 20px/1.1 var(--d-disp);letter-spacing:-.01em}
-.fd-cc-demo-meta span{font:500 13px/1 var(--d-font);opacity:.8}
-.fd-cc-demo-form{margin:clamp(24px,4vh,40px) 0 0;max-width:520px}
-.fd-cc-demo-lab{display:block;margin:0 0 10px;color:rgba(245,243,238,.6);font:500 13px/1 var(--d-font)}
-.fd-cc-demo-row{display:flex;gap:8px;margin:0}
-.fd-cc-demo-input{flex:1;min-width:0;height:48px;margin:0;padding:0 18px;border:0;border-radius:9999px;background:rgba(245,243,238,.08);box-shadow:inset 0 0 0 1px rgba(245,243,238,.12);
-  color:#F5F3EE;font:400 15px/1 var(--d-font);outline:0;appearance:none;-webkit-appearance:none}
-.fd-cc-demo-input:focus{box-shadow:inset 0 0 0 1.5px rgba(10,132,255,.9)}
-.fd-cc-demo-input::placeholder{color:rgba(245,243,238,.4)}
-.fd-cc-demo-btn{appearance:none;-webkit-appearance:none;height:48px;margin:0;padding:0 22px;border:0;border-radius:9999px;background:#D7FF5C;color:#0E0E10;font:600 15px/1 var(--d-font);cursor:pointer}
-@media (max-width:640px){.fd-cc-demo-nav{display:none}}
+.fd-ccd,.fd-ccd *,.fd-ccd *::before,.fd-ccd *::after{box-sizing:border-box}
+.fd-ccd{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 20px;overflow:hidden;background:#131315;color:#f5f3ee;font:400 15px/1.4 ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;letter-spacing:normal;-webkit-font-smoothing:antialiased}
+.fd-ccd-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:56px;margin:0;padding:0}
+.fd-ccd-tile{width:260px;height:170px;margin:0;padding:0;border-radius:24px;background:#222226}
+.fd-ccd-pill{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;justify-content:center;height:48px;margin:0;padding:0 28px;border:0;border-radius:9999px;background:#2b2b30;color:#f5f3ee;font:500 15px/1 ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;letter-spacing:normal;cursor:pointer}
+.fd-ccd-pill:focus-visible{outline:2px solid rgba(10,132,255,.8);outline-offset:2px}
+@media (max-width:640px){.fd-ccd-row{gap:32px}.fd-ccd-tile{width:min(260px,100%)}}
 `;

@@ -245,188 +245,59 @@ const css = `
 @media (prefers-contrast: more){.fd-gsh .fd-lg-fill{background:#fff}.fd-gsh--dark .fd-gsh .fd-lg-fill{background:#000}}
 `;
 
-/* ───────────────────────── demo: hotel booking ───────────────────────── */
+/* ───────────────────────── demo ───────────────────────── */
 
-const ROOMS = [
-  { n: "Deluxe King, harbour view", d: "32 m² · Breakfast for two · Free cancellation until 10 Jun", p: 318, c: ["#E3D3BE", "#8C6F58"] },
-  { n: "Junior Suite with terrace", d: "48 m² · Terrace with daybeds · Late checkout", p: 452, c: ["#CBD3E2", "#66789B"] },
-  { n: "Twin Classic, courtyard", d: "26 m² · Quiet side · Pay at hotel", p: 246, c: ["#DCC9BE", "#9A7767"] },
+const ROWS = [
+  { t: "Directions", d: <path d="M12 3.5 20.5 12 12 20.5 3.5 12 12 3.5ZM9 13v-2.2a1 1 0 0 1 1-1h5m0 0-2-2m2 2-2 2" /> },
+  { t: "Share", d: <path d="M12 3.5v11M8 7l4-3.5L16 7M8.5 10.5H7a1.5 1.5 0 0 0-1.5 1.5v7A1.5 1.5 0 0 0 7 20.5h10a1.5 1.5 0 0 0 1.5-1.5v-7a1.5 1.5 0 0 0-1.5-1.5h-1.5" /> },
+  { t: "Add to favorites", d: <path d="M12 20s-7.5-4.4-7.5-10.1A4.4 4.4 0 0 1 12 7.3a4.4 4.4 0 0 1 7.5 2.6C19.5 15.6 12 20 12 20Z" /> },
 ];
 
 export function Demo() {
   const [detent, setDetent] = useState(1);
-  const [room, setRoom] = useState(0);
   return (
     <div className="fd-gshd">
       <style>{demoCss}</style>
-      <div className="fd-gshd-bg" aria-hidden="true">
-        <span className="fd-gshd-ring fd-gshd-ring--a" />
-        <span className="fd-gshd-ring fd-gshd-ring--b" />
-        <span className="fd-gshd-grid" />
-        <span className="fd-gshd-grain" />
-      </div>
-      <div className="fd-gshd-device">
-        <Screen />
+      <div className="fd-gshd-stage">
         <GlassSheet
           detent={detent}
           onDetentChange={setDetent}
-          label="Casa Marèa, Lisbon"
+          label="Place details"
           header={
             <div className="fd-gshd-head">
-              <div className="fd-gshd-thumb" aria-hidden="true" />
-              <div className="fd-gshd-titles">
-                <p className="fd-gshd-title">Casa Marèa</p>
-                <p className="fd-gshd-sub">Boutique hotel · Alfama, Lisbon · ★ 4.8</p>
-              </div>
-              <button type="button" className="fd-gshd-x" aria-label="Close">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" aria-hidden="true">
-                  <path d="M6 6l12 12M18 6 6 18" />
-                </svg>
-              </button>
+              <p className="fd-gshd-title">Harbour View</p>
+              <p className="fd-gshd-sub">Lisbon, Portugal</p>
             </div>
           }
         >
-          <div className="fd-gshd-chips" role="list">
-            {["14 – 17 Jun", "2 guests", "3 nights", "4 min to tram 28"].map((c) => (
-              <span key={c} role="listitem" className="fd-gshd-chip">
-                {c}
-              </span>
-            ))}
-          </div>
-          <p className="fd-gshd-h">Choose your room</p>
-          <ul className="fd-gshd-rooms" role="radiogroup" aria-label="Rooms">
-            {ROOMS.map((r, i) => (
-              <li key={r.n}>
-                <button type="button" role="radio" aria-checked={room === i} className="fd-gshd-room" onClick={() => setRoom(i)}>
-                  <span className="fd-gshd-room-img" style={{ background: `linear-gradient(135deg, ${r.c[0]}, ${r.c[1]})` }} aria-hidden="true" />
-                  <span className="fd-gshd-room-txt">
-                    <b>{r.n}</b>
-                    <span>{r.d}</span>
-                  </span>
-                  <span className="fd-gshd-room-p">
-                    €{r.p}
-                    <small>/night</small>
-                  </span>
-                </button>
+          <ul className="fd-gshd-list">
+            {ROWS.map((r) => (
+              <li key={r.t} className="fd-gshd-item">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  {r.d}
+                </svg>
+                <span>{r.t}</span>
               </li>
             ))}
           </ul>
-          <button type="button" className="fd-gshd-cta">
-            Reserve · €{ROOMS[room].p * 3} total
-          </button>
-          <p className="fd-gshd-h">About</p>
-          <p className="fd-gshd-p">
-            Twelve rooms in a restored 1890s merchant’s house above the Tagus. Azulejo-tiled stairwell, a rooftop bar that opens at 17:00 and a
-            breakfast of pastéis de nata from the bakery next door.
-          </p>
-          <p className="fd-gshd-p">Check-in from 15:00 · Check-out until 11:00 · No lift (3 floors) · Pets on request.</p>
         </GlassSheet>
       </div>
     </div>
   );
 }
 
-/** The screen behind the sheet: a quiet search-results page, placeholder bars for everything that is not the story. */
-function Screen() {
-  return (
-    <div className="fd-gshd-screen" aria-hidden="true">
-      <div className="fd-gshd-status">
-        <span>9:41</span>
-        <i />
-      </div>
-      <div className="fd-gshd-bar">
-        <div>
-          <p className="fd-gshd-city">Lisbon</p>
-          <p className="fd-gshd-dates">14 – 17 Jun · 2 guests</p>
-        </div>
-        <span className="fd-gshd-round" />
-      </div>
-      <div className="fd-gshd-filters">
-        <b className="is-on" /> <b /> <b /> <b />
-      </div>
-      {[246, 318, 452].map((p, i) => (
-        <div key={p} className="fd-gshd-card">
-          <span className={`fd-gshd-img fd-gshd-img--${i}`}>
-            <em>€{p}</em>
-          </span>
-          <span className="fd-gshd-lines">
-            <i />
-            <i />
-          </span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
-const D = `"SF Pro Display",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif`;
-/* fine grain, an inline SVG feTurbulence tile (no network) */
-const GRAIN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1.4 0 0 0 -.2 1.4 0 0 0 -.2 1.4 0 0 0 -.2 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`;
+
 const demoCss = `
 .fd-gshd,.fd-gshd *,.fd-gshd *::before,.fd-gshd *::after{box-sizing:border-box}
-.fd-gshd{position:relative;min-height:100vh;width:100%;margin:0;padding:28px 16px;display:flex;align-items:center;justify-content:center;overflow:hidden;
-  background:radial-gradient(900px 620px at 12% 0%,#DDE5FA,transparent 62%),radial-gradient(900px 620px at 96% 100%,#F3E2D6,transparent 62%),#ECEDF3;color:#0B0B0F;font:400 15px/1.4 ${F};letter-spacing:normal}
-.fd-gshd-bg{position:absolute;inset:0;margin:0;padding:0;pointer-events:none}
-.fd-gshd-bg > span{position:absolute;display:block}
-.fd-gshd-ring{border-radius:50%;border:1px solid rgba(11,11,15,0.10)}
-.fd-gshd-ring--a{left:calc(50% - 560px);top:50%;width:520px;height:520px;margin-top:-260px;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,0.7),rgba(255,255,255,0) 70%)}
-.fd-gshd-ring--b{right:calc(50% - 600px);top:12%;width:380px;height:380px;border-color:rgba(60,80,170,0.16);background:linear-gradient(160deg,rgba(120,140,230,0.16),rgba(120,140,230,0))}
-.fd-gshd-grid{inset:0;background:repeating-linear-gradient(90deg,rgba(11,11,15,0.05) 0 1px,transparent 1px 72px),repeating-linear-gradient(0deg,rgba(11,11,15,0.05) 0 1px,transparent 1px 72px);
-  -webkit-mask:radial-gradient(60% 70% at 50% 50%,#000,transparent);mask:radial-gradient(60% 70% at 50% 50%,#000,transparent)}
-.fd-gshd-grain{inset:0;background-image:${GRAIN};background-size:180px 180px;mix-blend-mode:soft-light;opacity:0.35}
-.fd-gshd-device{position:relative;width:390px;max-width:100%;height:min(820px,calc(100vh - 56px));min-height:620px;margin:0;border-radius:52px;overflow:hidden;background:#F1F1F4;isolation:isolate;
-  box-shadow:0 0 0 10px #0B0B0F,0 0 0 11px #2A2A31,0 50px 100px -40px rgba(20,20,40,0.55)}
-.fd-gshd-screen{position:absolute;inset:0;margin:0;padding:0 16px;overflow:hidden;background:#F1F1F4}
-.fd-gshd-status{display:flex;align-items:center;justify-content:space-between;height:52px;margin:0 6px;padding:6px 0 0;font:600 15px/1 ${F};color:#0B0B0F}
-.fd-gshd-status span{margin:0;padding:0 0 0 12px}
-.fd-gshd-status i{display:block;width:90px;height:26px;margin:0 auto 0 0;border-radius:999px;background:#0B0B0F;position:absolute;left:50%;top:12px;transform:translateX(-50%)}
-.fd-gshd-bar{display:flex;align-items:center;justify-content:space-between;margin:8px 0 14px;padding:0 4px}
-.fd-gshd-city{margin:0;font:800 30px/1.05 ${D};letter-spacing:-0.03em;color:#0B0B0F}
-.fd-gshd-dates{margin:4px 0 0;font:500 14px/1.2 ${F};color:#6B6B76}
-.fd-gshd-round{display:block;width:40px;height:40px;margin:0;border-radius:50%;background:#fff;box-shadow:inset 0 0 0 1px rgba(11,11,15,0.08)}
-.fd-gshd-filters{display:flex;gap:8px;margin:0 0 16px;padding:0 4px}
-.fd-gshd-filters b{display:block;width:72px;height:32px;margin:0;border-radius:999px;background:#E3E3E9}
-.fd-gshd-filters b.is-on{width:92px;background:#1C1C22}
-.fd-gshd-card{display:block;margin:0 0 18px;padding:0}
-.fd-gshd-img{position:relative;display:block;width:100%;aspect-ratio:2/1;margin:0;border-radius:24px;overflow:hidden}
-.fd-gshd-img::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 74% 46%,transparent 0 38px,rgba(255,255,255,0.55) 39px 41px,transparent 42px),radial-gradient(circle at 74% 46%,rgba(255,255,255,0.22),transparent 90px)}
-.fd-gshd-img::after{content:"";position:absolute;inset:0;background-image:${GRAIN};background-size:180px 180px;mix-blend-mode:soft-light;opacity:0.4}
-.fd-gshd-img--0{background:linear-gradient(135deg,#2F3650,#93705A)}
-.fd-gshd-img--1{background:linear-gradient(135deg,#262E40,#7F8FAE)}
-.fd-gshd-img--2{background:linear-gradient(135deg,#34292F,#B08F7C)}
-.fd-gshd-img em{position:absolute;left:14px;top:14px;z-index:1;margin:0;padding:7px 11px;border-radius:999px;background:#fff;color:#0B0B0F;font:700 13px/1 ${F};font-style:normal;letter-spacing:-0.005em}
-.fd-gshd-lines{display:flex;flex-direction:column;gap:8px;margin:12px 4px 0;padding:0}
-.fd-gshd-lines i{display:block;height:10px;margin:0;border-radius:5px;background:#DEDEE5}
-.fd-gshd-lines i:last-child{width:46%;background:#E8E8EE}
-.fd-gshd-head{display:flex;align-items:center;gap:12px;margin:2px 0 0;padding:0}
-.fd-gshd-thumb{position:relative;flex:none;width:52px;height:52px;margin:0;border-radius:15px;overflow:hidden;background:linear-gradient(135deg,#2F3650,#93705A)}
-.fd-gshd-thumb::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 66% 40%,transparent 0 9px,rgba(255,255,255,0.6) 10px 11.5px,transparent 12.5px),radial-gradient(circle at 66% 40%,rgba(255,255,255,0.28),transparent 28px)}
-.fd-gshd-titles{flex:1;min-width:0;margin:0;padding:0}
-.fd-gshd-title{margin:0;font:700 1.375rem/1.15 ${D};letter-spacing:-0.02em;color:inherit}
-.fd-gshd-sub{margin:2px 0 0;font:500 13px/1.3 ${F};color:#6B6B76;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.fd-gshd-x{flex:none;display:grid;place-items:center;width:30px;height:30px;margin:0;padding:0;border:0;border-radius:50%;background:rgba(120,120,128,0.16);color:#6B6B76;cursor:pointer;-webkit-appearance:none;appearance:none}
-.fd-gshd-x svg{display:block}
-.fd-gshd-x:focus-visible,.fd-gshd-room:focus-visible,.fd-gshd-cta:focus-visible{outline:2px solid color-mix(in srgb,#0A84FF 70%,transparent);outline-offset:2px}
-.fd-gshd-chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 18px;padding:0}
-.fd-gshd-chip{display:inline-block;margin:0;padding:7px 11px;border-radius:999px;background:rgba(120,120,128,0.12);font:600 13px/1 ${F};color:#1C1C22}
-.fd-gshd-h{margin:0 0 10px;font:700 17px/1.2 ${F};letter-spacing:-0.01em;color:inherit}
-.fd-gshd-rooms{list-style:none;margin:0 0 14px;padding:0;display:flex;flex-direction:column;gap:8px}
-.fd-gshd-rooms li{margin:0;padding:0}
-.fd-gshd-room{display:flex;align-items:center;gap:12px;width:100%;margin:0;padding:10px;border:0;border-radius:20px;background:rgba(255,255,255,0.62);color:#0B0B0F;text-align:left;cursor:pointer;-webkit-appearance:none;appearance:none;
-  font:inherit;box-shadow:inset 0 0 0 1px rgba(0,0,0,0.05);transition:box-shadow 240ms cubic-bezier(0.22,1,0.36,1),background-color 240ms}
-.fd-gshd-room[aria-checked="true"]{background:#fff;box-shadow:inset 0 0 0 2px #007AFF}
-.fd-gshd-room-img{flex:none;width:56px;height:56px;border-radius:12px;display:block}
-.fd-gshd-room-txt{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
-.fd-gshd-room-txt b{font:650 15px/1.25 ${F};letter-spacing:-0.01em}
-.fd-gshd-room-txt span{font:400 12px/1.35 ${F};color:#6B6B76}
-.fd-gshd-room-p{flex:none;font:700 17px/1 ${F};text-align:right}
-.fd-gshd-room-p small{display:block;margin-top:3px;font:500 11px/1 ${F};color:#6B6B76}
-.fd-gshd-cta{display:block;width:100%;height:52px;margin:0 0 22px;padding:0;border:0;border-radius:999px;background:#007AFF;color:#fff;font:600 17px/1 ${F};letter-spacing:-0.01em;cursor:pointer;-webkit-appearance:none;appearance:none;box-shadow:0 10px 24px -10px rgba(0,122,255,0.7)}
-.fd-gshd-p{margin:0 0 12px;font:400 15px/1.5 ${F};color:#3A3A44}
-@media (max-width:480px){
-  .fd-gshd{padding:0}
-  .fd-gshd-bg{display:none}
-  .fd-gshd-device{width:100%;height:100vh;min-height:0;border-radius:0;box-shadow:none}
-}
+.fd-gshd{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 20px;overflow:hidden;color:#1d1d1f;font:400 15px/1.4 ${F};letter-spacing:normal;
+  background:radial-gradient(46% 62% at 28% 32%,#ffcfa6 0%,transparent 70%),radial-gradient(44% 58% at 74% 68%,#b7c3ff 0%,transparent 70%),radial-gradient(30% 40% at 62% 22%,#ffc2dc 0%,transparent 70%),#f1eeea}
+.fd-gshd-stage{position:relative;width:min(100%,360px);height:min(560px,calc(100vh - 64px));margin:0;padding:0}
+.fd-gshd-head{margin:0;padding:6px 0 12px}
+.fd-gshd-title{margin:0;font:700 20px/1.25 ${F};letter-spacing:-0.02em;color:#1d1d1f}
+.fd-gshd-sub{margin:2px 0 0;font:400 14px/1.35 ${F};color:#6e6e73}
+.fd-gshd-list{list-style:none;margin:0;padding:0}
+.fd-gshd-item{display:flex;align-items:center;gap:14px;margin:0;padding:15px 2px;font:500 16px/1.3 ${F};letter-spacing:-0.01em;color:#1d1d1f;border-top:0.5px solid rgba(60,60,67,0.18)}
+.fd-gshd-item svg{display:block;flex:none;color:#0a84ff}
+.fd-gshd-item span{display:block;margin:0;padding:0}
 `;

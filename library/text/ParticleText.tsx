@@ -299,65 +299,19 @@ const css = `
 
 /* ───────────────────────────── demo ───────────────────────────── */
 
-const LINEUP = [
-  ["Fri 17 Jul", "Nilsa Varga", "Oberon Tide", "Kasai Lanes", "The Halyards"],
-  ["Sat 18 Jul", "Mireille Ochoa", "Night Ferries", "Glasshouse", "Tomo & Ilse"],
-  ["Sun 19 Jul", "Ayo Bankole", "Paper Moths", "Dunes Club", "Vela Sound"],
-];
-
 export function Demo() {
   return (
-    <div className="fd-pt-demo">
+    <div className="fd-ptd">
       <style>{demoCss}</style>
-      <div className="fd-pt-demo-sky" aria-hidden="true" />
-      <header className="fd-pt-demo-bar">
-        <span className="fd-pt-demo-mark">SFF/27</span>
-        <nav className="fd-pt-demo-nav" aria-label="Primary">
-          <a href="#lineup">Line-up</a><a href="#tickets">Tickets</a><a href="#camping">Camping</a><a href="#faq">FAQ</a>
-        </nav>
-        <a className="fd-pt-demo-btn" href="#tickets">Get tickets</a>
-      </header>
-      <main className="fd-pt-demo-main">
-        <p className="fd-pt-demo-eyebrow">17, 19 July 2027 · Lake Alster, Hamburg</p>
-        <h1 className="fd-pt-demo-sr">Saltwater Festival</h1>
-        <ParticleText text={"SALT\nWATER"} label="Saltwater" className="fd-pt-demo-stage" />
-        <p className="fd-pt-demo-hint" aria-hidden="true">Move through the letters · click to scatter</p>
-        <div className="fd-pt-demo-lineup" id="lineup">
-          {LINEUP.map(([day, ...acts]) => (
-            <section key={day} className="fd-pt-demo-day" aria-label={day}>
-              <h2>{day}</h2>
-              <p>{acts.join(" · ")}</p>
-            </section>
-          ))}
-        </div>
-      </main>
+      <ParticleText text="Particles" label="Particles" colors={["#1d1d1f", "#2a2a2e", "#38383d"]} gap={4} className="fd-ptd-stage" />
     </div>
   );
 }
 
+const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
+
 const demoCss = `
-.fd-pt-demo,.fd-pt-demo *,.fd-pt-demo *::before,.fd-pt-demo *::after{box-sizing:border-box}
-.fd-pt-demo{--d-font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;--d-disp:"SF Pro Display",ui-sans-serif,-apple-system,"Inter Display","Inter",sans-serif;
-  position:relative;overflow:hidden;margin:0;padding:0;min-height:100vh;background:#0B0714;color:#F7F1FF;font:400 15px/1.5 var(--d-font);-webkit-font-smoothing:antialiased}
-.fd-pt-demo-sky{position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(60% 50% at 20% 10%,rgba(182,109,255,.28),transparent 70%),radial-gradient(50% 50% at 85% 30%,rgba(255,77,141,.2),transparent 70%),radial-gradient(70% 50% at 50% 110%,rgba(91,140,255,.25),transparent 70%)}
-.fd-pt-demo-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
-.fd-pt-demo-bar{position:relative;display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0;padding:20px clamp(16px,4vw,48px)}
-.fd-pt-demo-mark{margin:0;font:800 17px/1 var(--d-disp);letter-spacing:.02em}
-.fd-pt-demo-nav{display:flex;gap:28px;margin:0}
-.fd-pt-demo-nav a{margin:0;padding:6px 0;color:rgba(247,241,255,.65);font:500 15px/1 var(--d-font);text-decoration:none}
-.fd-pt-demo-nav a:hover{color:#F7F1FF}
-.fd-pt-demo-btn{display:inline-flex;align-items:center;height:40px;margin:0;padding:0 18px;border-radius:9999px;background:#FFD166;color:#1B1206;font:600 14px/1 var(--d-font);text-decoration:none;
-  transition:transform 120ms cubic-bezier(.22,1,.36,1)}
-.fd-pt-demo-btn:active{transform:scale(.96)}
-.fd-pt-demo a:focus-visible{outline:2px solid rgba(10,132,255,.8);outline-offset:2px}
-.fd-pt-demo-main{position:relative;max-width:1280px;margin:0 auto;padding:clamp(12px,3vh,32px) clamp(16px,4vw,48px) 40px;text-align:center}
-.fd-pt-demo-eyebrow{margin:0;color:rgba(247,241,255,.7);font:500 13px/1 ui-monospace,"SF Mono","JetBrains Mono",Menlo,monospace;letter-spacing:.08em;text-transform:uppercase}
-.fd-pt-demo-stage{height:clamp(260px,52vh,520px);margin:12px 0 0}
-.fd-pt-demo-hint{margin:6px 0 0;color:rgba(247,241,255,.45);font:500 12px/1 var(--d-font);letter-spacing:.02em}
-.fd-pt-demo-lineup{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:clamp(24px,4vh,40px) 0 0;text-align:left}
-.fd-pt-demo-day{margin:0;padding:16px 18px;border-radius:20px;background:rgba(247,241,255,.05);box-shadow:inset 0 0 0 1px rgba(247,241,255,.08)}
-.fd-pt-demo-day h2{margin:0 0 6px;color:#FFD166;font:600 13px/1 ui-monospace,"SF Mono","JetBrains Mono",Menlo,monospace;letter-spacing:.06em;text-transform:uppercase}
-.fd-pt-demo-day p{margin:0;color:#F7F1FF;font:500 15px/1.45 var(--d-font);letter-spacing:-.01em}
-@media (max-width:760px){.fd-pt-demo-nav{display:none}.fd-pt-demo-lineup{grid-template-columns:1fr}.fd-pt-demo-stage{height:300px}}
+.fd-ptd,.fd-ptd *,.fd-ptd *::before,.fd-ptd *::after{box-sizing:border-box}
+.fd-ptd{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 20px;overflow:hidden;background:#f2f2f2;color:#1d1d1f;font:400 15px/1.4 ${F};letter-spacing:normal}
+.fd-ptd .fd-ptd-stage{width:100%;max-width:760px;height:clamp(200px,38vh,300px);margin:0;padding:0}
 `;

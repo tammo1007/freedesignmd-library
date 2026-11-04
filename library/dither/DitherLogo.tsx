@@ -497,83 +497,17 @@ const css = `
 
 export function Demo() {
   return (
-    <section className="fd-dlogo-demo">
+    <div className="fd-dlogod">
       <style>{demoCss}</style>
-      <header className="fd-dlogo-demo-nav">
-        <span className="fd-dlogo-demo-brand">
-          <DitherLogo className="fd-dlogo-demo-brandmark" label="Orbital dotted brand mark" spacing={1.5} dotScale={1.15} assemble={false} radius={12} strength={0.4} />
-          Orbital
-        </span>
-        <nav className="fd-dlogo-demo-links" aria-label="Primary">
-          <a href="#docs" onClick={(e) => e.preventDefault()}>Docs</a>
-          <a href="#changelog" onClick={(e) => e.preventDefault()}>Changelog</a>
-          <a href="#pricing" onClick={(e) => e.preventDefault()}>Pricing</a>
-        </nav>
-      </header>
-      <div className="fd-dlogo-demo-grid">
-        <div className="fd-dlogo-demo-copy">
-          <p className="fd-dlogo-demo-tag">
-            <span className="fd-dlogo-demo-dot" aria-hidden="true" /> Orbital 2.0 · Inference at the edge
-          </p>
-          <h1 className="fd-dlogo-demo-title">Ship models,<br />not servers.</h1>
-          <p className="fd-dlogo-demo-body">
-            Deploy any open-weight model to 38 regions with one command. Cold starts under 240&nbsp;ms, billed per token, observable down to the kernel.
-          </p>
-          <div className="fd-dlogo-demo-cmd">
-            <span className="fd-dlogo-demo-prompt" aria-hidden="true">$</span>
-            <code>npx orbital deploy llama-4-scout --regions all</code>
-          </div>
-          <dl className="fd-dlogo-demo-stats">
-            <div><dt>p50 latency</dt><dd>41 ms</dd></div>
-            <div><dt>Regions</dt><dd>38</dd></div>
-            <div><dt>Uptime, 90d</dt><dd>99.995%</dd></div>
-          </dl>
-        </div>
-        <div className="fd-dlogo-demo-stage">
-          <DitherLogo className="fd-dlogo-demo-mark" label="Orbital logo" />
-          <p className="fd-dlogo-demo-caption">Move your cursor through the mark</p>
-        </div>
-      </div>
-    </section>
+      <DitherLogo className="fd-dlogod-mark" label="Dithered brand mark" color="#1d1d1f" accent="#ff7a45" dotScale={0.95} />
+    </div>
   );
 }
 
+const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
+
 const demoCss = `
-.fd-dlogo-demo, .fd-dlogo-demo *, .fd-dlogo-demo *::before, .fd-dlogo-demo *::after { box-sizing: border-box; }
-.fd-dlogo-demo {
-  min-height: 100vh; margin: 0; padding: 0 clamp(20px, 5vw, 72px) 56px;
-  background: radial-gradient(1200px 700px at 75% 45%, #15151C 0%, #0B0B0F 60%); color: #EDEDF2;
-  font: 400 15px/1.5 ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif;
-}
-.fd-dlogo-demo-nav { display: flex; align-items: center; justify-content: space-between; height: 72px; margin: 0; padding: 0; border-bottom: 1px solid rgba(255,255,255,.07); }
-.fd-dlogo-demo-brand { display: inline-flex; align-items: center; gap: 10px; margin: 0; padding: 0; color: #EDEDF2; font: 600 17px/1 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: -0.01em; }
-.fd-dlogo-demo-brandmark.fd-dlogo { width: 28px; height: 28px; }
-.fd-dlogo-demo-links { display: flex; gap: 28px; margin: 0; padding: 0; }
-.fd-dlogo-demo-links a { margin: 0; padding: 0; color: #9A9AA6; text-decoration: none; font: 500 14px/1 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; transition: color 120ms cubic-bezier(0.22, 1, 0.36, 1); }
-.fd-dlogo-demo-links a:hover { color: #EDEDF2; }
-.fd-dlogo-demo-links a:focus-visible { outline: 2px solid rgba(10,132,255,.7); outline-offset: 2px; border-radius: 4px; }
-.fd-dlogo-demo-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 80px); align-items: center; max-width: 1240px; margin: 0 auto; padding: clamp(40px, 7vh, 96px) 0 0; }
-.fd-dlogo-demo-tag { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 24px; padding: 6px 12px; border: 1px solid rgba(255,255,255,.1); border-radius: 9999px; background: rgba(255,255,255,.03); color: #C7C7D1; font: 500 13px/1.2 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: 0; }
-.fd-dlogo-demo-dot { display: block; width: 6px; height: 6px; margin: 0; padding: 0; border-radius: 50%; background: #FF7A45; box-shadow: 0 0 0 3px rgba(255,122,69,.2); }
-.fd-dlogo-demo-title { margin: 0 0 20px; padding: 0; color: #F5F5F8; letter-spacing: -0.045em; font: 650 clamp(2.75rem, 5.6vw, 5.5rem)/0.98 "SF Pro Display", ui-sans-serif, -apple-system, "Inter", "Segoe UI", Roboto, sans-serif; }
-.fd-dlogo-demo-body { max-width: 44ch; margin: 0 0 28px; padding: 0; color: #9A9AA6; font: 400 1.0625rem/1.55 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: -0.01em; }
-.fd-dlogo-demo-cmd { display: inline-flex; align-items: center; gap: 12px; max-width: 100%; margin: 0 0 36px; padding: 14px 18px; border: 1px solid rgba(255,255,255,.09); border-radius: 14px; background: #121218; overflow-x: auto; }
-.fd-dlogo-demo-cmd code { margin: 0; padding: 0; background: none; color: #EDEDF2; font: 500 14px/1.2 ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace; white-space: nowrap; letter-spacing: 0; }
-.fd-dlogo-demo-prompt { margin: 0; padding: 0; color: #FF7A45; font: 600 14px/1.2 ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace; }
-.fd-dlogo-demo-stats { display: flex; gap: clamp(20px, 4vw, 48px); margin: 0; padding: 24px 0 0; border-top: 1px solid rgba(255,255,255,.07); }
-.fd-dlogo-demo-stats div { margin: 0; padding: 0; }
-.fd-dlogo-demo-stats dt { margin: 0 0 6px; padding: 0; color: #6B6B76; font: 500 12px/1.2 ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace; letter-spacing: 0.04em; text-transform: uppercase; }
-.fd-dlogo-demo-stats dd { margin: 0; padding: 0; color: #EDEDF2; font: 600 24px/1.1 "SF Pro Display", ui-sans-serif, -apple-system, "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
-.fd-dlogo-demo-copy { min-width: 0; margin: 0; padding: 0; }
-.fd-dlogo-demo-stage { display: flex; flex-direction: column; align-items: center; gap: 12px; margin: 0; padding: 0; }
-.fd-dlogo-demo-mark.fd-dlogo { width: min(100%, 480px); cursor: crosshair; }
-.fd-dlogo-demo-caption { margin: 0; padding: 0; color: #55555F; font: 500 12px/1.2 ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace; letter-spacing: 0.04em; }
-@media (max-width: 860px) {
-  .fd-dlogo-demo-grid { grid-template-columns: minmax(0, 1fr); }
-  .fd-dlogo-demo-stage { order: -1; }
-  .fd-dlogo-demo-mark.fd-dlogo { width: min(100%, 320px); }
-  .fd-dlogo-demo-links { display: none; }
-  .fd-dlogo-demo-cmd { display: flex; }
-  .fd-dlogo-demo-stats { flex-wrap: wrap; }
-}
+.fd-dlogod,.fd-dlogod *,.fd-dlogod *::before,.fd-dlogod *::after{box-sizing:border-box}
+.fd-dlogod{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 20px;overflow:hidden;color:#1d1d1f;font:400 15px/1.4 ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;letter-spacing:normal;background:#f2f2f2}
+.fd-dlogod-mark.fd-dlogo{width:min(100%,300px);margin:0;padding:0;cursor:crosshair}
 `;

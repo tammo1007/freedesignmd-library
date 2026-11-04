@@ -133,33 +133,12 @@ export function Demo() {
   return (
     <div className="fd-gbd">
       <style>{demoCss}</style>
-      <div className="fd-gbd-stage" aria-hidden="true">
-        <span className="fd-gbd-glow" />
-        <span className="fd-gbd-grid" />
-        <span className="fd-gbd-ring" />
-        <span className="fd-gbd-frag">Book</span>
-        <span className="fd-gbd-grain" />
-      </div>
       <GlassScope>
-        <div className="fd-gbd-sheet">
-          <div className="fd-gbd-row">
-            <p className="fd-gbd-cap">Styles</p>
-            <div className="fd-gbd-btns fd-gbd-btns--styles">
-              <GlassButton glass="glass" tone="dark" size="l" icon={<Icon d={I.grid} />}>Glass</GlassButton>
-              <GlassButton glass="glassProminent" tone="dark" size="l" icon={<Icon d={I.calendar} />}>Prominent</GlassButton>
-              <GlassButton glass="clear" size="l" iconOnly aria-label="Play" icon={<Icon d={I.play} />} />
-              <GlassButton glass="glass" tone="dark" size="l" iconOnly aria-label="More options" icon={<Icon d={I.more} />} />
-            </div>
-          </div>
-          <div className="fd-gbd-row">
-            <p className="fd-gbd-cap">Sizes</p>
-            <div className="fd-gbd-btns">
-              <GlassButton glass="glass" tone="dark" size="s">Save</GlassButton>
-              <GlassButton glass="glass" tone="dark" size="m">Save</GlassButton>
-              <GlassButton glass="glass" tone="dark" size="l">Save</GlassButton>
-              <GlassButton glass="glassProminent" tone="dark" size="xl">Reserve</GlassButton>
-            </div>
-          </div>
+        <div className="fd-gbd-row">
+          <GlassButton glass="glass" size="l" icon={<Icon d={I.grid} />}>Glass</GlassButton>
+          <GlassButton glass="glassProminent" size="l" icon={<Icon d={I.calendar} />}>Prominent</GlassButton>
+          <GlassButton glass="glass" size="l" iconOnly aria-label="Play" icon={<Icon d={I.play} />} />
+          <GlassButton glass="glass" size="l" iconOnly aria-label="More options" icon={<Icon d={I.more} />} />
         </div>
       </GlassScope>
     </div>
@@ -167,32 +146,10 @@ export function Demo() {
 }
 
 const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
-const D = `"SF Pro Display",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif`;
-/* fine film grain, an inline SVG feTurbulence tile (no network) */
-const GRAIN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1.4 0 0 0 -.2 1.4 0 0 0 -.2 1.4 0 0 0 -.2 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`;
 
 const demoCss = `
 .fd-gbd,.fd-gbd *,.fd-gbd *::before,.fd-gbd *::after{box-sizing:border-box}
-.fd-gbd{position:relative;display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;overflow:hidden;margin:0;padding:32px 20px;background:linear-gradient(155deg,#121A3A 0%,#0A0D1E 52%,#07080F 100%);color:#fff;font:400 15px/1.4 ${F};letter-spacing:normal}
-.fd-gbd-stage{position:absolute;inset:0;margin:0;padding:0;pointer-events:none}
-.fd-gbd-stage > span{position:absolute;display:block}
-.fd-gbd-glow{inset:0;background:radial-gradient(44% 56% at 20% 18%,rgba(70,110,255,0.32),transparent 70%),radial-gradient(40% 50% at 88% 92%,rgba(200,110,150,0.18),transparent 70%)}
-.fd-gbd-grid{inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,0.06) 0 1px,transparent 1px 64px),repeating-linear-gradient(0deg,rgba(255,255,255,0.06) 0 1px,transparent 1px 64px);
-  -webkit-mask:radial-gradient(70% 80% at 50% 50%,#000,transparent);mask:radial-gradient(70% 80% at 50% 50%,#000,transparent)}
-.fd-gbd-ring{left:50%;top:50%;width:min(640px,92vw);aspect-ratio:1;margin:calc(min(640px,92vw) / -2) 0 0 calc(min(640px,92vw) / -2);border-radius:50%;
-  background:conic-gradient(from 210deg,rgba(255,255,255,0),rgba(150,170,255,0.75) 30%,rgba(255,255,255,0) 62%);
-  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1px));mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1px))}
-.fd-gbd-frag{left:50%;top:50%;transform:translate(-50%,-52%);font:800 clamp(7rem,26vw,22rem)/0.8 ${D};letter-spacing:-0.06em;color:rgba(255,255,255,0.04);-webkit-text-stroke:1.5px rgba(255,255,255,0.2);white-space:nowrap}
-.fd-gbd-grain{inset:0;background-image:${GRAIN};background-size:180px 180px;mix-blend-mode:soft-light;opacity:0.3}
-.fd-gbd-sheet{position:relative;display:flex;flex-direction:column;gap:36px;width:min(100%,720px);margin:0;padding:0}
-.fd-gbd-row{display:grid;grid-template-columns:84px 1fr;align-items:center;gap:20px;margin:0;padding:0}
-.fd-gbd-cap{margin:0;padding:0;font:600 12px/1.2 ${F};letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.55)}
-.fd-gbd-btns{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin:0;padding:0}
-@media (max-width:560px){
-  .fd-gbd{align-items:center}
-  .fd-gbd-row{grid-template-columns:1fr;gap:12px}
-  .fd-gbd-btns{gap:10px}
-  .fd-gbd-btns--styles{gap:8px}
-  .fd-gbd-btns--styles .fd-gbtn{--fd-gbtn-h:40px !important;font-size:15px}
-}
+.fd-gbd{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 20px;overflow:hidden;color:#1d1d1f;font:400 15px/1.4 ${F};letter-spacing:normal;
+  background:radial-gradient(46% 62% at 28% 32%,#ffcfa6 0%,transparent 70%),radial-gradient(44% 58% at 74% 68%,#b7c3ff 0%,transparent 70%),radial-gradient(30% 40% at 62% 22%,#ffc2dc 0%,transparent 70%),#f1eeea}
+.fd-gbd-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:14px;margin:0;padding:0}
 `;

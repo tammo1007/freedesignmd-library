@@ -336,75 +336,21 @@ const css = `
 
 /* ───────────────────────────── demo ───────────────────────────── */
 
-function estimate(v: HomeSettings) {
-  const plan = { solar: -14, cheap: -9, comfort: 8 }[v.plan];
-  const heat = (v.comfort - 20) * 5.2 - (v.setback - 17) * 2.4;
-  const auto = (v.eco ? -6.5 : 0) + (v.away ? -5 : 0) + (v.preheat ? 3 : 0);
-  const eur = Math.max(18, 74 + plan + heat + auto);
-  const co2 = Math.max(12, 138 + plan * 3 + heat * 4 + auto * 3);
-  return { eur, co2 };
-}
-
 export function Demo() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
-  const [toast, setToast] = useState("");
   return (
-    <div className="fd-set-demo" data-fd-theme={theme}>
+    <div className="fd-setd">
       <style>{demoCss}</style>
-      <header className="fd-set-demo-bar">
-        <span className="fd-set-demo-brand"><i aria-hidden="true" />Voltra Home</span>
-        <nav aria-label="Primary"><a href="#home">Home</a><a href="#energy">Energy</a><a href="#devices">Devices</a><a href="#settings" aria-current="page">Settings</a></nav>
-        <button type="button" className="fd-set-demo-theme" aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"} onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>{theme === "dark" ? "Light" : "Dark"}</button>
-      </header>
-      <main className="fd-set-demo-main">
-        <div className="fd-set-demo-head"><h1>Heating &amp; energy</h1><p>Maple Street · 4 rooms · 3 devices online</p></div>
-        <SettingsForm
-          theme={theme}
-          onSave={() => setToast("Settings synced to 3 devices")}
-          aside={(v) => {
-            const e = estimate(v);
-            return (
-              <div className="fd-set-demo-sum">
-                <p>Estimated this month</p>
-                <b>€{e.eur.toFixed(2)}</b>
-                <div className="fd-set-demo-bars" aria-hidden="true"><i style={{ width: `${Math.min(100, (e.eur / 120) * 100)}%` }} /></div>
-                <dl>
-                  <div><dt>CO₂</dt><dd>{Math.round(e.co2)} kg</dd></div>
-                  <div><dt>vs. last month</dt><dd data-up={e.eur > 74 || undefined}>{e.eur > 74 ? "+" : "−"}€{Math.abs(74 - e.eur).toFixed(2)}</dd></div>
-                </dl>
-                {toast && <small role="status">{toast}</small>}
-              </div>
-            );
-          }}
-        />
-      </main>
+      <div className="fd-setd-box">
+        <SettingsForm theme="light" />
+      </div>
     </div>
   );
 }
 
+const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
+
 const demoCss = `
-:where(.fd-set-demo,.fd-set-demo *){box-sizing:border-box;margin:0;padding:0;font:inherit;letter-spacing:inherit;color:inherit;text-decoration:none;list-style:none}
-:where(.fd-set-demo,.fd-set-demo *)::before,:where(.fd-set-demo,.fd-set-demo *)::after{box-sizing:border-box}
-:where(.fd-set-demo button){appearance:none;-webkit-appearance:none;background:none;border:0;border-radius:0}
-.fd-set-demo{--d-font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;--d-disp:ui-sans-serif,-apple-system,"SF Pro Display","Inter",sans-serif;
-  --fd-ease-out:cubic-bezier(.22,1,.36,1);--fd-dur-2:240ms;
-  --d-bg:#F3F5F4;--d-ink:#0B0B0F;--d-mut:#6B6B76;--d-line:rgba(11,11,15,.08);--d-green:#0E9F6E;--d-card:#fff;
-  min-height:100vh;background:var(--d-bg);color:var(--d-ink);font:400 15px/1.45 var(--d-font);-webkit-font-smoothing:antialiased;transition:background-color var(--fd-dur-2) var(--fd-ease-out)}
-.fd-set-demo[data-fd-theme="dark"]{--d-bg:#08090A;--d-ink:#F5F5F7;--d-mut:#9A9AA6;--d-line:rgba(255,255,255,.09);--d-green:#34D399;--d-card:#111115}
-.fd-set-demo-bar{display:flex;align-items:center;gap:32px;height:60px;padding:0 clamp(16px,4vw,40px)}
-.fd-set-demo-brand{display:flex;align-items:center;gap:10px;font:700 17px/1 var(--d-disp);letter-spacing:-.03em;margin-right:auto}
-.fd-set-demo-brand i{width:20px;height:20px;border-radius:50%;background:var(--d-green);position:relative}.fd-set-demo-brand i::after{content:"";position:absolute;left:6px;top:4px;width:8px;height:12px;background:var(--d-bg);clip-path:polygon(60% 0,0 58%,45% 58%,35% 100%,100% 38%,55% 38%)}
-.fd-set-demo-bar nav{display:flex;gap:24px;font:500 14px/1 var(--d-font);color:var(--d-mut)}.fd-set-demo-bar nav a{padding:8px 0}.fd-set-demo-bar nav a:hover,.fd-set-demo-bar nav a[aria-current]{color:var(--d-ink)}
-.fd-set-demo-bar nav a:focus-visible,.fd-set-demo-theme:focus-visible{outline:2px solid rgba(10,132,255,.7);outline-offset:2px;border-radius:6px}
-.fd-set-demo-theme{cursor:pointer;height:32px;padding:0 14px;border-radius:9999px;box-shadow:0 0 0 1px var(--d-line);font:500 13px/1 var(--d-font);color:var(--d-mut)}.fd-set-demo-theme:hover{color:var(--d-ink)}
-.fd-set-demo-main{max-width:1040px;margin:0 auto;padding:32px clamp(16px,4vw,40px) 40px}
-.fd-set-demo-head{margin-bottom:24px}.fd-set-demo-head h1{font:600 28px/1.15 var(--d-disp);letter-spacing:-.025em}.fd-set-demo-head p{margin-top:6px;font:400 14px/1.4 var(--d-font);color:var(--d-mut)}
-.fd-set-demo-sum{display:flex;flex-direction:column;gap:12px;padding:24px;border-radius:24px;background:var(--d-card);box-shadow:0 0 0 1px var(--d-line),0 16px 32px -24px rgba(0,0,0,.2)}
-.fd-set-demo-sum p{font:500 13px/1 var(--d-font);color:var(--d-mut)}
-.fd-set-demo-sum b{font:600 40px/1 var(--d-disp);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.fd-set-demo-bars{height:6px;border-radius:9999px;background:var(--d-line);overflow:hidden}.fd-set-demo-bars i{display:block;height:100%;border-radius:inherit;background:var(--d-green);transition:width 420ms var(--fd-ease-out)}
-.fd-set-demo-sum dl{display:flex;flex-direction:column;gap:10px;margin-top:4px;padding-top:14px;border-top:1px solid var(--d-line);font:400 14px/1.2 var(--d-font)}
-.fd-set-demo-sum dl div{display:flex;justify-content:space-between}.fd-set-demo-sum dt{color:var(--d-mut)}.fd-set-demo-sum dd{font-variant-numeric:tabular-nums;font-weight:500;color:var(--d-green)}.fd-set-demo-sum dd[data-up]{color:#E5484D}
-.fd-set-demo-sum small{font:500 12px/1.3 var(--d-font);color:var(--d-green)}
-@media (max-width:720px){.fd-set-demo-bar nav{display:none}}
+.fd-setd,.fd-setd *,.fd-setd *::before,.fd-setd *::after{box-sizing:border-box}
+.fd-setd{display:flex;align-items:flex-start;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 20px;color:#1d1d1f;font:400 15px/1.4 ${F};letter-spacing:normal;background:#f1f1f2}
+.fd-setd-box{width:100%;max-width:520px;margin:0;padding:0}
 `;

@@ -410,67 +410,17 @@ const css = `
 
 export function Demo() {
   return (
-    <section className="fd-lmblob-demo">
+    <div className="fd-lmblobd">
       <style>{demoCss}</style>
-      <header className="fd-lmblob-demo-nav">
-        <span className="fd-lmblob-demo-logo">
-          <span className="fd-lmblob-demo-logodot" aria-hidden="true" /> Quicksilver
-        </span>
-        <nav className="fd-lmblob-demo-links" aria-label="Primary">
-          <a href="#product" onClick={(e) => e.preventDefault()}>Product</a>
-          <a href="#research" onClick={(e) => e.preventDefault()}>Research</a>
-          <a href="#enterprise" onClick={(e) => e.preventDefault()}>Enterprise</a>
-        </nav>
-        <a className="fd-lmblob-demo-signin" href="#signin" onClick={(e) => e.preventDefault()}>Sign in</a>
-      </header>
-      <div className="fd-lmblob-demo-hero">
-        <LiquidMetalBlob className="fd-lmblob-demo-blob" />
-        <div className="fd-lmblob-demo-copy">
-          <p className="fd-lmblob-demo-kicker">Introducing Quicksilver 3</p>
-          <h1 className="fd-lmblob-demo-title">An assistant that takes the shape of your work.</h1>
-          <p className="fd-lmblob-demo-body">Quicksilver adapts to your docs, your codebase and your team's voice, then gets out of the way. Now with 1M-token memory and on-device mode.</p>
-          <div className="fd-lmblob-demo-actions">
-            <a className="fd-lmblob-demo-primary" href="#try" onClick={(e) => e.preventDefault()}>Try it free</a>
-            <a className="fd-lmblob-demo-secondary" href="#film" onClick={(e) => e.preventDefault()}>Watch the film · 2:14</a>
-          </div>
-        </div>
-      </div>
-      <p className="fd-lmblob-demo-trust">Trusted by teams at Halcyon Bio, Nordlicht Energie, Pillar Health and 4,000+ others</p>
-    </section>
+      <LiquidMetalBlob className="fd-lmblobd-blob" />
+    </div>
   );
 }
 
+const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
+
 const demoCss = `
-.fd-lmblob-demo, .fd-lmblob-demo *, .fd-lmblob-demo *::before, .fd-lmblob-demo *::after { box-sizing: border-box; }
-.fd-lmblob-demo {
-  min-height: 100vh; margin: 0; padding: 0 clamp(20px, 4vw, 56px) 32px; overflow: hidden;
-  display: flex; flex-direction: column;
-  background: linear-gradient(180deg, #F4F4F6 0%, #E9E9ED 100%); color: #0B0B0F;
-  font: 400 15px/1.5 ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif;
-}
-.fd-lmblob-demo-nav { display: flex; align-items: center; gap: 32px; height: 72px; margin: 0; padding: 0; }
-.fd-lmblob-demo-logo { display: inline-flex; align-items: center; gap: 9px; margin: 0 auto 0 0; padding: 0; color: #0B0B0F; font: 650 17px/1 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: -0.02em; }
-.fd-lmblob-demo-logodot { display: block; width: 18px; height: 18px; margin: 0; padding: 0; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff 0 12%, #b9bcc3 30%, #2b2c30 62%, #8d9097 100%); box-shadow: 0 2px 4px rgba(0,0,0,.2); }
-.fd-lmblob-demo-links { display: flex; gap: 28px; margin: 0; padding: 0; }
-.fd-lmblob-demo-links a, .fd-lmblob-demo-signin { margin: 0; padding: 0; color: #4A4A55; text-decoration: none; font: 500 14px/1 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: 0; transition: color 120ms cubic-bezier(0.22, 1, 0.36, 1); }
-.fd-lmblob-demo-links a:hover, .fd-lmblob-demo-signin:hover { color: #0B0B0F; }
-.fd-lmblob-demo-hero { flex: 1; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: center; gap: clamp(16px, 4vw, 64px); max-width: 1280px; width: 100%; margin: 0 auto; padding: 0; }
-.fd-lmblob-demo-blob.fd-lmblob { width: 118%; max-width: 760px; margin: -6% -9%; justify-self: center; }
-.fd-lmblob-demo-copy { max-width: 520px; margin: 0; padding: 0; }
-.fd-lmblob-demo-kicker { margin: 0 0 16px; padding: 0; color: #6B6B76; font: 600 13px/1.3 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: 0.04em; text-transform: uppercase; }
-.fd-lmblob-demo-title { margin: 0 0 20px; padding: 0; color: #0B0B0F; font: 700 clamp(2.5rem, 4.8vw, 4.25rem)/1.0 "SF Pro Display", ui-sans-serif, -apple-system, "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: -0.04em; }
-.fd-lmblob-demo-body { max-width: 44ch; margin: 0 0 32px; padding: 0; color: #4A4A55; font: 400 1.0625rem/1.55 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: -0.01em; }
-.fd-lmblob-demo-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin: 0; padding: 0; }
-.fd-lmblob-demo-primary { display: inline-flex; align-items: center; height: 50px; margin: 0; padding: 0 26px; border: 0; border-radius: 9999px; background: #0B0B0F; color: #F7F7F9; text-decoration: none; font: 600 15px/1 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: -0.01em; transition: transform 120ms cubic-bezier(0.22, 1, 0.36, 1), background 120ms cubic-bezier(0.22, 1, 0.36, 1); }
-.fd-lmblob-demo-primary:hover { background: #2A2A31; }
-.fd-lmblob-demo-primary:active { transform: scale(0.96); }
-.fd-lmblob-demo-secondary { margin: 0; padding: 0; color: #0B0B0F; text-decoration: none; font: 550 15px/1 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; }
-.fd-lmblob-demo-secondary:hover { text-decoration: underline; text-underline-offset: 4px; }
-.fd-lmblob-demo a:focus-visible { outline: 2px solid rgba(0,122,255,.7); outline-offset: 2px; border-radius: 6px; }
-.fd-lmblob-demo-trust { margin: 0; padding: 0; text-align: center; color: #8A8A94; font: 500 13px/1.4 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; }
-@media (max-width: 860px) {
-  .fd-lmblob-demo-hero { grid-template-columns: 1fr; text-align: left; }
-  .fd-lmblob-demo-blob.fd-lmblob { width: 100%; max-width: 380px; margin: -8% 0; }
-  .fd-lmblob-demo-links { display: none; }
-}
+.fd-lmblobd,.fd-lmblobd *,.fd-lmblobd *::before,.fd-lmblobd *::after{box-sizing:border-box}
+.fd-lmblobd{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 20px;overflow:hidden;color:#1d1d1f;font:400 15px/1.4 ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;letter-spacing:normal;background:#f2f2f2}
+.fd-lmblobd-blob.fd-lmblob{width:min(100%,640px);margin:0;padding:0}
 `;

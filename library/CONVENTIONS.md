@@ -136,3 +136,31 @@ biotech, sports. Use realistic names, numbers, dates and copy, never
 - No console errors. `bunx tsc --noEmit -p .` shows no errors in your files.
 - The copied file works alone: it imports only `react` (and sibling files it
   lists in `files`).
+
+
+## 7 · The Demo: one object on a quiet ground
+
+The Demo is the first thing people see and the thing they copy. It shows the
+component, not a website around it.
+
+- **One object, centered.** The component itself, alone. If variants matter
+  (sizes, styles), show them in ONE calm row or column, with generous space,
+  never a grid of everything. Three elements at most.
+- **No fake page.** No navbar, headline, eyebrow, paragraph, dashboard, cards,
+  stat rows, fact lists, brand names, giant outlined letters, blueprint grids,
+  film grain, glow rings or "Kiln & Field" style copy. The only words on screen
+  are the component's own labels.
+- **Quiet ground.** Light and neutral by default (`#ececec` to `#f4f4f4`, or
+  white). Components that need something to refract or reflect (Liquid Glass,
+  Liquid Metal, Dither) get ONE soft procedural backdrop, a pastel mesh made of
+  2 to 3 radial gradients, never a photo and never a pattern.
+  A dark stage is allowed only when the component is dark by nature.
+- **Real size.** The object is shown at the size people would use it. Do not
+  scale it up to fill the screen.
+- **Same file, same rules.** The Demo stays in the component file, uses only
+  `react`, has its own `fd-<slug>d-` prefixed CSS in a template string, and
+  must not change the component's API. The reset-independence rules in 2b apply
+  to the Demo too.
+- **Motion is the component's, not the stage's.** No decorative looping
+  background animation. Respect `prefers-reduced-motion`.
+- **Reference:** `liquid-glass/glass-button.tsx` (`Demo`).

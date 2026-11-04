@@ -289,7 +289,7 @@ const css = `
 @media (prefers-reduced-motion: reduce){.fd-gmn-item{transform:none}}
 `;
 
-/* ───────────────────────── demo: trading position context menu ───────────────────────── */
+/* ───────────────────────── demo ───────────────────────── */
 
 const s = (d: ReactNode) => (
   <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
@@ -298,220 +298,43 @@ const s = (d: ReactNode) => (
 );
 const IC = {
   more: s(<><circle cx="6" cy="12" r="1.4" fill="currentColor" /><circle cx="12" cy="12" r="1.4" fill="currentColor" /><circle cx="18" cy="12" r="1.4" fill="currentColor" /></>),
-  buy: s(<path d="M12 19V5M6 11l6-6 6 6" />),
-  sell: s(<path d="M12 5v14M6 13l6 6 6-6" />),
-  alert: s(<path d="M6 16.5V11a6 6 0 0 1 12 0v5.5l1.5 2h-15ZM10 20.5h4" />),
-  stop: s(<><circle cx="12" cy="12" r="8" /><path d="M8.5 12h7" /></>),
+  copy: s(<><rect x="8.5" y="8.5" width="11" height="11" rx="2.5" /><path d="M15.5 8.5V6.5A2.5 2.5 0 0 0 13 4H6.5A2.5 2.5 0 0 0 4 6.5V13a2.5 2.5 0 0 0 2.5 2.5h2" /></>),
+  duplicate: s(<><rect x="4" y="4" width="16" height="16" rx="3.5" /><path d="M12 8.5v7M8.5 12h7" /></>),
   share: s(<path d="M12 4v11M8 7.5 12 4l4 3.5M6 12v6.5a1.5 1.5 0 0 0 1.5 1.5h9a1.5 1.5 0 0 0 1.5-1.5V12" />),
-  close: s(<path d="M6 6l12 12M18 6 6 18" />),
-  range: s(<><rect x="3.5" y="5" width="17" height="15" rx="3" /><path d="M3.5 10h17M8 3v4M16 3v4" /></>),
-  check: s(<path d="m5 12.5 4.5 4.5L19 7.5" />),
+  trash: s(<path d="M4.5 7h15M9.5 7V4.5h5V7M6.5 7l.8 12a1.5 1.5 0 0 0 1.5 1.4h6.4a1.5 1.5 0 0 0 1.5-1.4l.8-12" />),
 };
 
-/** Deterministic price series (SSR-safe). */
-const SERIES = Array.from({ length: 120 }, (_, i) => {
-  const t = i / 119;
-  return Math.round((182 + Math.sin(t * 9) * 4 + Math.sin(t * 23 + 1) * 1.6 + t * 14 + Math.cos(t * 47) * 0.7) * 100) / 100;
-});
-
-const CH_H = 200;
-const LO = Math.min(...SERIES);
-const HI = Math.max(...SERIES);
-const yOf = (v: number) => 18 + (1 - (v - LO) / (HI - LO)) * (CH_H - 36);
-const PTS = SERIES.filter((_, i) => i % 6 === 0 || i === SERIES.length - 1);
-const XY: [number, number][] = PTS.map((v, i) => [(i / (PTS.length - 1)) * 1000, yOf(v)]);
-const LINE = XY.reduce((d, [x, y], i) => {
-  if (i === 0) return `M${x.toFixed(1)},${y.toFixed(1)}`;
-  const [px, py] = XY[i - 1];
-  const mx = (px + x) / 2;
-  return `${d} C${mx.toFixed(1)},${py.toFixed(1)} ${mx.toFixed(1)},${y.toFixed(1)} ${x.toFixed(1)},${y.toFixed(1)}`;
-}, "");
-const AREA = `${LINE} L1000,${CH_H} L0,${CH_H} Z`;
-const TICKS = [0.2, 0.5, 0.8].map((k) => ({ v: LO + (HI - LO) * (1 - k), y: 18 + k * (CH_H - 36) }));
-const END_Y = XY[XY.length - 1][1];
-const MONTH = ["3 Oct", "10 Oct", "17 Oct", "24 Oct", "31 Oct"];
-
 export function Demo() {
-  const [toast, setToast] = useState<string | null>(null);
-  const [range, setRange] = useState("1M");
-  useEffect(() => {
-    if (!toast) return;
-    const t = window.setTimeout(() => setToast(null), 2200);
-    return () => window.clearTimeout(t);
-  }, [toast]);
-  const RANGES = ["1D", "1W", "1M", "3M", "1Y", "All"];
+  const [last, setLast] = useState<string | null>(null);
   return (
     <div className="fd-gmnd">
       <style>{demoCss}</style>
-      <div className="fd-gmnd-bg" aria-hidden="true">
-        <span className="fd-gmnd-glow" />
-        <span className="fd-gmnd-grid" />
-        <span className="fd-gmnd-ring fd-gmnd-ring--a" />
-        <span className="fd-gmnd-ring fd-gmnd-ring--b" />
-        <span className="fd-gmnd-grain" />
-      </div>
-      <div className="fd-gmnd-card">
-        <header className="fd-gmnd-head">
-          <div className="fd-gmnd-tick">
-            <span className="fd-gmnd-logo" aria-hidden="true">N</span>
-            <div>
-              <p className="fd-gmnd-sym">NRDX · Nordlys Energy</p>
-              <p className="fd-gmnd-ex">XSTO · Position: 240 shares</p>
-            </div>
-          </div>
-          <div className="fd-gmnd-actions">
-            <GlassMenu
-              label={range === "All" ? "All time" : range}
-              icon={IC.range}
-              align="end"
-              tone="dark"
-              menuWidth={200}
-              onSelect={setRange}
-              items={RANGES.map((r) => ({ id: r, label: r === "All" ? "All time" : r, icon: r === range ? IC.check : undefined }))}
-            />
-            <GlassMenu
-              label="Position actions"
-              iconOnly
-              icon={IC.more}
-              tone="dark"
-              align="end"
-              menuWidth={272}
-              onSelect={(id) => setToast(
-                {
-                  buy: "Buy order ticket opened",
-                  sell: "Sell order ticket opened",
-                  alert: "Alert set at SEK 200.00",
-                  stop: "Trailing stop set at −4%",
-                  share: "Link to NRDX copied",
-                  close: "Close position, confirm in ticket",
-                }[id] ?? id,
-              )}
-              items={[
-                { id: "buy", label: "Buy more", icon: IC.buy, detail: "B" },
-                { id: "sell", label: "Sell", icon: IC.sell, detail: "S" },
-                "separator",
-                { id: "alert", label: "Price alert", icon: IC.alert },
-                { id: "stop", label: "Trailing stop", icon: IC.stop, detail: "−4%" },
-                { id: "share", label: "Share", icon: IC.share },
-                "separator",
-                { id: "close", label: "Close position", icon: IC.close, destructive: true },
-              ]}
-            />
-          </div>
-        </header>
-        <div className="fd-gmnd-price">
-          <span className="fd-gmnd-big">SEK 198.42</span>
-          <span className="fd-gmnd-chg">+12.86 (6.93%)</span>
-        </div>
-        <p className="fd-gmnd-meta">
-          <span>Market value SEK 47 620.80</span> · <span>Unrealised +SEK 3 086.40</span>
-        </p>
-        <div className="fd-gmnd-plot" role="img" aria-label="Price chart, up 6.93% this month">
-          <svg className="fd-gmnd-chart" viewBox={`0 0 1000 ${CH_H}`} preserveAspectRatio="none" aria-hidden="true" focusable="false">
-            <defs>
-              <linearGradient id="fdgmndfill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stopColor="#30D158" stopOpacity="0.28" />
-                <stop offset="1" stopColor="#30D158" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-            {TICKS.map((t) => (
-              <line key={t.y} x1="0" x2="1000" y1={t.y} y2={t.y} stroke="rgba(255,255,255,0.08)" strokeWidth="1" strokeDasharray="2 6" vectorEffect="non-scaling-stroke" />
-            ))}
-            <path d={AREA} fill="url(#fdgmndfill)" />
-            <path d={LINE} fill="none" stroke="#30D158" strokeWidth="2.25" vectorEffect="non-scaling-stroke" strokeLinejoin="round" strokeLinecap="round" />
-          </svg>
-          {TICKS.map((t) => (
-            <span key={t.y} className="fd-gmnd-tickl" style={{ top: t.y }}>
-              {t.v.toFixed(0)}
-            </span>
-          ))}
-          <span className="fd-gmnd-end" style={{ top: END_Y }} />
-        </div>
-        <div className="fd-gmnd-xaxis" aria-hidden="true">
-          {MONTH.map((m) => (
-            <span key={m}>{m}</span>
-          ))}
-        </div>
-        <dl className="fd-gmnd-stats">
-          {[
-            ["Open", "196.10"],
-            ["Day range", "195.02 – 199.80"],
-            ["Volume", "3.21 M"],
-            ["P/E", "18.4"],
-            ["Mkt cap", "SEK 61.2 bn"],
-            ["Div. yield", "2.6%"],
-          ].map(([k, v]) => (
-            <div key={k}>
-              <dt>{k}</dt>
-              <dd>{v}</dd>
-            </div>
-          ))}
-        </dl>
-      </div>
-      <div className={`fd-gmnd-toast${toast ? " is-on" : ""}`} role="status" aria-live="polite">
-        {toast}
+      <div className="fd-gmnd-stage">
+        <GlassMenu
+          label="Actions"
+          icon={IC.more}
+          menuWidth={240}
+          onSelect={setLast}
+          items={[
+            { id: "copy", label: "Copy", icon: IC.copy },
+            { id: "duplicate", label: "Duplicate", icon: IC.duplicate },
+            { id: "share", label: "Share", icon: IC.share },
+            "separator",
+            { id: "delete", label: "Delete", icon: IC.trash, destructive: true },
+          ]}
+        />
+        <span className="fd-gmnd-live" role="status" aria-live="polite">{last ? `Selected ${last}` : ""}</span>
       </div>
     </div>
   );
 }
 
 const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
-const D = `"SF Pro Display",ui-sans-serif,-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif`;
-const M = `ui-monospace,"SF Mono","JetBrains Mono",Menlo,monospace`;
-/* fine film grain, an inline SVG feTurbulence tile (no network) */
-const GRAIN = `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='1.4 0 0 0 -.2 1.4 0 0 0 -.2 1.4 0 0 0 -.2 0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`;
+
 const demoCss = `
 .fd-gmnd,.fd-gmnd *,.fd-gmnd *::before,.fd-gmnd *::after{box-sizing:border-box}
-.fd-gmnd{position:relative;min-height:100vh;width:100%;margin:0;padding:36px 20px;display:flex;align-items:center;justify-content:center;overflow:hidden;
-  background:linear-gradient(160deg,#0F1530 0%,#0A0C1A 46%,#07080D 100%);color:#F2F2F7;font:400 15px/1.4 ${F};letter-spacing:normal}
-.fd-gmnd-bg{position:absolute;inset:0;margin:0;padding:0;pointer-events:none}
-.fd-gmnd-bg > span{position:absolute;display:block}
-.fd-gmnd-glow{inset:0;background:radial-gradient(46% 56% at 84% 14%,rgba(70,110,255,0.34),transparent 70%),radial-gradient(40% 50% at 8% 96%,rgba(48,209,160,0.16),transparent 70%)}
-.fd-gmnd-grid{inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,0.05) 0 1px,transparent 1px 80px),repeating-linear-gradient(0deg,rgba(255,255,255,0.05) 0 1px,transparent 1px 80px);
-  -webkit-mask:radial-gradient(70% 80% at 50% 50%,#000,transparent);mask:radial-gradient(70% 80% at 50% 50%,#000,transparent)}
-.fd-gmnd-ring{border-radius:50%;
-  -webkit-mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1px));mask:radial-gradient(farthest-side,transparent calc(100% - 2px),#000 calc(100% - 1px))}
-.fd-gmnd-ring--a{left:calc(50% - 720px);top:-120px;width:560px;height:560px;background:conic-gradient(from 40deg,rgba(255,255,255,0),rgba(150,170,255,0.7),rgba(255,255,255,0) 60%)}
-.fd-gmnd-ring--b{right:calc(50% - 760px);bottom:-200px;width:620px;height:620px;background:conic-gradient(from 200deg,rgba(255,255,255,0),rgba(255,255,255,0.45),rgba(255,255,255,0) 55%)}
-.fd-gmnd-grain{inset:0;background-image:${GRAIN};background-size:180px 180px;mix-blend-mode:soft-light;opacity:0.3}
-.fd-gmnd-card{position:relative;width:100%;max-width:780px;margin:0;padding:26px 28px 14px;border-radius:28px;background:linear-gradient(180deg,#1A1B23,#13141A);box-shadow:inset 0 0 0 0.5px rgba(255,255,255,0.1),0 40px 80px -40px rgba(0,0,0,0.9)}
-.fd-gmnd-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 22px;padding:0}
-.fd-gmnd-tick{display:flex;align-items:center;gap:12px;min-width:0}
-.fd-gmnd-tick > div{min-width:0}
-.fd-gmnd-meta span{white-space:nowrap}
-.fd-gmnd-logo{display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,#7C8CFF,#4338CA);font:800 20px/1 ${D};color:#fff}
-.fd-gmnd-sym{margin:0;font:700 17px/1.2 ${F};letter-spacing:-0.01em;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.fd-gmnd-ex{margin:2px 0 0;font:500 13px/1.2 ${F};color:#8E8E99}
-.fd-gmnd-actions{display:flex;gap:10px;align-items:center;flex:none}
-.fd-gmnd-price{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:0 0 4px}
-.fd-gmnd-big{font:700 clamp(2.25rem,6vw,3.25rem)/1 ${D};letter-spacing:-0.035em;color:#fff;font-variant-numeric:tabular-nums}
-.fd-gmnd-chg{font:600 17px/1 ${F};color:#30D158;font-variant-numeric:tabular-nums}
-.fd-gmnd-meta{margin:0 0 18px;font:500 13px/1.4 ${F};color:#8E8E99}
-.fd-gmnd-plot{position:relative;height:${CH_H}px;margin:0;padding:0}
-.fd-gmnd-chart{position:absolute;inset:0;display:block;width:100%;height:100%;margin:0;overflow:visible}
-.fd-gmnd-tickl{position:absolute;left:0;margin:-17px 0 0;padding:0;font:500 11px/1 ${M};color:rgba(255,255,255,0.38);font-variant-numeric:tabular-nums}
-.fd-gmnd-end{position:absolute;right:-5px;display:block;width:10px;height:10px;margin:-5px 0 0;padding:0;border-radius:50%;background:#30D158;box-shadow:0 0 0 4px rgba(48,209,88,0.22),0 0 18px rgba(48,209,88,0.6)}
-.fd-gmnd-xaxis{display:flex;justify-content:space-between;margin:10px 0 18px;padding:0}
-.fd-gmnd-xaxis span{margin:0;font:500 11px/1 ${M};color:rgba(255,255,255,0.38)}
-.fd-gmnd-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0 24px;margin:0;padding:0;border-top:0.5px solid rgba(255,255,255,0.1)}
-.fd-gmnd-stats div{margin:0;padding:12px 0;border-bottom:0.5px solid rgba(255,255,255,0.08)}
-.fd-gmnd-stats div:nth-last-child(-n+3){border-bottom:0}
-.fd-gmnd-stats dt{margin:0 0 2px;font:500 12px/1.2 ${F};color:#8E8E99}
-.fd-gmnd-stats dd{margin:0;font:500 15px/1.3 ${M};color:#F2F2F7}
-.fd-gmnd-toast{position:absolute;left:50%;bottom:28px;margin:0;padding:12px 18px;border-radius:999px;background:#F2F2F7;color:#0B0B0F;font:600 14px/1 ${F};white-space:nowrap;
-  transform:translate(-50%,20px);opacity:0;transition:opacity 240ms cubic-bezier(0.22,1,0.36,1),transform 420ms cubic-bezier(0.34,1.56,0.64,1);pointer-events:none}
-.fd-gmnd-toast.is-on{opacity:1;transform:translate(-50%,0)}
-@media (max-width:560px){
-  .fd-gmnd{padding:20px 12px;align-items:flex-start}
-  .fd-gmnd-card{padding:18px 18px 8px}
-  .fd-gmnd-ex{display:none}
-  .fd-gmnd-sym{font-size:15px;white-space:normal}
-  .fd-gmnd-tick{gap:10px}
-  .fd-gmnd-logo{width:38px;height:38px;font-size:17px}
-  .fd-gmnd-actions{gap:8px}
-  .fd-gmnd-stats{grid-template-columns:repeat(2,1fr)}
-  .fd-gmnd-stats div:nth-last-child(-n+3){border-bottom:0.5px solid rgba(255,255,255,0.08)}
-  .fd-gmnd-stats div:nth-last-child(-n+2){border-bottom:0}
-  .fd-gmnd-plot{height:${CH_H}px}
-}
+.fd-gmnd{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 20px;overflow:hidden;color:#1d1d1f;font:400 15px/1.4 ${F};letter-spacing:normal;
+  background:radial-gradient(46% 62% at 28% 32%,#ffcfa6 0%,transparent 70%),radial-gradient(44% 58% at 74% 68%,#b7c3ff 0%,transparent 70%),radial-gradient(30% 40% at 62% 22%,#ffc2dc 0%,transparent 70%),#f1eeea}
+.fd-gmnd-stage{display:flex;align-items:flex-start;justify-content:center;width:260px;height:300px;margin:0;padding:0}
+.fd-gmnd-live{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 `;

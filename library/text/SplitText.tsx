@@ -430,164 +430,41 @@ const PRESETS: { id: SplitPreset; label: string }[] = [
 ];
 
 export function Demo() {
-  const [keys, setKeys] = useState<Record<string, number>>({});
-  const bump = (id: string) => setKeys((k) => ({ ...k, [id]: (k[id] ?? 0) + 1 }));
-  const replayAll = () => setKeys((k) => Object.fromEntries(PRESETS.map((p) => [p.id, (k[p.id] ?? 0) + 1])));
-
-  const Replay = ({ id, label }: { id: string; label: string }) => (
-    <button type="button" className="fd-st-demo-replay" onClick={() => bump(id)} aria-label={`Replay ${label} preset`}>
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
-        <path d="M3 3v5h5" />
-      </svg>
-      {label}
-    </button>
-  );
+  const [preset, setPreset] = useState<SplitPreset>("rise");
+  const [run, setRun] = useState(0);
+  const pick = (id: SplitPreset) => {
+    setPreset(id);
+    setRun((n) => n + 1);
+  };
 
   return (
-    <div className="fd-st-demo">
+    <div className="fd-std">
       <style>{demoCss}</style>
-      <header className="fd-st-demo-bar">
-        <span className="fd-st-demo-logo" aria-label="Halyard Research">
-          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" strokeWidth="1.6" /><path d="M5 15.5c3-5.5 11-5.5 14 0" fill="none" stroke="currentColor" strokeWidth="1.6" /><circle cx="12" cy="8" r="1.8" fill="currentColor" /></svg>
-          Halyard
-        </span>
-        <nav className="fd-st-demo-nav" aria-label="Primary">
-          <a href="#research">Research</a>
-          <a href="#models">Models</a>
-          <a href="#safety">Safety</a>
-          <a href="#careers">Careers</a>
-        </nav>
-        <button type="button" className="fd-st-demo-all" onClick={replayAll}>Replay all</button>
-      </header>
-
-      <main className="fd-st-demo-main">
-        <section className="fd-st-demo-hero">
-          <div className="fd-st-demo-kick">
-            <span className="fd-st-demo-dot" aria-hidden="true" />
-            Release note · 14 November 2026
-            <Replay id="rise" label="Rise · lines" />
-          </div>
-          <SplitText
-            as="h1"
-            preset="rise"
-            split="lines"
-            text="Halyard 3 reasons in long arcs, not short hops."
-            className="fd-st-demo-h1"
-            trigger="mount"
-            replay={keys.rise}
-          />
-          <SplitText
-            as="p"
-            preset="blur"
-            split="words"
-            stagger={28}
-            delay={380}
-            text="A 1.2M-token context, verified tool use and a planning head trained on 41 billion steps of agentic traces. Available today in the API and on-prem."
-            className="fd-st-demo-lede"
-            trigger="mount"
-            replay={keys.rise}
-          />
-        </section>
-
-        <section className="fd-st-demo-grid" aria-label="Highlights">
-          <article className="fd-st-demo-card fd-st-demo-card--stat">
-            <div className="fd-st-demo-cardhead"><span>Long-horizon eval</span><Replay id="scatter" label="Scatter" /></div>
-            <SplitText as="p" preset="scatter" text="+38.4%" className="fd-st-demo-stat" replay={keys.scatter} />
-            <p className="fd-st-demo-note">Task completion on HorizonBench-500 over Halyard 2, with no change to latency at p50.</p>
-          </article>
-
-          <article className="fd-st-demo-card fd-st-demo-card--quote">
-            <div className="fd-st-demo-cardhead"><span>From the paper</span><Replay id="wave" label="Wave" /></div>
-            <SplitText
-              as="h2"
-              preset="wave"
-              text="Plans should bend, not break."
-              className="fd-st-demo-quote"
-              duration={900}
-              stagger={30}
-              replay={keys.wave}
-            />
-            <p className="fd-st-demo-note">Dr. Ines Achterberg, Head of Reasoning</p>
-          </article>
-
-          <article className="fd-st-demo-card fd-st-demo-card--term">
-            <div className="fd-st-demo-cardhead"><span>halyard-3 · playground</span><Replay id="typewriter" label="Type" /></div>
-            <div className="fd-st-demo-term">
-              <span className="fd-st-demo-prompt" aria-hidden="true">›</span>
-              <SplitText
-                as="p"
-                preset="typewriter"
-                cps={24}
-                delay={300}
-                text="Plan a 3-week migration of our billing service to event sourcing, with a rollback at every step."
-                className="fd-st-demo-typed"
-                replay={keys.typewriter}
-              />
-            </div>
-          </article>
-        </section>
-
-        <section className="fd-st-demo-foot">
-          <div className="fd-st-demo-cardhead"><span>Research agenda</span><Replay id="blur" label="Blur · words" /></div>
-          <SplitText
-            as="h2"
-            preset="blur"
-            split="words"
-            text="Interpretability you can audit. Evaluations you can rerun. Weights you can host."
-            className="fd-st-demo-h2"
-            replay={keys.blur}
-          />
-        </section>
-      </main>
+      <SplitText
+        key={preset}
+        as="h2"
+        preset={preset}
+        split={preset === "rise" || preset === "blur" ? "words" : "chars"}
+        text="Make it feel alive."
+        className="fd-std-text"
+        trigger="mount"
+        replay={run}
+      />
+      <div className="fd-std-seg" role="radiogroup" aria-label="Preset">
+        {PRESETS.map((p) => (
+          <button key={p.id} type="button" role="radio" aria-checked={preset === p.id} onClick={() => pick(p.id)}>{p.label}</button>
+        ))}
+      </div>
     </div>
   );
 }
 
 const demoCss = `
-.fd-st-demo,.fd-st-demo *,.fd-st-demo *::before,.fd-st-demo *::after{box-sizing:border-box}
-.fd-st-demo{--d-font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;
-  --d-disp:"SF Pro Display",ui-sans-serif,-apple-system,"Inter Display","Inter",sans-serif;
-  --d-serif:ui-serif,"New York","Iowan Old Style","Charter","Georgia",serif;
-  --d-mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,monospace;
-  --d-bg:#F3F1EC;--d-ink:#101014;--d-mut:#64625C;--d-line:rgba(16,16,20,.12);--d-acc:#E0461B;
-  margin:0;padding:0;min-height:100vh;background:var(--d-bg);color:var(--d-ink);font:400 15px/1.5 var(--d-font);-webkit-font-smoothing:antialiased}
-.fd-st-demo-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0;padding:20px clamp(16px,4vw,48px)}
-.fd-st-demo-logo{display:inline-flex;align-items:center;gap:10px;margin:0;font:600 17px/1 var(--d-disp);letter-spacing:-.01em;color:var(--d-ink)}
-.fd-st-demo-logo svg{display:block}
-.fd-st-demo-nav{display:flex;gap:28px;margin:0;padding:0}
-.fd-st-demo-nav a{margin:0;padding:6px 0;font:400 15px/1 var(--d-font);color:var(--d-mut);text-decoration:none}
-.fd-st-demo-nav a:hover{color:var(--d-ink)}
-.fd-st-demo-all{appearance:none;-webkit-appearance:none;margin:0;height:34px;padding:0 16px;border:0;border-radius:9999px;background:var(--d-ink);color:var(--d-bg);
-  font:500 13px/1 var(--d-font);cursor:pointer;transition:transform 120ms cubic-bezier(.22,1,.36,1)}
-.fd-st-demo-all:active{transform:scale(.96)}
-.fd-st-demo a:focus-visible,.fd-st-demo button:focus-visible{outline:2px solid rgba(10,132,255,.7);outline-offset:2px;border-radius:9999px}
-.fd-st-demo-main{max-width:1280px;margin:0 auto;padding:clamp(24px,6vh,64px) clamp(16px,4vw,48px) 64px}
-.fd-st-demo-kick{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:0 0 22px;font:500 13px/1 var(--d-mono);color:var(--d-mut);letter-spacing:.01em}
-.fd-st-demo-dot{display:block;width:8px;height:8px;border-radius:50%;background:var(--d-acc);box-shadow:0 0 0 4px rgba(224,70,27,.16)}
-.fd-st-demo-replay{appearance:none;-webkit-appearance:none;display:inline-flex;align-items:center;gap:6px;margin:0 0 0 auto;height:26px;padding:0 10px;border:0;border-radius:9999px;
-  background:rgba(16,16,20,.06);color:var(--d-mut);font:500 12px/1 var(--d-mono);letter-spacing:0;cursor:pointer;transition:background-color 120ms,color 120ms}
-.fd-st-demo-replay:hover{background:rgba(16,16,20,.1);color:var(--d-ink)}
-.fd-st-demo-replay svg{display:block}
-.fd-st-demo-h1{max-width:13ch;color:var(--d-ink);font:600 clamp(44px,8.4vw,112px)/.94 var(--d-disp);letter-spacing:-.045em}
-.fd-st-demo-lede{max-width:34em;margin:28px 0 0;color:var(--d-mut);font:400 clamp(17px,1.6vw,20px)/1.45 var(--d-font);letter-spacing:-.01em;text-wrap:pretty}
-.fd-st-demo-grid{display:grid;grid-template-columns:1fr 1.15fr 1.35fr;gap:16px;margin:clamp(40px,8vh,80px) 0 0}
-.fd-st-demo-card{display:flex;flex-direction:column;gap:14px;margin:0;padding:22px;border-radius:24px;background:#FBFAF7;box-shadow:0 0 0 1px var(--d-line);min-height:220px}
-.fd-st-demo-cardhead{display:flex;align-items:center;gap:10px;margin:0;font:500 12px/1 var(--d-mono);color:var(--d-mut);text-transform:uppercase;letter-spacing:.06em}
-.fd-st-demo-cardhead .fd-st-demo-replay{text-transform:none}
-.fd-st-demo-stat{margin:auto 0 0;color:var(--d-acc);font:600 clamp(56px,6vw,88px)/1 var(--d-disp);letter-spacing:-.05em;font-variant-numeric:tabular-nums}
-.fd-st-demo-note{margin:0;color:var(--d-mut);font:400 13px/1.45 var(--d-font);max-width:32em}
-.fd-st-demo-card--quote{background:var(--d-ink);color:#F3F1EC;box-shadow:none}
-.fd-st-demo-card--quote .fd-st-demo-cardhead,.fd-st-demo-card--quote .fd-st-demo-note{color:rgba(243,241,236,.6)}
-.fd-st-demo-card--quote .fd-st-demo-replay{background:rgba(255,255,255,.1);color:rgba(243,241,236,.7)}
-.fd-st-demo-quote{margin:auto 0 0;color:#F3F1EC;font:400 italic clamp(32px,3.2vw,44px)/1.05 var(--d-serif);letter-spacing:-.025em}
-.fd-st-demo-card--term{background:#16161B;box-shadow:0 0 0 1px rgba(255,255,255,.06),0 24px 48px -28px rgba(16,16,20,.6)}
-.fd-st-demo-card--term .fd-st-demo-cardhead{color:rgba(243,241,236,.5);text-transform:none;letter-spacing:0}
-.fd-st-demo-card--term .fd-st-demo-replay{background:rgba(255,255,255,.08);color:rgba(243,241,236,.7)}
-.fd-st-demo-term{display:flex;gap:12px;margin:auto 0 0;padding:16px;border-radius:12px;background:rgba(255,255,255,.04)}
-.fd-st-demo-prompt{margin:0;color:#7BE0A6;font:500 17px/1.45 var(--d-mono)}
-.fd-st-demo-typed{--fd-st-caret:#7BE0A6;color:#EDEBE6;font:400 15px/1.55 var(--d-mono);letter-spacing:0;text-wrap:pretty}
-.fd-st-demo-foot{margin:clamp(48px,10vh,96px) 0 0;padding:24px 0 0;border-top:1px solid var(--d-line)}
-.fd-st-demo-h2{margin:22px 0 0;max-width:22ch;color:var(--d-ink);font:500 clamp(32px,4.4vw,64px)/1.02 var(--d-disp);letter-spacing:-.035em}
-@media (max-width:900px){.fd-st-demo-grid{grid-template-columns:1fr}.fd-st-demo-nav{display:none}}
+.fd-std,.fd-std *,.fd-std *::before,.fd-std *::after{box-sizing:border-box}
+.fd-std{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:44px;min-height:100vh;width:100%;margin:0;padding:32px 20px;overflow:hidden;background:#f2f2f2;color:#1d1d1f;font:400 15px/1.4 ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;letter-spacing:normal;-webkit-font-smoothing:antialiased}
+.fd-std .fd-std-text{margin:0;padding:0;max-width:100%;color:#1d1d1f;text-align:center;font:600 clamp(36px,8vw,88px)/1.05 "SF Pro Display",ui-sans-serif,-apple-system,"Inter Display","Inter",sans-serif;letter-spacing:-.04em;--fd-st-caret:#1d1d1f}
+.fd-std-seg{display:inline-flex;flex-wrap:wrap;justify-content:center;gap:2px;margin:0;padding:3px;border-radius:9999px;background:rgba(0,0,0,.06)}
+.fd-std-seg button{appearance:none;-webkit-appearance:none;margin:0;height:30px;padding:0 14px;border:0;border-radius:9999px;background:transparent;color:#6e6e73;font:500 13px/1 ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;letter-spacing:normal;cursor:pointer;transition:background-color 220ms cubic-bezier(.65,0,.35,1),color 220ms}
+.fd-std-seg button[aria-checked="true"]{background:#fff;color:#1d1d1f;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.fd-std-seg button:focus-visible{outline:2px solid rgba(10,132,255,.8);outline-offset:2px}
 `;

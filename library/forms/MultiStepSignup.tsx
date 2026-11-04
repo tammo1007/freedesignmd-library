@@ -392,59 +392,20 @@ button.fd-ms-stepbtn:focus-visible{outline:2px solid color-mix(in srgb,var(--s-a
 /* ───────────────────────────── demo ───────────────────────────── */
 
 export function Demo() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
   return (
-    <div className="fd-ms-demo" data-fd-theme={theme}>
+    <div className="fd-msd">
       <style>{demoCss}</style>
-      <aside className="fd-ms-demo-side" aria-hidden="true">
-        <div className="fd-ms-demo-logo"><i />Ledgerline</div>
-        <div className="fd-ms-demo-quote">
-          <p>“We closed our books in 3 days instead of 11. Ledgerline replaced four spreadsheets and a lot of Slack pings.”</p>
-          <div><b>Marta Vasquez</b><span>VP Finance, Northbeam Logistics</span></div>
-        </div>
-        <ul className="fd-ms-demo-stats">
-          <li><b>3.2×</b><span>faster month-end close</span></li>
-          <li><b>1,400</b><span>finance teams onboarded</span></li>
-          <li><b>SOC 2</b><span>Type II certified</span></li>
-        </ul>
-      </aside>
-      <main className="fd-ms-demo-main">
-        <div className="fd-ms-demo-top">
-          <span className="fd-ms-demo-mobilelogo"><i />Ledgerline</span>
-          <span className="fd-ms-demo-have">Have an account? <a href="#signin">Sign in</a></span>
-          <button type="button" className="fd-ms-demo-theme" aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"} onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>{theme === "dark" ? "Light" : "Dark"}</button>
-        </div>
-        <div className="fd-ms-demo-form"><MultiStepSignup theme={theme} /></div>
-      </main>
+      <div className="fd-msd-card">
+        <MultiStepSignup theme="light" />
+      </div>
     </div>
   );
 }
 
+const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
+
 const demoCss = `
-:where(.fd-ms-demo,.fd-ms-demo *){box-sizing:border-box;margin:0;padding:0;font:inherit;letter-spacing:inherit;color:inherit;text-decoration:none;list-style:none}
-:where(.fd-ms-demo,.fd-ms-demo *)::before,:where(.fd-ms-demo,.fd-ms-demo *)::after{box-sizing:border-box}
-:where(.fd-ms-demo button){appearance:none;-webkit-appearance:none;background:none;border:0;border-radius:0}
-.fd-ms-demo{--d-font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;--d-disp:ui-sans-serif,-apple-system,"SF Pro Display","Inter",sans-serif;
-  --fd-ease-out:cubic-bezier(.22,1,.36,1);--fd-dur-2:240ms;
-  --d-bg:#fff;--d-ink:#0B0B0F;--d-mut:#6B6B76;--d-line:rgba(11,11,15,.08);--d-accent:#007AFF;
-  display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);min-height:100vh;background:var(--d-bg);color:var(--d-ink);font:400 15px/1.45 var(--d-font);-webkit-font-smoothing:antialiased;transition:background-color var(--fd-dur-2) var(--fd-ease-out)}
-.fd-ms-demo[data-fd-theme="dark"]{--d-bg:#09090B;--d-ink:#F5F5F7;--d-mut:#9A9AA6;--d-line:rgba(255,255,255,.09);--d-accent:#0A84FF}
-.fd-ms-demo-side{display:flex;flex-direction:column;justify-content:space-between;gap:48px;padding:40px clamp(32px,4vw,64px);background:#0B1B34;color:#fff}
-.fd-ms-demo-logo,.fd-ms-demo-mobilelogo{display:flex;align-items:center;gap:10px;font:700 18px/1 var(--d-disp);letter-spacing:-.03em}
-.fd-ms-demo-logo i,.fd-ms-demo-mobilelogo i{display:block;width:20px;height:20px;border-radius:6px;background:#4DA3FF;position:relative}
-.fd-ms-demo-logo i::after,.fd-ms-demo-mobilelogo i::after{content:"";position:absolute;left:5px;right:5px;bottom:5px;height:3px;border-radius:2px;background:#0B1B34;box-shadow:0 -5px 0 #0B1B34,0 -10px 0 #0B1B34}
-.fd-ms-demo-quote p{font:500 clamp(20px,2vw,26px)/1.35 var(--d-disp);letter-spacing:-.02em;max-width:22em}
-.fd-ms-demo-quote div{display:flex;flex-direction:column;gap:4px;margin-top:24px;font:400 14px/1.3 var(--d-font);color:rgba(255,255,255,.65)}.fd-ms-demo-quote b{font-weight:600;color:#fff}
-.fd-ms-demo-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding-top:28px;border-top:1px solid rgba(255,255,255,.14)}
-.fd-ms-demo-stats li{display:flex;flex-direction:column;gap:6px}.fd-ms-demo-stats b{font:600 24px/1 var(--d-disp);letter-spacing:-.03em;font-variant-numeric:tabular-nums}.fd-ms-demo-stats span{font:400 13px/1.3 var(--d-font);color:rgba(255,255,255,.65)}
-.fd-ms-demo-main{display:flex;flex-direction:column;padding:24px clamp(16px,4vw,56px) 56px}
-.fd-ms-demo-top{display:flex;align-items:center;justify-content:flex-end;gap:16px}
-.fd-ms-demo-mobilelogo{display:none;margin-right:auto}.fd-ms-demo-mobilelogo i{background:var(--d-accent)}.fd-ms-demo-mobilelogo i::after{background:var(--d-bg)}
-.fd-ms-demo-have{font:400 14px/1 var(--d-font);color:var(--d-mut)}.fd-ms-demo-have a{font-weight:500;color:var(--d-accent)}
-.fd-ms-demo-have a:focus-visible,.fd-ms-demo-theme:focus-visible{outline:2px solid rgba(10,132,255,.7);outline-offset:2px;border-radius:4px}
-.fd-ms-demo-theme{cursor:pointer;height:32px;padding:0 14px;border-radius:9999px;box-shadow:0 0 0 1px var(--d-line);font:500 13px/1 var(--d-font);color:var(--d-mut)}
-.fd-ms-demo-theme:hover{color:var(--d-ink)}
-.fd-ms-demo-form{flex:1;display:flex;align-items:center;justify-content:center;padding-top:32px}
-.fd-ms-demo-form>.fd-ms{margin-top:-24px}
-@media (max-width:900px){.fd-ms-demo{grid-template-columns:1fr}.fd-ms-demo-side{display:none}.fd-ms-demo-mobilelogo{display:flex}.fd-ms-demo-have{display:none}.fd-ms-demo-form{align-items:flex-start;padding-top:24px}.fd-ms-demo-top{padding-bottom:8px}}
+.fd-msd,.fd-msd *,.fd-msd *::before,.fd-msd *::after{box-sizing:border-box}
+.fd-msd{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 20px;color:#1d1d1f;font:400 15px/1.4 ${F};letter-spacing:normal;background:#f1f1f2}
+.fd-msd-card{width:100%;max-width:440px;margin:0;padding:32px;border-radius:28px;background:#fff;box-shadow:0 0 0 1px rgba(0,0,0,.04),0 1px 2px rgba(0,0,0,.03),0 18px 40px -22px rgba(0,0,0,.2)}
 `;

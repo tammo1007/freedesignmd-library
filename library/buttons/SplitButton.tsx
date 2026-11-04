@@ -253,112 +253,32 @@ const ic = {
   rocket: <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 15c-1.5 1.3-2 5-2 5s3.7-.5 5-2M12 15l-3-3a22 22 0 0 1 2-4 12 12 0 0 1 11-5c0 3-1 8-5 11a22 22 0 0 1-4 2zM9 12H4s.6-3 2-4c1.6-1 5 0 5 0M12 15v5s3-.6 4-2c1-1.6 0-5 0-5" /></svg>,
   clock: <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>,
   layers: <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5" /></svg>,
-  refresh: <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 11a8 8 0 0 0-14-4L4 9M4 4v5h5M4 13a8 8 0 0 0 14 4l2-2M20 20v-5h-5" /></svg>,
   undo: <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 14L4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3" /></svg>,
 };
 
-const DEPLOYS = [
-  { id: "d1", v: "v2.15.0", msg: "Faster invoice export", who: "Priya N.", when: "12 min ago", state: "live" },
-  { id: "d2", v: "v2.14.1", msg: "Fix retry on webhook 429", who: "Marcus T.", when: "Yesterday, 16:42", state: "ready" },
-  { id: "d3", v: "v2.14.0", msg: "Postgres 16 migration", who: "Lena H.", when: "Mon, 09:18", state: "ready" },
-];
-
 export function Demo() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
-  const [log, setLog] = useState<{ id: number; text: string }[]>([]);
-  const add = (text: string) => setLog((l) => [{ id: Date.now() + l.length, text }, ...l].slice(0, 4));
-
   return (
-    <div className="fd-split-demo" data-fd-theme={theme}>
+    <div className="fd-splitd">
       <style>{demoCss}</style>
-      <header className="fd-split-demo-bar">
-        <div className="fd-split-demo-crumb"><b>Meridian</b><span>/</span>billing-service<span>/</span>Deployments</div>
-        <button type="button" className="fd-split-demo-theme" aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"} onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>{theme === "dark" ? "Light" : "Dark"}</button>
-      </header>
-      <main className="fd-split-demo-main">
-        <div className="fd-split-demo-head">
-          <div>
-            <h1>Deployments</h1>
-            <p>main · 3 commits ahead of production</p>
-          </div>
-          <div className="fd-split-demo-actions">
-            <SplitButton
-              variant="secondary"
-              label="Redeploy"
-              icon={ic.refresh}
-              menuLabel="More redeploy options"
-              onPrimary={() => add("Redeploying v2.15.0 to production")}
-              onSelect={(i) => add(`${i.label} queued`)}
-              items={[
-                { id: "cache", label: "Redeploy with cache cleared", icon: ic.layers },
-                { id: "env", label: "Redeploy with new env vars", icon: ic.refresh },
-              ]}
-            />
-            <SplitButton
-              label="Deploy to production"
-              icon={ic.rocket}
-              onPrimary={() => add("Deploying main@a41f9c2 to production")}
-              onSelect={(i) => add(i.id === "rollback" ? "Rolling back to v2.14.1" : `${i.label}`)}
-              items={[
-                { id: "staging", label: "Deploy to staging", description: "staging.billing.meridian.dev", icon: ic.layers, shortcut: "⌘ S" },
-                { id: "schedule", label: "Schedule deploy…", description: "Pick a low-traffic window", icon: ic.clock, shortcut: "⌘ ⇧ S" },
-                { id: "canary", label: "Canary 10% for 30 min", description: "Auto-promote if error rate < 0.5%", icon: ic.rocket },
-                { id: "rollback", label: "Roll back to v2.14.1", icon: ic.undo, danger: true, separatorBefore: true },
-                { id: "frozen", label: "Deploy freeze active until Fri", icon: ic.clock, disabled: true },
-              ]}
-            />
-          </div>
-        </div>
-
-        <section className="fd-split-demo-list" aria-label="Recent deployments">
-          {DEPLOYS.map((d) => (
-            <div key={d.id} className="fd-split-demo-row">
-              <span className="fd-split-demo-dot" data-state={d.state} />
-              <div className="fd-split-demo-v"><b>{d.v}</b><span>{d.msg}</span></div>
-              <span className="fd-split-demo-who">{d.who}</span>
-              <span className="fd-split-demo-when">{d.when}</span>
-              <span className="fd-split-demo-tag" data-state={d.state}>{d.state === "live" ? "Production" : "Ready"}</span>
-            </div>
-          ))}
-        </section>
-
-        <section className="fd-split-demo-log" aria-live="polite" aria-label="Activity">
-          {log.length === 0 ? <p>Choose an action to see it logged here.</p> : log.map((l) => <p key={l.id}><i /> {l.text} <small>just now</small></p>)}
-        </section>
-      </main>
+      <div className="fd-splitd-stage">
+        <SplitButton
+          label="Deploy"
+          icon={ic.rocket}
+          size="lg"
+          theme="light"
+          items={[
+            { id: "staging", label: "Deploy to staging", icon: ic.layers, shortcut: "⌘ S" },
+            { id: "schedule", label: "Schedule deploy", icon: ic.clock, shortcut: "⌘ ⇧ S" },
+            { id: "rollback", label: "Roll back", icon: ic.undo, danger: true, separatorBefore: true },
+          ]}
+        />
+      </div>
     </div>
   );
 }
 
 const demoCss = `
-:where(.fd-split-demo,.fd-split-demo *){box-sizing:border-box;margin:0;padding:0;font:inherit;letter-spacing:inherit;color:inherit;text-decoration:none;list-style:none}
-:where(.fd-split-demo,.fd-split-demo *)::before,:where(.fd-split-demo,.fd-split-demo *)::after{box-sizing:border-box}
-:where(.fd-split-demo button){appearance:none;-webkit-appearance:none;background:none;border:0;border-radius:0}
-.fd-split-demo{--d-font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;--d-mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,monospace;
-  --fd-ease-out:cubic-bezier(.22,1,.36,1);--fd-dur-2:240ms;
-  --d-bg:#F7F7F9;--d-card:#fff;--d-ink:#0B0B0F;--d-mut:#6B6B76;--d-line:rgba(11,11,15,.08);--d-soft:rgba(11,11,15,.05);
-  min-height:100vh;background:var(--d-bg);color:var(--d-ink);font:400 15px/1.45 var(--d-font);-webkit-font-smoothing:antialiased;transition:background-color var(--fd-dur-2) var(--fd-ease-out)}
-.fd-split-demo[data-fd-theme="dark"]{--d-bg:#09090B;--d-card:#101014;--d-ink:#F5F5F7;--d-mut:#8E8E9A;--d-line:rgba(255,255,255,.08);--d-soft:rgba(255,255,255,.06)}
-.fd-split-demo-bar{display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 clamp(16px,4vw,32px);border-bottom:1px solid var(--d-line);font:400 14px/1 var(--d-font);color:var(--d-mut)}
-.fd-split-demo-crumb{display:flex;gap:10px;align-items:center}.fd-split-demo-crumb b{color:var(--d-ink);font-weight:600}.fd-split-demo-crumb span{opacity:.5}
-.fd-split-demo-theme{cursor:pointer;height:32px;padding:0 14px;border-radius:9999px;box-shadow:0 0 0 1px var(--d-line);font:500 13px/1 var(--d-font);color:var(--d-mut)}
-.fd-split-demo-theme:hover{color:var(--d-ink)}.fd-split-demo-theme:focus-visible{outline:2px solid rgba(10,132,255,.7);outline-offset:2px}
-.fd-split-demo-main{max-width:960px;margin:0 auto;padding:40px clamp(16px,4vw,32px) 64px;display:flex;flex-direction:column;gap:24px}
-.fd-split-demo-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.fd-split-demo-head h1{font:600 24px/1.15 var(--d-font);letter-spacing:-.02em}
-.fd-split-demo-head p{margin-top:6px;font:400 14px/1.4 var(--d-mono);color:var(--d-mut)}
-.fd-split-demo-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-.fd-split-demo-list{border-radius:20px;background:var(--d-card);box-shadow:0 0 0 1px var(--d-line),0 1px 2px rgba(0,0,0,.04),0 16px 32px -20px rgba(0,0,0,.2);overflow:hidden}
-.fd-split-demo-row{display:grid;grid-template-columns:12px minmax(0,1fr) 120px 140px 96px;align-items:center;gap:16px;padding:16px 20px;border-top:1px solid var(--d-line);font:400 14px/1.3 var(--d-font)}
-.fd-split-demo-row:first-child{border-top:0}
-.fd-split-demo-dot{width:8px;height:8px;border-radius:50%;background:var(--d-mut)}.fd-split-demo-dot[data-state="live"]{background:#30D158;box-shadow:0 0 0 4px rgba(48,209,88,.18)}
-.fd-split-demo-v{display:flex;flex-direction:column;gap:3px;min-width:0}.fd-split-demo-v b{font:600 14px/1.2 var(--d-mono)}.fd-split-demo-v span{color:var(--d-mut);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.fd-split-demo-who,.fd-split-demo-when{color:var(--d-mut)}
-.fd-split-demo-tag{justify-self:end;height:22px;display:inline-flex;align-items:center;padding:0 8px;border-radius:9999px;background:var(--d-soft);font:500 12px/1 var(--d-font);color:var(--d-mut)}
-.fd-split-demo-tag[data-state="live"]{background:rgba(48,209,88,.14);color:#1C9A44}
-.fd-split-demo[data-fd-theme="dark"] .fd-split-demo-tag[data-state="live"]{color:#5BE382}
-.fd-split-demo-log{min-height:132px;padding:16px 20px;border-radius:16px;background:var(--d-soft);display:flex;flex-direction:column;gap:10px;font:400 13px/1.3 var(--d-mono)}
-.fd-split-demo-log p{display:flex;align-items:center;gap:10px;color:var(--d-ink)}.fd-split-demo-log p:only-child:first-child{color:var(--d-mut)}
-.fd-split-demo-log i{width:6px;height:6px;border-radius:50%;background:#0A84FF}.fd-split-demo-log small{margin-left:auto;font-size:12px;color:var(--d-mut)}
-@media (max-width:720px){.fd-split-demo-row{grid-template-columns:12px minmax(0,1fr) auto}.fd-split-demo-who,.fd-split-demo-when{display:none}.fd-split-demo-actions{width:100%}}
+.fd-splitd,.fd-splitd *,.fd-splitd *::before,.fd-splitd *::after{box-sizing:border-box}
+.fd-splitd{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 20px;overflow:hidden;background:#f4f4f4;color:#1d1d1f;font:400 15px/1.4 ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;letter-spacing:normal;-webkit-font-smoothing:antialiased}
+.fd-splitd-stage{display:flex;justify-content:center;margin:0;padding:0}
 `;

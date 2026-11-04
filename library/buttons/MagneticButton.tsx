@@ -178,89 +178,20 @@ const css = `
 
 /* ───────────────────────────── demo ───────────────────────────── */
 
-const arrowUR = (
-  <svg aria-hidden="true" focusable="false" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" style={{ display: "inline-block", marginLeft: 6 }}><path d="M7 17L17 7M8 7h9v9" /></svg>
-);
-
 export function Demo() {
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
-  const [copied, setCopied] = useState(false);
-
   return (
-    <div className="fd-mag-demo" data-fd-theme={theme}>
+    <div className="fd-magd">
       <style>{demoCss}</style>
-      <header className="fd-mag-demo-bar">
-        <span className="fd-mag-demo-brand">Kiln&nbsp;&amp;&nbsp;Field<sup>®</sup></span>
-        <nav className="fd-mag-demo-nav" aria-label="Primary">
-          <a href="#work">Work</a><a href="#studio">Studio</a><a href="#journal">Journal</a>
-        </nav>
-        <button
-          type="button"
-          className="fd-mag-demo-theme"
-          aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-        >
-          {theme === "dark" ? "Light" : "Dark"}
-        </button>
-      </header>
-
-      <main className="fd-mag-demo-main">
-        <p className="fd-mag-demo-eyebrow">Brand · Motion · Digital product, Lisbon / Berlin</p>
-        <h1 className="fd-mag-demo-h1">
-          Tell us what you’re <em>making</em>.<br />We’ll make it unforgettable.
-        </h1>
-
-        <div className="fd-mag-demo-cta">
-          <MagneticButton shape="circle" size="xl" strength={0.4} radius={110} onClick={() => setCopied(true)} className="fd-mag-demo-big">
-            {copied ? "Brief sent" : "Say hello"}
-          </MagneticButton>
-          <div className="fd-mag-demo-aside">
-            <p>New projects for Q1 2027, we take on six a year.</p>
-            <div className="fd-mag-demo-links">
-              <MagneticButton size="md" tone="outline" href="mailto:studio@kilnandfield.example">studio@kilnandfield.example</MagneticButton>
-              <MagneticButton size="md" tone="outline" href="#deck">Credentials deck{arrowUR}</MagneticButton>
-            </div>
-          </div>
-        </div>
-
-        <dl className="fd-mag-demo-facts">
-          <div><dt>Recent</dt><dd>Oda Hotels · identity &amp; booking</dd></div>
-          <div><dt>Awards</dt><dd>D&amp;AD Pencil, Awwwards SOTD ×4</dd></div>
-          <div><dt>Response time</dt><dd>Within two working days</dd></div>
-        </dl>
-      </main>
+      <div className="fd-magd-row">
+        <MagneticButton size="lg" strength={0.4} radius={100} theme="light">Say hello</MagneticButton>
+        <MagneticButton size="lg" tone="outline" strength={0.4} radius={100} theme="light">See our work</MagneticButton>
+      </div>
     </div>
   );
 }
 
 const demoCss = `
-:where(.fd-mag-demo,.fd-mag-demo *){box-sizing:border-box;margin:0;padding:0;font:inherit;letter-spacing:inherit;color:inherit;text-decoration:none;list-style:none}
-:where(.fd-mag-demo,.fd-mag-demo *)::before,:where(.fd-mag-demo,.fd-mag-demo *)::after{box-sizing:border-box}
-:where(.fd-mag-demo button){appearance:none;-webkit-appearance:none;background:none;border:0;border-radius:0}
-.fd-mag-demo{--d-font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;--d-disp:ui-sans-serif,-apple-system,"SF Pro Display","Inter",sans-serif;
-  --fd-ease-out:cubic-bezier(.22,1,.36,1);--fd-dur-2:240ms;
-  --d-bg:#F2F0EB;--d-ink:#0B0B0F;--d-mut:#5E5C57;--d-line:rgba(11,11,15,.12);--d-em:#C2410C;
-  min-height:100vh;background:var(--d-bg);color:var(--d-ink);font:400 15px/1.45 var(--d-font);-webkit-font-smoothing:antialiased;transition:background-color var(--fd-dur-2) var(--fd-ease-out)}
-.fd-mag-demo[data-fd-theme="dark"]{--d-bg:#0D0D10;--d-ink:#F5F3EE;--d-mut:#A19F99;--d-line:rgba(255,255,255,.12);--d-em:#FF8A4C}
-.fd-mag-demo-bar{display:flex;align-items:center;justify-content:space-between;padding:20px clamp(16px,4vw,48px)}
-.fd-mag-demo-brand{font:600 17px/1 var(--d-disp);letter-spacing:-.02em}
-.fd-mag-demo-brand sup{font-size:10px;vertical-align:top;margin-left:2px}
-.fd-mag-demo-nav{display:flex;gap:32px;font:400 15px/1 var(--d-font);color:var(--d-mut)}
-.fd-mag-demo-nav a{padding:8px 0}.fd-mag-demo-nav a:hover{color:var(--d-ink)}
-.fd-mag-demo-nav a:focus-visible,.fd-mag-demo-theme:focus-visible{outline:2px solid rgba(10,132,255,.7);outline-offset:2px;border-radius:6px}
-.fd-mag-demo-theme{cursor:pointer;height:32px;padding:0 14px;border-radius:9999px;box-shadow:0 0 0 1px var(--d-line);font:500 13px/1 var(--d-font);color:var(--d-mut)}
-.fd-mag-demo-theme:hover{color:var(--d-ink)}
-.fd-mag-demo-main{padding:clamp(32px,8vh,96px) clamp(16px,4vw,48px) 48px;max-width:1240px;margin:0 auto}
-.fd-mag-demo-eyebrow{font:500 13px/1 var(--d-font);color:var(--d-mut);letter-spacing:.02em;text-transform:uppercase}
-.fd-mag-demo-h1{margin-top:28px;font:600 clamp(36px,7.4vw,88px)/.98 var(--d-disp);letter-spacing:-.045em;max-width:12.5em}
-.fd-mag-demo-h1 em{font-style:normal;color:var(--d-em)}
-.fd-mag-demo-cta{display:flex;align-items:center;gap:clamp(24px,5vw,72px);margin-top:clamp(40px,8vh,88px);flex-wrap:wrap}
-.fd-mag-demo-big{--fd-mag-size:164px}
-.fd-mag-demo-aside{display:flex;flex-direction:column;gap:20px;max-width:520px}
-.fd-mag-demo-aside p{font:400 17px/1.45 var(--d-font);letter-spacing:-.01em;color:var(--d-mut)}
-.fd-mag-demo-links{display:flex;flex-wrap:wrap;gap:12px}
-.fd-mag-demo-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:clamp(48px,10vh,112px);padding-top:24px;border-top:1px solid var(--d-line)}
-.fd-mag-demo-facts dt{font:500 12px/1 var(--d-font);text-transform:uppercase;letter-spacing:.04em;color:var(--d-mut);margin-bottom:10px}
-.fd-mag-demo-facts dd{font:400 15px/1.4 var(--d-font)}
-@media (max-width:720px){.fd-mag-demo-nav{display:none}.fd-mag-demo-facts{grid-template-columns:1fr}}
+.fd-magd,.fd-magd *,.fd-magd *::before,.fd-magd *::after{box-sizing:border-box}
+.fd-magd{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 20px;overflow:hidden;background:#f4f4f4;color:#1d1d1f;font:400 15px/1.4 ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;letter-spacing:normal;-webkit-font-smoothing:antialiased}
+.fd-magd-row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:28px;margin:0;padding:0}
 `;

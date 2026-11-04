@@ -439,40 +439,17 @@ const css = `
 
 export function Demo() {
   return (
-    <article className="fd-dtext-demo">
+    <div className="fd-dtextd">
       <style>{demoCss}</style>
-      <header className="fd-dtext-demo-mast">
-        <span>The Ledger Review</span>
-        <span>Issue 31 · Architecture</span>
-      </header>
-      <section className="fd-dtext-demo-block">
-        <p className="fd-dtext-demo-kicker">Scroll ↓</p>
-        <DitherText className="fd-dtext-demo-h" as="h1">Concrete remembers everything.</DitherText>
-        <p className="fd-dtext-demo-dek">A walk through Lina Bo Bardi's SESC Pompéia, forty years after it opened, and why São Paulo still argues about it.</p>
-      </section>
-      <section className="fd-dtext-demo-block">
-        <DitherText className="fd-dtext-demo-h" ink="#C2410C" angle={60}>The pool on the fourth floor.</DitherText>
-        <p className="fd-dtext-demo-body">The sports block rises in four stacked slabs, joined to its twin by flying concrete bridges. Each walkway is shaped differently, as if poured by a different hand. Children run across them between swimming and judo; nobody looks down.</p>
-      </section>
-      <section className="fd-dtext-demo-block">
-        <DitherText className="fd-dtext-demo-h" ink="#1E3A8A" angle={160} tone={[0.25, 0.95]}>Holes, not windows.</DitherText>
-        <p className="fd-dtext-demo-body">Bo Bardi called the openings "caves of prehistoric men". They have red wooden lattices instead of glass, and the wind moves through the whole building. By Maren Okonkwo · Photographs by Tomás Ferreira</p>
-      </section>
-    </article>
+      <DitherText className="fd-dtextd-word" as="p" ink="#1d1d1f" scroll={false}>Dither</DitherText>
+    </div>
   );
 }
 
+const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
+
 const demoCss = `
-.fd-dtext-demo, .fd-dtext-demo *, .fd-dtext-demo *::before, .fd-dtext-demo *::after { box-sizing: border-box; }
-.fd-dtext-demo {
-  margin: 0; padding: 0 clamp(20px, 6vw, 96px) 30vh; background: #F4F1EA; color: #1C1B19;
-  font: 400 17px/1.6 ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif;
-}
-.fd-dtext-demo-mast { position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; margin: 0 0 0; padding: 20px 0; border-bottom: 1px solid #D8D2C4; background: #F4F1EA; color: #1C1B19; font: 600 12px/1 ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace; letter-spacing: .12em; text-transform: uppercase; }
-.fd-dtext-demo-mast span { margin: 0; padding: 0; }
-.fd-dtext-demo-block { max-width: 1100px; min-height: 80vh; margin: 0 auto; padding: 18vh 0 0; }
-.fd-dtext-demo-kicker { margin: 0 0 16px; padding: 0; color: #8A8478; font: 500 13px/1 ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace; letter-spacing: .08em; }
-.fd-dtext-demo-h.fd-dtext { font-size: clamp(3.25rem, 9.5vw, 8.5rem); margin: 0 0 28px; }
-.fd-dtext-demo-dek { max-width: 48ch; margin: 0; padding: 0; color: #4A463E; font: 400 1.25rem/1.5 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: -0.01em; }
-.fd-dtext-demo-body { max-width: 60ch; margin: 0; padding: 0; color: #4A463E; font: 400 1.0625rem/1.65 ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", Roboto, sans-serif; letter-spacing: -0.005em; }
+.fd-dtextd,.fd-dtextd *,.fd-dtextd *::before,.fd-dtextd *::after{box-sizing:border-box}
+.fd-dtextd{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 20px;overflow:hidden;color:#1d1d1f;font:400 15px/1.4 ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;letter-spacing:normal;background:#f2f2f2}
+.fd-dtextd-word.fd-dtext{display:block;width:max-content;max-width:100%;margin:0;padding:0;font-size:clamp(4.5rem,18vw,9.5rem)}
 `;

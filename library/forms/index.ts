@@ -13,7 +13,7 @@ export const items: LibraryItem[] = [
     files: [{ path: "components/forms/input-field.tsx", src: "forms/InputField.tsx" }],
     Demo: lazyDemo(() => import("./InputField")),
     canvas: "light",
-    height: 900,
+    height: 520,
     featured: true,
     support: "All evergreen browsers. Uses color-mix() for focus halos.",
   },
@@ -28,7 +28,7 @@ export const items: LibraryItem[] = [
     files: [{ path: "components/forms/otp-input.tsx", src: "forms/OtpInput.tsx" }],
     Demo: lazyDemo(() => import("./OtpInput")),
     canvas: "light",
-    height: 640,
+    height: 480,
     support: "All evergreen browsers. SMS autofill via autocomplete=one-time-code on iOS Safari and Android Chrome.",
   },
   {
@@ -42,7 +42,7 @@ export const items: LibraryItem[] = [
     files: [{ path: "components/forms/payment-form.tsx", src: "forms/PaymentForm.tsx" }],
     Demo: lazyDemo(() => import("./PaymentForm")),
     canvas: "light",
-    height: 900,
+    height: 780,
     support: "All evergreen browsers. 3D flip uses preserve-3d.",
   },
   {
@@ -56,7 +56,7 @@ export const items: LibraryItem[] = [
     files: [{ path: "components/forms/multi-step-signup.tsx", src: "forms/MultiStepSignup.tsx" }],
     Demo: lazyDemo(() => import("./MultiStepSignup")),
     canvas: "light",
-    height: 760,
+    height: 700,
     support: "All evergreen browsers. Uses ResizeObserver, :has() (focus ring on radio cards) and color-mix().",
   },
   {
@@ -70,7 +70,7 @@ export const items: LibraryItem[] = [
     files: [{ path: "components/forms/settings-form.tsx", src: "forms/SettingsForm.tsx" }],
     Demo: lazyDemo(() => import("./SettingsForm")),
     canvas: "light",
-    height: 900,
+    height: 640,
     support: "All evergreen browsers. Uses :has() for the radio-card focus ring and color-mix().",
   },
   {
@@ -98,7 +98,7 @@ export const items: LibraryItem[] = [
     files: [{ path: "components/forms/newsletter-inline.tsx", src: "forms/NewsletterInline.tsx" }],
     Demo: lazyDemo(() => import("./NewsletterInline")),
     canvas: "light",
-    height: 640,
+    height: 480,
     support: "All evergreen browsers. Uses the inert attribute (Chrome 102+, Safari 15.5+, Firefox 112+).",
   },
 ];

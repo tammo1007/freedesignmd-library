@@ -190,85 +190,42 @@ ${Array.from({ length: 32 }, (_, i) => `.fd-it-card[data-i="${i}"] .fd-it-slot[d
 .fd-it-slot > *{display:block;width:100%;height:100%;margin:0;object-fit:cover}
 `;
 
-/* ───────────────────────────── photo cards ───────────────────────────── */
-
-type Shot = { src: string; alt: string; caption: string; pos?: string };
-
-const SHOTS: Shot[] = [
-  { src: "/img/lux/dunes-800.webp", alt: "Wind-carved golden dunes under a violet dusk sky", caption: "Erg Chebbi, 06:12", pos: "62% 50%" },
-  { src: "/img/halcyon/positano-sunset-900.webp", alt: "Cliffside Positano village of pastel houses in golden light", caption: "Amalfi, golden hour", pos: "75% 50%" },
-  { src: "/img/lux/still-vase-800.webp", alt: "White ceramic vase with an olive branch and lemons", caption: "Studio, still life 04" },
-  { src: "/img/lux/bamboo-800.webp", alt: "Sunlight falling through a green bamboo grove", caption: "Arashiyama, 07:20" },
-  { src: "/img/people/p3.webp", alt: "Ines, a woman with braided hair in a black sweater, studio portrait", caption: "Ines, Lisbon", pos: "50% 0%" },
-  { src: "/img/lux/lantern-800.webp", alt: "Glowing paper lanterns against dark striped timber", caption: "Gion, 21:40" },
-  { src: "/img/halcyon/pool-lemons-900.webp", alt: "Lemon pergola and blue pool above the Amalfi coastline", caption: "Positano, blue hour", pos: "70% 50%" },
-  { src: "/img/lux/still-tea-800.webp", alt: "Black teapot and two cups on a dark tray with an olive sprig", caption: "Studio, still life 07" },
-];
-
-function PhotoCard({ s }: { s: Shot }) {
-  return (
-    <div style={{ position: "relative", display: "block", width: "100%", height: "100%", margin: 0, padding: 0, background: "#1b1a18" }}>
-      <img src={s.src} width={800} height={1000} alt={s.alt} loading="lazy" decoding="async" draggable={false} style={{ display: "block", width: "100%", height: "100%", maxWidth: "none", objectFit: "cover", objectPosition: s.pos ?? "50% 50%" }} />
-      <span style={{ position: "absolute", left: 12, bottom: 10, margin: 0, padding: 0, color: "rgba(255,255,255,.9)", textShadow: "0 1px 6px rgba(0,0,0,.45)", font: '500 10px/1.2 ui-monospace,"SF Mono",Menlo,monospace', letterSpacing: ".04em" }}>{s.caption}</span>
-    </div>
-  );
-}
-
 /* ───────────────────────────── demo ───────────────────────────── */
 
+const SHOTS = [
+  { src: "/demo/butterfly-p.webp", bg: "#dcd6c8" },
+  { src: "/demo/meadow-p.webp", bg: "#cfd8c4" },
+  { src: "/demo/ridge-p.webp", bg: "#c9ced8" },
+  { src: "/demo/sunset-p.webp", bg: "#e6cfc2" },
+  { src: "/demo/balloons-p.webp", bg: "#cfd9e4" },
+  { src: "/demo/eagle-p.webp", bg: "#d6d2cc" },
+];
+
 export function Demo() {
-  const cards = SHOTS.map((s) => <PhotoCard key={s.src} s={s} />);
+  const cards = SHOTS.map((s) => (
+    <div key={s.src} style={{ position: "relative", width: "100%", height: "100%", margin: 0, padding: 0, background: s.bg }}>
+      <img
+        src={s.src}
+        width={480}
+        height={640}
+        alt=""
+        draggable={false}
+        decoding="async"
+        onError={(e) => { e.currentTarget.style.display = "none"; }}
+        style={{ display: "block", width: "100%", height: "100%", maxWidth: "none", margin: 0, padding: 0, objectFit: "cover" }}
+      />
+    </div>
+  ));
   return (
-    <div className="fd-it-demo">
+    <div className="fd-itd">
       <style>{demoCss}</style>
-      <ImageTrail items={cards} className="fd-it-demo-area" spacing={84} max={14} life={1200}>
-        <header className="fd-it-demo-bar">
-          <span className="fd-it-demo-name">Noor Halvorsen</span>
-          <nav className="fd-it-demo-nav" aria-label="Primary">
-            <a href="#work">Work</a><a href="#journal">Journal</a><a href="#prints">Prints</a><a href="#contact">Contact</a>
-          </nav>
-        </header>
-        <main className="fd-it-demo-main">
-          <p className="fd-it-demo-eyebrow">Photographer · Oslo &amp; on assignment</p>
-          <h1 className="fd-it-demo-h1">
-            Light, <em>wherever</em><br />it lands.
-          </h1>
-          <p className="fd-it-demo-hint" aria-hidden="true">
-            <span className="fd-it-demo-cursor" />
-            Move your cursor to leaf through the archive
-          </p>
-        </main>
-        <footer className="fd-it-demo-foot">
-          <span>Clients, Kinfolk, Monocle, Aesop, Norrøna</span>
-          <span>Archive 2016, 2026 · 4,812 frames</span>
-        </footer>
-      </ImageTrail>
+      <ImageTrail items={cards} className="fd-itd-area" size={[190, 250]} spacing={96} max={12} life={1200} />
     </div>
   );
 }
 
 const demoCss = `
-.fd-it-demo,.fd-it-demo *,.fd-it-demo *::before,.fd-it-demo *::after{box-sizing:border-box}
-.fd-it-demo{--d-font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;--d-disp:"SF Pro Display",ui-sans-serif,-apple-system,"Inter Display","Inter",sans-serif;
-  --d-serif:ui-serif,"New York","Iowan Old Style",Charter,Georgia,serif;
-  margin:0;padding:0;min-height:100vh;background:#EDEAE4;color:#141412;font:400 15px/1.5 var(--d-font);-webkit-font-smoothing:antialiased}
-.fd-it-demo-area{min-height:100vh}
-.fd-it-demo-area .fd-it-content{display:flex;flex-direction:column;min-height:100vh;pointer-events:none}
-.fd-it-demo-area a{pointer-events:auto}
-.fd-it-demo-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0;padding:22px clamp(16px,4vw,48px)}
-.fd-it-demo-name{margin:0;font:600 17px/1 var(--d-disp);letter-spacing:-.01em}
-.fd-it-demo-nav{display:flex;gap:28px;margin:0}
-.fd-it-demo-nav a{margin:0;padding:6px 0;color:rgba(20,20,18,.6);font:500 15px/1 var(--d-font);text-decoration:none}
-.fd-it-demo-nav a:hover{color:#141412}
-.fd-it-demo a:focus-visible{outline:2px solid rgba(10,132,255,.7);outline-offset:2px}
-.fd-it-demo-main{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;margin:0;padding:24px 16px;text-align:center}
-.fd-it-demo-eyebrow{margin:0 0 24px;color:rgba(20,20,18,.6);font:500 13px/1 ui-monospace,"SF Mono","JetBrains Mono",Menlo,monospace;letter-spacing:.06em;text-transform:uppercase}
-.fd-it-demo-h1{margin:0;color:#141412;font:500 clamp(56px,11vw,168px)/.9 var(--d-disp);letter-spacing:-.055em;mix-blend-mode:multiply}
-.fd-it-demo-h1 em{font:italic 400 1em/.9 var(--d-serif);letter-spacing:-.04em}
-.fd-it-demo-hint{display:inline-flex;align-items:center;gap:10px;margin:36px 0 0;color:rgba(20,20,18,.55);font:500 13px/1 var(--d-font)}
-.fd-it-demo-cursor{display:block;width:10px;height:10px;border-radius:50%;background:#141412;animation:fd-it-demo-pulse 1.8s cubic-bezier(.22,1,.36,1) infinite}
-@keyframes fd-it-demo-pulse{0%{box-shadow:0 0 0 0 rgba(20,20,18,.35)}100%{box-shadow:0 0 0 14px rgba(20,20,18,0)}}
-.fd-it-demo-foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0;padding:20px clamp(16px,4vw,48px);color:rgba(20,20,18,.55);font:500 13px/1.3 var(--d-font)}
-@media (max-width:640px){.fd-it-demo-nav{display:none}}
-@media (prefers-reduced-motion:reduce){.fd-it-demo-cursor{animation:none}}
+.fd-itd,.fd-itd *,.fd-itd *::before,.fd-itd *::after{box-sizing:border-box}
+.fd-itd{margin:0;padding:0;min-height:100vh;width:100%;background:#f2f2f2;color:#1d1d1f;font:400 15px/1.4 ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif}
+.fd-itd .fd-itd-area{--fd-it-radius:12px;--fd-it-shadow:0 18px 40px -18px rgba(0,0,0,.35),0 1px 3px rgba(0,0,0,.1);width:100%;height:100vh;min-height:420px}
 `;

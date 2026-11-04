@@ -358,101 +358,42 @@ const SECTIONS: CommandSection[] = [
   },
 ];
 
-const ROWS = [
-  ["SHP-48213", "Rotterdam → Chicago", "In transit", "3 Nov", "ok"],
-  ["SHP-48190", "Shenzhen → Los Angeles", "Customs hold", "–", "warn"],
-  ["SHP-48251", "Monterrey → Dallas", "Out for delivery", "Today", "ok"],
-  ["SHP-48177", "Hamburg → Singapore", "Delivered", "27 Oct", "done"],
-  ["SHP-48302", "Antwerp → Newark", "Booked", "9 Nov", "idle"],
-];
-
 export function Demo() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const [recent, setRecent] = useState<string[]>(["s2", "a1", "w1"]);
-  const [log, setLog] = useState("");
-  const isMac = useMemo(() => typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.platform), []);
   const [mac, setMac] = useState(true);
-  useEffect(() => setMac(isMac), [isMac]);
+  useEffect(() => setMac(/Mac|iPhone|iPad/.test(navigator.platform)), []);
 
   return (
-    <div className="fd-cmd-demo" data-fd-theme={theme}>
+    <div className="fd-cmdd">
       <style>{demoCss}</style>
-      <aside className="fd-cmd-demo-side" aria-label="Navigation">
-        <div className="fd-cmd-demo-logo"><i aria-hidden="true" />Haulr Ops</div>
-        {["Dashboard", "Shipments", "Warehouses", "Carriers", "Reports"].map((n, i) => <a key={n} href={`#${n}`} aria-current={i === 0 ? "page" : undefined}>{n}</a>)}
-      </aside>
-      <main className="fd-cmd-demo-main">
-        <div className="fd-cmd-demo-top">
-          <button type="button" className="fd-cmd-demo-search" onClick={() => setOpen(true)} aria-haspopup="dialog">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
-            <span>Search shipments, sites, actions…</span>
-            <kbd>{mac ? "⌘" : "Ctrl"} K</kbd>
-          </button>
-          <button type="button" className="fd-cmd-demo-theme" aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"} onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>{theme === "dark" ? "Light" : "Dark"}</button>
-        </div>
-        <h1>Operations overview</h1>
-        <section className="fd-cmd-demo-kpis" aria-label="Key metrics">
-          {[["On-time delivery", "94.2%", "+1.1 pt"], ["Active shipments", "1,284", "+86"], ["At risk", "17", "−4"], ["Dock utilisation", "81%", "+3 pt"]].map(([k, v, d]) => (
-            <div key={k}><small>{k}</small><b>{v}</b><span data-neg={d.startsWith("−") && k !== "At risk" ? "" : undefined}>{d} vs. last week</span></div>
-          ))}
-        </section>
-        <section className="fd-cmd-demo-table" aria-label="Recent shipments">
-          <div className="fd-cmd-demo-th"><span>Shipment</span><span>Lane</span><span>Status</span><span>ETA</span></div>
-          {ROWS.map(([id, lane, st, eta, k]) => (
-            <div key={id} className="fd-cmd-demo-tr"><b>{id}</b><span>{lane}</span><span data-k={k}><i />{st}</span><span>{eta}</span></div>
-          ))}
-        </section>
-        {log && <p className="fd-cmd-demo-log" role="status">Ran: {log}</p>}
-      </main>
+      <button type="button" className="fd-cmdd-trigger" onClick={() => setOpen(true)} aria-haspopup="dialog">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
+        <span>Search</span>
+        <kbd>{mac ? "⌘" : "Ctrl"} K</kbd>
+      </button>
       <SearchCommand
         open={open}
         onOpenChange={setOpen}
         sections={SECTIONS}
         recent={recent}
-        theme={theme}
-        onSelect={(it) => {
-          setLog(it.label);
-          setRecent((r) => [it.id, ...r.filter((x) => x !== it.id)].slice(0, 4));
-          if (it.id === "a4") setTheme((t) => (t === "dark" ? "light" : "dark"));
-        }}
+        theme="light"
+        onSelect={(it) => setRecent((r) => [it.id, ...r.filter((x) => x !== it.id)].slice(0, 4))}
       />
     </div>
   );
 }
 
+const F = `ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif`;
+
 const demoCss = `
-:where(.fd-cmd-demo,.fd-cmd-demo *){box-sizing:border-box;margin:0;padding:0;font:inherit;letter-spacing:inherit;color:inherit;text-decoration:none;list-style:none}
-:where(.fd-cmd-demo,.fd-cmd-demo *)::before,:where(.fd-cmd-demo,.fd-cmd-demo *)::after{box-sizing:border-box}
-:where(.fd-cmd-demo button){appearance:none;-webkit-appearance:none;background:none;border:0;border-radius:0}
-.fd-cmd-demo{--d-font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;--d-disp:ui-sans-serif,-apple-system,"SF Pro Display","Inter",sans-serif;
-  --fd-ease-out:cubic-bezier(.22,1,.36,1);--fd-dur-2:240ms;
-  --d-bg:#F5F6F8;--d-card:#fff;--d-ink:#0B0B0F;--d-mut:#6B6B76;--d-line:rgba(11,11,15,.08);--d-accent:#007AFF;--d-side:#fff;
-  display:grid;grid-template-columns:232px minmax(0,1fr);min-height:100vh;background:var(--d-bg);color:var(--d-ink);font:400 15px/1.45 var(--d-font);-webkit-font-smoothing:antialiased;transition:background-color var(--fd-dur-2) var(--fd-ease-out)}
-.fd-cmd-demo[data-fd-theme="dark"]{--d-bg:#08090B;--d-card:#101014;--d-ink:#F5F5F7;--d-mut:#9A9AA6;--d-line:rgba(255,255,255,.08);--d-accent:#0A84FF;--d-side:#0B0B0F}
-.fd-cmd-demo-side{display:flex;flex-direction:column;gap:2px;padding:20px 12px;background:var(--d-side);border-right:1px solid var(--d-line)}
-.fd-cmd-demo-logo{display:flex;align-items:center;gap:10px;margin:0 8px 20px;font:700 16px/1 var(--d-disp);letter-spacing:-.02em}
-.fd-cmd-demo-logo i{width:20px;height:20px;border-radius:6px;background:#F97316}
-.fd-cmd-demo-side a{display:flex;align-items:center;height:34px;padding:0 10px;border-radius:8px;font:400 14px/1 var(--d-font);color:var(--d-mut)}
-.fd-cmd-demo-side a:hover,.fd-cmd-demo-side a[aria-current]{background:var(--d-line);color:var(--d-ink)}.fd-cmd-demo-side a[aria-current]{font-weight:500}
-.fd-cmd-demo-main{display:flex;flex-direction:column;gap:20px;padding:20px clamp(16px,3vw,40px) 48px;min-width:0}
-.fd-cmd-demo-top{display:flex;gap:12px;align-items:center}
-.fd-cmd-demo-search{display:flex;align-items:center;gap:10px;flex:1;max-width:460px;height:40px;padding:0 8px 0 14px;border-radius:12px;cursor:pointer;text-align:left;background:var(--d-card);color:var(--d-mut);box-shadow:0 0 0 1px var(--d-line),0 1px 2px rgba(0,0,0,.04);font:400 14px/1 var(--d-font);transition:box-shadow var(--fd-dur-2) var(--fd-ease-out)}
-.fd-cmd-demo-search:hover{box-shadow:0 0 0 1px var(--d-mut),0 1px 2px rgba(0,0,0,.04)}.fd-cmd-demo-search span{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.fd-cmd-demo-search kbd{display:grid;place-items:center;height:24px;padding:0 8px;border-radius:6px;background:var(--d-line);font:500 11px/1 ui-monospace,"SF Mono",Menlo,monospace}
-.fd-cmd-demo-search:focus-visible,.fd-cmd-demo-theme:focus-visible{outline:2px solid rgba(10,132,255,.7);outline-offset:2px}
-.fd-cmd-demo-theme{cursor:pointer;margin-left:auto;height:32px;padding:0 14px;border-radius:9999px;box-shadow:0 0 0 1px var(--d-line);font:500 13px/1 var(--d-font);color:var(--d-mut)}.fd-cmd-demo-theme:hover{color:var(--d-ink)}
-.fd-cmd-demo-main h1{font:600 24px/1.15 var(--d-disp);letter-spacing:-.02em}
-.fd-cmd-demo-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-.fd-cmd-demo-kpis div{display:flex;flex-direction:column;gap:8px;padding:16px 18px;border-radius:16px;background:var(--d-card);box-shadow:0 0 0 1px var(--d-line)}
-.fd-cmd-demo-kpis small{font:400 13px/1 var(--d-font);color:var(--d-mut)}.fd-cmd-demo-kpis b{font:600 26px/1 var(--d-disp);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
-.fd-cmd-demo-kpis span{font:500 12px/1 var(--d-font);color:#1C9A44}.fd-cmd-demo-kpis span[data-neg]{color:#E5484D}
-.fd-cmd-demo-table{border-radius:16px;background:var(--d-card);box-shadow:0 0 0 1px var(--d-line);overflow:hidden}
-.fd-cmd-demo-th,.fd-cmd-demo-tr{display:grid;grid-template-columns:110px minmax(0,1.6fr) minmax(0,1fr) 80px;gap:16px;align-items:center;padding:0 20px;height:48px;font:400 14px/1 var(--d-font)}
-.fd-cmd-demo-th{height:40px;font:500 12px/1 var(--d-font);color:var(--d-mut);border-bottom:1px solid var(--d-line)}
-.fd-cmd-demo-tr+.fd-cmd-demo-tr{border-top:1px solid var(--d-line)}.fd-cmd-demo-tr b{font:500 13px/1 ui-monospace,"SF Mono",Menlo,monospace}
-.fd-cmd-demo-tr span:nth-child(3){display:inline-flex;align-items:center;gap:8px}.fd-cmd-demo-tr i{width:6px;height:6px;border-radius:50%;background:var(--d-mut)}
-.fd-cmd-demo-tr [data-k="ok"] i{background:#30D158}.fd-cmd-demo-tr [data-k="warn"] i{background:#FF9F0A}.fd-cmd-demo-tr [data-k="done"] i{background:var(--d-accent)}
-.fd-cmd-demo-log{font:500 13px/1.3 var(--d-font);color:var(--d-accent)}
-@media (max-width:900px){.fd-cmd-demo{grid-template-columns:1fr}.fd-cmd-demo-side{display:none}.fd-cmd-demo-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.fd-cmd-demo-th,.fd-cmd-demo-tr{grid-template-columns:96px minmax(0,1fr) 72px}.fd-cmd-demo-th span:nth-child(2),.fd-cmd-demo-tr span:nth-child(2){display:none}}
+.fd-cmdd,.fd-cmdd *,.fd-cmdd *::before,.fd-cmdd *::after{box-sizing:border-box}
+.fd-cmdd{display:flex;align-items:center;justify-content:center;min-height:100vh;width:100%;margin:0;padding:32px 20px;color:#1d1d1f;font:400 15px/1.4 ${F};letter-spacing:normal;background:#f1f1f2}
+.fd-cmdd .fd-cmd{align-items:center;padding-top:16px}
+.fd-cmdd .fd-cmd-panel{box-shadow:0 0 0 1px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04),0 28px 60px -28px rgba(0,0,0,.28)}
+.fd-cmdd .fd-cmd-scrim{background:rgba(241,241,242,.55);-webkit-backdrop-filter:none;backdrop-filter:none}
+.fd-cmdd-trigger{display:flex;align-items:center;gap:10px;height:44px;margin:0;padding:0 10px 0 16px;border:0;border-radius:14px;cursor:pointer;background:#fff;color:#6b6b76;font:400 15px/1 ${F};box-shadow:0 0 0 1px rgba(0,0,0,.05),0 1px 2px rgba(0,0,0,.04),0 12px 28px -18px rgba(0,0,0,.25)}
+.fd-cmdd-trigger span{margin:0;padding:0;padding-right:28px}
+.fd-cmdd-trigger kbd{display:grid;place-items:center;height:24px;margin:0;padding:0 8px;border-radius:6px;background:rgba(11,11,15,.06);font:500 11px/1 ui-monospace,"SF Mono",Menlo,monospace}
+.fd-cmdd-trigger:focus-visible{outline:2px solid rgba(10,132,255,.7);outline-offset:2px}
 `;

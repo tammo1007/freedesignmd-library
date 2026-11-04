@@ -218,123 +218,32 @@ const boardCss = `
 
 /* ───────────────────────────── demo ───────────────────────────── */
 
-const COLS: FlapColumn[] = [
-  { key: "time", label: "Time", length: 5 },
-  { key: "dest", label: "Destination", length: 12 },
-  { key: "flight", label: "Flight", length: 6 },
-  { key: "gate", label: "Gate", length: 3 },
-  { key: "status", label: "Remarks", length: 9 },
-];
-
-const AMBER = "#FFC53D";
-const GREEN = "#6EE7A8";
-const RED = "#FF7A6B";
-
-const BOARD_A: FlapRow[] = [
-  { id: "1", time: "14:05", dest: "LISBON", flight: "WV 412", gate: "B12", status: "BOARDING", tone: GREEN },
-  { id: "2", time: "14:20", dest: "REYKJAVIK", flight: "NA 220", gate: "C04", status: "ON TIME" },
-  { id: "3", time: "14:35", dest: "MARRAKECH", flight: "WV 918", gate: "A21", status: "DELAYED", tone: AMBER },
-  { id: "4", time: "14:50", dest: "OSAKA KIX", flight: "SK 061", gate: "D02", status: "ON TIME" },
-  { id: "5", time: "15:10", dest: "CAPE TOWN", flight: "WV 731", gate: "B07", status: "ON TIME" },
-  { id: "6", time: "15:25", dest: "NEW YORK JFK", flight: "AT 104", gate: "E15", status: "GATE OPEN" },
-];
-const BOARD_B: FlapRow[] = [
-  { id: "1", time: "14:05", dest: "LISBON", flight: "WV 412", gate: "B12", status: "CLOSED", tone: RED },
-  { id: "2", time: "14:20", dest: "REYKJAVIK", flight: "NA 220", gate: "C04", status: "BOARDING", tone: GREEN },
-  { id: "3", time: "14:55", dest: "MARRAKECH", flight: "WV 918", gate: "A19", status: "GATE CHG", tone: AMBER },
-  { id: "4", time: "14:50", dest: "OSAKA KIX", flight: "SK 061", gate: "D02", status: "GATE OPEN" },
-  { id: "5", time: "15:10", dest: "CAPE TOWN", flight: "WV 731", gate: "B07", status: "ON TIME" },
-  { id: "6", time: "15:25", dest: "NEW YORK JFK", flight: "AT 104", gate: "E15", status: "GATE OPEN" },
-];
+const PLACES = ["LISBON", "OSAKA", "NAIROBI", "TORONTO", "BREMEN"];
 
 export function Demo() {
-  const [b, setB] = useState(0);
-  const [clock, setClock] = useState("13:58");
+  const [i, setI] = useState(0);
   useEffect(() => {
-    const reduced = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
-    const first = window.setTimeout(() => setB(1), 5200);
-    if (reduced) return () => window.clearTimeout(first);
-    const id = window.setInterval(() => setB((x) => (x + 1) % 2), 9000);
-    return () => {
-      window.clearTimeout(first);
-      window.clearInterval(id);
-    };
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(() => {
+      if (!document.hidden) setI((x) => (x + 1) % PLACES.length);
+    }, 3600);
+    return () => window.clearInterval(id);
   }, []);
-  useEffect(() => setClock(b ? "14:02" : "13:58"), [b]);
-  const rows = b ? BOARD_B : BOARD_A;
 
   return (
-    <div className="fd-sf-demo">
+    <div className="fd-sfd">
       <style>{demoCss}</style>
-      <header className="fd-sf-demo-bar">
-        <span className="fd-sf-demo-brand">
-          <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 13.5l7-1.6 5.2-7.4h2.6l-2.8 7 5-1.1c1.4-.3 2.3 1.6.9 2.3l-14.9 4.4-3-3.6z" fill="#FFC53D" /></svg>
-          Wayvia
-        </span>
-        <span className="fd-sf-demo-meta">Terminal 2 · Departures</span>
-        <button type="button" className="fd-sf-demo-btn" onClick={() => setB((x) => (x + 1) % 2)}>Update board</button>
-      </header>
-
-      <main className="fd-sf-demo-main">
-        <div className="fd-sf-demo-title">
-          <div>
-            <p className="fd-sf-demo-eyebrow">Your trip · Sat 14 Nov</p>
-            <h1 className="fd-sf-demo-h1">Departures</h1>
-          </div>
-          <div className="fd-sf-demo-clock" aria-label={`Local time ${clock}`}>
-            <SplitFlap value={clock} className="fd-sf-demo-clockflap" stagger={60} />
-          </div>
-        </div>
-
-        <div className="fd-sf-demo-board">
-          <div className="fd-sf-demo-scroll">
-            <FlapBoard columns={COLS} rows={rows} caption="Departures, Terminal 2" className="fd-sf-demo-table" />
-          </div>
-        </div>
-
-        <div className="fd-sf-demo-trip">
-          <div className="fd-sf-demo-pass">
-            <span className="fd-sf-demo-k">Your flight</span>
-            <span className="fd-sf-demo-v">WV 918 · Marrakech</span>
-          </div>
-          <div className="fd-sf-demo-pass">
-            <span className="fd-sf-demo-k">Gate</span>
-            <span className="fd-sf-demo-v">{b ? "A19 · 6 min walk" : "A21 · 7 min walk"}</span>
-          </div>
-          <div className="fd-sf-demo-pass">
-            <span className="fd-sf-demo-k">Seat</span>
-            <span className="fd-sf-demo-v">14A · Window</span>
-          </div>
-        </div>
-      </main>
+      <SplitFlap value={PLACES[i]} length={8} className="fd-sfd-flap" stagger={55} />
+      <button type="button" className="fd-sfd-btn" onClick={() => setI((x) => (x + 1) % PLACES.length)}>Next</button>
     </div>
   );
 }
 
 const demoCss = `
-.fd-sf-demo,.fd-sf-demo *,.fd-sf-demo *::before,.fd-sf-demo *::after{box-sizing:border-box}
-.fd-sf-demo{--d-font:ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;--d-disp:"SF Pro Display",ui-sans-serif,-apple-system,"Inter Display","Inter",sans-serif;
-  margin:0;padding:0;min-height:100vh;background:radial-gradient(120% 80% at 50% 0%,#1B1C21 0%,#0C0D10 60%);color:#F2EFE6;font:400 15px/1.5 var(--d-font);-webkit-font-smoothing:antialiased}
-.fd-sf-demo-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0;padding:20px clamp(16px,4vw,48px)}
-.fd-sf-demo-brand{display:inline-flex;align-items:center;gap:10px;margin:0;font:600 17px/1 var(--d-disp);letter-spacing:-.01em}
-.fd-sf-demo-brand svg{display:block}
-.fd-sf-demo-meta{margin:0;color:rgba(242,239,230,.55);font:500 13px/1 var(--d-font)}
-.fd-sf-demo-btn{appearance:none;-webkit-appearance:none;margin:0;height:36px;padding:0 16px;border:0;border-radius:9999px;background:#FFC53D;color:#1A1405;font:600 13px/1 var(--d-font);cursor:pointer;
-  transition:transform 120ms cubic-bezier(.22,1,.36,1)}
-.fd-sf-demo-btn:active{transform:scale(.96)}
-.fd-sf-demo-btn:focus-visible{outline:2px solid rgba(10,132,255,.8);outline-offset:2px}
-.fd-sf-demo-main{max-width:1280px;margin:0 auto;padding:clamp(24px,5vh,56px) clamp(16px,4vw,48px) 48px}
-.fd-sf-demo-title{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin:0 0 28px}
-.fd-sf-demo-eyebrow{margin:0 0 8px;color:rgba(242,239,230,.55);font:500 13px/1 var(--d-font)}
-.fd-sf-demo-h1{margin:0;font:600 clamp(32px,4.4vw,56px)/1 var(--d-disp);letter-spacing:-.035em;color:#F2EFE6}
-.fd-sf-demo-clockflap{font-size:clamp(22px,2.6vw,32px);--fd-sf-fg:#FFC53D}
-.fd-sf-demo-board{margin:0;padding:clamp(16px,2.4vw,28px);border-radius:24px;background:linear-gradient(180deg,#0A0A0C,#060607);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),inset 0 0 0 1px rgba(255,255,255,.04),0 40px 80px -40px rgba(0,0,0,.8)}
-.fd-sf-demo-scroll{overflow-x:auto;margin:0;padding:0 0 4px;scrollbar-width:thin}
-.fd-sf-demo-table{font-size:clamp(15px,2.05vw,27px)}
-.fd-sf-demo-trip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0 0}
-.fd-sf-demo-pass{display:flex;flex-direction:column;gap:6px;margin:0;padding:16px 18px;border-radius:18px;background:rgba(255,255,255,.04);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
-.fd-sf-demo-k{margin:0;color:rgba(242,239,230,.5);font:500 12px/1 var(--d-font);text-transform:uppercase;letter-spacing:.08em}
-.fd-sf-demo-v{margin:0;color:#F2EFE6;font:500 17px/1.25 var(--d-font);letter-spacing:-.01em}
-@media (max-width:720px){.fd-sf-demo-meta{display:none}.fd-sf-demo-trip{grid-template-columns:1fr}.fd-sf-demo-table{font-size:14px}}
+.fd-sfd,.fd-sfd *,.fd-sfd *::before,.fd-sfd *::after{box-sizing:border-box}
+.fd-sfd{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:44px;min-height:100vh;width:100%;margin:0;padding:32px 20px;overflow:hidden;background:#f2f2f2;color:#1d1d1f;font:400 15px/1.4 ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;letter-spacing:normal;-webkit-font-smoothing:antialiased}
+.fd-sfd .fd-sfd-flap{font-size:clamp(20px,4.6vw,56px)}
+.fd-sfd-btn{appearance:none;-webkit-appearance:none;margin:0;height:34px;padding:0 16px;border:0;border-radius:9999px;background:rgba(0,0,0,.06);color:#3c3c43;font:500 13px/1 ui-sans-serif,-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter","Segoe UI",Roboto,sans-serif;letter-spacing:normal;cursor:pointer;transition:background-color 200ms}
+.fd-sfd-btn:hover{background:rgba(0,0,0,.1)}
+.fd-sfd-btn:focus-visible{outline:2px solid rgba(10,132,255,.8);outline-offset:2px}
 `;

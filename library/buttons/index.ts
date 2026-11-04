@@ -13,7 +13,7 @@ export const items: LibraryItem[] = [
     files: [{ path: "components/buttons/button-core.tsx", src: "buttons/ButtonCore.tsx" }],
     Demo: lazyDemo(() => import("./ButtonCore")),
     canvas: "light",
-    height: 760,
+    height: 440,
     featured: true,
     support: "All evergreen browsers. Uses color-mix() only in the demo.",
   },
@@ -27,8 +27,8 @@ export const items: LibraryItem[] = [
     dependencies: [],
     files: [{ path: "components/buttons/shimmer-button.tsx", src: "buttons/ShimmerButton.tsx" }],
     Demo: lazyDemo(() => import("./ShimmerButton")),
-    canvas: "dark",
-    height: 640,
+    canvas: "light",
+    height: 440,
     support: "Rotating ring uses @property (Chrome, Edge, Safari 16.4+, Firefox 128+); older browsers show a static ring.",
   },
   {
@@ -41,8 +41,8 @@ export const items: LibraryItem[] = [
     dependencies: [],
     files: [{ path: "components/buttons/magnetic-button.tsx", src: "buttons/MagneticButton.tsx" }],
     Demo: lazyDemo(() => import("./MagneticButton")),
-    canvas: "dark",
-    height: 640,
+    canvas: "light",
+    height: 440,
     support: "All evergreen browsers. Attraction is pointer-only and off for touch and reduced motion.",
   },
   {
@@ -55,8 +55,8 @@ export const items: LibraryItem[] = [
     dependencies: [],
     files: [{ path: "components/buttons/hold-to-confirm.tsx", src: "buttons/HoldToConfirm.tsx" }],
     Demo: lazyDemo(() => import("./HoldToConfirm")),
-    canvas: "dark",
-    height: 640,
+    canvas: "light",
+    height: 440,
     support: "All evergreen browsers. Uses pointer events and clip-path.",
   },
   {
@@ -70,7 +70,7 @@ export const items: LibraryItem[] = [
     files: [{ path: "components/buttons/split-button.tsx", src: "buttons/SplitButton.tsx" }],
     Demo: lazyDemo(() => import("./SplitButton")),
     canvas: "light",
-    height: 560,
+    height: 520,
     support: "All evergreen browsers.",
   },
   {
@@ -84,7 +84,7 @@ export const items: LibraryItem[] = [
     files: [{ path: "components/buttons/segmented-control.tsx", src: "buttons/SegmentedControl.tsx" }],
     Demo: lazyDemo(() => import("./SegmentedControl")),
     canvas: "light",
-    height: 640,
+    height: 440,
     support: "All evergreen browsers.",
   },
   {
@@ -98,7 +98,7 @@ export const items: LibraryItem[] = [
     files: [{ path: "components/buttons/icon-button-group.tsx", src: "buttons/IconButtonGroup.tsx" }],
     Demo: lazyDemo(() => import("./IconButtonGroup")),
     canvas: "light",
-    height: 640,
+    height: 440,
     support: "All evergreen browsers. Tooltip pairing uses :has() with a graceful fallback.",
   },
   {
@@ -112,7 +112,7 @@ export const items: LibraryItem[] = [
     files: [{ path: "components/buttons/pill-tag-button.tsx", src: "buttons/PillTagButton.tsx" }],
     Demo: lazyDemo(() => import("./PillTagButton")),
     canvas: "light",
-    height: 680,
+    height: 440,
     support: "All evergreen browsers.",
   },
 ];
