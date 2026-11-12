@@ -15,7 +15,7 @@ Built for Claude Code, Cursor, Lovable, v0, Bolt, Windsurf and Codex. MIT licens
 
 ![License: MIT](https://img.shields.io/badge/license-MIT-black)
 ![Components](https://img.shields.io/badge/components-107-black)
-![DESIGN.md systems](https://img.shields.io/badge/DESIGN.md%20systems-30-black)
+![DESIGN.md systems](https://img.shields.io/badge/DESIGN.md%20systems-31-black)
 ![Landing pages](https://img.shields.io/badge/landing%20pages-12-black)
 ![React](https://img.shields.io/badge/React-19-black)
 ![PRs welcome](https://img.shields.io/badge/PRs-welcome-black)
@@ -23,6 +23,14 @@ Built for Claude Code, Cursor, Lovable, v0, Bolt, Windsurf and Codex. MIT licens
 **If this saves you time, please [star the repo](https://github.com/tammo1007/freedesignmd-library). It takes two seconds and helps other builders find it.**
 
 </div>
+
+---
+
+## Featured design system: Liquid Glass
+
+Apple-like Liquid Glass for landing pages **and** dashboards: 48 React components, a product type scale for dense UIs, scroll showpieces, DESIGN.md, AGENTS.md, an audit script and an agent skill. Made by [Tammo Elsner](https://www.linkedin.com/in/tammo-elsner-682998186/).
+
+[**Repo: tammo1007/liquid-glass-design-system**](https://github.com/tammo1007/liquid-glass-design-system) · [**Preview and DESIGN.md**](https://freedesignmd.com/system/liquid-glass-design-system) · source in [`design-systems/liquid-glass-design-system.ts`](design-systems/liquid-glass-design-system.ts)
 
 ---
 
@@ -63,7 +71,7 @@ That is it. Your agent now builds in a consistent, intentional style.
 | Folder | What it is |
 | --- | --- |
 | [`library/`](library) | 107 copy-paste React components in 15 families. One file each. |
-| [`design-systems/`](design-systems) | 30 `DESIGN.md` systems with tokens, type, motion and components. |
+| [`design-systems/`](design-systems) | 31 `DESIGN.md` systems with tokens, type, motion and components. |
 | [`landingpages/`](landingpages) | 12 complete landing pages, each with its own `DESIGN.md`. |
 | [`public/img/`](public/img) | Demo photography used by the examples. Swap in your own. |
 
@@ -91,7 +99,7 @@ That is it. Your agent now builds in a consistent, intentional style.
 
 Arcade OS, Ares, Atelier Nord, Clara, Forge, Halcyon, Kiln, Noir, Prism, Selene, Terra and Vault. Each one is a single file with its own `DESIGN.md`, covering space, hospitality, climate, health, fintech, developer tools, fashion, fragrance, glass UI, ceramics and gaming.
 
-### Design systems (30)
+### Design systems (31)
 
 Aesthetics from Liquid Glass and Liquid Metal to Risograph, Neo Memphis, Magazine Bold, Soft Linen, Obsidian Glass, Acid Chrome, Parchment Atelier, Titanium Deck and Null Grid. Industries include fintech, health, travel, developer tools, hospitality, fashion and AI products. Each system ships light and dark, WCAG AA verified colors and a ready to paste agent prompt.
 
