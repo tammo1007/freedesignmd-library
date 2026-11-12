@@ -16,6 +16,7 @@ export const system: System = {
   defaultMode: "light",
   source: {
     repo: "https://github.com/tammo1007/ui-design-minimal",
+    demo: "/demo/minimalistic/index.html",
     author: { name: "Tammo Elsner", url: "https://www.linkedin.com/in/tammo-elsner-682998186/" },
     note: "This page is the token summary. Install the full system (48 React components, the product scale for dashboards, scroll showpieces, DESIGN.md, AGENTS.md, audit) with: npx skills add tammo1007/ui-design-minimal, then node .claude/skills/ui-design-minimal/scripts/install.mjs. Or download everything as a ZIP from the repo; all folders are needed.",
   },
