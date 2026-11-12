@@ -17,7 +17,7 @@ export const system: System = {
   source: {
     repo: "https://github.com/tammo1007/liquid-glass-design-system",
     author: { name: "Tammo Elsner", url: "https://www.linkedin.com/in/tammo-elsner-682998186/" },
-    note: "This page is the token summary. The repo has the full system: 48 React components, the product scale for dashboards, scroll showpieces (MediaExpand, ZoomThrough, StackCards, PinnedGallery), DESIGN.md, AGENTS.md, an audit script and an agent skill.",
+    note: "This page is the token summary. Install the full system (48 React components, the product scale for dashboards, scroll showpieces, DESIGN.md, AGENTS.md, audit) with: npx skills add tammo1007/liquid-glass-design-system, then node .claude/skills/liquid-glass-design-system/scripts/install.mjs",
   },
   personality: {
     summary:
