@@ -2,26 +2,26 @@ import type { System } from "../types";
 import { MONO, SANS, badge, btnBase, card, dialog, input, link, nav, table, tabs, t } from "./_kit";
 
 /**
- * Liquid Glass Design System by Tammo Elsner. Full system (React components, product scale,
+ * Minimalistic (repo: UI Design Minimal) by Tammo Elsner. Full system (React components, product scale,
  * scroll showpieces, audit, skill) lives in its own public repo: see `source`.
  */
 export const system: System = {
-  slug: "liquid-glass-design-system",
-  name: "Liquid Glass",
+  slug: "minimalistic",
+  name: "Minimalistic",
   description:
-    "Apple-like Liquid Glass for landing pages and dashboards: monochrome chrome, one blue accent, glass only on navigation and controls, SF Pro on Apple devices with Inter everywhere else, and two type scales for marketing and product.",
-  aesthetic: "glass",
+    "Apple-like minimal design system for landing pages and product UI: monochrome chrome, one blue accent, medium-weight type, generous whitespace, and Liquid Glass reserved for navigation and controls.",
+  aesthetic: "minimal",
   industry: "saas",
-  tags: ["light", "dark", "glass", "apple", "minimal", "dashboard", "landing"],
+  tags: ["light", "dark", "minimal", "apple", "clean", "landing", "glass"],
   defaultMode: "light",
   source: {
-    repo: "https://github.com/tammo1007/liquid-glass-design-system",
+    repo: "https://github.com/tammo1007/ui-design-minimal",
     author: { name: "Tammo Elsner", url: "https://www.linkedin.com/in/tammo-elsner-682998186/" },
-    note: "This page is the token summary. Install the full system (48 React components, the product scale for dashboards, scroll showpieces, DESIGN.md, AGENTS.md, audit) with: npx skills add tammo1007/liquid-glass-design-system, then node .claude/skills/liquid-glass-design-system/scripts/install.mjs",
+    note: "This page is the token summary. Install the full system (48 React components, the product scale for dashboards, scroll showpieces, DESIGN.md, AGENTS.md, audit) with: npx skills add tammo1007/ui-design-minimal, then node .claude/skills/ui-design-minimal/scripts/install.mjs. Or download everything as a ZIP from the repo; all folders are needed.",
   },
   personality: {
     summary:
-      "Liquid Glass is quiet confidence in Apple's current language. The interface is black, white and grey (`#1d1d1f` ink on `#ffffff`, `#f5f5f7` for alternate sections) with exactly one accent, Apple system blue, used for the one prominent action, selection, focus and the first chart series. Liquid Glass is a functional layer: the nav, toolbar groups, the floating sidebar, the tab bar, segmented controls, menus and sheets are frosted glass (white 72 %, 24px blur, 180 % saturation, a 1px specular rim) while every card, table and form stays solid. Headings are medium weight (500 on marketing pages, 600 in product UI), never bold, and section headers are two-tone statements: the first line in ink, the continuation in grey. Corners are concentric and controls are capsules.",
+      "Minimalistic is quiet confidence in Apple's current language. The interface is black, white and grey (`#1d1d1f` ink on `#ffffff`, `#f5f5f7` for alternate sections) with exactly one accent, Apple system blue, used for the one prominent action, selection, focus and the first chart series. Liquid Glass is a functional layer: the nav, toolbar groups, the floating sidebar, the tab bar, segmented controls, menus and sheets are frosted glass (white 72 %, 24px blur, 180 % saturation, a 1px specular rim) while every card, table and form stays solid. Headings are medium weight (500 on marketing pages, 600 in product UI), never bold, and section headers are two-tone statements: the first line in ink, the continuation in grey. Corners are concentric and controls are capsules.",
     signatureMoves: [
       "Glass only on controls: nav, toolbar groups, floating sidebar, tab bar, segmented controls; content stays solid",
       "Two-tone headers: `Every primitive.` in ink, `Ready before you ask.` in ink-2, same size, both end with a period",
@@ -264,8 +264,8 @@ export const system: System = {
         ],
       },
       testimonial: {
-        quote: "Demo content. Orbit is a fictional product; this preview shows the Liquid Glass tokens on a product landing page.",
-        author: "Liquid Glass",
+        quote: "Demo content. Orbit is a fictional product; this preview shows the Minimalistic tokens on a product landing page.",
+        author: "Minimalistic",
         role: "Design system by Tammo Elsner",
       },
     },

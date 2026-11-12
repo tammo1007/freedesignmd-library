@@ -1,5 +1,6 @@
 /** Removed slug → closest live slug (301). */
 export const REDIRECTS: Record<string, string> = {
+  "liquid-glass-design-system": "minimalistic",
   "atelier-ai": "signal-ai",
   "atelier-glass": "aurora-glass",
   "atlas-admin": "signal-ai",

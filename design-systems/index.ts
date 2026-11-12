@@ -13,9 +13,9 @@ import { system as devshellMono } from "./devshell-mono";
 import { system as hotelRiviere } from "./hotel-riviere";
 import { system as irisPay } from "./iris-pay";
 import { system as linearOrbit } from "./linear-orbit";
-import { system as liquidGlass } from "./liquid-glass-design-system";
 import { system as liquidMetal } from "./liquid-metal";
 import { system as magazineBold } from "./magazine-bold";
+import { system as minimalistic } from "./minimalistic";
 import { system as maisonFolio } from "./maison-folio";
 import { system as monolithCli } from "./monolith-cli";
 import { system as neoMemphis } from "./neo-memphis";
@@ -33,11 +33,11 @@ import { system as wanderstayRentals } from "./wanderstay-rentals";
 import { system as warmEditorial } from "./warm-editorial";
 
 /** Pinned to the top of the library, in this order. Everything else follows alphabetically. */
-const FEATURED_ORDER = ["liquid-glass-design-system", "acid-chrome", "liquid-metal", "linear-orbit", "magazine-bold", "null-grid", "argent-machined"];
+const FEATURED_ORDER = ["minimalistic", "acid-chrome", "liquid-metal", "linear-orbit", "magazine-bold", "null-grid", "argent-machined"];
 
 /** The 31 live design systems (explicit imports, also works under bun for the prebuild verifier). */
 export const systems: System[] = [
-  acidChrome, arcadeNight, argentMachined, atriumFolio, auroraGlass, champagneFoundry, citrineIde, clinicPearl, darkTerminal, devshellMono, hotelRiviere, irisPay, linearOrbit, liquidGlass, liquidMetal, magazineBold, maisonFolio, monolithCli, neoMemphis, nullGrid, obsidianGlass, parchmentAtelier, prismConic, risographPress, signalAi, softLinen, stadiumBank, titaniumDeck, tokenMesh, wanderstayRentals, warmEditorial,
+  acidChrome, arcadeNight, argentMachined, atriumFolio, auroraGlass, champagneFoundry, citrineIde, clinicPearl, darkTerminal, devshellMono, hotelRiviere, irisPay, linearOrbit, liquidMetal, magazineBold, maisonFolio, minimalistic, monolithCli, neoMemphis, nullGrid, obsidianGlass, parchmentAtelier, prismConic, risographPress, signalAi, softLinen, stadiumBank, titaniumDeck, tokenMesh, wanderstayRentals, warmEditorial,
 ].sort((a, b) => {
   const ia = FEATURED_ORDER.indexOf(a.slug);
   const ib = FEATURED_ORDER.indexOf(b.slug);

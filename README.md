@@ -26,11 +26,11 @@ Built for Claude Code, Cursor, Lovable, v0, Bolt, Windsurf and Codex. MIT licens
 
 ---
 
-## Featured design system: Liquid Glass
+## Featured design system: Minimalistic
 
-Apple-like Liquid Glass for landing pages **and** dashboards: 48 React components, a product type scale for dense UIs, scroll showpieces, DESIGN.md, AGENTS.md, an audit script and an agent skill. Made by [Tammo Elsner](https://www.linkedin.com/in/tammo-elsner-682998186/).
+Apple-like minimal design system for landing pages **and** product UI, with Liquid Glass reserved for navigation and controls: 48 React components, a product type scale, scroll showpieces, DESIGN.md, AGENTS.md, an audit script and an agent skill. Made by [Tammo Elsner](https://www.linkedin.com/in/tammo-elsner-682998186/).
 
-[**Repo: tammo1007/liquid-glass-design-system**](https://github.com/tammo1007/liquid-glass-design-system) · [**Preview and DESIGN.md**](https://freedesignmd.com/system/liquid-glass-design-system) · source in [`design-systems/liquid-glass-design-system.ts`](design-systems/liquid-glass-design-system.ts)
+[**Repo: tammo1007/ui-design-minimal**](https://github.com/tammo1007/ui-design-minimal) · [**Download ZIP**](https://github.com/tammo1007/ui-design-minimal/archive/refs/heads/main.zip) · [**Preview and DESIGN.md**](https://freedesignmd.com/system/minimalistic) · source in [`design-systems/minimalistic.ts`](design-systems/minimalistic.ts)
 
 ---
 
